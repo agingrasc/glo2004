@@ -1,0 +1,15 @@
+language: java
+notifications:
+    slack:
+        on_success: change
+        on_failure: always
+        rooms:
+            - gimm-glo2004:ykjD2SvVig0K4ot1LQjczLgq
+    email:
+        recipients:
+            - alexandre.gingras-courchesne.1@ulaval.ca
+            - maxime.menard.1@ulaval.ca
+            - alexandra.mercier.4@ulaval.ca
+            - jerome.isabelle.2@ulaval.ca
+        on_success: change
+        on_failure: always
