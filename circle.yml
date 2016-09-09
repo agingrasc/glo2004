@@ -1,0 +1,9 @@
+machine:
+    java:
+        version: oraclejdk8
+
+deployment:
+    sync_ul:
+        branch: [master, dev]
+        commands:
+            - echo "Push to ulaval.ca"
