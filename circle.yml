@@ -6,4 +6,4 @@ deployment:
     sync_ul:
         branch: [master, dev]
         commands:
-            - echo "Push to ulaval.ca"
+            - ./.sync_ulaval.sh
