@@ -1,7 +1,30 @@
+#artefact java
 *.class
 *.jar
 build/
+
+#artefact gradle
 *.bin
 *.lock
 gradlew
 gradlew.bat
+
+#artefact latex
+*.aux
+*.dvi
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.pdf
+
+#artefact vim
+*.sw*
+tags
+
+#artefact divers
+*.zip
+*.tar*
+*.iso
+*.hg

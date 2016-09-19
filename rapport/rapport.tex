@@ -1,0 +1,66 @@
+%!TEX encoding = UTF-8 Unicode
+% -*- coding: UTF-8; -*-
+% vim: set fenc=utf-8
+\documentclass[12pt, ULlof, ULlot]{ULrapport}
+
+\usepackage[utf8]{inputenc}
+\usepackage[autolanguage]{numprint}
+\usepackage[french]{babel}
+\usepackage{icomma}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{afterpage}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+\newcommand{\degree}{\ensuremath{^\circ}}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+%Cette ligne permet de changer le nom d'un tableau : il change «Table x.x» (anglais) pour «Tableau x.x» (français). La classe ULrapport est suppose le faire, mais ne le fait pas.
+\addto\captionsfrench{\def\tablename{{\sc{Tableau}}}}
+
+\setlength\parskip{\baselineskip}
+
+\TitreProjet{VisuaLigue (VL)}
+\TitreRapport{Rapport de projet -- version 1.0}
+\Destinataire{Martin Savoie, Jonathan Gaudreault}
+\NumeroEquipe{01}
+\NomEquipe{GIFTW}
+\TableauMembres{%
+        111\,099\,643 & Alexandre Gingras-Courchesne &\\\hline
+        111,XXX,XXX & Jérôme Isabelle &\\\hline
+        111,XXX,XXX & Maxime Ménard &\\\hline
+        111\,098\,395 & Alexandra Mercier &\\\hline
+}
+
+\DateRemise{2 octobre 2016}
+
+\HistoriqueVersions{%
+    0.0 & 18 septembre 2016 & création du document \\\hline
+}
+
+%Corps du document
+
+\begin{document}
+
+% Chapitres
+\input{tex/introduction}
+\input{tex/exigences}
+\input{tex/modelisation_metier}
+
+% Annexes
+\appendix
+\input{tex/annexe/glossaire}
+\input{tex/annexe/bibliographie}
+\end{document}
+% Fin du document
