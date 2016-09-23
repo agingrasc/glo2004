@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/agingrasc/glo2004/tree/dev.svg?style=svg)](https://circleci.com/gh/agingrasc/glo2004/tree/dev)
+[![CircleCI](https://circleci.com/gh/agingrasc/glo2004.svg?style=svg&circle-token=67375baf1ff3dd5e5c5e9a9d536eeff9f0f9a1e8)](https://circleci.com/gh/agingrasc/glo2004)
 # glo2004
 Dépôt du projet principal du cours de GLO-2004 Orienté Objet (A2016)
 
