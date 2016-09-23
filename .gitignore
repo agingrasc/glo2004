@@ -31,3 +31,15 @@ tags
 /.gradle/
 /bin/
 /.nb-gradle/
+
+#eclipse
+.classpath
+.settings
+.project
+
+#intellij
+.idea
+
+#netbeans
+.nb-gradle
+bin/
