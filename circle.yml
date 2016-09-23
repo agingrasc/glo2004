@@ -2,8 +2,6 @@ machine:
     java:
         version: oraclejdk8
 
-deployment:
-    sync_ul:
-        branch: [master, dev]
-        commands:
-            - ./.sync_ulaval.sh
+test:
+    post:
+        - ./.sync_ulaval.sh
