@@ -5,6 +5,11 @@ public class Default {
 
     @Test
     public void success() {
-        assertTrue(true);
+        assertTrue(false);
+    }
+
+    @Test
+    public void failure() {
+        assertFalse(false);
     }
 }
