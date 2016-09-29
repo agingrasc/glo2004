@@ -45,5 +45,5 @@ tags
 bin/
 
 #Visual Paradigm
-.vpp.bak*
-.vux
+*.vpp.bak*
+*.vux
