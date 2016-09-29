@@ -43,3 +43,7 @@ tags
 #netbeans
 .nb-gradle
 bin/
+
+#Visual Paradigm
+.vpp.bak*
+.vux
