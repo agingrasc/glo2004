@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.Double?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="329.0" fitWidth="600.0" layoutY="77.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../Images/soccer_field.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="381.0" layoutY="180.0" text="Attaquant">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Circle fill="DODGERBLUE" layoutX="565.0" layoutY="228.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#ff1f1f" layoutX="410.0" layoutY="212.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle layoutX="434.0" layoutY="218.0" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fill="DODGERBLUE" layoutX="552.0" layoutY="238.0" rotate="-90.0" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
+        <points>
+          <Double fx:value="-50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="0.0" />
+          <Double fx:value="-60.0" />
+        </points>
+      </Polygon>
+      <Label layoutX="535.0" layoutY="197.0" text="Gardien">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Polygon fill="#ff1f1f" layoutX="422.0" layoutY="225.0" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
+         <points>
+            <Double fx:value="-50.0" />
+            <Double fx:value="40.0" />
+            <Double fx:value="50.0" />
+            <Double fx:value="40.0" />
+            <Double fx:value="0.0" />
+            <Double fx:value="-60.0" />
+         </points>
+      </Polygon>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ff1f" height="48.0" layoutX="490.0" layoutY="204.0" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="Fichier">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Enregistrer" />
+                  <MenuItem mnemonicParsing="false" text="Enregistrer sous" />
+                  <MenuItem mnemonicParsing="false" text="Exporter" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Création">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Stratégie" />
+              <MenuItem mnemonicParsing="false" text="Sport" />
+                  <MenuItem mnemonicParsing="false" text="Obstacle" />
+                  <MenuItem mnemonicParsing="false" text="Rôle" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Insertion">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Joueur" />
+                  <MenuItem mnemonicParsing="false" text="Obstacle" />
+                  <MenuItem mnemonicParsing="false" text="Projectile" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Édition">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Annuler" />
+                  <MenuItem mnemonicParsing="false" text="Rétablir" />
+                  <MenuItem mnemonicParsing="false" text="Supprimer" />
+                  <MenuItem mnemonicParsing="false" text="Zoom" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Mode">
+               <items>
+                  <RadioMenuItem mnemonicParsing="false" text="Image par image">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="mode" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem mnemonicParsing="false" text="Temps réel" toggleGroup="$mode" />
+                  <RadioMenuItem mnemonicParsing="false" text="Visualisation" toggleGroup="$mode" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Préférences">
+               <items>
+                  <CheckMenuItem mnemonicParsing="false" text="Afficher les rôles" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane layoutX="-1.0" layoutY="28.0" prefHeight="48.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="546.0" layoutY="7.0" text="X: 30 m" />
+            <Label layoutX="546.0" layoutY="26.0" text="Y: 10 m" />
+            <Circle fill="#ff1f1f" layoutX="21.0" layoutY="35.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+            <Polygon fill="#ff1f1f" layoutX="39.0" layoutY="45.0" rotate="-26.6" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
+               <points>
+                  <Double fx:value="-50.0" />
+                  <Double fx:value="40.0" />
+                  <Double fx:value="50.0" />
+                  <Double fx:value="40.0" />
+                  <Double fx:value="0.0" />
+                  <Double fx:value="-60.0" />
+               </points>
+            </Polygon>
+            <Label layoutX="14.0" layoutY="6.0" text="Joueur" />
+            <Label layoutX="68.0" layoutY="7.0" text="Obstacle" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ff1f" height="48.0" layoutX="85.0" layoutY="11.0" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+            <Circle layoutX="159.0" layoutY="35.0" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label layoutX="134.0" layoutY="7.0" text="Projectile" />
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="428.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/undo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="486.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/redo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="419.0" layoutY="6.0" text="Annuler" />
+            <Label layoutX="478.0" layoutY="6.0" text="Rétablir" />
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="210.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/arrows.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="272.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/back.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="203.0" layoutY="7.0" text="Suivant" />
+            <Label layoutX="257.0" layoutY="7.0" text="Précédent" />
+            <Label layoutX="339.0" layoutY="6.0" text="Supprimer" />
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="355.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/garbage.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Circle fill="#ff1f1f" layoutX="318.0" layoutY="180.0" opacity="0.5" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fill="#ff1f1f" layoutX="330.0" layoutY="197.0" opacity="0.41" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
+         <points>
+            <Double fx:value="-50.0" />
+            <Double fx:value="40.0" />
+            <Double fx:value="50.0" />
+            <Double fx:value="40.0" />
+            <Double fx:value="0.0" />
+            <Double fx:value="-60.0" />
+         </points>
+      </Polygon>
+      <Label layoutX="282.0" layoutY="150.0" text="Attaquant" />
+      <Circle fill="DODGERBLUE" layoutX="565.0" layoutY="252.0" opacity="0.5" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fill="DODGERBLUE" layoutX="552.0" layoutY="262.0" opacity="0.5" rotate="-90.0" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
+         <points>
+            <Double fx:value="-50.0" />
+            <Double fx:value="40.0" />
+            <Double fx:value="50.0" />
+            <Double fx:value="40.0" />
+            <Double fx:value="0.0" />
+            <Double fx:value="-60.0" />
+         </points>
+      </Polygon>
+      <Label layoutX="536.0" layoutY="259.0" text="Gardien" />
+   </children>
+</AnchorPane>
