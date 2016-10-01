@@ -125,16 +125,19 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Garanties en cas de succ\`es:}
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
+            \item L'entraîneur sélectionne la stratégie à éditer.
             \item L'entraîneur assigne les r\^oles aux diff\'erents joueurs.
             \item Ensuite, il peut s\'electionner un joueur et tracer un mouvement ou interargir avec le projectile.
             \item Pendant que le joueur est s\'electionn\'e, une simulation en temps r\'eel des mouvements pr\'ec\'edemment d\'efinies s'ex\'ecute.
             \item La simulation recommence du d\'ebut.
-            \item L'entraîneur répète les étapes 2 et 4 pour chaque joueur jusqu'à ce que la stratégie soit terminé.
-            \item L'entraîneur exécute \textit{sauvergarder une stratégie \ref{sec:exporter_une_strategie}}.
+            \item L'entraîneur répète les étapes 3 et 5 pour chaque joueur jusqu'à ce que la stratégie soit terminé.
+            \item L'entraîneur exécute \textit{sauvergarder une stratégie}~\ref{sec:exporter_une_strategie}.
     \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item \textbf{2a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image ...
+            \item \textbf{1a. La stratégie n'existe pas:} L'entraîneur peut décider de créer une nouvelle stratégie en sélectionnant nouvelle stratégie.
+            Il devra alors donner un nom à celle-ci. 
+            \item \textbf{3a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image...
                 \begin{enumerate}
                     \item L'entraîneur place les joueurs sur le terrain. 
                     \item L'entraîneur clique sur un boutton de l'application et avance d'une image. Les joueurs deviennent transparents.
@@ -145,7 +148,7 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
                     \item L'entraîneur continue le scénario principal à partir de l'étape 6.
                \end{enumerate}
             \item \textbf{*a. visualiser la stratégie}
-            À tout moment de l'édition de la stratégie. l'entraîneur peut exécuter \textit{visualiser la stratégie}.
+                À tout moment de l'édition de la stratégie. l'entraîneur peut exécuter \textit{visualiser la stratégie}~\ref{sec:visualiser_une_strategie}.
  
         \end{itemize}
     \item \textbf{Fr\'equence d'utilisation:}
