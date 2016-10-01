@@ -22,7 +22,7 @@
    <children>
       <ImageView fitHeight="329.0" fitWidth="600.0" layoutY="77.0" pickOnBounds="true">
          <image>
-            <Image url="@../../soccer_field.png" />
+            <Image url="@../../Images/soccer_field.png" />
          </image>
       </ImageView>
       <Label layoutX="381.0" layoutY="180.0" text="Attaquant">
@@ -113,7 +113,7 @@
          <children>
             <ImageView fitHeight="54.0" fitWidth="141.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../media_buttons.png" />
+                  <Image url="@../../Images/media_buttons.png" />
                </image>
             </ImageView>
             <Slider layoutX="135.0" layoutY="20.0" prefHeight="14.0" prefWidth="328.0" value="35.0" />
