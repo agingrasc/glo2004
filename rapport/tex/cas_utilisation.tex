@@ -20,11 +20,11 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
 
 
 
-\section{Ajouter un type de sport}
+\section{Éditer un type de sport}
 \label{sec:ajouter_un_type_de_sport}
 
 \begin{itemize}
-    \item \textbf{Cas d'utilisation:} Ajouter un type de sport
+    \item \textbf{Cas d'utilisation:} Éditer un type de sport
     \item \textbf{Syst\`eme:} VisuaLigue
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Sc\'enario principal:}
@@ -42,25 +42,69 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
 
 
 
-\section{Ajouter une strat\'egie}
-\label{sec:ajouter_une_strat'egie}
+\section{Définir des rôles}
+\label{sec:definir_des_roles}
+
 \begin{itemize}
-    \item \textbf{Cas d'utilisation:} Ajouter une strat\'egie
+    \item \textbf{Cas d'utilisation:} D\'efinir des r\^oles
     \item \textbf{Syst\`eme:} VisuaLigue
     \item \textbf{Acteur principal:} Entra\^ineur
-    \item \textbf{Pr\'erequis:} Le sport pour lequel l'entraîneur veut ajouter une stratégie doit exister dans l'application.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entra\^ineur veut ajouter une nouvelle strat\'egie.
-            \item Il lui assigne un identifiant et choisi un type de sport pour la strat\'egie.
+            \item L'entraîneur défini une liste de rôles pour un sport.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item \textbf{Sport d\'ej\`a existant:}
-            \begin{enumerate}
-                \item Si la stratégie existe d\'ej\`a dans l'application, un message d'avertissement appara\^it.
-                \item L'entra\^ineur a alors le choix entre \'ecraser la strat\'egie existante ou d'annuler son ajout.
-            \end{enumerate}
+            \item foo
+                \begin{enumerate}
+                    \item baz
+                \end{enumerate}
+        \end{itemize}
+\end{itemize}
+
+
+
+\section{Configurer le terrain}
+\label{sec:configurer_le_terrain}
+
+\begin{itemize}
+    \item \textbf{Cas d'utilisation:} Configurer le terrain
+    \item \textbf{Syst\`eme:} VisuaLigue
+    \item \textbf{Acteur principal:} Entra\^ineur
+    \item \textbf{Sc\'enario principal:}
+        \begin{enumerate}
+            \item L'entraîneur dessine les lignes du terrain ou importe une image.
+            \item Il spécifie les dimensions du terrain.
+        \end{enumerate}
+    \item \textbf{Autres situations:}
+        \begin{itemize}
+            \item foo
+                \begin{enumerate}
+                    \item baz
+                \end{enumerate}
+        \end{itemize}
+\end{itemize}
+
+
+
+\section{Éditer un type d'obstacle}
+\label{sec:editer_un_type_d_obstacle}
+
+\begin{itemize}
+    \item \textbf{Cas d'utilisatoin:} \'Editer un type d'obstacle
+    \item \textbf{Syst\`eme:} VisuaLigue
+    \item \textbf{Acteur principal:} Entra\^ineur
+    \item \textbf{Sc\'enario principal:}
+        \begin{enumerate}
+            \item L'entraîneur donne un nom à un obstacle.
+            \item Il associe une image.
+        \end{enumerate}
+    \item \textbf{Autres situations:}
+        \begin{itemize}
+            \item foo
+                \begin{enumerate}
+                    \item baz
+                \end{enumerate}
         \end{itemize}
 \end{itemize}
 
@@ -95,33 +139,6 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
 
 
 
-\section{Visualiser une stratégie}
-\label{sec:visualiser_une_strategie}
-\begin{itemize}
-    \item \textbf{Cas d'utilisation:} Visualiser une strat\'egie
-    \item \textbf{Syst\`eme:} VisuaLigue
-    \item \textbf{Acteur principal:} Entra\^ineur ou joueur
-    \item \textbf{Parties prenantes et int\'er\^ets:}
-    \item \textbf{Pr\'erequis:} Il faut que la strat\'egie soit enregistr\'ee dans l'application pour que l'entraîneur puisse la visualiser.
-    \item \textbf{Garanties en cas de succ\`es:}
-    \item \textbf{Sc\'enario principal:}
-        \begin{enumerate}
-            \item L'entra\^ineur s\'electionne la strat\'egie \`a visualiser.
-            \item Il d\'ebute la visualisation et observe le d\'eroulement de la strat\'egie.
-            \item Il peut mettre fin \`a la visualisation \`a tout moment.
-        \end{enumerate}
-    \item \textbf{Autres situations:}
-        \begin{itemize}
-            \item fubar
-                \begin{enumerate}
-                    \item foo
-                    \item bar
-                \end{enumerate}
-        \end{itemize}
-\end{itemize}
-
-
-
 \section{Sauvegarder une stratégie}
 \label{sec:exporter_une_strategie}
 \begin{itemize}
@@ -146,16 +163,49 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
 
 
 
-\section{Charger une strat\'egie}
-\label{sec:charger_une_strat'egie}
+\section{Supprimer un \'el\'ement}
+\label{sec:supprimer_un_'el'ement}
 
 \begin{itemize}
-    \item \textbf{Cas d'utilisation:} Charger une strat\'egie
+    \item \textbf{Cas d'utilisation:} Supprimer un \'el\'ement
     \item \textbf{Syst\`eme:} VisuaLigue
     \item \textbf{Acteur principal:} Entra\^ineur
-    \item \textbf{S\'ecnario principal:}
+    \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entra\^ineur souhaite \'editer une strat\'egie d\'ej\`a existante.
-            \item Il s\'electionne la bonne strat\'egie puis la charge.
+            \item foo
         \end{enumerate}
+    \item \textbf{Autres situations:}
+        \begin{itemize}
+            \item erreur 1
+                \begin{enumerate}
+                    \item baz
+                \end{enumerate}
+        \end{itemize}
+\end{itemize}
+
+
+
+\section{Visualiser une stratégie}
+\label{sec:visualiser_une_strategie}
+\begin{itemize}
+    \item \textbf{Cas d'utilisation:} Visualiser une strat\'egie
+    \item \textbf{Syst\`eme:} VisuaLigue
+    \item \textbf{Acteur principal:} Entra\^ineur ou joueur
+    \item \textbf{Parties prenantes et int\'er\^ets:}
+    \item \textbf{Pr\'erequis:} Il faut que la strat\'egie soit enregistr\'ee dans l'application pour que l'entraîneur puisse la visualiser.
+    \item \textbf{Garanties en cas de succ\`es:}
+    \item \textbf{Sc\'enario principal:}
+        \begin{enumerate}
+            \item L'entra\^ineur s\'electionne la strat\'egie \`a visualiser.
+            \item Il d\'ebute la visualisation et observe le d\'eroulement de la strat\'egie.
+            \item Il peut mettre fin \`a la visualisation \`a tout moment.
+        \end{enumerate}
+    \item \textbf{Autres situations:}
+        \begin{itemize}
+            \item fubar
+                \begin{enumerate}
+                    \item foo
+                    \item bar
+                \end{enumerate}
+        \end{itemize}
 \end{itemize}
