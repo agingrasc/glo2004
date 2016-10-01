@@ -24,13 +24,24 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
 \subsection{Sc\'enario principal}
 \label{sub:sc'enario_principal}
 
-L'entra\^ineur veut définir un sport pour l'application.
-Il cr\'ee un sport, le nomme.
+L'entra\^ineur cr\'ee un sport, le nomme.
 Ensuite il ajoute les r\^oles du sport.
 Finalement, il d\'efini un terrain en dessinant les lignes et en sp\'ecifiant les dimensions.
 
+\subsection{Autres Situations}
+\label{sub:autres_situations}
+\begin{itemize}
+    \item \textbf{Sport d\'ej\`a existant:} Si le sport existe d\'ej\`a dans l'application, un message d'avertissement appara\^it pour signaler que le sport existe d\'ej\`a. 
+    L'entraîneur peut d\'ecider d'effacer ce qui \'etait dans le sport existant, d'enregister son sport sous un autre nom, ou d'oublier le sport cr\'e\'e. 
+\end{itemize}
+
 \section{Ajouter une stratégie}
 \label{sec:ajouter_une_strategie}
+
+\subsection{Pr\'erequis}
+\label{sub:prerequis}
+
+Le sport pour lequel l'entraîneur veut ajouter une stratégie doit exister dans l'application.
 
 \subsection{Sc\'enario principal}
 \label{sub:sc'enario_principal}
@@ -39,17 +50,37 @@ L'entraîneur veut ajouter une nouvelle stratégie.
 Il choisi le sport pour la strat\'egie.
 Ensuite, pour chacun des joueurs, il leur assigne un r\^ole et dessine leurs actions.
 
+\subsection{Autres Situations}
+\label{sub:autres_situations}
+\begin{itemize}
+    \item \textbf{Sport d\'ej\`a existant:} Si la stratégie existe d\'ej\`a dans l'application, un message d'avertissement appara\^it pour signaler que celui-ci existe d\'ej\`a. 
+    L'entraîneur peut d\'ecider d'effacer ce qui \'etait dans la stratégie existante, d'enregister sa stratégie sous un autre nom, ou d'oublier la stratégie cr\'e\'e. 
+\end{itemize}
+
 \section{Visualiser une stratégie}
 \label{sec:visualiser_une_strategie}
 
-L'entra\^ineur veut visualiser le d\'eroulement d'une strat\'egie.
-Il s\'electionne la strat\'egie \`a visualiser.
-Il d\'ebute la visualisation et observe le d\'eroulement de la strat\'egie.
+\subsection{Pr\'erequis}
+\label{sub:prerequis}
+Il faut que la strat\'egie soit enregistr\'ee dans l'application pour que l'entraîneur puisse la visualiser.
+
+\subsection{Sc\'enario principal}
+\label{sub:sc'enario_principal}
+
+L'\textit{entra\^ineur} s\'electionne la \textit{strat\'egie} \`a visualiser.
+Il d\'ebute la visualisation et observe le d\'eroulement de la \textit{strat\'egie}.
 Il peut mettre fin \`a la visualisation \`a tout moment.
 
 \section{Exporter une stratégie}
 \label{sec:exporter_une_strategie}
 
-L' entra\^ineur veut exporter une strat\'egie.
+\subsection{Pr\'erequis}
+\label{sub:prerequis}
+Il faut que la strat\'egie soit enregistr\'ee dans l'application pour que l'entraîneur puisse l'exporter.
+
+\subsection{Sc\'enario principal}
+\label{sub:sc'enario_principal}
+
+L' \textit{entra\^ineur} veut exporter une strat\'egie.
 Il s\'electionne la strat\'egie et le format pour l'exportation.
 Il applique l'exportation de la strat\'egie.
