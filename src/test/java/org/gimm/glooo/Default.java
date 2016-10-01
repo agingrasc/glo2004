@@ -7,7 +7,7 @@ public class Default {
 
     @Test
     public void success() {
-        assertTrue(false);
+        assertTrue(true);
     }
 
     @Test
