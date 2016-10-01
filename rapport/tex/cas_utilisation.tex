@@ -72,7 +72,7 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Cas d'utilisation:} \'Editer une strat\'egie
     \item \textbf{Syst\`eme:} VisuaLigue
     \item \textbf{Acteur principal:} Entra\^ineur
-    \item \textbf{Pr\'erequis:}
+    \item \textbf{Pr\'erequis:} L'entraîneur a ajouté ou chargé une stratégie.
     \item \textbf{Parties prenantes et int\'er\^ets:}
     \item \textbf{Garanties en cas de succ\`es:}
     \item \textbf{Sc\'enario principal:}
@@ -80,15 +80,25 @@ La suite du chapitre décrie en détails les cas d'utilisations et s'attarde sur
             \item L'entraîneur assigne les r\^oles aux diff\'erents joueurs.
             \item Ensuite, il peut s\'electionner un joueur et tracer un mouvement ou interargir avec le projectile.
             \item Pendant que le joueur est s\'electionn\'e, une simulation en temps r\'eel des mouvements pr\'ec\'edemment d\'efinies s'ex\'ecute.
-            \item L'entraîneur peut ensuite s\'electionner un autre joueur et dessiner une nouvelle action et la simulation recommence du d\'ebut.
-        \end{enumerate}
+            \item La simulation recommence du d\'ebut.
+            \item L'entraîneur répète les étapes 2 et 4 pour chaque joueur jusqu'à ce que la stratégie soit terminé.
+            \item L'entraîneur exécute \textit{sauvergarder une stratégie \ref{sec:exporter_une_strategie}}.
+    \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item \textbf{Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image ...
+            \item \textbf{2a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image ...
                 \begin{enumerate}
-                    \item foo
-                    \item bar
+                    \item L'entraîneur place les joueurs sur le terrain. 
+                    \item L'entraîneur clique sur un boutton de l'application et avance d'une image. Les joueurs deviennent transparents.
+                    \item L'entraîneur clique sur un joueur et le glisse vers sa nouvelle position.
+                    Le joueur sélectionné n'est plus transparent.
+                    \item L'entraîneur répète l'étape 3 pour tous les joueurs qu'il veut déplacer.
+                    \item L'entraîneur répète les étapes 2 à 4 jusqu'à ce qu'il ait terminé sa stratégie. 
+                    \item L'entraîneur continue le scénario principal à partir de l'étape 6.
                 \end{enumerate}
+            \item \textbf{*a. visualiser la stratégie}
+            À tout moment de l'édition de la stratégie. l'entraîneur peut exécuter \textit{visualiser la stratégie}.
+ 
         \end{itemize}
     \item \textbf{Fr\'equence d'utilisation:}
 \end{itemize}
