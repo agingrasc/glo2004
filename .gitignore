@@ -48,3 +48,4 @@ bin/
 #Visual Paradigm
 *.vpp.bak*
 *.vux*
+*.lck
