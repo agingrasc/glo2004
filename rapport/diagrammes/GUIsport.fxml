@@ -18,48 +18,36 @@
    <children>
       <AnchorPane layoutY="27.0" prefHeight="50.0" prefWidth="600.0">
          <children>
-            <ImageView fitHeight="41.0" fitWidth="32.0" layoutX="48.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="117.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imagesGUI/add.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="386.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imagesGUI/video-player.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="158.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="284.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../../Downloads/edit.png" />
                </image>
             </ImageView>
-            <Label layoutX="45.0" layoutY="7.0" text="Ajouter" />
-            <Label layoutX="377.0" layoutY="7.0" text="Visualiser" />
-            <Label layoutX="243.0" layoutY="7.0" text="Image par image" />
-            <Label layoutX="145.0" layoutY="6.0" text="Temps réel" />
-            <Label layoutX="475.0" layoutY="7.0" text="Supprimer" />
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="487.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <Label layoutX="110.0" layoutY="7.0" text="Ajouter" />
+            <Label layoutX="278.0" layoutY="6.0" text="Modifier" />
+            <Label layoutX="444.0" layoutY="7.0" text="Supprimer" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="460.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imagesGUI/garbage.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="268.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../Downloads/edit.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
-      <ScrollPane layoutY="96.0" prefHeight="304.0" prefWidth="600.0">
+      <ScrollPane layoutY="83.0" prefHeight="311.0" prefWidth="600.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="584.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="432.0" prefWidth="584.0">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="290.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagesGUI/hockey.PNG" />
                      </image>
                   </ImageView>
-                  <Label layoutX="342.0" layoutY="50.0" prefHeight="78.0" prefWidth="186.0" text="Stratégie 1">
+                  <Label layoutX="342.0" layoutY="50.0" prefHeight="78.0" prefWidth="126.0" text="Hockey">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -70,7 +58,7 @@
                         <Image url="@imagesGUI/soccer_field.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="342.0" layoutY="242.0" prefHeight="78.0" prefWidth="185.0" text="Stratégie 2">
+                  <Label layoutX="342.0" layoutY="242.0" prefHeight="78.0" prefWidth="113.0" text="Soccer">
                      <font>
                         <Font size="36.0" />
                      </font>
