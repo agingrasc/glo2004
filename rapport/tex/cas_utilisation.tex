@@ -233,22 +233,26 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
     	\begin{itemize}
-    		\item
+    		\item Entraîneur: Veux supprimer n'importe quel élément facilement en ayant la sécurité d'esprit de ne rien supprimer d'autre. 
     	\end{itemize}
     \item \textbf{Pr\'erequis :} Aucun.
-    \item \textbf{Garanties en cas de succ\`es :}
+    \item \textbf{Garanties en cas de succ\`es :} L'élément sélectionné est supprimé.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item foo
+            \item L'entraîneur sélectionne l'élément à supprimer.
+            \item L'entraîneur choisit l'option supprimer de l'application.
+            \item Un message d'avertissement est affiché à l'écran.
+            \item L'entraîneur confirme qu'il veut supprimer l'\'el\'ement.
+            \item L'\'el\'ement est supprim\'e.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item erreur 1
-                \begin{enumerate}
-                    \item baz
-                \end{enumerate}
+            \item \textbf{4a. La suppression est annul\'ee:} Si l'entraîneur change d'avis, il peut annuler la suppression. Dans ce cas l\`a, rien ne se passe.
+            \item \textbf{Erreur: Les donn\'ees de l'\'el\'ement sont corrompus:} Si les donn\'ees de l'\'el\'ement \`a supprimer sont corrompus, un message d'erreur est affich\'e et la suppression est annul\'ee.
+            \item \textbf{Erreur: l'\'el\'ement n'existe pas:} Si l'\'el\'ement \`a supprimer n'existe pas, un message d'erreur est affich\'e et la suppression est annul\'ee.
+            \item \textbf{Erreur: l'\'el\'ement a \'et\'e modifi\'ee ailleurs:} Si l'\'el\'ement \`a supprimer a \'et\'e modifi\'ee ailleurs, un message d'erreur est affich\'e et la suppression est annul\'ee.
         \end{itemize}
-    \item \textbf{Fréquence d'utilisation :}
+    \item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation survient souvent.
 \end{itemize}
 
 
