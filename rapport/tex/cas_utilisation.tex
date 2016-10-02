@@ -36,8 +36,9 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'entra\^ineur cr\'ee un sport, le nomme.
-            \item Ensuite il ajoute les r\^oles des joueurs du sport.
-            \item Finalement, il d\'efini un terrain en dessinant les lignes et en sp\'ecifiant les dimensions.
+            \item Ensuite il défini les r\^oles des joueurs du sport. (Cas d'utilisation \ref{sec:definir_des_roles})
+            \item Il ajoute l'image correspondant au projectile.
+            \item Finalement, il configure les paramètres du terrain. (Cas d'utilisation \ref{sec:configurer_le_terrain})
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
@@ -59,22 +60,26 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item
+            \item Entraîneur: Veux pouvoir créer un liste de rôles rapidement.
         \end{itemize}
     \item \textbf{Pr\'erequis :} Aucun.
-    \item \textbf{Garanties en cas de succ\`es :}
+    \item \textbf{Garanties en cas de succ\`es :} La liste de rôles sera accessible lors de la création d'une stratégie du sport associé.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entraîneur défini une liste de rôles pour un sport.
+            \item L'application affiche les rôles qui avaient déjà été créer pour d'autres sports.
+            \item L'entraîneur choisit parmis les rôles à ajouter à la liste.
+            \item L'entraîneur sauvegarde la liste.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item foo
+            \item \textbf{2a. Le rôle n'existe pas:} Si le rôle n'existe pas, l'entraîneur peut en ajouter un nouveau.
                 \begin{enumerate}
-                    \item baz
+                    \item L'entraîneur choisit de créer un nouveau rôle.
+                    \item L'entraîneur écrit le nom du rôle.
+                    \item L'entraîneur retourne à l'étape 2 pour continuer l'édition de la liste.
                 \end{enumerate}
         \end{itemize}
-    \item \textbf{Fréquence d'utilisation :}
+    \item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation survient rarement.
 \end{itemize}
 
 
@@ -122,23 +127,18 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item
+            \item Entra\^ineur : Veut pouvoir cr\'eer rapidement des types d'obstacles pour les utiliser lors de l'\'edition d'une strat\'egie.
         \end{itemize}
-    \item \textbf{Pr\'erequis :} Aucun.
-    \item \textbf{Garanties en cas de succ\`es :}
+    \item \textbf{Pr\'erequis :} Aucun
+    \item \textbf{Garanties en cas de succ\`es :} L'obstacle est ajout\'e \`a la liste des obstacles existants et peut \^etre utilis\'e lors de la cr\'eation de strat\'egies.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entraîneur donne un nom à un obstacle.
-            \item Il associe une image.
+            \item L'entra\^ineur donne un nom \`a un obstacle.
+            \item L'entra\^ineur lui associe une image.
+            \item L'entra\^ineur sauvegarde l'obstacle.
         \end{enumerate}
-    \item \textbf{Autres situations:}
-        \begin{itemize}
-            \item foo
-                \begin{enumerate}
-                    \item baz
-                \end{enumerate}
-        \end{itemize}
-    \item \textbf{Fréquence d'utilisation :}
+    \item \textbf{Autres situations:} Aucune
+    \item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation est utilis\'e de temps \`a autre.
 \end{itemize}
 
 
@@ -151,15 +151,16 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item Entraîneur: Veux pouvoir créer une stratégie composée de multiples déplacements de différents joueurs, ainsi que des passes entre ceux-ci, de manière intuitive et rapide.
+            \item Entraîneur: Veut pouvoir créer une stratégie composée de multiples déplacements de différents joueurs, ainsi que des passes entre ceux-ci, de manière intuitive et rapide.
         \end{itemize}
-    \item \textbf{Pr\'erequis:} Aucun.
-    \item \textbf{Garanties en cas de succ\`es:} Les modifications peuvent être visualisé par les utilisateurs.
+    \item \textbf{Prérequis :}Aucun
+    \item \textbf{Garanties en cas de succ\`es:} Les modifications peuvent être visualisées par les utilisateurs.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'entraîneur sélectionne la stratégie à éditer.
+            \item L'entraîneur ajoute les joueurs sur le terrain.
             \item L'entraîneur assigne les r\^oles aux diff\'erents joueurs.
-            \item Ensuite, il peut s\'electionner un joueur et tracer un mouvement ou interargir avec le projectile.
+            \item Ensuite, il peut s\'electionner un joueur et tracer un mouvement ou interagir avec le projectile.
             \item Pendant que le joueur est s\'electionn\'e, une simulation en temps r\'eel des mouvements pr\'ec\'edemment d\'efinis s'ex\'ecute.
             \item La simulation recommence du d\'ebut.
             \item L'entraîneur répète les étapes 3 et 5 pour chaque joueur jusqu'à ce que la stratégie soit terminée.
@@ -169,10 +170,17 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
         \begin{itemize}
             \item \textbf{1a. La stratégie n'existe pas:} L'entraîneur peut décider de créer une nouvelle stratégie en sélectionnant nouvelle stratégie.
                 Il devra alors donner un nom à celle-ci.
-            \item \textbf{3a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image...
+            \item \textbf{3a. Ajout d'obstacle} En plus des joueurs, l'entraîneur peut ajouter des obstacles sur le terrain.
+                \begin{enumerate}
+                    \item L'entraineur sélectionne un obstacle parmi la liste et le positionne sur le terrain.
+                    \item L'entraîneur ajuste les dimensions de l'obstacle.
+                    \item L'entraineur répète les étapes 1 et 2 pour tous les obstacles qu'il veut ajouter.
+                    \item L'entraîneur continue le scénario principal à partir de l'étape 4.
+                \end{enumerate}
+            \item \textbf{4a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image...
                 \begin{enumerate}
                     \item L'entraîneur place les joueurs sur le terrain.
-                    \item L'entraîneur clique sur un boutton de l'application et avance d'une image. Les joueurs deviennent transparents.
+                    \item L'entraîneur clique sur un bouton de l'application et avance d'une image. Les joueurs deviennent transparents.
                     \item L'entraîneur clique sur un joueur et le glisse vers sa nouvelle position.
                         Le joueur sélectionné n'est plus transparent.
                     \item L'entraîneur répète l'étape 3 pour tous les joueurs qu'il veut déplacer.
@@ -197,10 +205,10 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item
+            \item Entraîneur : Veut sauvegarder une stratégie qu'il vient d'éditer afin de pouvoir la visionner ou l'éditer à nouveau plus tard.
         \end{itemize}
-    \item \textbf{Pr\'erequis :} Aucun.
-    \item \textbf{Garanties en cas de succ\`es :}
+    \item \textbf{Pr\'erequis :} Une stratégie doit avoir été éditée.
+    \item \textbf{Garanties en cas de succ\`es :} La stratégie est sauvegardée dans la liste des stratégies existantes et peut être chargée à nouveau.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'entra\^ineur a modifié une strat\'egie et la sauvegarde.
@@ -215,7 +223,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
                     \item L'application convertie la strat\'egie en une image et l'enregistre dans un fichier avec le bon nom.
                 \end{enumerate}
         \end{itemize}
-    \item \textbf{Fréquence d'utilisation :}
+    \item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation survient fréquemment.
 \end{itemize}
 
 
