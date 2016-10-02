@@ -39,7 +39,9 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
             \item L'entra\^ineur cr\'ee un sport, le nomme.
             \item Ensuite il défini les r\^oles des joueurs du sport. (Cas d'utilisation \ref{sec:definir_des_roles})
             \item Il ajoute l'image correspondant au projectile.
-            \item Finalement, il configure les paramètres du terrain. (Cas d'utilisation \ref{sec:configurer_le_terrain})
+            \item L'entraîneur configure ensuite les paramètres du terrain. (Cas d'utilisation \ref{sec:configurer_le_terrain})
+            \item L'entraîneur sauvegarde le sport.
+            \item L'application ajoute le sport à la liste des sports créés.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
@@ -121,14 +123,16 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
         	\item L'entraîneur sélectionne l'option de configuration du terrain.
             \item L'entraîneur importe une image représentant le terrain.
             \item Il spécifie les dimensions du terrain.
+            \item L'entraîneur sauvegarde le terrain.
+            \item L'application lie le terrain au sport correspondant.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
             \item \textbf{1.a Dessiner le terrain} L'entraîneur peut choisir de dessiner les lignes du terrain.
                 \begin{enumerate}
                     \item L'entraîneur choisit de dessiner le terrain.
-                    \item Un application de dessin s'ouvre et l'entraîneur trace les lignes du terrain.
-                    \item L'entraîneur sauvegarde son tracé et continue le scénario principal à partir de l'étape 2.
+                    \item Une application de dessin s'ouvre et l'entraîneur trace les lignes du terrain.
+                    \item L'entraîneur sauvegarde son tracé et continue le scénario principal à partir de l'étape 3.
                 \end{enumerate}
 
         \end{itemize}
@@ -216,7 +220,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Autres situations:}
         \begin{itemize}
             \item \textbf{1a. La stratégie n'existe pas:} L'entraîneur peut décider de créer une nouvelle stratégie en sélectionnant nouvelle stratégie.
-                Il devra alors donner un nom à celle-ci.
+                Il devra alors donner un nom à celle-ci et lui assigner un sport.
             \item \textbf{3a. Ajout d'obstacle} En plus des joueurs, l'entraîneur peut ajouter des obstacles sur le terrain.
                 \begin{enumerate}
                     \item L'entraineur sélectionne un obstacle parmi la liste et le positionne sur le terrain.
@@ -306,7 +310,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item Entraîneur: Veux supprimer n'importe quel élément facilement en ayant la sécurité d'esprit de ne rien supprimer d'autre.
+            \item Entraîneur: Veut supprimer n'importe quel élément facilement en ayant la sécurité d'esprit de ne rien supprimer d'autre.
         \end{itemize}
     \item \textbf{Pr\'erequis :}Aucun.
     \item \textbf{Garanties en cas de succ\`es:} L'élément sélectionné est supprimé.
@@ -347,7 +351,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur ou joueur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item L'entra\^ineur: Veux pouvoir visualiser une strat\'egie pour d\'eterminer si elle est ad\'equate.
+            \item L'entra\^ineur: Veut pouvoir visualiser une strat\'egie pour d\'eterminer si elle est ad\'equate.
                 Veut pouvoir interrompre la visualisation \`a tout moment pour fournir des explications suppl\'ementaires.
                 Veut pouvoir reculer d'un temps fixe la visualisation pour montrer \`a nouveau un segment de la strat\'egie.
                 Veut pouvoir red\'ebuter la visualisation pour regarder \`a nouveau la strat\'egie.
