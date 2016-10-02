@@ -35,6 +35,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Garanties en cas de succ\`es:} Le sport est ajout\'e \`a la liste des sports existants et peut \^etre utiliser lors de la cr\'eation de strat\'egies.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
+        	\item L'entraîneur sélectionne l'outil d'édition de sports.
             \item L'entra\^ineur cr\'ee un sport, le nomme.
             \item Ensuite il défini les r\^oles des joueurs du sport. (Cas d'utilisation \ref{sec:definir_des_roles})
             \item Il ajoute l'image correspondant au projectile.
@@ -100,7 +101,8 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Garanties en cas de succ\`es:} Le terrain est proportionnel par rapport à ses dimensions réels.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entraîneur importe une image.
+        	\item L'entraîneur sélectionne l'option de configuration du terrain.
+            \item L'entraîneur importe une image représentant le terrain.
             \item Il spécifie les dimensions du terrain.
         \end{enumerate}
     \item \textbf{Autres situations:}
@@ -109,7 +111,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
                 \begin{enumerate}
                     \item L'entraîneur choisit de dessiner le terrain.
                     \item Un application de dessin s'ouvre et l'entraîneur trace les lignes du terrain.
-                    \item L'entraîneur sauvegarde son tracer et continue le scénario principal à partir de l'étape 2.
+                    \item L'entraîneur sauvegarde son tracé et continue le scénario principal à partir de l'étape 2.
                 \end{enumerate}
 
         \end{itemize}
@@ -133,11 +135,21 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Garanties en cas de succ\`es :} L'obstacle est ajout\'e \`a la liste des obstacles existants et peut \^etre utilis\'e lors de la cr\'eation de strat\'egies.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entra\^ineur donne un nom \`a un obstacle.
+        	\item L'entraîneur sélectionne l'outil d'édition d'obstacles.
+        	\item L'entraîneur crée un nouvel obstacle.
+            \item L'entra\^ineur donne un nom \`a l'obstacle.
             \item L'entra\^ineur lui associe une image.
             \item L'entra\^ineur sauvegarde l'obstacle.
         \end{enumerate}
-    \item \textbf{Autres situations:} Aucune
+    \item \textbf{Autres situations:} 
+    	\begin{itemize}
+    		\item \textbf{2a. L'obstacle existe déjà: } L'entraîneur peut vouloir modifier un obstacle existant.
+    		\begin{enumerate}
+    			\item L'entraîneur sélectionne l'obstacle à modifier dans la liste des obstacles existants.
+    			\item L'entraîneur modifie le nom et/ou l'image de l'obstacle.
+    			\item Le scénario principal reprend à l'étape 5.
+    		\end{enumerate}
+    	\end{itemize}
     \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation est utilis\'e de temps \`a autre.
 \end{itemize}
 
@@ -157,7 +169,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Garanties en cas de succ\`es:} Les modifications peuvent être visualisées par les utilisateurs.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entraîneur sélectionne la stratégie à éditer.
+            \item L'entraîneur sélectionne la stratégie à éditer parmi la liste des stratégies existantes.
             \item L'entraîneur ajoute les joueurs sur le terrain.
             \item L'entraîneur assigne les r\^oles aux diff\'erents joueurs.
             \item Ensuite, il peut s\'electionner un joueur et tracer un mouvement ou interagir avec le projectile.
@@ -301,11 +313,19 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
                     \item L'utilisateur \textit{arr\^ete} la visualisation.
                     \item On reprend de l'\'etape 2.
                 \end{enumerate}
-            \item \textbf{2c reculer d'un temps donn\'ee:}
+            \item \textbf{2c reculer d'un temps donn\'e:}
                 \begin{enumerate}
                     \item L'utilisateur \textit{pause} la visualisation.
                     \item Il d\'etermine un temps en secondes.
                     \item Il recule la visualisation.
+                    \item Il red\'emarre la visualisation.
+                    \item On reprend de l'\'etape 2.
+                \end{enumerate}
+            \item \textbf{2d avancer d'un temps donn\'e:}
+                \begin{enumerate}
+                    \item L'utilisateur \textit{pause} la visualisation.
+                    \item Il d\'etermine un temps en secondes.
+                    \item Il avance la visualisation.
                     \item Il red\'emarre la visualisation.
                     \item On reprend de l'\'etape 2.
                 \end{enumerate}
