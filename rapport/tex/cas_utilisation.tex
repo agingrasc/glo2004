@@ -36,14 +36,14 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'entra\^ineur cr\'ee un sport, le nomme.
-            \item Ensuite il ajoute les r\^oles des joueurs du sport.
-            \item Finalement, il d\'efini un terrain en dessinant les lignes et en sp\'ecifiant les dimensions.
+            \item Ensuite il défini les r\^oles des joueurs du sport. (Cas d'utilisation \ref{sec:definir_des_roles})
+            \item Il ajoute l'image correspondant au projectile.
+            \item Finalement, il configure les paramètres du terrain. (Cas d'utilisation \ref{sec:configurer_le_terrain})
         \end{enumerate}
     \item \textbf{Autres situations:}
     \begin{itemize}
         \item \textbf{1a. Sport d\'ej\`a existant:} Si le sport existe d\'ej\`a dans l'application, un message d'avertissement appara\^it pour signaler que le sport existe d\'ej\`a.
         L'entraîneur peut d\'ecider d'effacer ce qui \'etait dans le sport existant, d'enregistrer son sport sous un autre nom, ou d'oublier le sport cr\'e\'e.
-        \item \textbf{3a. Ajout d'une image :} L'entraîneur peut ajouter une image plutôt que dessiner les lignes pour représenter le terrain.
     \end{itemize}
     \item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation survient rarement.
 \end{itemize}
@@ -104,11 +104,11 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
                 \begin{enumerate}
                     \item L'entraîneur choisit de dessiner le terrain.
                     \item Un application de dessin s'ouvre et l'entraîneur trace les lignes du terrain.
-                    \item L'entraîneur sauvegarde son tracer et continue le scénario principal à partir de l'étape 2.
+                    \item L'entraîneur sauvegarde son tracé et continue le scénario principal à partir de l'étape 2.
                \end{enumerate}
  
         \end{itemize}
-  	\item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation sera utilisé à chaque fois que l'on éditeras un nouveau terrain.
+  	\item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation sera utilisé à chaque fois que l'on éditera un nouveau terrain.
 \end{itemize}
 
 
