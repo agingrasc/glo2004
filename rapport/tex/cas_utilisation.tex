@@ -121,23 +121,18 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
     	\begin{itemize}
-    		\item
+    		\item Entra\^ineur : Veut pouvoir cr\'eer rapidement des types d'obstacles pour les utiliser lors de l'\'edition d'une strat\'egie.
     	\end{itemize}
-    \item \textbf{Pr\'erequis :}
-    \item \textbf{Garanties en cas de succ\`es :}
+    \item \textbf{Pr\'erequis :} Aucun
+    \item \textbf{Garanties en cas de succ\`es :} L'obstacle est ajout\'e \`a la liste des obstacles existants et peut \^etre utilis\'e lors de la cr\'eation de strat\'egies.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entraîneur donne un nom à un obstacle.
-            \item Il associe une image.
+            \item L'entra\^ineur donne un nom \`a un obstacle.
+            \item L'entra\^ineur lui associe une image.
+            \item L'entra\^ineur sauvegarde l'obstacle.
         \end{enumerate}
-    \item \textbf{Autres situations:}
-        \begin{itemize}
-            \item foo
-                \begin{enumerate}
-                    \item baz
-                \end{enumerate}
-        \end{itemize}
-    \item \textbf{Fréquence d'utilisation :}
+    \item \textbf{Autres situations:} Aucune
+    \item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation est utilis\'e de temps \`a autre.
 \end{itemize}
 
 
@@ -150,15 +145,16 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item Entraîneur: Veux pouvoir créer une stratégie composée de multiples déplacements de différents joueurs, ainsi que des passes entre ceux-ci, de manière intuitive et rapide.
+            \item Entraîneur: Veut pouvoir créer une stratégie composée de multiples déplacements de différents joueurs, ainsi que des passes entre ceux-ci, de manière intuitive et rapide.
         \end{itemize}
-    \item \textbf{Prérequis :}
-    \item \textbf{Garanties en cas de succ\`es:} Les modifications peuvent être visualisé par les utilisateurs.
+    \item \textbf{Prérequis :}Aucun
+    \item \textbf{Garanties en cas de succ\`es:} Les modifications peuvent être visualisées par les utilisateurs.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'entraîneur sélectionne la stratégie à éditer.
+            \item L'entraîneur ajoute les joueurs sur le terrain.
             \item L'entraîneur assigne les r\^oles aux diff\'erents joueurs.
-            \item Ensuite, il peut s\'electionner un joueur et tracer un mouvement ou interargir avec le projectile.
+            \item Ensuite, il peut s\'electionner un joueur et tracer un mouvement ou interagir avec le projectile.
             \item Pendant que le joueur est s\'electionn\'e, une simulation en temps r\'eel des mouvements pr\'ec\'edemment d\'efinis s'ex\'ecute.
             \item La simulation recommence du d\'ebut.
             \item L'entraîneur répète les étapes 3 et 5 pour chaque joueur jusqu'à ce que la stratégie soit terminée.
@@ -167,11 +163,18 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Autres situations:}
         \begin{itemize}
             \item \textbf{1a. La stratégie n'existe pas:} L'entraîneur peut décider de créer une nouvelle stratégie en sélectionnant nouvelle stratégie.
-            Il devra alors donner un nom à celle-ci. 
-            \item \textbf{3a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image...
+            Il devra alors donner un nom à celle-ci.
+            \item \textbf{3a. Ajout d'obstacle} En plus des joueurs, l'entraîneur peut ajouter des obstacles sur le terrain.
+            	\begin{enumerate}
+            		\item L'entraineur sélectionne un obstacle parmi la liste et le positionne sur le terrain.
+            		\item L'entraîneur ajuste les dimensions de l'obstacle.
+            		\item L'entraineur répète les étapes 1 et 2 pour tous les obstacles qu'il veut ajouter.
+            		\item L'entraîneur continue le scénario principal à partir de l'étape 4.
+            	\end{enumerate}
+            \item \textbf{4a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image...
                 \begin{enumerate}
                     \item L'entraîneur place les joueurs sur le terrain. 
-                    \item L'entraîneur clique sur un boutton de l'application et avance d'une image. Les joueurs deviennent transparents.
+                    \item L'entraîneur clique sur un bouton de l'application et avance d'une image. Les joueurs deviennent transparents.
                     \item L'entraîneur clique sur un joueur et le glisse vers sa nouvelle position.
                     Le joueur sélectionné n'est plus transparent.
                     \item L'entraîneur répète l'étape 3 pour tous les joueurs qu'il veut déplacer.
