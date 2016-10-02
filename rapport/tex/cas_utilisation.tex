@@ -61,15 +61,18 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item Entraîneur: Veux pouvoir créer un liste de rôles rapidement.
+            \item Entraîneur: Veux pouvoir créer un liste de rôles pour un sport rapidement.
         \end{itemize}
     \item \textbf{Pr\'erequis:} Aucun.
     \item \textbf{Garanties en cas de succ\`es:} La liste de rôles sera accessible lors de la création d'une stratégie du sport associé.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'application affiche les rôles qui avaient déjà été créer pour d'autres sports.
-            \item L'entraîneur choisit parmis les rôles à ajouter à la liste.
-            \item L'entraîneur sauvegarde la liste.
+            \item L'application affiche les rôles qui avaient déjà été créés pour d'autres sports.
+            \item L'entraîneur choisit un rôles à ajouter à la liste de rôles du sport.
+            \item L'application ajoute le rôle à la liste de rôles du sport.
+            \item L'entraîneur reprend l'étape 2 pour tous les rôles du sport.
+            \item L'entraîneur sauvegarde la liste de rôles du sport.
+            \item L'application enregistre la liste de rôles du sport.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
@@ -77,7 +80,8 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
                 \begin{enumerate}
                     \item L'entraîneur choisit de créer un nouveau rôle.
                     \item L'entraîneur écrit le nom du rôle.
-                    \item L'entraîneur retourne à l'étape 2 pour continuer l'édition de la liste.
+                    \item L'entraîneur sauvegarde le rôle.
+                    \item Le scénario principal reprend à l'étape 3.
                 \end{enumerate}
         \end{itemize}
     \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation survient rarement.
