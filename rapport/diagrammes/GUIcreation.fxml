@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.Double?>
 <?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -11,52 +10,20 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Polygon?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="329.0" fitWidth="600.0" layoutY="77.0" pickOnBounds="true">
          <image>
-            <Image url="@../../Images/soccer_field.png" />
+            <Image url="@imagesGUI/soccer_field.png" />
          </image>
       </ImageView>
-      <Label layoutX="381.0" layoutY="180.0" text="Attaquant">
+      <Label layoutX="254.0" layoutY="163.0" text="Attaquant">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Circle fill="DODGERBLUE" layoutX="565.0" layoutY="228.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#ff1f1f" layoutX="410.0" layoutY="212.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="434.0" layoutY="218.0" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fill="DODGERBLUE" layoutX="552.0" layoutY="238.0" rotate="-90.0" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
-        <points>
-          <Double fx:value="-50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="0.0" />
-          <Double fx:value="-60.0" />
-        </points>
-      </Polygon>
-      <Label layoutX="535.0" layoutY="197.0" text="Gardien">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Polygon fill="#ff1f1f" layoutX="422.0" layoutY="225.0" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
-         <points>
-            <Double fx:value="-50.0" />
-            <Double fx:value="40.0" />
-            <Double fx:value="50.0" />
-            <Double fx:value="40.0" />
-            <Double fx:value="0.0" />
-            <Double fx:value="-60.0" />
-         </points>
-      </Polygon>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ff1f" height="48.0" layoutX="490.0" layoutY="204.0" stroke="BLACK" strokeType="INSIDE" width="14.0" />
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
             <Menu mnemonicParsing="false" text="Fichier">
@@ -71,7 +38,6 @@
                   <MenuItem mnemonicParsing="false" text="Stratégie" />
               <MenuItem mnemonicParsing="false" text="Sport" />
                   <MenuItem mnemonicParsing="false" text="Obstacle" />
-                  <MenuItem mnemonicParsing="false" text="Rôle" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Insertion">
@@ -86,7 +52,8 @@
               <MenuItem mnemonicParsing="false" text="Annuler" />
                   <MenuItem mnemonicParsing="false" text="Rétablir" />
                   <MenuItem mnemonicParsing="false" text="Supprimer" />
-                  <MenuItem mnemonicParsing="false" text="Zoom" />
+                  <MenuItem mnemonicParsing="false" text="Zoom in" />
+                  <MenuItem mnemonicParsing="false" text="Zoom out" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Mode">
@@ -103,85 +70,206 @@
             <Menu mnemonicParsing="false" text="Préférences">
                <items>
                   <CheckMenuItem mnemonicParsing="false" text="Afficher les rôles" />
+                  <CheckMenuItem mnemonicParsing="false" text="Afficher les noms" />
                </items>
             </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane layoutX="-1.0" layoutY="28.0" prefHeight="48.0" prefWidth="600.0">
+      <AnchorPane layoutX="-1.0" layoutY="28.0" prefHeight="50.0" prefWidth="600.0">
          <children>
             <Label layoutX="546.0" layoutY="7.0" text="X: 30 m" />
             <Label layoutX="546.0" layoutY="26.0" text="Y: 10 m" />
-            <Circle fill="#ff1f1f" layoutX="21.0" layoutY="35.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-            <Polygon fill="#ff1f1f" layoutX="39.0" layoutY="45.0" rotate="-26.6" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
-               <points>
-                  <Double fx:value="-50.0" />
-                  <Double fx:value="40.0" />
-                  <Double fx:value="50.0" />
-                  <Double fx:value="40.0" />
-                  <Double fx:value="0.0" />
-                  <Double fx:value="-60.0" />
-               </points>
-            </Polygon>
             <Label layoutX="14.0" layoutY="6.0" text="Joueur" />
             <Label layoutX="68.0" layoutY="7.0" text="Obstacle" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ff1f" height="48.0" layoutX="85.0" layoutY="11.0" rotate="-90.0" stroke="BLACK" strokeType="INSIDE" width="14.0" />
-            <Circle layoutX="159.0" layoutY="35.0" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
             <Label layoutX="134.0" layoutY="7.0" text="Projectile" />
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="428.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="461.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Images/undo.png" />
+                  <Image url="@imagesGUI/back-arrow.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="486.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="507.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Images/redo.png" />
+                  <Image url="@imagesGUI/next.png" />
                </image>
             </ImageView>
-            <Label layoutX="419.0" layoutY="6.0" text="Annuler" />
-            <Label layoutX="478.0" layoutY="6.0" text="Rétablir" />
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="210.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+            <Label layoutX="453.0" layoutY="6.0" text="Annuler" />
+            <Label layoutX="499.0" layoutY="7.0" text="Rétablir" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="210.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Images/arrows.png" />
+                  <Image url="@imagesGUI/arrows.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="272.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="272.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Images/back.png" />
+                  <Image url="@imagesGUI/back.png" />
                </image>
             </ImageView>
             <Label layoutX="203.0" layoutY="7.0" text="Suivant" />
             <Label layoutX="257.0" layoutY="7.0" text="Précédent" />
-            <Label layoutX="339.0" layoutY="6.0" text="Supprimer" />
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="355.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+            <Label layoutX="324.0" layoutY="7.0" text="Supprimer" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="340.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Images/garbage.png" />
+                  <Image url="@imagesGUI/garbage.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="20.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagesGUI/right-chevron.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="79.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagesGUI/vlc.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="17.0" fitWidth="8.0" layoutX="155.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagesGUI/black-circle.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="400.0" layoutY="7.0" text="Zoom" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="404.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagesGUI/zoom-in.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <Circle fill="#ff1f1f" layoutX="318.0" layoutY="180.0" opacity="0.5" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fill="#ff1f1f" layoutX="330.0" layoutY="197.0" opacity="0.41" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
-         <points>
-            <Double fx:value="-50.0" />
-            <Double fx:value="40.0" />
-            <Double fx:value="50.0" />
-            <Double fx:value="40.0" />
-            <Double fx:value="0.0" />
-            <Double fx:value="-60.0" />
-         </points>
-      </Polygon>
-      <Label layoutX="282.0" layoutY="150.0" text="Attaquant" />
-      <Circle fill="DODGERBLUE" layoutX="565.0" layoutY="252.0" opacity="0.5" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fill="DODGERBLUE" layoutX="552.0" layoutY="262.0" opacity="0.5" rotate="-90.0" scaleX="0.1" scaleY="0.1" stroke="BLACK" strokeType="INSIDE">
-         <points>
-            <Double fx:value="-50.0" />
-            <Double fx:value="40.0" />
-            <Double fx:value="50.0" />
-            <Double fx:value="40.0" />
-            <Double fx:value="0.0" />
-            <Double fx:value="-60.0" />
-         </points>
-      </Polygon>
-      <Label layoutX="536.0" layoutY="259.0" text="Gardien" />
+      <Label layoutX="320.0" layoutY="162.0" text="Attaquant" />
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="27.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/right-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="17.0" layoutY="206.0" text="Gardien">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="546.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/left-chevron.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="456.0" layoutY="181.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/left-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="442.0" layoutY="162.0" text="Défenseur" />
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="457.0" layoutY="274.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/left-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="442.0" layoutY="254.0" text="Défenseur" />
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="162.0" layoutY="171.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/right-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="148.0" layoutY="153.0" text="Défenseur" />
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="162.0" layoutY="287.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/right-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="148.0" layoutY="266.0" text="Défenseur" />
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="105.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/right-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="89.0" layoutY="154.0" text="Défenseur">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="106.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/right-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="90.0" layoutY="266.0" text="Défenseur">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="403.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/left-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="387.0" layoutY="163.0" text="Défenseur">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="387.0" layoutY="258.0" text="Défenseur">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="403.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/left-chevron.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="334.0" layoutY="184.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/left-chevron.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="271.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/left-chevron.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="259.0" layoutY="250.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/right-chevron.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="8.0" fitWidth="8.0" layoutX="255.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/black-circle.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="180.0" layoutY="233.0" text="Attaquant">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="209.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/right-chevron.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="245.0" layoutY="233.0" text="Attaquant" />
+      <Label layoutX="536.0" layoutY="206.0" text="Gardien">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="14.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/vlc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="13.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/vlc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="558.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/vlc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="556.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagesGUI/vlc.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
