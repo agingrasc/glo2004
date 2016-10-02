@@ -152,21 +152,31 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
         \begin{enumerate}
         	\item L'entraîneur sélectionne l'outil d'édition d'obstacles.
         	\item L'entraîneur crée un nouvel obstacle.
+        	\item L'application affiche les attributs de l'obstacle.
             \item L'entra\^ineur donne un nom \`a l'obstacle.
             \item L'entra\^ineur lui associe une image.
             \item L'entra\^ineur sauvegarde l'obstacle.
+            \item L'application sauvegarde l'obstacle dans la liste des obstacles existants.
         \end{enumerate}
     \item \textbf{Autres situations:} 
     	\begin{itemize}
     		\item \textbf{2a. L'obstacle existe déjà: } L'entraîneur peut vouloir modifier un obstacle existant.
     		\begin{enumerate}
     			\item L'entraîneur sélectionne l'obstacle à modifier dans la liste des obstacles existants.
+    			\item L'application affiche les attributs de l'obstacle.
     			\item L'entraîneur modifie le nom et/ou l'image de l'obstacle.
-    			\item Le scénario principal reprend à l'étape 5.
+    			\item Le scénario principal reprend à l'étape 6.
     		\end{enumerate}
     	\end{itemize}
     \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation est utilis\'e de temps \`a autre.
+    \item \textbf{Diagramme s\'equence de syst\`eme:} Voir \ref{fig:ssd_editer_obstacle}
 \end{itemize}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.5]{fig/ssd_editer_obstacle.png}
+    \caption{Diagramme de séquence de système pour Éditer un type d'obstacle}
+    \label{fig:ssd_editer_obstacle}
+\end{figure}
 
 
 
