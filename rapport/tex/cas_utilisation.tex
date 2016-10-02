@@ -71,19 +71,23 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Cas d'utilisation:} Configurer le terrain
     \item \textbf{Syst\`eme:} VisuaLigue
     \item \textbf{Acteur principal:} Entra\^ineur
-    \item \textbf{Pr\'erequis:}
     \item \textbf{Parties prenantes et int\'er\^ets:}
-    \item \textbf{Garanties en cas de succ\`es:}
+        \begin{itemize}
+            \item Entraîneur: Veut créer un terrain rapidement et facilement. S'il n'a pas d'images pour le terrain, en tracer un doit être facile.
+        \end{itemize}
+    \item \textbf{Garanties en cas de succ\`es:} Le terrain est proportionnel par rapport à ses dimensions réels.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entraîneur dessine les lignes du terrain ou importe une image.
+            \item L'entraîneur importe une image.
             \item Il spécifie les dimensions du terrain.
     \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item foo
+            \item \textbf{1.a Dessiner le terrain} L'entraîneur peut choisir de dessiner les lignes du terrain.
                 \begin{enumerate}
-                    \item bar
+                    \item L'entraîneur choisit de dessiner le terrain.
+                    \item Un application de dessin s'ouvre et l'entraîneur trace les lignes du terrain.
+                    \item L'entraîneur sauvegarde son tracer et continue le scénario principal à partir de l'étape 2.
                \end{enumerate}
  
         \end{itemize}
