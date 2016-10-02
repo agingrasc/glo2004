@@ -59,26 +59,22 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
     	\begin{itemize}
-    		\item Entraîneur: Veux pouvoir créer un liste de rôles rapidement.
+    		\item
     	\end{itemize}
     \item \textbf{Pr\'erequis :} Aucun.
-    \item \textbf{Garanties en cas de succ\`es :} La liste de rôles sera accessible lors de la création d'une stratégie du sport associé.
+    \item \textbf{Garanties en cas de succ\`es :}
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'application affiche les rôles qui avaient déjà été créer pour d'autres sports.
-            \item L'entraîneur choisit parmis les rôles à ajouter à la liste.
-            \item L'entraîneur sauvegarde la liste.
+            \item L'entraîneur défini une liste de rôles pour un sport.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item \textbf{2a. Le rôle n'existe pas:} Si le rôle n'existe pas, l'entraîneur peut en ajouter un nouveau.
+            \item foo
                 \begin{enumerate}
-                    \item L'entraîneur choisit de créer un nouveau rôle.
-                    \item L'entraîneur écrit le nom du rôle.
-                    \item L'entraîneur retourne à l'étape 2 pour continuer l'édition de la liste.
+                    \item baz
                 \end{enumerate}
         \end{itemize}
-	\item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation survient rarement.
+	\item \textbf{Fréquence d'utilisation :}
 \end{itemize}
 
 
@@ -204,10 +200,10 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
     	\begin{itemize}
-    		\item
+    		\item Entraîneur : Veut sauvegarder une stratégie qu'il vient d'éditer afin de pouvoir la visionner ou l'éditer à nouveau plus tard.
     	\end{itemize}
-    \item \textbf{Pr\'erequis :} Aucun.
-    \item \textbf{Garanties en cas de succ\`es :}
+    \item \textbf{Pr\'erequis :} Une stratégie doit avoir été éditée.
+    \item \textbf{Garanties en cas de succ\`es :} La stratégie est sauvegardée dans la liste des stratégies existantes et peut être chargée à nouveau.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'entra\^ineur a modifié une strat\'egie et la sauvegarde.
@@ -222,7 +218,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
                     \item L'application convertie la strat\'egie en une image et l'enregistre dans un fichier avec le bon nom.
                 \end{enumerate}
         \end{itemize}
-    \item \textbf{Fréquence d'utilisation :}
+    \item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation survient fréquemment.
 \end{itemize}
 
 
