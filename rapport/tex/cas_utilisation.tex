@@ -59,22 +59,26 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
     	\begin{itemize}
-    		\item
+    		\item Entraîneur: Veux pouvoir créer un liste de rôles rapidement.
     	\end{itemize}
     \item \textbf{Pr\'erequis :} Aucun.
-    \item \textbf{Garanties en cas de succ\`es :}
+    \item \textbf{Garanties en cas de succ\`es :} La liste de rôles sera accessible lors de la création d'une stratégie du sport associé.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-            \item L'entraîneur défini une liste de rôles pour un sport.
+            \item L'application affiche les rôles qui avaient déjà été créer pour d'autres sports.
+            \item L'entraîneur choisit parmis les rôles à ajouter à la liste.
+            \item L'entraîneur sauvegarde la liste.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item foo
+            \item \textbf{2a. Le rôle n'existe pas:} Si le rôle n'existe pas, l'entraîneur peut en ajouter un nouveau.
                 \begin{enumerate}
-                    \item baz
+                    \item L'entraîneur choisit de créer un nouveau rôle.
+                    \item L'entraîneur écrit le nom du rôle.
+                    \item L'entraîneur retourne à l'étape 2 pour continuer l'édition de la liste.
                 \end{enumerate}
         \end{itemize}
-	\item \textbf{Fréquence d'utilisation :}
+	\item \textbf{Fréquence d'utilisation :} Ce cas d'utilisation survient rarement.
 \end{itemize}
 
 
