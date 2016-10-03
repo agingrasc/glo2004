@@ -6,8 +6,8 @@
 \label{s:cas_utilisation}
 
 Ce chapitre présente les différents cas d'utilisation pour l'application VisuaLigue.
-La figure \ref{fig:cas_utilisation_diag} résume les acteurs du systèmes et les cas d'utilisations.
-La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur les plus importants.
+La figure \ref{fig:cas_utilisation_diag} résume les acteurs du système et les cas d'utilisations.
+La suite du chapitre décrit en détail les cas d'utilisations et s'attarde sur les plus importants.
 
 \begin{figure}[htpb]
     \centering
@@ -32,14 +32,16 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
         \begin{itemize}
             \item Entraîneur: Veut pouvoir cr\'eer facilement le type de sport que pratique son équipe ainsi que configurer les paramètres de ce sport.
         \end{itemize}
-    \item \textbf{Garanties en cas de succ\`es:} Le sport est ajout\'e \`a la liste des sports existants et peut \^etre utiliser lors de la cr\'eation de strat\'egies.
+    \item \textbf{Garanties en cas de succ\`es:} Le sport est ajout\'e \`a la liste des sports existants et peut \^etre utilisé lors de la cr\'eation de strat\'egies.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-        	\item L'entraîneur sélectionne l'outil d'édition de sports.
+            \item L'entraîneur sélectionne l'outil d'édition de sports.
             \item L'entra\^ineur cr\'ee un sport, le nomme.
-            \item Ensuite il défini les r\^oles des joueurs du sport. (Cas d'utilisation \ref{sec:definir_des_roles})
+            \item Ensuite, il définit les r\^oles des joueurs du sport. (Cas d'utilisation \ref{sec:definir_des_roles})
             \item Il ajoute l'image correspondant au projectile.
-            \item Finalement, il configure les paramètres du terrain. (Cas d'utilisation \ref{sec:configurer_le_terrain})
+            \item L'entraîneur configure ensuite les paramètres du terrain. (Cas d'utilisation \ref{sec:configurer_le_terrain})
+            \item L'entraîneur sauvegarde le sport.
+            \item L'application ajoute le sport à la liste des sports créés.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
@@ -67,14 +69,14 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item Entraîneur: Veux pouvoir créer un liste de rôles pour un sport rapidement.
+            \item Entraîneur: Veux pouvoir créer une liste de rôles pour un sport rapidement.
         \end{itemize}
     \item \textbf{Pr\'erequis:} Aucun.
     \item \textbf{Garanties en cas de succ\`es:} La liste de rôles sera accessible lors de la création d'une stratégie du sport associé.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'application affiche les rôles qui avaient déjà été créés pour d'autres sports.
-            \item L'entraîneur choisit un rôles à ajouter à la liste de rôles du sport.
+            \item L'entraîneur choisit un rôle à ajouter à la liste de rôles du sport.
             \item L'application ajoute le rôle à la liste de rôles du sport.
             \item L'entraîneur reprend l'étape 2 pour tous les rôles du sport.
             \item L'entraîneur sauvegarde la liste de rôles du sport.
@@ -112,27 +114,29 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Pr\'erequis:} Aucun.
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item Entraîneur: Veut créer un terrain rapidement et facilement. S'il n'a pas d'images pour le terrain, en tracer un doit être facile.
+            \item Entraîneur: Veut créer un terrain rapidement et facilement. S'il n'a pas d'image pour le terrain, en tracer un doit être facile.
         \end{itemize}
     \item \textbf{Pr\'erequis:}
-    \item \textbf{Garanties en cas de succ\`es:} Le terrain est proportionnel par rapport à ses dimensions réels.
+    \item \textbf{Garanties en cas de succ\`es:} Le terrain est proportionnel par rapport à ses dimensions réelles.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-        	\item L'entraîneur sélectionne l'option de configuration du terrain.
+            \item L'entraîneur sélectionne l'option de configuration du terrain.
             \item L'entraîneur importe une image représentant le terrain.
             \item Il spécifie les dimensions du terrain.
+            \item L'entraîneur sauvegarde le terrain.
+            \item L'application lie le terrain au sport correspondant.
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
             \item \textbf{1.a Dessiner le terrain} L'entraîneur peut choisir de dessiner les lignes du terrain.
                 \begin{enumerate}
                     \item L'entraîneur choisit de dessiner le terrain.
-                    \item Un application de dessin s'ouvre et l'entraîneur trace les lignes du terrain.
-                    \item L'entraîneur sauvegarde son tracé et continue le scénario principal à partir de l'étape 2.
+                    \item Une application de dessin s'ouvre et l'entraîneur trace les lignes du terrain.
+                    \item L'entraîneur sauvegarde son tracé et continue le scénario principal à partir de l'étape 3.
                 \end{enumerate}
 
         \end{itemize}
-    \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation sera utilisé à chaque fois que l'on éditera un nouveau terrain.
+    \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation sera utilisé chaque fois que l'on éditera un nouveau terrain.
     \item \textbf{Diagramme de s\'equences de systèmes:} Voir ~\ref{fig:ssd_sp_configuration_terrain}.
 \end{itemize}
 
@@ -160,24 +164,24 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Garanties en cas de succ\`es :} L'obstacle est ajout\'e \`a la liste des obstacles existants et peut \^etre utilis\'e lors de la cr\'eation de strat\'egies.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
-        	\item L'entraîneur sélectionne l'outil d'édition d'obstacles.
-        	\item L'entraîneur crée un nouvel obstacle.
-        	\item L'application affiche les attributs de l'obstacle.
+            \item L'entraîneur sélectionne l'outil d'édition d'obstacles.
+            \item L'entraîneur crée un nouvel obstacle.
+            \item L'application affiche les attributs de l'obstacle.
             \item L'entra\^ineur donne un nom \`a l'obstacle.
             \item L'entra\^ineur lui associe une image.
             \item L'entra\^ineur sauvegarde l'obstacle.
             \item L'application sauvegarde l'obstacle dans la liste des obstacles existants.
         \end{enumerate}
-    \item \textbf{Autres situations:} 
-    	\begin{itemize}
-    		\item \textbf{2a. L'obstacle existe déjà: } L'entraîneur peut vouloir modifier un obstacle existant.
-    		\begin{enumerate}
-    			\item L'entraîneur sélectionne l'obstacle à modifier dans la liste des obstacles existants.
-    			\item L'application affiche les attributs de l'obstacle.
-    			\item L'entraîneur modifie le nom et/ou l'image de l'obstacle.
-    			\item Le scénario principal reprend à l'étape 6.
-    		\end{enumerate}
-    	\end{itemize}
+    \item \textbf{Autres situations:}
+        \begin{itemize}
+            \item \textbf{2a. L'obstacle existe déjà: } L'entraîneur peut vouloir modifier un obstacle existant.
+                \begin{enumerate}
+                    \item L'entraîneur sélectionne l'obstacle à modifier dans la liste des obstacles existants.
+                    \item L'application affiche les attributs de l'obstacle.
+                    \item L'entraîneur modifie le nom ou l'image de l'obstacle.
+                    \item Le scénario principal reprend à l'étape 6.
+                \end{enumerate}
+        \end{itemize}
     \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation est utilis\'e de temps \`a autre.
     \item \textbf{Diagramme s\'equence de syst\`eme:} Voir \ref{fig:ssd_editer_obstacle}
 \end{itemize}
@@ -216,12 +220,12 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Autres situations:}
         \begin{itemize}
             \item \textbf{1a. La stratégie n'existe pas:} L'entraîneur peut décider de créer une nouvelle stratégie en sélectionnant nouvelle stratégie.
-                Il devra alors donner un nom à celle-ci.
-            \item \textbf{3a. Ajout d'obstacle} En plus des joueurs, l'entraîneur peut ajouter des obstacles sur le terrain.
+                Il devra alors donner un nom à celle-ci et lui assigner un sport.
+            \item \textbf{3a. Ajout d'obstacle:} En plus des joueurs, l'entraîneur peut ajouter des obstacles sur le terrain.
                 \begin{enumerate}
-                    \item L'entraineur sélectionne un obstacle parmi la liste et le positionne sur le terrain.
+                    \item L'entraîneur sélectionne un obstacle parmi la liste et le positionne sur le terrain.
                     \item L'entraîneur ajuste les dimensions de l'obstacle.
-                    \item L'entraineur répète les étapes 1 et 2 pour tous les obstacles qu'il veut ajouter.
+                    \item L'entraîneur répète les étapes 1 et 2 pour tous les obstacles qu'il veut ajouter.
                     \item L'entraîneur continue le scénario principal à partir de l'étape 4.
                 \end{enumerate}
             \item \textbf{4a. Édition en mode image par image:} L'entraîneur édite la strat\'egie image par image...
@@ -282,7 +286,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
                 \begin{enumerate}
                     \item L'entra\^ineur souhaite plut\^ot exporter la strat\'egie dans un format de fichier.
                     \item Il s\'electionne le format de fichier et le nom pour l'exportation.
-                    \item L'application convertie la strat\'egie en une image et l'enregistre dans un fichier avec le bon nom.
+                    \item L'application convertit la strat\'egie en une image et l'enregistre dans un fichier avec le bon nom.
                 \end{enumerate}
         \end{itemize}
     \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation survient fréquemment.
@@ -306,7 +310,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item Entraîneur: Veux supprimer n'importe quel élément facilement en ayant la sécurité d'esprit de ne rien supprimer d'autre.
+            \item Entraîneur: Veut supprimer n'importe quel élément facilement en ayant la sécurité d'esprit de ne rien supprimer d'autre.
         \end{itemize}
     \item \textbf{Pr\'erequis :}Aucun.
     \item \textbf{Garanties en cas de succ\`es:} L'élément sélectionné est supprimé.
@@ -320,10 +324,10 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
         \end{enumerate}
     \item \textbf{Autres situations:}
         \begin{itemize}
-            \item \textbf{4a. La suppression est annul\'ee:} Si l'entraîneur change d'avis, il peut annuler la suppression. Dans ce cas l\`a, rien ne se passe.
-            \item \textbf{Erreur: Les donn\'ees de l'\'el\'ement sont corrompus:} Si les donn\'ees de l'\'el\'ement \`a supprimer sont corrompus, un message d'erreur est affich\'e et la suppression est annul\'ee.
+            \item \textbf{4a. La suppression est annul\'ee:} Si l'entraîneur change d'avis, il peut annuler la suppression. Dans ce cas-l\`a, rien ne se passe.
+            \item \textbf{Erreur: Les donn\'ees de l'\'el\'ement sont corrompues:} Si les donn\'ees de l'\'el\'ement \`a supprimer sont corrompues, un message d'erreur est affich\'e et la suppression est annul\'ee.
             \item \textbf{Erreur: l'\'el\'ement n'existe pas:} Si l'\'el\'ement \`a supprimer n'existe pas, un message d'erreur est affich\'e et la suppression est annul\'ee.
-            \item \textbf{Erreur: l'\'el\'ement a \'et\'e modifi\'ee ailleurs:} Si l'\'el\'ement \`a supprimer a \'et\'e modifi\'ee ailleurs, un message d'erreur est affich\'e et la suppression est annul\'ee.
+            \item \textbf{Erreur: l'\'el\'ement a \'et\'e modifi\'e ailleurs:} Si l'\'el\'ement \`a supprimer a \'et\'e modifi\'e ailleurs, un message d'erreur est affich\'e et la suppression est annul\'ee.
         \end{itemize}
     \item \textbf{Fréquence d'utilisation:} Ce cas d'utilisation survient souvent.
     \item \textbf{Diagramme de s\'equence de syst\`eme:} Voir \ref{fig:ssd_supprimer_element}
@@ -332,7 +336,7 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
 \begin{figure}[htpb]
     \centering
     \includegraphics[scale=0.5]{fig/ssd_supprimer_element.png}
-    \caption{Diagramme de s\'equence de syst\`eme pour Supprimer un \'El\'ement}
+    \caption{Diagramme de s\'equence de syst\`eme pour Supprimer un él\'ement}
     \label{fig:ssd_supprimer_element}
 \end{figure}
 \newpage
@@ -347,14 +351,14 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
     \item \textbf{Acteur principal:} Entra\^ineur ou joueur
     \item \textbf{Parties prenantes et int\'er\^ets:}
         \begin{itemize}
-            \item L'entra\^ineur: Veux pouvoir visualiser une strat\'egie pour d\'eterminer si elle est ad\'equate.
+            \item L'entra\^ineur: Veut pouvoir visualiser une strat\'egie pour d\'eterminer si elle est ad\'equate.
                 Veut pouvoir interrompre la visualisation \`a tout moment pour fournir des explications suppl\'ementaires.
                 Veut pouvoir reculer d'un temps fixe la visualisation pour montrer \`a nouveau un segment de la strat\'egie.
                 Veut pouvoir red\'ebuter la visualisation pour regarder \`a nouveau la strat\'egie.
             \item Joueur: Veut pouvoir visualiser la strat\'egie pour l'\'etudier.
         \end{itemize}
     \item \textbf{Pr\'erequis:} Il faut que la strat\'egie soit enregistr\'ee dans l'application pour que l'entraîneur puisse la visualiser.
-    \item \textbf{Garanties en cas de succ\`es:} \`A la fin de la visualisation la strat\'egie n'a pas \'et\'e modifi\'ee.
+    \item \textbf{Garanties en cas de succ\`es:} \`A la fin de la visualisation, la strat\'egie n'a pas \'et\'e modifi\'ee.
     \item \textbf{Sc\'enario principal:}
         \begin{enumerate}
             \item L'utilisateur s\'electionne la strat\'egie \`a visualiser.
@@ -403,6 +407,6 @@ La suite du chapitre décrit en détails les cas d'utilisations et s'attarde sur
 \begin{figure}[htpb]
     \centering
     \includegraphics[scale=0.5]{fig/ssd_visualiser_strategie.png}
-    \caption{Diagramme de séquence de système pour Visualiser une Stratégie}
+    \caption{Diagramme de séquence de système pour Visualiser une stratégie}
     \label{fig:ssd_visualiser_strategie}
 \end{figure}
