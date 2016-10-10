@@ -1,4 +1,4 @@
-package org.gimm.glooo.controller;
+package org.gimm.glooo;
 
 import java.io.IOException;
 
@@ -21,6 +21,8 @@ public class MainApp extends Application
 		this.primaryStage.setTitle("VisuaLigue");
 
 		initRootLayout();
+		
+		showCreationGUI();
 
 	}
 
@@ -45,6 +47,24 @@ public class MainApp extends Application
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+     * Shows the CreationGUI inside the root layout.
+     */
+    public void showCreationGUI() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/org/gimm/glooo/view/CreationGUI.fxml"));
+            BorderPane creationGUI = (BorderPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(creationGUI);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 	public Stage getPrimaryStage()
 	{
