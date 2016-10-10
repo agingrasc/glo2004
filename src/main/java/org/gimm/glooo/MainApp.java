@@ -11,44 +11,44 @@ import javafx.scene.layout.BorderPane;
 public class MainApp extends Application
 {
 
-	private Stage primaryStage;
-	private BorderPane rootLayout;
+    private Stage primaryStage;
+    private BorderPane rootLayout;
 
-	@Override
-	public void start(Stage primaryStage)
-	{
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("VisuaLigue");
+    @Override
+    public void start(Stage primaryStage)
+    {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("VisuaLigue");
 
-		initRootLayout();
-		
-		showCreationGUI();
+        initRootLayout();
 
-	}
+        showCreationGUI();
 
-	/**
-	 * Initializes the root layout.
-	 */
-	public void initRootLayout()
-	{
-		try
-		{
-			// Load root layout from fxml file.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/org/gimm/glooo/view/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+    }
 
-			// Show the scene containing the root layout.
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	/**
+    /**
+     * Initializes the root layout.
+     */
+    public void initRootLayout()
+    {
+        try
+        {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/org/gimm/glooo/view/RootLayout.fxml"));
+            rootLayout = (BorderPane) loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Shows the CreationGUI inside the root layout.
      */
     public void showCreationGUI() {
@@ -66,13 +66,13 @@ public class MainApp extends Application
     }
 
 
-	public Stage getPrimaryStage()
-	{
-		return primaryStage;
-	}
+    public Stage getPrimaryStage()
+    {
+        return primaryStage;
+    }
 
-	public static void main(String[] args)
-	{
-		launch(args);
-	}
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
 }
