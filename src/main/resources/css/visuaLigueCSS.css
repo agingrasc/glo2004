@@ -1,0 +1,62 @@
+.on-mouse-over:hover 
+{ 
+    -fx-background-color: #6A7476 ;
+    -fx-cursor: hand ;
+}
+
+.dark-gray-background
+{
+	-fx-background-color: #2E3233 ;
+}
+
+.light-gray-background
+{
+	-fx-background-color: #535A5E ;
+}
+
+.label
+{
+	-fx-text-fill: white;
+}
+
+.titled-pane > .title
+{
+	-fx-background-color: #393E3F ;
+}
+
+.titled-pane
+{
+	-fx-text-fill: white;
+}
+
+.titled-pane > .title > .arrow-button .arrow 
+{
+	-fx-background-color: white;
+}
+
+.titled-pane > *.content 
+{
+	-fx-background-color: #2E3233;
+	-fx-border-color: transparent;
+}
+
+.list-view .list-cell:even 
+{
+	-fx-background-color: #2E3233;
+	-fx-text-fill: white;
+}
+.list-view .list-cell:odd 
+{
+	-fx-background-color: #2E3233;
+	-fx-text-fill: white;
+}
+
+.scroll-bar:horizontal 
+{
+	-fx-background-color: #2E3233;
+}
+
+.scroll-bar:vertical 
+{
+	-fx-background-color: #2E3233;
+}
