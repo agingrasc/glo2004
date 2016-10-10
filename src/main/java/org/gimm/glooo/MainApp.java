@@ -35,7 +35,7 @@ public class MainApp extends Application
 		{
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/org/gimm/glooo/view/RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("/fxml/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
 			// Show the scene containing the root layout.
@@ -51,11 +51,14 @@ public class MainApp extends Application
 	/**
      * Shows the CreationGUI inside the root layout.
      */
-    public void showCreationGUI() {
-        try {
+    public void showCreationGUI() 
+    {
+ 
+        try 
+        {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/org/gimm/glooo/view/CreationGUI.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/CreationGUI.fxml"));
             BorderPane creationGUI = (BorderPane) loader.load();
 
             // Set person overview into the center of root layout.
