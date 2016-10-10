@@ -35,7 +35,7 @@ public class MainApp extends Application
         {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/org/gimm/glooo/view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
