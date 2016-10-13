@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="300.0" prefWidth="600.0" styleClass="light-gray-background" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gimm.glooo.view.CreationGUIController">
+<BorderPane prefHeight="300.0" prefWidth="600.0" styleClass="light-gray-background" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationGUIController">
    <left>
       <Accordion styleClass="dark-gray-background" BorderPane.alignment="CENTER">
         <panes>
