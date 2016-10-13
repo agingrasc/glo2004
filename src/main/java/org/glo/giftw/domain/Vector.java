@@ -2,15 +2,15 @@ package org.glo.giftw.domain;
 
 import java.lang.Math;
 
+/**
+ * Representation of 2D vectors and points.
+ */
 public class Vector
 {
-    /*
-     * Representation of 2D vectors and points.
-     */
-    private float x;
-    private float y;
+    private double x;
+    private double y;
 
-    public Vector(float x, float y)
+    public Vector(double x, double y)
     {
         this.x = x;
         this.y = y;
@@ -22,55 +22,65 @@ public class Vector
     }
 
 
-    public float getX()
+    public double getX()
     {
         return x;
     }
 
-    public void setX(float x)
+    public void setX(double x)
     {
         this.x = x;
     }
 
-    public float getY()
+    public double getY()
     {
         return y;
     }
 
-    public void setY(float y)
+    public void setY(double y)
     {
         this.y = y;
     }
 
-    public void set(float x, float y)
+    /**
+     * @param x valeur en x
+     * @param y valeur en y
+     */
+    public void set(double x, double y)
     {
         this.x = x;
         this.y = y;
     }
 
 
-    public float magnitude()
+    /**
+     * Returns the length of this vector
+     */
+    public double magnitude()
     {
-        /*
-         * Returns the length of this vector
-         */
-        return (float)Math.sqrt(this.x*this.x + this.y*this.y);
-    }
-    
-    public float direction()
-    {
-    	/*
-    	 * Returns the direction of this vector in the range -pi to pi.
-    	 */
-    	return (float)Math.atan2(this.y, this.x);
+        return Math.sqrt(this.x*this.x + this.y*this.y);
     }
 
+    /**
+     * Returns the direction of this vector in the range -pi to pi.
+     * @return angle de la direction
+     */
+    public double direction()
+    {
+        return Math.atan2(this.y, this.x);
+    }
+
+    /**
+     * Returns a new unit vector parallel to the current vector
+     */
     public Vector normalized()
     {
-        /*
-         * Returns a new unit vector parallel to the current vector
-         */
-        float len = magnitude();
+        double len = magnitude();
         return new Vector(x/len, y/len);
+    }
+
+    public boolean equals(Vector rhd)
+    {
+        return this.x == rhd.x && this.y == rhd.y;
     }
 }
