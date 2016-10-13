@@ -1,4 +1,4 @@
-package org.gimm.glooo.domain;
+package org.glo.giftw.domain;
 
 public class Obstacle extends GameObject
 {

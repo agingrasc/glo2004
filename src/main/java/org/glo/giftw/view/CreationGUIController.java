@@ -1,6 +1,6 @@
-package org.gimm.glooo.view;
+package org.glo.giftw.view;
 
-import org.gimm.glooo.MainApp;
+import org.glo.giftw.MainApp;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;

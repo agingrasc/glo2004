@@ -1,8 +1,8 @@
-package org.gimm.glooo;
+package org.glo.giftw;
 
 import java.io.IOException;
 
-import org.gimm.glooo.view.CreationGUIController;
+import org.glo.giftw.view.CreationGUIController;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

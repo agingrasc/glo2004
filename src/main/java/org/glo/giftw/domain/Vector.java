@@ -1,4 +1,4 @@
-package org.gimm.glooo.domain;
+package org.glo.giftw.domain;
 
 import java.lang.Math;
 
