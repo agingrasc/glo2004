@@ -54,7 +54,15 @@ public class Vector
         /*
          * Returns the length of this vector
          */
-        return (float)Math.sqrt(x*x + y*y);
+        return (float)Math.sqrt(this.x*this.x + this.y*this.y);
+    }
+    
+    public float direction()
+    {
+    	/*
+    	 * Returns the direction of this vector in the range -pi to pi.
+    	 */
+    	return (float)Math.atan2(this.y, this.x);
     }
 
     public Vector normalized()
