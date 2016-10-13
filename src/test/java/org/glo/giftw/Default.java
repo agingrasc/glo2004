@@ -1,4 +1,4 @@
-package org.gimm.glooo;
+package org.glo.giftw;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
