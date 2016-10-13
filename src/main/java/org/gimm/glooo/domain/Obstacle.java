@@ -2,30 +2,30 @@ package org.gimm.glooo.domain;
 
 public class Obstacle extends GameObject
 {
-	//dictates if the obstacle generate collisions with other game object
-	private boolean collider;
-	
-	private static int obstacleCount = 0;
-	
-	public Obstacle()
-	{
-		super();
-		collider = true;
-		obstacleCount++;
-	}
+    //dictates if the obstacle generate collisions with other game object
+    private boolean collidable;
 
-	public boolean isCollider()
-	{
-		return collider;
-	}
+    private static int obstacleCount = 0;
 
-	public void setCollider(boolean isCollider)
-	{
-		this.collider = isCollider;
-	}
+    public Obstacle()
+    {
+        super();
+        this.collidable = true;
+        Obstacle.obstacleCount++;
+    }
 
-	public static int getObstacleCount()
-	{
-		return obstacleCount;
-	}
+    public boolean isCollidable()
+    {
+        return this.collidable;
+    }
+
+    public void setCollidable(boolean isCollidable)
+    {
+        this.collidable = isCollidable;
+    }
+
+    public static int getObstacleCount()
+    {
+        return Obstacle.obstacleCount;
+    }
 }

@@ -2,63 +2,63 @@ package org.gimm.glooo.domain;
 
 public abstract class GameObject
 {
-	private float orientation;
-	private Vector position;
-	private Vector scale;
-	
-	public GameObject()
-	{
-		orientation = 0;
-		position = new Vector(0, 0);
-		scale = new Vector(1, 1);
-	}
-	
+    private float orientation;
+    private Vector position;
+    private Vector scale;
 
-	public float getOrientation()
-	{
-		return orientation;
-	}
+    public GameObject()
+    {
+        this.orientation = 0;
+        this.position = new Vector(0, 0);
+        this.scale = new Vector(1, 1);
+    }
 
-	public void setOrientation(float orientation)
-	{
-		this.orientation = orientation;
-	}
 
-	public Vector getPosition()
-	{
-		return position;
-	}
+    public float getOrientation()
+    {
+        return this.orientation;
+    }
 
-	public void setPosition(Vector position)
-	{
-		this.position = position;
-	}
+    public void setOrientation(float orientation)
+    {
+        this.orientation = orientation;
+    }
 
-	public Vector getScale()
-	{
-		return scale;
-	}
+    public Vector getPosition()
+    {
+        return this.position;
+    }
 
-	public void setScale(Vector scale)
-	{
-		this.scale = scale;
-	}
+    public void setPosition(Vector position)
+    {
+        this.position = position;
+    }
 
-	
-	public void Rotate(float angle)
-	{
-		/*
-		 * Applies a rotation to the GameObject
-		 */
-		orientation += angle;
-	}
-	
-	public void Move(Vector delta)
-	{
-		/*
-		 * Applies a translation to the GameObject
-		 */
-		position.setX(position.getX() + delta.getX());
-		position.setY(position.getY() + delta.getY());
-	}
+    public Vector getScale()
+    {
+        return this.scale;
+    }
+
+    public void setScale(Vector scale)
+    {
+        this.scale = scale;
+    }
+
+
+    public void rotate(float angle)
+    {
+        /*
+         * Applies a rotation to the GameObject
+         */
+        this.orientation += angle;
+    }
+
+    public void move(Vector delta)
+    {
+        /*
+         * Applies a translation to the GameObject
+         */
+        this.position.setX(position.getX() + delta.getX());
+        this.position.setY(position.getY() + delta.getY());
+    }
 }
