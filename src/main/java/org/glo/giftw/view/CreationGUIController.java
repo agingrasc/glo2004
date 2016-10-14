@@ -1,15 +1,29 @@
 package org.glo.giftw.view;
 
+<<<<<<< Updated upstream:src/main/java/org/glo/giftw/view/CreationGUIController.java
 import org.glo.giftw.MainApp;
 
+=======
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+>>>>>>> Stashed changes:src/main/java/org/gimm/glooo/view/CreationGUIController.java
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class CreationGUIController
 {
+	
+	@FXML
+    private ListView<ImageView> playersListView;
 
-	// Reference to the main application.
-	private MainApp mainApp;
+    @FXML
+    private ListView<ImageView> ObstaclesListView;
+
+    @FXML
+    private ListView<ImageView> projectilesListView;
 
 	@FXML
 	void mouseClickedDelete(MouseEvent event)
@@ -53,13 +67,16 @@ public class CreationGUIController
 		System.out.println("mouseClickedZoomOut");
 	}
 
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMainApp(MainApp mainApp)
+	@FXML
+	private void initialize()
 	{
-		this.mainApp = mainApp;
+		Image image1 = new Image(getClass().getClassLoader().getResourceAsStream("images/next.png"));
+		ImageView joueur1 = new ImageView(image1);
+		joueur1.setImage(image1);
+		Image image2 = new Image(getClass().getClassLoader().getResourceAsStream("images/next.png"));
+		ImageView joueur2 = new ImageView(image2);
+		joueur1.setImage(image2);
+		ObservableList<ImageView> images = FXCollections.observableArrayList(joueur1,joueur2);
+		playersListView.setItems(images);
 	}
 }

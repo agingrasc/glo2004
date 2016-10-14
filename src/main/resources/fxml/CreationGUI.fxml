@@ -19,17 +19,17 @@
         <panes>
           <TitledPane animated="false" prefHeight="168.0" prefWidth="161.0" styleClass="text" text="Joueurs">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="playersListView" prefHeight="200.0" prefWidth="200.0" />
                </content>
           </TitledPane>
           <TitledPane animated="false" prefHeight="161.0" prefWidth="149.0" text="Obstacles">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="200.0" styleClass="dark-gray-background" />
+                  <ListView fx:id="ObstaclesListView" prefHeight="200.0" prefWidth="200.0" styleClass="dark-gray-background" />
                </content>
           </TitledPane>
           <TitledPane animated="false" text="Projectiles">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="200.0" styleClass="dark-gray-background" />
+                  <ListView fx:id="projectilesListView" prefHeight="200.0" prefWidth="200.0" styleClass="dark-gray-background" />
                </content>
           </TitledPane>
         </panes>

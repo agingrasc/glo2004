@@ -40,17 +40,6 @@
 	-fx-border-color: transparent;
 }
 
-.list-view .list-cell:even 
-{
-	-fx-background-color: #2E3233;
-	-fx-text-fill: white;
-}
-.list-view .list-cell:odd 
-{
-	-fx-background-color: #2E3233;
-	-fx-text-fill: white;
-}
-
 .scroll-bar:horizontal 
 {
 	-fx-background-color: #2E3233;
