@@ -1,12 +1,7 @@
 package org.glo.giftw.view;
 
-<<<<<<< Updated upstream:src/main/java/org/glo/giftw/view/CreationGUIController.java
-import org.glo.giftw.MainApp;
-
-=======
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
->>>>>>> Stashed changes:src/main/java/org/gimm/glooo/view/CreationGUIController.java
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;

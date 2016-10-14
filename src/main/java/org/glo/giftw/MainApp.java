@@ -2,11 +2,6 @@ package org.glo.giftw;
 
 import java.io.IOException;
 
-<<<<<<< Updated upstream:src/main/java/org/glo/giftw/MainApp.java
-import org.glo.giftw.view.CreationGUIController;
-
-=======
->>>>>>> Stashed changes:src/main/java/org/gimm/glooo/MainApp.java
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
