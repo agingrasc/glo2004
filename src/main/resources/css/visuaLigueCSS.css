@@ -1,51 +1,5 @@
-.on-mouse-over:hover 
-{ 
-    -fx-background-color: #6A7476 ;
-    -fx-cursor: hand ;
+.root {
+    -fx-base: #2E3233;
+    -fx-background: #2E3233;
 }
 
-.dark-gray-background
-{
-	-fx-background-color: #2E3233 ;
-}
-
-.light-gray-background
-{
-	-fx-background-color: #535A5E ;
-}
-
-.label
-{
-	-fx-text-fill: white;
-}
-
-.titled-pane > .title
-{
-	-fx-background-color: #393E3F ;
-}
-
-.titled-pane
-{
-	-fx-text-fill: white;
-}
-
-.titled-pane > .title > .arrow-button .arrow 
-{
-	-fx-background-color: white;
-}
-
-.titled-pane > *.content 
-{
-	-fx-background-color: #2E3233;
-	-fx-border-color: transparent;
-}
-
-.scroll-bar:horizontal 
-{
-	-fx-background-color: #2E3233;
-}
-
-.scroll-bar:vertical 
-{
-	-fx-background-color: #2E3233;
-}
