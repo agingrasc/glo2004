@@ -9,23 +9,54 @@ import org.glo.giftw.domain.Frame;
  */
 public class Strategy
 {
-    private ArrayList<Frame> frames;
     private String name;
+    private Sport sport;
+    private ArrayList<Frame> frames;
 
-    public Strategy(String name)
+    public Strategy(String name, Sport sport)
     {
-        super();
         this.name = name;
+        this.sport = sport;
         this.frames = new ArrayList<Frame>();
     }
-
-    public void addFrame(Frame frame)
+    
+    public String getName()
     {
-        this.frames.add(frame);
+        return this.name;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public Sport getSport()
+    {
+        return this.sport;
+    }
+    
+    public void setSport(Sport sport)
+    {
+        this.sport = sport;
     }
 
     public List<Frame> getFrames()
     {
         return this.frames;
+    }
+    
+    public void setFrames(ArrayList<Frame> frames)
+    {
+        this.frames = frames;
+    }
+    
+    public Frame getFrame(int frameId)
+    {
+        return this.frames.get(frameId);
+    }
+    
+    public void addFrame(int frameId, Frame frame)
+    {
+        this.frames.add(frameId, frame);
     }
 }
