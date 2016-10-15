@@ -2,17 +2,14 @@ package org.glo.giftw;
 
 import java.io.IOException;
 
-import org.glo.giftw.view.RootLayoutController;
-
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class MainApp extends Application
 {
-
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
@@ -25,9 +22,6 @@ public class MainApp extends Application
 		initRootLayout();
 	}
 
-	/**
-	 * Initializes the root layout.
-	 */
 	public void initRootLayout()
 	{
 		try
@@ -41,10 +35,7 @@ public class MainApp extends Application
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
-			// Give the controller access to the main app.
-	        RootLayoutController controller = loader.getController();
-	        controller.setMainApp(this);
+
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -54,6 +45,11 @@ public class MainApp extends Application
 	public Stage getPrimaryStage()
 	{
 		return primaryStage;
+	}
+
+	public BorderPane getRootLayout()
+	{
+		return rootLayout;
 	}
 
 	public static void main(String[] args)

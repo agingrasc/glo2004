@@ -1,17 +1,24 @@
 package org.glo.giftw.view;
 
-import org.glo.giftw.MainApp;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class RootLayoutController
 {
-
+	
 	@FXML
 	private ToggleGroup mode;
-	private MainApp mainApp;
+	
+    @FXML
+    private BorderPane borderPane;
+    
+    @FXML
+    private HBox hBox;
 
 	@FXML
 	void onActionDelete(ActionEvent event)
@@ -86,9 +93,21 @@ public class RootLayoutController
 	}
 
 	@FXML
-	void onActionOpenStrategy(ActionEvent event)
+	void onActionOpenStrategy(ActionEvent event) throws Exception
 	{
 		System.out.println("onActionOpenStrategy");
+		if(borderPane.getCenter() == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/OpenStrategy.fxml"));
+			VBox openStrategy = loader.load();
+			borderPane.setCenter(openStrategy);
+			
+			FXMLLoader loader2 = new FXMLLoader();
+			loader2.setLocation(getClass().getResource("/fxml/OpenStrategyButtons.fxml"));
+			HBox openStrategyButtons = loader2.load();
+			hBox.getChildren().add(openStrategyButtons);
+		}
 	}
 
 	@FXML
@@ -149,10 +168,5 @@ public class RootLayoutController
 	void onActionZoomOut(ActionEvent event)
 	{
 		System.out.println("onActionZoomOut");
-	}
-
-	public void setMainApp(MainApp mainApp)
-	{
-		this.mainApp = mainApp;
 	}
 }
