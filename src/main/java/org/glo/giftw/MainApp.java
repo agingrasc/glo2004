@@ -42,16 +42,6 @@ public class MainApp extends Application
 		}
 	}
 
-	public Stage getPrimaryStage()
-	{
-		return primaryStage;
-	}
-
-	public BorderPane getRootLayout()
-	{
-		return rootLayout;
-	}
-
 	public static void main(String[] args)
 	{
 		launch(args);

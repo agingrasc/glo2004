@@ -3,6 +3,8 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -75,9 +77,16 @@ public class RootLayoutController
 	}
 
 	@FXML
-	void onActionNewStrategy(ActionEvent event)
+	void onActionNewStrategy(ActionEvent event)throws Exception
 	{
 		System.out.println("onActionNewStrategy");
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/NewStrategy.fxml"));
+		DialogPane newStrategy = loader.load();
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(newStrategy);
+		dialog.showAndWait();
+
 	}
 
 	@FXML
