@@ -29,13 +29,18 @@ public class Frame
 
     public void addPlayer(Player player)
     {
-        Player nPlayer = player.clone();
+        Player nPlayer = new Player(player);
         this.players.add(nPlayer);
     }
 
     public void addObstacle(Obstacle obstacle)
     {
-        Obstacle nObstacle = obstacle.clone();
+        Obstacle nObstacle = new Obstacle(obstacle);
         this.obstacles.add(nObstacle);
+    }
+
+    public void placeProjectile(Projectile proj)
+    {
+        this.projectile = new Projectile(proj);
     }
 }
