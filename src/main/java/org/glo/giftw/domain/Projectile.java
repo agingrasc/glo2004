@@ -15,6 +15,12 @@ public class Projectile extends GameObject
         Projectile.projectileCount++;
     }
 
+    public Projectile(Vector scale)
+    {
+        this();
+        this.scale = scale;
+    }
+
     public Projectile(Projectile proj)
     {
         super(proj);

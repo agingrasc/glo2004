@@ -5,51 +5,51 @@ import java.util.ArrayList;
 
 public class Sport
 {
-	private String name;
-	private ArrayList<String> roles;
+    private String name;
+    private List<String> roles;
     private Field field;
-    
+
     public Sport()
     {
-    	this.name = "";
-    	this.roles = new ArrayList<String>();
-    	this.field = new Field();
+        this.name = "";
+        this.roles = new ArrayList<String>();
+        this.field = new Field();
     }
-    
-    public Sport(String name, ArrayList<String> roles, Field field)
+
+    public Sport(String name, List<String> roles, Field field)
     {
-    	this.name = name;
-    	this.roles = roles;
-    	this.field = field;
+        this.name = name;
+        this.roles = roles;
+        this.field = field;
     }
-    
+
     public String getName()
     {
-    	return this.name;
+        return this.name;
     }
-    
+
     public void setName(String name)
     {
-    	this.name = name;
+        this.name = name;
     }
 
-	public List<String> getRoles()
-	{
-		return roles;
-	}
+    public List<String> getRoles()
+    {
+        return roles;
+    }
 
-	public void setRoles(ArrayList<String> roles)
-	{
-		this.roles = roles;
-	}
+    public void setRoles(List<String> roles)
+    {
+        this.roles = roles;
+    }
 
-	public Field getField()
-	{
-		return field;
-	}
+    public Field getField()
+    {
+        return field;
+    }
 
-	public void setField(Field field)
-	{
-		this.field = field;
-	}
+    public void setField(Field field)
+    {
+        this.field = field;
+    }
 }

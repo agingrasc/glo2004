@@ -14,6 +14,12 @@ public class Obstacle extends GameObject
         Obstacle.obstacleCount++;
     }
 
+    public Obstacle(Vector scale)
+    {
+        this();
+        this.scale = scale;
+    }
+
     public Obstacle(Obstacle obs)
     {
         super(obs);
