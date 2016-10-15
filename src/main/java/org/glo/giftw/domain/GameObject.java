@@ -2,15 +2,22 @@ package org.glo.giftw.domain;
 
 public abstract class GameObject
 {
-    private float orientation;
-    private Vector position;
-    private Vector scale;
+	private static int objectCount = 0;
+	
+	protected float orientation;
+	protected Vector position;
+	protected Vector scale;
+    protected String name;
+    protected int id;
 
     public GameObject()
     {
         this.orientation = 0;
         this.position = new Vector(0, 0);
         this.scale = new Vector(1, 1);
+        this.name = "";
+        this.id = GameObject.objectCount;
+        GameObject.objectCount++;
     }
 
     public GameObject(GameObject gameObject)
@@ -18,6 +25,8 @@ public abstract class GameObject
         this.orientation = gameObject.orientation;
         this.position = gameObject.position;
         this.scale = gameObject.scale;
+        this.name = gameObject.name;
+        this.id = gameObject.id;
     }
 
     public float getOrientation()
@@ -48,6 +57,26 @@ public abstract class GameObject
     public void setScale(Vector scale)
     {
         this.scale = scale;
+    }
+    
+    public String getName()
+    {
+    	return this.name;
+    }
+    
+    public void setName(String name)
+    {
+    	this.name = name;
+    }
+    
+    public int getId()
+    {
+    	return this.id;
+    }
+    
+    public void setId(int id)
+    {
+    	this.id = id;
     }
 
 

@@ -2,7 +2,6 @@ package org.glo.giftw.domain;
 
 public class Player extends GameObject
 {
-    private String name;
     private int jerseyNumber;
     private String role;
     private Vector speed;
@@ -20,37 +19,28 @@ public class Player extends GameObject
     {
         super();
         this.name = name;
-        this.role = role;
         this.jerseyNumber = number;
+        this.role = role;
         this.speed = new Vector(0, 0);
         this.hasProjectile = false;
         Player.playerCount++;
+    }
+    
+    public Player(Vector scale)
+    {
+    	this("", "", playerCount);
+    	this.setScale(scale);
     }
 
     public Player(Player player)
     {
         super(player);
-        this.name = player.name;
-        this.role = player.role;
         this.jerseyNumber = player.jerseyNumber;
+        this.role = player.role;
+        this.speed = player.speed;
         this.hasProjectile = player.hasProjectile;
     }
-
-    public String getName()
-    {
-        return this.name;
-    }
-
-    public String getRole()
-    {
-        return this.role;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
+    
     public int getJerseyNumber()
     {
         return this.jerseyNumber;
@@ -59,6 +49,41 @@ public class Player extends GameObject
     public void setJerseyNumber(int jerseyNumber)
     {
         this.jerseyNumber = jerseyNumber;
+    }
+
+    public String getRole()
+    {
+        return this.role;
+    }
+
+    public void setRole(String role)
+    {
+    	this.role = role;
+    }
+
+    public Vector getSpeed()
+    {
+        return this.speed;
+    }
+
+    public void setSpeed(Vector speed)
+    {
+        this.speed = speed;
+    }
+    
+    public boolean hasProjectile()
+    {
+    	return this.hasProjectile;
+    }
+    
+    public void takeProjectile()
+    {
+    	this.hasProjectile = true;
+    }
+    
+    public void dropProjectile()
+    {
+    	this.hasProjectile = false;
     }
 
     public static int getPlayerCount()
