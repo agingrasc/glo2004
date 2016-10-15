@@ -14,6 +14,12 @@ public class Obstacle extends GameObject
         Obstacle.obstacleCount++;
     }
 
+    public Obstacle(Obstacle obs)
+    {
+        super(obs);
+        this.collidable = obs.collidable;
+    }
+
     public boolean isCollidable()
     {
         return this.collidable;

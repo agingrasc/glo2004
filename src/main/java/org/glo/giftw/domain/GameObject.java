@@ -13,6 +13,12 @@ public abstract class GameObject
         this.scale = new Vector(1, 1);
     }
 
+    public GameObject(GameObject gameObject)
+    {
+        this.orientation = gameObject.orientation;
+        this.position = gameObject.position;
+        this.scale = gameObject.scale;
+    }
 
     public float getOrientation()
     {

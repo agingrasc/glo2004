@@ -15,6 +15,13 @@ public class Projectile extends GameObject
         Projectile.projectileCount++;
     }
 
+    public Projectile(Projectile proj)
+    {
+        super(proj);
+        this.controller = proj.controller;
+        this.speed = proj.speed;
+    }
+
     public boolean isControlled()
     {
         return this.controller != null;

@@ -5,6 +5,8 @@ public class Player extends GameObject
     private String name;
     private int jerseyNumber;
     private String role;
+    private Vector speed;
+    private boolean hasProjectile;
 
     //FIXME: move logic in object containing players
     private static int playerCount = 0;
@@ -20,7 +22,18 @@ public class Player extends GameObject
         this.name = name;
         this.role = role;
         this.jerseyNumber = number;
+        this.speed = new Vector(0, 0);
+        this.hasProjectile = false;
         Player.playerCount++;
+    }
+
+    public Player(Player player)
+    {
+        super(player);
+        this.name = player.name;
+        this.role = player.role;
+        this.jerseyNumber = player.jerseyNumber;
+        this.hasProjectile = player.hasProjectile;
     }
 
     public String getName()
