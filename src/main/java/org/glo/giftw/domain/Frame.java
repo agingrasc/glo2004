@@ -1,3 +1,5 @@
+package org.glo.giftw.domain;
+
 import java.util.List;
 import java.util.ArrayList;
 import org.glo.giftw.domain.Player;
