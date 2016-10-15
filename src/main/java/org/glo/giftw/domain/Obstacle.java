@@ -1,7 +1,10 @@
 package org.glo.giftw.domain;
 
-public class Obstacle extends GameObject
+import java.io.Serializable;
+
+public class Obstacle extends GameObject implements Serializable
 {
+    public static final long serialVersionUID = 1L;
     //dictates if the obstacle generate collisions with other game object
     private boolean collidable;
 

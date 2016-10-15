@@ -2,12 +2,16 @@ package org.glo.giftw.domain;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
+
 import org.glo.giftw.domain.Player;
 import org.glo.giftw.domain.Obstacle;
 import org.glo.giftw.domain.Projectile;
 
-public class Frame
+public class Frame implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     public static final int MAX_NUMBER_PLAYERS = 6;
     private ArrayList<Player> players;
     private ArrayList<Obstacle> obstacles;

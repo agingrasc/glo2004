@@ -2,9 +2,12 @@ package org.glo.giftw.domain;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Sport
+public class Sport implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     private String name;
     private List<String> roles;
     private Field field;

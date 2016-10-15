@@ -1,12 +1,16 @@
 package org.glo.giftw.domain;
 
-public abstract class GameObject
+import java.io.Serializable;
+
+public abstract class GameObject implements Serializable
 {
-	private static int objectCount = 0;
-	
-	protected float orientation;
-	protected Vector position;
-	protected Vector scale;
+    public static final long serialVersionUID = 1L;
+
+    private static int objectCount = 0;
+
+    protected float orientation;
+    protected Vector position;
+    protected Vector scale;
     protected String name;
     protected int id;
 
@@ -58,25 +62,25 @@ public abstract class GameObject
     {
         this.scale = scale;
     }
-    
+
     public String getName()
     {
-    	return this.name;
+        return this.name;
     }
-    
+
     public void setName(String name)
     {
-    	this.name = name;
+        this.name = name;
     }
-    
+
     public int getId()
     {
-    	return this.id;
+        return this.id;
     }
-    
+
     public void setId(int id)
     {
-    	this.id = id;
+        this.id = id;
     }
 
 
