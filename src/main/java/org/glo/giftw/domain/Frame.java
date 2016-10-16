@@ -8,25 +8,35 @@ import org.glo.giftw.domain.Projectile;
 
 public class Frame
 {
-    public static final int MAX_NUMBER_PLAYERS = 6;
+	//remplacer 3 arraylist par hashmap de gameobject
     private ArrayList<Player> players;
     private ArrayList<Obstacle> obstacles;
-    private Projectile projectile;
+    private ArrayList<Projectile> projectiles;
 
     public Frame()
     {
-        this.players = new ArrayList<Player>(MAX_NUMBER_PLAYERS);
+        this.players = new ArrayList<Player>();
         this.obstacles = new ArrayList<Obstacle>();
-        this.projectile = new Projectile();
+        this.projectiles = new ArrayList<Projectile>();
+    }
+    
+    public Frame(Frame frame)
+    {
+    	//for each de chacun des gameobjects du hashmap pour deep copy
+    	this.players = frame.players;
+    	this.obstacles = frame.obstacles;
+    	this.projectiles = frame.projectiles;
     }
 
-    public Frame(List<Obstacle> obstacles)
+    //ajouter list<player>
+    public Frame(List<Obstacle> obstacles, List<Projectile> projectiles)
     {
-        this();
         for (Obstacle obs : obstacles)
         {
             addObstacle(obs);
         }
+        
+        
     }
 
     public void addPlayer(Player player)
@@ -45,4 +55,7 @@ public class Frame
     {
         this.projectile = new Projectile(proj);
     }
+    
+    //TODO: ajouter méthode de détection de collisions
+    //TODO: ajouter méthode placeGameObject(GameObject) qui va modifier la position de son GameObject ayant le même id
 }

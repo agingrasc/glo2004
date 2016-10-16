@@ -2,12 +2,13 @@ package org.glo.giftw.domain;
 
 public abstract class GameObject
 {
-	private static int objectCount = 0;
-	
-	protected float orientation;
-	protected Vector position;
-	protected Vector scale;
+    private static int objectCount = 0;
+
+    protected float orientation;
+    protected Vector position;
+    protected Vector scale;
     protected String name;
+    protected boolean collidable;
     protected int id;
 
     public GameObject()
@@ -16,6 +17,7 @@ public abstract class GameObject
         this.position = new Vector(0, 0);
         this.scale = new Vector(1, 1);
         this.name = "";
+        this.collidable = true;
         this.id = GameObject.objectCount;
         GameObject.objectCount++;
     }
@@ -26,6 +28,7 @@ public abstract class GameObject
         this.position = gameObject.position;
         this.scale = gameObject.scale;
         this.name = gameObject.name;
+        this.collidable = gameObject.collidable;
         this.id = gameObject.id;
     }
 
@@ -67,6 +70,16 @@ public abstract class GameObject
     public void setName(String name)
     {
     	this.name = name;
+    }
+    
+    public boolean isCollidable()
+    {
+        return this.collidable;
+    }
+
+    public void setCollidable(boolean isCollidable)
+    {
+        this.collidable = isCollidable;
     }
     
     public int getId()

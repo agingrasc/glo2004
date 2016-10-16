@@ -12,6 +12,7 @@ public class Projectile extends GameObject
         super();
         this.controller = null;
         this.speed = new Vector(0, 0);
+        this.collidable = false;
         Projectile.projectileCount++;
     }
 

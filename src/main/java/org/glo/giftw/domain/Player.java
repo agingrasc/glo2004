@@ -21,6 +21,7 @@ public class Player extends GameObject
         this.name = name;
         this.jerseyNumber = number;
         this.role = role;
+        this.collidable = true;
         this.speed = new Vector(0, 0);
         this.hasProjectile = false;
         Player.playerCount++;
@@ -28,8 +29,8 @@ public class Player extends GameObject
     
     public Player(Vector scale)
     {
-    	this("", "", playerCount);
-    	this.setScale(scale);
+        this("", "", playerCount);
+        this.setScale(scale);
     }
 
     public Player(Player player)
@@ -58,7 +59,7 @@ public class Player extends GameObject
 
     public void setRole(String role)
     {
-    	this.role = role;
+        this.role = role;
     }
 
     public Vector getSpeed()
@@ -73,17 +74,17 @@ public class Player extends GameObject
     
     public boolean hasProjectile()
     {
-    	return this.hasProjectile;
+        return this.hasProjectile;
     }
     
     public void takeProjectile()
     {
-    	this.hasProjectile = true;
+        this.hasProjectile = true;
     }
     
     public void dropProjectile()
     {
-    	this.hasProjectile = false;
+        this.hasProjectile = false;
     }
 
     public static int getPlayerCount()
