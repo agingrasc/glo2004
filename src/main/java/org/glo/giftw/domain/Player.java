@@ -1,7 +1,13 @@
 package org.glo.giftw.domain;
 
-public class Player extends GameObject
+import org.glo.giftw.domain.Vector;
+
+import java.io.Serializable;
+
+public class Player extends GameObject implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     private int jerseyNumber;
     private String role;
     private Vector speed;
@@ -26,7 +32,7 @@ public class Player extends GameObject
         this.hasProjectile = false;
         Player.playerCount++;
     }
-    
+
     public Player(Vector scale)
     {
         this("", "", playerCount);
@@ -45,8 +51,8 @@ public class Player extends GameObject
     public GameObject copy()
     {
         return new Player((Player)this);
-    }
-    
+    }  
+
     public int getJerseyNumber()
     {
         return this.jerseyNumber;
@@ -76,17 +82,17 @@ public class Player extends GameObject
     {
         this.speed = speed;
     }
-    
+
     public boolean hasProjectile()
     {
         return this.hasProjectile;
     }
-    
+
     public void takeProjectile()
     {
         this.hasProjectile = true;
     }
-    
+
     public void dropProjectile()
     {
         this.hasProjectile = false;

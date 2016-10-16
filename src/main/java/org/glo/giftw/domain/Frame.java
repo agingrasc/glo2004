@@ -1,19 +1,17 @@
 package org.glo.giftw.domain;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import org.glo.giftw.domain.Player;
-import org.glo.giftw.domain.Obstacle;
-import org.glo.giftw.domain.Projectile;
+import java.io.Serializable;
 
-public class Frame
+public class Frame implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+    
     private HashMap<Integer, GameObject> gameObjects;
 
     public Frame()
     {
-    	this.gameObjects = new HashMap<Integer, GameObject>();
+        this.gameObjects = new HashMap<Integer, GameObject>();
     }
     
     public Frame(Frame frame)
@@ -24,32 +22,32 @@ public class Frame
 
     public void addGameObject(GameObject gameObject)
     {
-    	this.gameObjects.put(new Integer(gameObject.getId()), gameObject.copy());
+        this.gameObjects.put(new Integer(gameObject.getId()), gameObject.copy());
     }
     
     public void removeGameObject(int id)
     {
-    	this.gameObjects.remove(new Integer(id));
+        this.gameObjects.remove(new Integer(id));
     }
     
     public void placeGameObject(int id, Vector position, float orientation, Vector scale)
     {
-    	GameObject gameObject = this.gameObjects.get(new Integer(id));
-    	gameObject.setPosition(position);
-    	gameObject.setOrientation(orientation);
-    	gameObject.setScale(scale);
+        GameObject gameObject = this.gameObjects.get(new Integer(id));
+        gameObject.setPosition(position);
+        gameObject.setOrientation(orientation);
+        gameObject.setScale(scale);
     }
     
     //TODO: ajouter méthode de détection de collisions
     /*
     public X detectCollisions(GameObject gameObject)
     {
-    	
+        
     }
     
     public X detectCollisions()
     {
-    	
+        
     }
     */
 }

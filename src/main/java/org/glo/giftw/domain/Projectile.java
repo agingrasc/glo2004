@@ -1,7 +1,11 @@
 package org.glo.giftw.domain;
 
-public class Projectile extends GameObject
+import java.io.Serializable;
+
+public class Projectile extends GameObject implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     private Player controller;
     private Vector speed;
 
