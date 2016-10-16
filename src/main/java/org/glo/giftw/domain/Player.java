@@ -42,6 +42,11 @@ public class Player extends GameObject
         this.hasProjectile = player.hasProjectile;
     }
     
+    public GameObject copy()
+    {
+        return new Player((Player)this);
+    }
+    
     public int getJerseyNumber()
     {
         return this.jerseyNumber;

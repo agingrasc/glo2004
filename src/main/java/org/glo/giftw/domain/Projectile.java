@@ -28,6 +28,11 @@ public class Projectile extends GameObject
         this.controller = proj.controller;
         this.speed = proj.speed;
     }
+    
+    public GameObject copy()
+    {
+        return new Projectile((Projectile)this);
+    }
 
     public boolean isControlled()
     {

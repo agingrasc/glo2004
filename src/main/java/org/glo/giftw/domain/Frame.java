@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import org.glo.giftw.domain.Player;
@@ -8,54 +9,47 @@ import org.glo.giftw.domain.Projectile;
 
 public class Frame
 {
-	//remplacer 3 arraylist par hashmap de gameobject
-    private ArrayList<Player> players;
-    private ArrayList<Obstacle> obstacles;
-    private ArrayList<Projectile> projectiles;
+    private HashMap<Integer, GameObject> gameObjects;
 
     public Frame()
     {
-        this.players = new ArrayList<Player>();
-        this.obstacles = new ArrayList<Obstacle>();
-        this.projectiles = new ArrayList<Projectile>();
+    	this.gameObjects = new HashMap<Integer, GameObject>();
     }
     
     public Frame(Frame frame)
     {
-    	//for each de chacun des gameobjects du hashmap pour deep copy
-    	this.players = frame.players;
-    	this.obstacles = frame.obstacles;
-    	this.projectiles = frame.projectiles;
+        this.gameObjects = new HashMap<Integer, GameObject>();
+        frame.gameObjects.forEach((id, gameObject) -> this.addGameObject(gameObject));
     }
 
-    //ajouter list<player>
-    public Frame(List<Obstacle> obstacles, List<Projectile> projectiles)
+    public void addGameObject(GameObject gameObject)
     {
-        for (Obstacle obs : obstacles)
-        {
-            addObstacle(obs);
-        }
-        
-        
+    	this.gameObjects.put(new Integer(gameObject.getId()), gameObject.copy());
     }
-
-    public void addPlayer(Player player)
+    
+    public void removeGameObject(int id)
     {
-        Player nPlayer = new Player(player);
-        this.players.add(nPlayer);
+    	this.gameObjects.remove(new Integer(id));
     }
-
-    public void addObstacle(Obstacle obstacle)
+    
+    public void placeGameObject(int id, Vector position, float orientation, Vector scale)
     {
-        Obstacle nObstacle = new Obstacle(obstacle);
-        this.obstacles.add(nObstacle);
-    }
-
-    public void placeProjectile(Projectile proj)
-    {
-        this.projectile = new Projectile(proj);
+    	GameObject gameObject = this.gameObjects.get(new Integer(id));
+    	gameObject.setPosition(position);
+    	gameObject.setOrientation(orientation);
+    	gameObject.setScale(scale);
     }
     
     //TODO: ajouter méthode de détection de collisions
-    //TODO: ajouter méthode placeGameObject(GameObject) qui va modifier la position de son GameObject ayant le même id
+    /*
+    public X detectCollisions(GameObject gameObject)
+    {
+    	
+    }
+    
+    public X detectCollisions()
+    {
+    	
+    }
+    */
 }

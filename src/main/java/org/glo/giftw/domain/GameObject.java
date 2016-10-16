@@ -31,6 +31,8 @@ public abstract class GameObject
         this.collidable = gameObject.collidable;
         this.id = gameObject.id;
     }
+    
+    public abstract GameObject copy();
 
     public float getOrientation()
     {

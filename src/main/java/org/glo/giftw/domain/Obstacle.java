@@ -21,6 +21,11 @@ public class Obstacle extends GameObject
     {
         super(obs);
     }
+    
+    public GameObject copy()
+    {
+        return new Obstacle((Obstacle)this);
+    }
 
     public static int getObstacleCount()
     {
