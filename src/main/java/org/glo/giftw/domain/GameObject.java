@@ -1,6 +1,7 @@
 package org.glo.giftw.domain;
 
 import java.io.Serializable;
+import java.lang.Math;
 
 public abstract class GameObject implements Serializable
 {
@@ -113,5 +114,24 @@ public abstract class GameObject implements Serializable
          */
         this.position.setX(position.getX() + delta.getX());
         this.position.setY(position.getY() + delta.getY());
+    }
+    
+    /**
+     * Check if the specified GameObject collides with this GameObject
+     * @param other : the other GameObject
+     * @return A boolean indicating if there is a collision
+     */
+    public boolean detectCollision(GameObject other)
+    {
+        if(this.collidable == false || other.collidable == false)
+        {
+            return false;
+        }
+        else
+        {
+            double dx = Math.abs(other.position.getX() - this.position.getX());
+            double dy = Math.abs(other.position.getY() - this.position.getY());
+            return dx < this.scale.getX() + other.scale.getX() && dy < this.scale.getY() + other.scale.getY();
+        }  
     }
 }

@@ -1,6 +1,8 @@
 package org.glo.giftw.domain;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
 import java.io.Serializable;
 
 public class Frame implements Serializable
@@ -38,16 +40,37 @@ public class Frame implements Serializable
         gameObject.setScale(scale);
     }
     
-    //TODO: ajouter méthode de détection de collisions
-    /*
-    public X detectCollisions(GameObject gameObject)
+    /**
+     * Detects collisions between a specified GameObject and all the other GameObjects of the frame.
+     * A GameObject does not generate a collision with himself.
+     * @param gameObject : The GameObject generating the collisions. 
+     * @return An ArrayList of Integers containing the id of the colliding GameObjects (can be empty).
+     */
+    public ArrayList<Integer> detectCollisions(GameObject gameObject)
     {
-        
+        ArrayList<Integer> collisions = new ArrayList<Integer>();
+        for(Map.Entry<Integer, GameObject> entry : gameObjects.entrySet())
+        {
+            if(entry.getKey() != new Integer(gameObject.id) && gameObject.detectCollision(entry.getValue()))
+            {
+                collisions.add(entry.getKey());
+            }
+        }
+        return collisions;
     }
     
-    public X detectCollisions()
+    /**
+     * Detects collisions between all the GameObjects of the frame.
+     * @return A HashMap mapping the id of every GameObjects of the frame with an ArrayList of Integers containing the
+     * id of the colliding GameObjects. Those ArrayLists may be empty.
+     */
+    public HashMap<Integer, ArrayList<Integer>> detectCollisions()
     {
-        
+        HashMap<Integer, ArrayList<Integer>> collisions = new HashMap<Integer, ArrayList<Integer>>();
+        for(Map.Entry<Integer, GameObject> entry : gameObjects.entrySet())
+        {
+            collisions.put(entry.getKey(), this.detectCollisions(entry.getValue()));
+        }
+        return collisions;
     }
-    */
 }
