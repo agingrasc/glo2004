@@ -1,16 +1,18 @@
 package org.glo.giftw;
 
+import org.glo.giftw.domain.Field;
 import org.glo.giftw.domain.PlayerPool;
+import org.glo.giftw.domain.Sport;
 import org.glo.giftw.domain.Vector;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DomainMain {
 
     public static void main(String[] args)
     {
-        PlayerPool pp = new PlayerPool();
-        Integer id = pp.addPlayer(new Vector(0, 0));
-
-        pp.setPlayerInfo(id, "Foo", 13, "Fubar");
-        System.out.println(pp.toString());
+        Sport soccer = new Sport("Soccer", new ArrayList<String>(Arrays.asList("Allier", "Defenseur", "Gardien")), new Field(new Vector(9000, 6000)));
+        System.out.println(soccer.toString());
     }
 }

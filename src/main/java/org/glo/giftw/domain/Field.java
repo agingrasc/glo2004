@@ -35,4 +35,10 @@ public class Field implements Serializable
             this.dimensions.getX() >= gameObject.getPosition().getX() &&
             this.dimensions.getY() >= gameObject.getPosition().getY();
     }
+
+    @Override
+    public String toString()
+    {
+        return "Dimension: " + this.dimensions.toString();
+    }
 }
