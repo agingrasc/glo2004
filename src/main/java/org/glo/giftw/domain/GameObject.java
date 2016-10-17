@@ -123,7 +123,7 @@ public abstract class GameObject implements Serializable
      */
     public boolean detectCollision(GameObject other)
     {
-        if(this.collidable == false || other.collidable == false)
+        if(!this.collidable || !other.collidable)
         {
             return false;
         }

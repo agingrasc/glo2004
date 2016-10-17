@@ -50,7 +50,7 @@ public class Player extends GameObject implements Serializable
     
     public GameObject copy()
     {
-        return new Player((Player)this);
+        return new Player(this);
     }  
 
     public int getJerseyNumber()

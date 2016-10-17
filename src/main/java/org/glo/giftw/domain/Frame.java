@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.stream.Collectors;
 
 public class Frame implements Serializable
 {
@@ -13,12 +14,12 @@ public class Frame implements Serializable
 
     public Frame()
     {
-        this.gameObjects = new HashMap<Integer, GameObject>();
+        this.gameObjects = new HashMap<>();
     }
     
     public Frame(Frame frame)
     {
-        this.gameObjects = new HashMap<Integer, GameObject>();
+        this.gameObjects = new HashMap<>();
         frame.gameObjects.forEach((id, gameObject) -> this.addGameObject(gameObject));
     }
 
@@ -48,14 +49,9 @@ public class Frame implements Serializable
      */
     public ArrayList<Integer> detectCollisions(GameObject gameObject)
     {
-        ArrayList<Integer> collisions = new ArrayList<Integer>();
-        for(Map.Entry<Integer, GameObject> entry : gameObjects.entrySet())
-        {
-            if(entry.getKey() != new Integer(gameObject.id) && gameObject.detectCollision(entry.getValue()))
-            {
-                collisions.add(entry.getKey());
-            }
-        }
+        ArrayList<Integer> collisions = gameObjects.entrySet().stream().filter(
+                entry -> entry.getKey() != new Integer(gameObject.id) && gameObject.detectCollision(
+                        entry.getValue())).map(Map.Entry::getKey).collect(Collectors.toCollection(ArrayList::new));
         return collisions;
     }
     
@@ -66,7 +62,7 @@ public class Frame implements Serializable
      */
     public HashMap<Integer, ArrayList<Integer>> detectCollisions()
     {
-        HashMap<Integer, ArrayList<Integer>> collisions = new HashMap<Integer, ArrayList<Integer>>();
+        HashMap<Integer, ArrayList<Integer>> collisions = new HashMap<>();
         for(Map.Entry<Integer, GameObject> entry : gameObjects.entrySet())
         {
             collisions.put(entry.getKey(), this.detectCollisions(entry.getValue()));

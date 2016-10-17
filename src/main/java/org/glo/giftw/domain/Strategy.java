@@ -21,7 +21,7 @@ public class Strategy implements Serializable
     {
         this.name = name;
         this.sport = sport;
-        this.frames = new ArrayList<Frame>();
+        this.frames = new ArrayList<>();
     }
 
     public String getName()

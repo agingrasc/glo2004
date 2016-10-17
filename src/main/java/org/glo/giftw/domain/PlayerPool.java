@@ -13,7 +13,7 @@ public class PlayerPool implements Serializable
     public PlayerPool()
     {
         //load logic
-        players = new HashMap<Integer, Player>();
+        players = new HashMap<>();
         this.loadPlayerPool(PLAYER_POOL_PATH);
         Integer objCount = this.findHighestId();
         GameObject.setObjectCount(objCount);
@@ -74,9 +74,11 @@ public class PlayerPool implements Serializable
     private void savePlayerPool(String poolPath)
     {
         File f = new File(poolPath);
+        //noinspection ResultOfMethodCallIgnored
         f.getParentFile().mkdirs();
         try
         {
+            //noinspection ResultOfMethodCallIgnored
             f.createNewFile();
         }
         catch (IOException e)
