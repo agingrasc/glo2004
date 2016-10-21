@@ -20,8 +20,25 @@ public class PlayerPool implements Serializable
         GameObject.setObjectCount(objCount);
     }
 
+    public PlayerPool(boolean persistent)
+    {
+        //FIXME: considéré réellement le bool
+        players = new HashMap<>();
+        Integer objCount = 0;
+        GameObject.setObjectCount(objCount);
+    }
+
     public Integer addPlayer(Vector scale)
     {
+        Player player = new Player(scale);
+        this.players.put(player.getId(), player);
+        this.savePlayerPool(PLAYER_POOL_PATH);
+        return player.getId();
+    }
+
+    public Integer addPlayer(Vector scale, boolean persistent)
+    {
+        //FIXME: eliminate code duplication
         Player player = new Player(scale);
         this.players.put(player.getId(), player);
         this.savePlayerPool(PLAYER_POOL_PATH);
