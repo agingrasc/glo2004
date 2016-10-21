@@ -123,16 +123,16 @@ public abstract class GameObject implements Serializable
      */
     public boolean detectCollision(GameObject other)
     {
-        if(!this.collidable || !other.collidable)
-        {
-            return false;
-        }
-        else
+        if(this.collidable && other.collidable)
         {
             double dx = Math.abs(other.position.getX() - this.position.getX());
             double dy = Math.abs(other.position.getY() - this.position.getY());
             return dx < this.scale.getX() + other.scale.getX() && dy < this.scale.getY() + other.scale.getY();
-        }  
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public static void setObjectCount(Integer count)
