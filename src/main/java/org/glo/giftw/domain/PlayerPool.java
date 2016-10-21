@@ -1,6 +1,7 @@
 package org.glo.giftw.domain;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class PlayerPool implements Serializable
@@ -39,6 +40,11 @@ public class PlayerPool implements Serializable
     public Player getPlayer(Integer id)
     {
         return this.players.get(id);
+    }
+
+    public Collection<Player> getAllPlayer()
+    {
+        return this.players.values();
     }
 
     @Override

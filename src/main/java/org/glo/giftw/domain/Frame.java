@@ -25,20 +25,23 @@ public class Frame implements Serializable
 
     public void addGameObject(GameObject gameObject)
     {
-        this.gameObjects.put(new Integer(gameObject.getId()), gameObject.copy());
+        this.gameObjects.put(gameObject.getId(), gameObject.copy());
     }
     
     public void removeGameObject(int id)
     {
-        this.gameObjects.remove(new Integer(id));
+        this.gameObjects.remove(id);
     }
     
     public void placeGameObject(int id, Vector position, float orientation, Vector scale)
     {
-        GameObject gameObject = this.gameObjects.get(new Integer(id));
+        //on copie l'objet pour pouvoir modifier sa position
+        GameObject gameObject = this.gameObjects.get(id).copy();
         gameObject.setPosition(position);
         gameObject.setOrientation(orientation);
         gameObject.setScale(scale);
+        //on remplace l'ancienne copie par la nouvelle
+        this.gameObjects.put(id, gameObject);
     }
     
     /**
@@ -49,10 +52,9 @@ public class Frame implements Serializable
      */
     public ArrayList<Integer> detectCollisions(GameObject gameObject)
     {
-        ArrayList<Integer> collisions = gameObjects.entrySet().stream().filter(
-                entry -> entry.getKey() != new Integer(gameObject.id) && gameObject.detectCollision(
+        return gameObjects.entrySet().stream().filter(
+                entry -> entry.getKey() != gameObject.id && gameObject.detectCollision(
                         entry.getValue())).map(Map.Entry::getKey).collect(Collectors.toCollection(ArrayList::new));
-        return collisions;
     }
     
     /**
@@ -68,5 +70,18 @@ public class Frame implements Serializable
             collisions.put(entry.getKey(), this.detectCollisions(entry.getValue()));
         }
         return collisions;
+    }
+
+    @Override
+    public String toString()
+    {
+        String repr = "Frame: \n";
+
+        for (GameObject go : this.gameObjects.values())
+        {
+            repr += go.toString() + "\n";
+        }
+
+        return repr;
     }
 }
