@@ -31,9 +31,9 @@ public class Field implements Serializable
     public boolean validatePosition(GameObject gameObject)
     {
         return gameObject.getPosition().getX() >= 0 &&
-            gameObject.getPosition().getY() >= 0 &&
-            this.dimensions.getX() >= gameObject.getPosition().getX() &&
-            this.dimensions.getY() >= gameObject.getPosition().getY();
+                gameObject.getPosition().getY() >= 0 &&
+                this.dimensions.getX() - 1 >= gameObject.getPosition().getX() &&
+                this.dimensions.getY() - 1 >= gameObject.getPosition().getY();
     }
 
     @Override
