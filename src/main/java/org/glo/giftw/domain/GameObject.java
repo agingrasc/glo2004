@@ -6,14 +6,14 @@ import java.lang.Math;
 public abstract class GameObject implements Serializable
 {
     public static final long serialVersionUID = 1L;
-    private static int objectCount = 0;
+    private static Integer objectCount = 0;
 
     protected float orientation;
     protected Vector position;
     protected Vector scale;
     protected String name;
     protected boolean collidable;
-    protected int id;
+    protected Integer id;
 
     public GameObject()
     {
@@ -22,8 +22,8 @@ public abstract class GameObject implements Serializable
         this.scale = new Vector(1, 1);
         this.name = "";
         this.collidable = true;
-        this.id = GameObject.objectCount;
         GameObject.objectCount++;
+        this.id = GameObject.objectCount;
     }
 
     public GameObject(GameObject gameObject)
@@ -123,15 +123,23 @@ public abstract class GameObject implements Serializable
      */
     public boolean detectCollision(GameObject other)
     {
-        if(this.collidable == false || other.collidable == false)
-        {
-            return false;
-        }
-        else
+        if(this.collidable && other.collidable)
         {
             double dx = Math.abs(other.position.getX() - this.position.getX());
             double dy = Math.abs(other.position.getY() - this.position.getY());
             return dx < (this.scale.getX() + other.scale.getX())/2 && dy < (this.scale.getY() + other.scale.getY())/2;
         }  
+        else
+        {
+            return false;
+        }
+    }
+
+    public static void setObjectCount(Integer count)
+    {
+        if (GameObject.objectCount < count)
+        {
+            GameObject.objectCount = count;
+        }
     }
 }

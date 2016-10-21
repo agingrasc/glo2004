@@ -86,4 +86,10 @@ public class Vector implements Serializable
     {
         return this.x == rhd.x && this.y == rhd.y;
     }
+
+    @Override
+    public String toString()
+    {
+        return "(x: " + this.x + ", y: " + this.y + ")";
+    }
 }

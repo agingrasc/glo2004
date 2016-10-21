@@ -35,7 +35,7 @@ public class Projectile extends GameObject implements Serializable
     
     public GameObject copy()
     {
-        return new Projectile((Projectile)this);
+        return new Projectile(this);
     }
 
     public boolean isControlled()

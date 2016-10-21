@@ -27,7 +27,7 @@ public class Obstacle extends GameObject implements Serializable
     
     public GameObject copy()
     {
-        return new Obstacle((Obstacle)this);
+        return new Obstacle(this);
     }
 
     public static int getObstacleCount()

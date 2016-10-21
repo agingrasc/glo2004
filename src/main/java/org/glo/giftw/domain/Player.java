@@ -1,12 +1,10 @@
 package org.glo.giftw.domain;
 
-import org.glo.giftw.domain.Vector;
-
 import java.io.Serializable;
 
 public class Player extends GameObject implements Serializable
 {
-    public static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 2L;
 
     private int jerseyNumber;
     private String role;
@@ -47,11 +45,11 @@ public class Player extends GameObject implements Serializable
         this.speed = player.speed;
         this.hasProjectile = player.hasProjectile;
     }
-    
+
     public GameObject copy()
     {
-        return new Player((Player)this);
-    }  
+        return new Player(this);
+    }
 
     public int getJerseyNumber()
     {
@@ -101,5 +99,18 @@ public class Player extends GameObject implements Serializable
     public static int getPlayerCount()
     {
         return Player.playerCount;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Jouer(Nom: " +
+                this.name +
+                ", Numero: " +
+                this.jerseyNumber +
+                ", Role: " +
+                this.role + "ID: " +
+                this.id.toString() + ", Position: " +
+                this.position.toString() + ")";
     }
 }
