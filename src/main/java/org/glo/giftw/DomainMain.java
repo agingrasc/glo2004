@@ -26,8 +26,8 @@ public class DomainMain
             tmpPlayer.setJerseyNumber(i);
         }
 
-        Team us = new Team(pp.getAllPlayer(), "Awesome", "Gold");
-        ultimateStrategy.addTeam(us);
+        ultimateStrategy.addTeam("Blue");
+        pp.getAllPlayer().forEach(player -> ultimateStrategy.addTeamPlayer("Blue", player));
 
         for (int i = 0; i < 30; i++)
         {
@@ -35,14 +35,14 @@ public class DomainMain
             if (i == 0)
             {
                 f = new Frame();
-                us.getPlayers().forEach(f::addGameObject);
+                ultimateStrategy.getTeam("Blue").forEach(f::addGameObject);
             }
             else
             {
                 f = new Frame(ultimateStrategy.getFrame(i - 1));
             }
 
-            for (Player p : us.getPlayers())
+            for (Player p : ultimateStrategy.getTeam("Blue"))
             {
                 double x, y, theta;
                 x = new Random().nextDouble() * 9000 - 1;
@@ -56,5 +56,8 @@ public class DomainMain
         }
 
         System.out.println(ultimateStrategy.toString());
+        ultimateStrategy.save(Strategy.STRATEGY_PATH);
+        Strategy copyCat = Strategy.load(Strategy.STRATEGY_PATH, "Ultimate Strategy");
+        System.out.printf(copyCat.toString());
     }
 }

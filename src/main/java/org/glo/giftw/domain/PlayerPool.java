@@ -41,7 +41,6 @@ public class PlayerPool implements Serializable
         //FIXME: eliminate code duplication
         Player player = new Player(scale);
         this.players.put(player.getId(), player);
-        this.savePlayerPool(PLAYER_POOL_PATH);
         return player.getId();
     }
 

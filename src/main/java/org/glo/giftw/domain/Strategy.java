@@ -11,13 +11,14 @@ import java.util.List;
 public class Strategy implements Serializable
 {
     public static final long serialVersionUID = 1L;
+    public static final String STRATEGY_PATH = "data/strategies";
 
     private String name;
     private Sport sport;
     /**
      * Associe chaque équipe impliquée dans une stratégie avec son nom
      */
-    private HashMap<String, Team> team;
+    private HashMap<String, ArrayList<Player>> team;
     private ArrayList<Frame> frames;
 
     public Strategy(String name, Sport sport)
@@ -68,14 +69,19 @@ public class Strategy implements Serializable
         this.frames.add(frameId, frame);
     }
 
-    public void addTeam(Team team)
+    public void addTeam(String teamName)
     {
-        this.team.put(team.getName(), team);
+        this.team.put(teamName, new ArrayList<>());
     }
 
-    public Team getTeam(String teamName)
+    public List<Player> getTeam(String teamName)
     {
         return this.team.get(teamName);
+    }
+
+    public void addTeamPlayer(String teamName, Player player)
+    {
+        this.team.get(teamName).add(player);
     }
 
     @Override
@@ -118,28 +124,28 @@ public class Strategy implements Serializable
         }
     }
 
-    public void load(String stratPath)
+    public static Strategy load(String stratPath, String stratFilename)
     {
-        String stratFilename = String.format("%s/%s.ser", stratPath, this.name);
-        try (FileInputStream fileIn = new FileInputStream(stratFilename);
+        String stratFilenamePath = String.format("%s/%s.ser", stratPath, stratFilename);
+        Strategy loadedStrat = null;
+        try (FileInputStream fileIn = new FileInputStream(stratFilenamePath);
              ObjectInputStream objIn = new ObjectInputStream(fileIn))
         {
-            Strategy loadedStrat = (Strategy) objIn.readObject();
-            copy(loadedStrat);
+            loadedStrat = (Strategy) objIn.readObject();
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("Le fichier de sauvegarde n'a pas pu être chargé (not found): " + stratFilename);
+            System.out.println("Le fichier de sauvegarde n'a pas pu être chargé (not found): " + stratFilenamePath);
         }
         catch (ClassNotFoundException e)
         {
-            System.out.println(String.format("La classe de la Stratégie %s n'a pas été trouvée.", this.name));
+            System.out.println(String.format("La classe de la Stratégie %s n'a pas été trouvée.", stratFilename));
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-
+        return loadedStrat;
     }
 
     private void copy(Strategy strat)
@@ -147,6 +153,5 @@ public class Strategy implements Serializable
         this.name = strat.name;
         this.sport = strat.sport;
         this.frames = strat.frames;
-
     }
 }
