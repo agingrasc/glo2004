@@ -131,7 +131,7 @@ public abstract class GameObject implements Serializable
         {
             double dx = Math.abs(other.position.getX() - this.position.getX());
             double dy = Math.abs(other.position.getY() - this.position.getY());
-            return dx < this.scale.getX() + other.scale.getX() && dy < this.scale.getY() + other.scale.getY();
+            return dx < (this.scale.getX() + other.scale.getX())/2 && dy < (this.scale.getY() + other.scale.getY())/2;
         }  
     }
 }
