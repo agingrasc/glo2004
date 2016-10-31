@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<DialogPane headerText="Veuillez configurer la stratégie:" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane expanded="true" headerText="Veuillez configurer la stratégie:" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.NewStrategyController">
    <buttonTypes>
       <ButtonType fx:constant="CANCEL" />
       <ButtonType fx:constant="FINISH" />
@@ -26,7 +25,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nom" />
+            <Label text="Nom:" />
             <Label text="Sport:" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="1" />
             <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />

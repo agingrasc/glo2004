@@ -83,7 +83,7 @@ public class RootLayoutController
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/NewStrategy.fxml"));
 		DialogPane newStrategy = loader.load();
-		Dialog dialog = new Dialog();
+		Dialog<Object> dialog = new Dialog<Object>();
 		dialog.setDialogPane(newStrategy);
 		dialog.showAndWait();
 

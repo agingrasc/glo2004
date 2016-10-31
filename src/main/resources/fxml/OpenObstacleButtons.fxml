@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.OpenSportButtonsController">
+<HBox stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.OpenObstacleButtonsController">
    <children>
       <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionModify" text="Modifier">
          <graphic>
