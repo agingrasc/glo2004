@@ -3,7 +3,7 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class CreationButtonsController
+public class CreationToolBarController
 {
 
 	@FXML

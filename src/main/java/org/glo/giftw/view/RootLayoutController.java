@@ -5,16 +5,16 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class RootLayoutController
 {
-	private boolean isSubButtons = false;
+	private int nbToolsAdded;
+	
+	private ViewController viewController;
 	
 	@FXML
 	private ToggleGroup mode;
@@ -23,7 +23,51 @@ public class RootLayoutController
     private BorderPane borderPane;
     
     @FXML
-    private HBox buttons;
+    private ToolBar rootToolBar;
+
+	@FXML
+    private void initialize() throws IOException
+	{	
+    	FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/BaseToolBar.fxml"));
+		ToolBar baseToolBar = loader.load();
+		BaseToolBarController baseToolBarController = loader.getController();
+		baseToolBarController.setParentController(this);
+    	
+    	FXMLLoader loader2 = new FXMLLoader();
+		loader2.setLocation(getClass().getResource("/fxml/OpenStrategy.fxml"));
+		VBox openStrategy = loader2.load();
+		
+		FXMLLoader loader3 = new FXMLLoader();
+		loader3.setLocation(getClass().getResource("/fxml/OpenStrategyToolBar.fxml"));
+		ToolBar openStrategyToolBar = loader3.load();
+		
+		borderPane.setCenter(openStrategy);
+		rootToolBar.getItems().addAll(baseToolBar.getItems());
+		rootToolBar.getItems().addAll(openStrategyToolBar.getItems());
+		
+		nbToolsAdded = openStrategyToolBar.getItems().size();
+	}
+	
+	public int getNbToolsAdded()
+	{
+		return nbToolsAdded;
+	}
+
+	public void setNbToolsAdded(int nbToolsAdded)
+	{
+		this.nbToolsAdded = nbToolsAdded;
+	}
+
+	public BorderPane getBorderPane()
+	{
+		return borderPane;
+	}
+
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
+	}
 
 	@FXML
 	void onActionDelete(ActionEvent event)
@@ -68,114 +112,39 @@ public class RootLayoutController
 	}
 
 	@FXML
-	void onActionNewObstacle(ActionEvent event) throws IOException
+	void onActionNewObstacle(ActionEvent event)
 	{
 		System.out.println("onActionNewObstacle");
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/NewObstacle.fxml"));
-		DialogPane newObstacle = loader.load();
-		Dialog<Object> dialog = new Dialog<Object>();
-		dialog.setDialogPane(newObstacle);
-		dialog.showAndWait();
 	}
 
 	@FXML
-	void onActionNewSport(ActionEvent event) throws IOException
+	void onActionNewSport(ActionEvent event)
 	{
 		System.out.println("onActionNewSport");
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/NewSport.fxml"));
-		DialogPane newSport = loader.load();
-		Dialog<Object> dialog = new Dialog<Object>();
-		dialog.setDialogPane(newSport);
-		dialog.showAndWait();
 	}
 
 	@FXML
-	void onActionNewStrategy(ActionEvent event)throws Exception
+	void onActionNewStrategy(ActionEvent event)
 	{
 		System.out.println("onActionNewStrategy");
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/NewStrategy.fxml"));
-		DialogPane newStrategy = loader.load();
-		Dialog<Object> dialog = new Dialog<Object>();
-		dialog.setDialogPane(newStrategy);
-		dialog.showAndWait();
 	}
 
 	@FXML
-	void onActionOpenObstacle(ActionEvent event) throws IOException
+	void onActionOpenObstacle(ActionEvent event)
 	{
 		System.out.println("onActionOpenObstacle");
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/OpenObstacle.fxml"));
-		VBox openObstacle = loader.load();
-		borderPane.setCenter(openObstacle);
-		
-		if(isSubButtons)
-		{
-			buttons.getChildren().remove((buttons.getChildren().size())-1);
-			isSubButtons = false;
-		}
-		
-		FXMLLoader loader2 = new FXMLLoader();
-		loader2.setLocation(getClass().getResource("/fxml/OpenObstacleButtons.fxml"));
-		HBox openObstacleButtons = loader2.load();
-		buttons.getChildren().add(openObstacleButtons);
-		
-		isSubButtons = true;
 	}
 
 	@FXML
-	void onActionOpenSport(ActionEvent event) throws IOException
+	void onActionOpenSport(ActionEvent event)
 	{
 		System.out.println("onActionOpenSport");
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/OpenSport.fxml"));
-		VBox openSport = loader.load();
-		borderPane.setCenter(openSport);
-		
-		if(isSubButtons)
-		{
-			buttons.getChildren().remove((buttons.getChildren().size())-1);
-			isSubButtons = false;
-		}
-		
-		FXMLLoader loader2 = new FXMLLoader();
-		loader2.setLocation(getClass().getResource("/fxml/OpenSportButtons.fxml"));
-		HBox openSportButtons = loader2.load();
-		buttons.getChildren().add(openSportButtons);
-		
-		isSubButtons = true;
 	}
 
 	@FXML
-	void onActionOpenStrategy(ActionEvent event) throws Exception
+	void onActionOpenStrategy(ActionEvent event)
 	{
 		System.out.println("onActionOpenStrategy");
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/OpenStrategy.fxml"));
-		VBox openStrategy = loader.load();
-		borderPane.setCenter(openStrategy);
-		
-		if(isSubButtons)
-		{
-			buttons.getChildren().remove((buttons.getChildren().size())-1);
-			isSubButtons = false;
-		}
-		
-		FXMLLoader loader2 = new FXMLLoader();
-		loader2.setLocation(getClass().getResource("/fxml/OpenStrategyButtons.fxml"));
-		HBox openStrategyButtons = loader2.load();
-		buttons.getChildren().add(openStrategyButtons);
-		
-		isSubButtons = true;
 	}
 
 	@FXML
@@ -221,9 +190,9 @@ public class RootLayoutController
 	}
 
 	@FXML
-	void onActionVisualize(ActionEvent event)
+	void onActionWatch(ActionEvent event)
 	{
-		System.out.println("onActionVisualize");
+		System.out.println("onActionWatch");
 	}
 
 	@FXML
@@ -236,5 +205,15 @@ public class RootLayoutController
 	void onActionZoomOut(ActionEvent event)
 	{
 		System.out.println("onActionZoomOut");
+	}
+
+	public ViewController getViewController()
+	{
+		return viewController;
+	}
+
+	public void setViewController(ViewController viewController)
+	{
+		this.viewController = viewController;
 	}
 }

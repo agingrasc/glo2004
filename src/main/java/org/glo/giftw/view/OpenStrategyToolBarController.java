@@ -3,8 +3,8 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class OpenStrategyButtonsController
-{
+public class OpenStrategyToolBarController
+{	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -24,8 +24,8 @@ public class OpenStrategyButtonsController
 	}
 
 	@FXML
-	void onActionVisualize(ActionEvent event)
+	void onActionWatch(ActionEvent event)
 	{
-		System.out.println("onActionVisualize");
+		System.out.println("onActionWatch");
 	}
 }

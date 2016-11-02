@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 public class MainApp extends Application
 {
 	private Stage primaryStage;
-	private BorderPane rootLayout;
 
 	@Override
 	public void start(Stage primaryStage)
@@ -28,8 +27,8 @@ public class MainApp extends Application
 		{
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/fxml/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+			loader.setLocation(getClass().getResource("/fxml/RootLayout.fxml"));
+			BorderPane rootLayout = loader.load();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
