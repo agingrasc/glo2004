@@ -21,30 +21,19 @@ public class TestField
     @Test
     public void testValidatePosition()
     {
-        Player p1 = new Player();
-        p1.setPosition(new Vector(0, 0));
-        Player p2 = new Player();
-        p2.setPosition(new Vector(0, 6000-1));
-        Player p3 = new Player();
-        p3.setPosition(new Vector(9000-1, 6000-1));
-        Player p4 = new Player();
-        p4.setPosition(new Vector(9000-1, 0));
-        Player p5 = new Player();
-        p5.setPosition(new Vector(42, 113));
+        Vector p1 = new Vector(0, 0);
+        Vector p2 = new Vector(0, 6000-1);
+        Vector p3 = new Vector(9000-1, 6000-1);
+        Vector p4 = new Vector(9000-1, 0);
+        Vector p5 = new Vector(42, 113);
 
-        Player badP1 = new Player();
-        badP1.setPosition(new Vector(-1, 500));
-        Player badP2 = new Player();
-        badP2.setPosition(new Vector(500, -1));
-        Player badP3 = new Player();
-        badP3.setPosition(new Vector(-1, -1));
+        Vector badP1 = new Vector(-1, 500);
+        Vector badP2 = new Vector(500, -1);
+        Vector badP3 = new Vector(-1, -1);
 
-        Player badP4 = new Player();
-        badP4.setPosition(new Vector(9000, 500));
-        Player badP5 = new Player();
-        badP5.setPosition(new Vector(500, 6000));
-        Player badP6 = new Player();
-        badP6.setPosition(new Vector(9000, 6000));
+        Vector badP4 = new Vector(9000, 500);
+        Vector badP5 = new Vector(500, 6000);
+        Vector badP6 = new Vector(9000, 6000);
 
         assertTrue(field.validatePosition(p1));
         assertTrue(field.validatePosition(p2));

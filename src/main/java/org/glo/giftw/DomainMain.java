@@ -10,7 +10,7 @@ public class DomainMain
 
     public static void main(String[] args)
     {
-        System.out.println("Création d'une stratégie.");
+        System.out.println("Creation d'une strategie.");
         Strategy ultimateStrategy = new Strategy("Ultimate Strategy",
                                                  new Sport("Hockey", Arrays.asList("Allier", "Centre", "Goaler"),
                                                            new Field(new Vector(9000, 6000))));

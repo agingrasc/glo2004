@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Contient les frames et les appels nécessaires pour les joueurs
+ * Contient les frames et les appels necessaires pour les joueurs
  */
 public class Strategy implements Serializable
 {
@@ -16,7 +16,7 @@ public class Strategy implements Serializable
     private String name;
     private Sport sport;
     /**
-     * Associe chaque équipe impliquée dans une stratégie avec son nom
+     * Associe chaque equipe impliquee dans une strategie avec son nom
      */
     private HashMap<String, ArrayList<Player>> team;
     private ArrayList<Frame> frames;
@@ -140,11 +140,11 @@ public class Strategy implements Serializable
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("Le fichier de sauvegarde n'a pas pu être chargé (not found): " + stratFilenamePath);
+            System.out.println("Le fichier de sauvegarde n'a pas pu etre charge (not found): " + stratFilenamePath);
         }
         catch (ClassNotFoundException e)
         {
-            System.out.println(String.format("La classe de la Stratégie %s n'a pas été trouvée.", stratFilename));
+            System.out.println(String.format("La classe de la Strategie %s n'a pas ete trouvee.", stratFilename));
         }
         catch (IOException e)
         {
