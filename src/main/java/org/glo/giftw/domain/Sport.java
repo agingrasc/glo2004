@@ -57,6 +57,11 @@ public class Sport implements Serializable
     {
         this.field = field;
     }
+    
+    public boolean validatePosition(Vector position)
+    {
+        return this.field.validatePosition(position);
+    }
 
     @Override
     public String toString()

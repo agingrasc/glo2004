@@ -28,12 +28,11 @@ public class Field implements Serializable
         this.dimensions = dimensions;
     }
 
-    public boolean validatePosition(GameObject gameObject)
+    public boolean validatePosition(Vector position)
     {
-        return gameObject.getPosition().getX() >= 0 &&
-                gameObject.getPosition().getY() >= 0 &&
-                this.dimensions.getX() - 1 >= gameObject.getPosition().getX() &&
-                this.dimensions.getY() - 1 >= gameObject.getPosition().getY();
+        return position.getX() >= 0 && position.getY() >= 0 &&
+                this.dimensions.getX() - 1 >= position.getX() &&
+                this.dimensions.getY() - 1 >= position.getY();
     }
 
     @Override

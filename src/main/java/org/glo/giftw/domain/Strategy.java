@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Contient les frames et les appels nÃ©cessaires pour les jouers
+ * Contient les frames et les appels nécessaires pour les joueurs
  */
 public class Strategy implements Serializable
 {
@@ -16,7 +16,7 @@ public class Strategy implements Serializable
     private String name;
     private Sport sport;
     /**
-     * Associe chaque Ã©quipe impliquÃ©e dans une stratÃ©gie avec son nom
+     * Associe chaque équipe impliquée dans une stratégie avec son nom
      */
     private HashMap<String, ArrayList<Player>> team;
     private ArrayList<Frame> frames;
@@ -83,6 +83,11 @@ public class Strategy implements Serializable
     {
         this.team.get(teamName).add(player);
     }
+    
+    public boolean validatePosition(Vector position)
+    {
+        return this.sport.validatePosition(position);
+    }
 
     @Override
     public String toString()
@@ -135,11 +140,11 @@ public class Strategy implements Serializable
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("Le fichier de sauvegarde n'a pas pu Ãªtre chargÃ© (not found): " + stratFilenamePath);
+            System.out.println("Le fichier de sauvegarde n'a pas pu être chargé (not found): " + stratFilenamePath);
         }
         catch (ClassNotFoundException e)
         {
-            System.out.println(String.format("La classe de la StratÃ©gie %s n'a pas Ã©tÃ© trouvÃ©e.", stratFilename));
+            System.out.println(String.format("La classe de la Stratégie %s n'a pas été trouvée.", stratFilename));
         }
         catch (IOException e)
         {
