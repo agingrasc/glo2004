@@ -22,7 +22,7 @@ public class PlayerPool implements Serializable
 
     public PlayerPool(boolean persistent)
     {
-        //FIXME: considÃ©rÃ© rÃ©ellement le bool
+        //FIXME: considéré réellement le bool
         players = new HashMap<>();
         Integer objCount = 0;
         GameObject.setObjectCount(objCount);
