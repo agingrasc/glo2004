@@ -83,6 +83,11 @@ public class Strategy implements Serializable
     {
         this.team.get(teamName).add(player);
     }
+    
+    public boolean validatePosition(Vector position)
+    {
+        return this.sport.validatePosition(position);
+    }
 
     @Override
     public String toString()
