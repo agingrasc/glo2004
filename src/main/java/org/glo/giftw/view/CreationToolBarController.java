@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 
 public class CreationToolBarController
 {
-
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{

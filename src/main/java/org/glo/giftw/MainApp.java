@@ -17,6 +17,7 @@ public class MainApp extends Application
 	{
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("VisuaLigue");
+		this.primaryStage.setMaximized(true);
 
 		initRootLayout();
 	}

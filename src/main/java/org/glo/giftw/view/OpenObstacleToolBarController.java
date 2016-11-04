@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 
 public class OpenObstacleToolBarController
 {
-
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -13,9 +12,8 @@ public class OpenObstacleToolBarController
 	}
 
 	@FXML
-	void onActionModify(ActionEvent event)
+	void onActionConfigure(ActionEvent event)
 	{
-		System.out.println("onActionModify");
+		System.out.println("onActionConfigure");
 	}
-
 }

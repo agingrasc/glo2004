@@ -1,21 +1,21 @@
 package org.glo.giftw.view;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 
-public class RootLayoutController
-{
-	private int nbToolsAdded;
-	
-	private ViewController viewController;
-	
+public class RootLayoutController implements Observer
+{	
 	@FXML
 	private ToggleGroup mode;
 	
@@ -28,45 +28,179 @@ public class RootLayoutController
 	@FXML
     private void initialize() throws IOException
 	{	
-    	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/BaseToolBar.fxml"));
-		ToolBar baseToolBar = loader.load();
-		BaseToolBarController baseToolBarController = loader.getController();
-		baseToolBarController.setParentController(this);
-    	
-    	FXMLLoader loader2 = new FXMLLoader();
-		loader2.setLocation(getClass().getResource("/fxml/OpenStrategy.fxml"));
-		VBox openStrategy = loader2.load();
-		
-		FXMLLoader loader3 = new FXMLLoader();
-		loader3.setLocation(getClass().getResource("/fxml/OpenStrategyToolBar.fxml"));
-		ToolBar openStrategyToolBar = loader3.load();
-		
-		borderPane.setCenter(openStrategy);
-		rootToolBar.getItems().addAll(baseToolBar.getItems());
-		rootToolBar.getItems().addAll(openStrategyToolBar.getItems());
-		
-		nbToolsAdded = openStrategyToolBar.getItems().size();
+		openStrategy();
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1)
+	{
+		try
+		{
+			switch((String) arg1)
+			{
+				case "onActionOpenObstacle":
+					openObstacle();
+					break;
+					
+				case "onActionOpenSport":
+					openSport();
+					break;
+					
+				case "onActionOpenStrategy":
+					openStrategy();
+					break;
+					
+				case "onActionNewObstacle":
+					newObstacle();
+					break;
+					
+				case "onActionNewSport":
+					newSport();
+					break;
+					
+				case "onActionNewStrategy":
+					newStrategy();
+					break;
+				
+				case "onActionWatch":
+					watch();
+					break;
+				
+				case "onActionImageByImage":
+					imageByImage();
+					break;
+				
+				case "onActionRealTime":
+					realTime();
+					break;
+			}
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public int getNbToolsAdded()
+	private void openObstacle() throws IOException
 	{
-		return nbToolsAdded;
+		rootToolBar.getItems().clear();
+		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/OpenObstacleToolBar.fxml", false);
+		
+		changeCenter("/fxml/OpenObstacle.fxml");
 	}
-
-	public void setNbToolsAdded(int nbToolsAdded)
+	
+	private void openSport() throws IOException
 	{
-		this.nbToolsAdded = nbToolsAdded;
+		rootToolBar.getItems().clear();
+		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/OpenSportToolBar.fxml", false);
+		
+		changeCenter("/fxml/OpenSport.fxml");
 	}
-
-	public BorderPane getBorderPane()
+	
+	private void openStrategy() throws IOException
 	{
-		return borderPane;
+		rootToolBar.getItems().clear();
+		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/ModeToolBar.fxml", true);
+		addToolBar("/fxml/OpenStrategyToolBar.fxml", true);
+		
+		changeCenter("/fxml/OpenStrategy.fxml");
 	}
-
-	public ToolBar getRootToolBar()
+	
+	private void newObstacle() throws IOException
 	{
-		return rootToolBar;
+		showDialog("/fxml/NewObstacle.fxml");
+	}
+	
+	private void newSport() throws IOException
+	{	
+		showDialog("/fxml/NewSport.fxml");
+	}
+	
+	private void newStrategy() throws IOException
+	{
+		showDialog("/fxml/NewStrategy.fxml");
+	}
+	
+	private void watch() throws IOException
+	{	
+		rootToolBar.getItems().clear();
+		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/ModeToolBar.fxml", true);
+		addToolBar("/fxml/MediaToolBar.fxml", false);
+		
+		changeCenter("/fxml/MediaContent.fxml");
+	}
+	
+	private void imageByImage() throws IOException
+	{
+		rootToolBar.getItems().clear();
+		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/ModeToolBar.fxml", true);
+		addToolBar("/fxml/CreationToolBar.fxml", false);
+		changeCenter("/fxml/CreationStackPane.fxml");
+	}
+	
+	private void realTime() throws IOException
+	{
+		rootToolBar.getItems().clear();
+		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/ModeToolBar.fxml", true);
+		addToolBar("/fxml/CreationToolBar.fxml", false);
+		changeCenter("/fxml/CreationStackPane.fxml");
+	}
+	
+	private void showDialog(String url) throws IOException
+	{
+		DialogPane dialogPane = (DialogPane) loadNode(url, false);
+		Dialog<Object> dialog = new Dialog<Object>();
+		dialog.setDialogPane(dialogPane);
+		dialog.showAndWait();
+	}
+	
+	private void addToolBar(String url, boolean obs) throws IOException
+	{
+		ToolBar toolBar = (ToolBar) loadNode(url, obs);
+		rootToolBar.getItems().addAll(toolBar.getItems());
+
+		//toolBarArray.add(toolBar.getItems().size());
+	}
+	
+	/*private void removeToolBar(int index)
+	{
+		int fromIndex = 0;
+		int toIndex = 0;
+		
+		for(int i = 0; i < index; i++)
+		{
+			fromIndex += toolBarArray.get(i);
+		}
+		
+		toIndex = fromIndex + toolBarArray.get(index);
+				
+		rootToolBar.getItems().remove(fromIndex, toIndex);
+		toolBarArray.remove(index);
+	}*/
+	
+	private void changeCenter(String url) throws IOException
+	{
+		Node node = loadNode(url, false);
+		borderPane.setCenter(node);
+	}
+	
+	private Node loadNode(String url, boolean obs) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(url));
+		Node node = loader.load();
+		if(obs)
+		{
+			((Observable) loader.getController()).addObserver(this);
+		}
+		return node;
 	}
 
 	@FXML
@@ -205,15 +339,5 @@ public class RootLayoutController
 	void onActionZoomOut(ActionEvent event)
 	{
 		System.out.println("onActionZoomOut");
-	}
-
-	public ViewController getViewController()
-	{
-		return viewController;
-	}
-
-	public void setViewController(ViewController viewController)
-	{
-		this.viewController = viewController;
 	}
 }

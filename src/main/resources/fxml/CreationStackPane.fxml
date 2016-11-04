@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationStackPaneController">
+   <children>
+      <VBox alignment="CENTER">
+         <children>
+            <Label text="La stratégie est vide.">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label />
+            <Label text="Pour débuter la stratégie, veuillez insérer des éléments.">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
