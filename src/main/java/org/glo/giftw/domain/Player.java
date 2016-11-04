@@ -1,8 +1,11 @@
 package org.glo.giftw.domain;
 
-public class Player extends GameObject
+import java.io.Serializable;
+
+public class Player extends GameObject implements Serializable
 {
-    private String name;
+    public static final long serialVersionUID = 2L;
+
     private int jerseyNumber;
     private String role;
     private Vector speed;
@@ -20,35 +23,32 @@ public class Player extends GameObject
     {
         super();
         this.name = name;
-        this.role = role;
         this.jerseyNumber = number;
+        this.role = role;
+        this.collidable = true;
         this.speed = new Vector(0, 0);
         this.hasProjectile = false;
         Player.playerCount++;
     }
 
+    public Player(Vector scale)
+    {
+        this("", "", playerCount);
+        this.setScale(scale);
+    }
+
     public Player(Player player)
     {
         super(player);
-        this.name = player.name;
-        this.role = player.role;
         this.jerseyNumber = player.jerseyNumber;
+        this.role = player.role;
+        this.speed = player.speed;
         this.hasProjectile = player.hasProjectile;
     }
 
-    public String getName()
+    public GameObject copy()
     {
-        return this.name;
-    }
-
-    public String getRole()
-    {
-        return this.role;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
+        return new Player(this);
     }
 
     public int getJerseyNumber()
@@ -61,8 +61,56 @@ public class Player extends GameObject
         this.jerseyNumber = jerseyNumber;
     }
 
+    public String getRole()
+    {
+        return this.role;
+    }
+
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
+
+    public Vector getSpeed()
+    {
+        return this.speed;
+    }
+
+    public void setSpeed(Vector speed)
+    {
+        this.speed = speed;
+    }
+
+    public boolean hasProjectile()
+    {
+        return this.hasProjectile;
+    }
+
+    public void takeProjectile()
+    {
+        this.hasProjectile = true;
+    }
+
+    public void dropProjectile()
+    {
+        this.hasProjectile = false;
+    }
+
     public static int getPlayerCount()
     {
         return Player.playerCount;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Jouer(Nom: " +
+                this.name +
+                ", Numero: " +
+                this.jerseyNumber +
+                ", Role: " +
+                this.role + "ID: " +
+                this.id.toString() + ", Position: " +
+                this.position.toString() + ")";
     }
 }

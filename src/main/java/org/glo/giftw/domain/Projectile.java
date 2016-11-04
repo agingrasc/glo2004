@@ -1,7 +1,11 @@
 package org.glo.giftw.domain;
 
-public class Projectile extends GameObject
+import java.io.Serializable;
+
+public class Projectile extends GameObject implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     private Player controller;
     private Vector speed;
 
@@ -12,7 +16,14 @@ public class Projectile extends GameObject
         super();
         this.controller = null;
         this.speed = new Vector(0, 0);
+        this.collidable = false;
         Projectile.projectileCount++;
+    }
+
+    public Projectile(Vector scale)
+    {
+        this();
+        this.scale = scale;
     }
 
     public Projectile(Projectile proj)
@@ -20,6 +31,11 @@ public class Projectile extends GameObject
         super(proj);
         this.controller = proj.controller;
         this.speed = proj.speed;
+    }
+    
+    public GameObject copy()
+    {
+        return new Projectile(this);
     }
 
     public boolean isControlled()

@@ -1,11 +1,9 @@
 package org.glo.giftw.domain;
 
-import java.lang.Math;
-import org.glo.giftw.domain.Vector;
-import org.glo.giftw.domain.VectorFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TestVector
@@ -79,7 +77,6 @@ public class TestVector
 
         testVec = new Vector(1, 1);
         Vector normTestVec = testVec.normalized();
-        System.out.println(normTestVec.magnitude());
         assertEquals(normTestVec.magnitude(), 1, EPSILON);
     }
 }
