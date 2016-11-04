@@ -14,8 +14,12 @@ public class OpenStrategyToolBarController extends Observable
 	}
 	
 	@FXML
-	void onActionConfigure(ActionEvent event)
+	void onActionConfigureStrategy(ActionEvent event)
 	{
-		System.out.println("onActionConfigure");
+		String handler = "onActionConfigureStrategy";
+		System.out.println(handler);
+
+		setChanged();
+		notifyObservers(handler);
 	}
 }

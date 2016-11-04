@@ -73,6 +73,18 @@ public class RootLayoutController implements Observer
 				case "onActionRealTime":
 					realTime();
 					break;
+					
+				case "onActionConfigureSport":
+					configureSport();
+					break;
+					
+				case "onActionConfigureObstacle":
+					configureObstacle();
+					break;
+					
+				case "onActionConfigureStrategy":
+					configureStrategy();
+					break;
 			}
 		}
 		catch (IOException e)
@@ -86,7 +98,7 @@ public class RootLayoutController implements Observer
 	{
 		rootToolBar.getItems().clear();
 		addToolBar("/fxml/BaseToolBar.fxml", true);
-		addToolBar("/fxml/OpenObstacleToolBar.fxml", false);
+		addToolBar("/fxml/OpenObstacleToolBar.fxml", true);
 		
 		changeCenter("/fxml/OpenObstacle.fxml");
 	}
@@ -95,7 +107,7 @@ public class RootLayoutController implements Observer
 	{
 		rootToolBar.getItems().clear();
 		addToolBar("/fxml/BaseToolBar.fxml", true);
-		addToolBar("/fxml/OpenSportToolBar.fxml", false);
+		addToolBar("/fxml/OpenSportToolBar.fxml", true);
 		
 		changeCenter("/fxml/OpenSport.fxml");
 	}
@@ -151,6 +163,21 @@ public class RootLayoutController implements Observer
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/CreationToolBar.fxml", false);
 		changeCenter("/fxml/CreationStackPane.fxml");
+	}
+	
+	private void configureSport() throws IOException
+	{
+		showDialog("/fxml/NewSport.fxml");
+	}
+	
+	private void configureObstacle() throws IOException
+	{
+		showDialog("/fxml/NewObstacle.fxml");
+	}
+	
+	private void configureStrategy() throws IOException
+	{
+		showDialog("/fxml/NewStrategy.fxml");
 	}
 	
 	private void showDialog(String url) throws IOException

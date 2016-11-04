@@ -7,7 +7,7 @@
 
 <ToolBar stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.OpenObstacleToolBarController">
   <items>
-      <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionConfigure" text="Configurer">
+      <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionConfigureObstacle" text="Configurer">
          <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
