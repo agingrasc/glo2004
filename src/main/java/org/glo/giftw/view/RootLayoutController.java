@@ -99,7 +99,7 @@ public class RootLayoutController implements Observer
 		rootToolBar.getItems().clear();
 		addToolBar("/fxml/BaseToolBar.fxml", true);
 		addToolBar("/fxml/OpenObstacleToolBar.fxml", true);
-		
+		borderPane.setLeft(null);
 		changeCenter("/fxml/OpenObstacle.fxml");
 	}
 	
@@ -108,7 +108,7 @@ public class RootLayoutController implements Observer
 		rootToolBar.getItems().clear();
 		addToolBar("/fxml/BaseToolBar.fxml", true);
 		addToolBar("/fxml/OpenSportToolBar.fxml", true);
-		
+		borderPane.setLeft(null);
 		changeCenter("/fxml/OpenSport.fxml");
 	}
 	
@@ -118,7 +118,7 @@ public class RootLayoutController implements Observer
 		addToolBar("/fxml/BaseToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/OpenStrategyToolBar.fxml", true);
-		
+		borderPane.setLeft(null);
 		changeCenter("/fxml/OpenStrategy.fxml");
 	}
 	
@@ -143,7 +143,7 @@ public class RootLayoutController implements Observer
 		addToolBar("/fxml/BaseToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/MediaToolBar.fxml", false);
-		
+		borderPane.setLeft(null);
 		changeCenter("/fxml/MediaContent.fxml");
 	}
 	
@@ -153,6 +153,7 @@ public class RootLayoutController implements Observer
 		addToolBar("/fxml/BaseToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/CreationToolBar.fxml", false);
+		changeLeft("/fxml/ItemsAccordion.fxml");
 		changeCenter("/fxml/CreationStackPane.fxml");
 	}
 	
@@ -162,6 +163,7 @@ public class RootLayoutController implements Observer
 		addToolBar("/fxml/BaseToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/CreationToolBar.fxml", false);
+		changeLeft("/fxml/ItemsAccordion.fxml");
 		changeCenter("/fxml/CreationStackPane.fxml");
 	}
 	
@@ -216,6 +218,12 @@ public class RootLayoutController implements Observer
 	{
 		Node node = loadNode(url, false);
 		borderPane.setCenter(node);
+	}
+	
+	private void changeLeft(String url) throws IOException
+	{
+		Node node = loadNode(url, false);
+		borderPane.setLeft(node);
 	}
 	
 	private Node loadNode(String url, boolean obs) throws IOException

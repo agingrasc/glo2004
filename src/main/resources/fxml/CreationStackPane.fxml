@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationStackPaneController">
+<StackPane onDragDropped="#onDragDropped" onDragEntered="#onDragEntered" onDragOver="#onDragOver" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationStackPaneController">
    <children>
-      <VBox alignment="CENTER">
+      <VBox fx:id="vBox" alignment="CENTER">
          <children>
             <Label text="La stratégie est vide.">
                <font>
@@ -23,5 +23,6 @@
             </Label>
          </children>
       </VBox>
+      <Pane fx:id="pane" />
    </children>
 </StackPane>
