@@ -39,7 +39,7 @@
             <TextField GridPane.columnIndex="1" />
             <HBox stylesheets="@../css/visuaLigueCSS.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionModify" text="Dessiner">
+                  <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionDraw" text="Dessiner">
                      <graphic>
                         <ImageView pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -48,7 +48,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="189.0" layoutY="10.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionDelete" text="Ouvrir">
+                  <Button contentDisplay="TOP" layoutX="189.0" layoutY="10.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionBrowse" text="Ouvrir">
                      <graphic>
                         <ImageView pickOnBounds="true" preserveRatio="true">
                            <image>

@@ -6,14 +6,8 @@ import javafx.fxml.FXML;
 public class NewObstacleController
 {
 	@FXML
-	void onActionModify(ActionEvent event)
+	void onActionBrowse(ActionEvent event)
 	{
-		System.out.println("onActionModify");
-	}
-
-	@FXML
-	void onActionOpen(ActionEvent event)
-	{
-		System.out.println("onActionOpen");
+		System.out.println("onActionBrowse");
 	}
 }

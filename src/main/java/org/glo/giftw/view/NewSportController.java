@@ -6,14 +6,14 @@ import javafx.fxml.FXML;
 public class NewSportController
 {
 	@FXML
-	void onActionDelete(ActionEvent event)
+	void onActionDraw(ActionEvent event)
 	{
-		System.out.println("onActionDelete");
+		System.out.println("onActionDraw");
 	}
 
 	@FXML
-	void onActionModify(ActionEvent event)
+	void onActionBrowse(ActionEvent event)
 	{
-		System.out.println("onActionModify");
+		System.out.println("onActionBrowse");
 	}
 }
