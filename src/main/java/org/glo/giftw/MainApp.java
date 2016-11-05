@@ -2,58 +2,44 @@ package org.glo.giftw;
 
 import java.io.IOException;
 
-import org.glo.giftw.view.RootLayoutController;
-
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class MainApp extends Application
 {
-
 	private Stage primaryStage;
-	private BorderPane rootLayout;
 
 	@Override
 	public void start(Stage primaryStage)
 	{
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("VisuaLigue");
+		this.primaryStage.setMaximized(true);
 
 		initRootLayout();
 	}
 
-	/**
-	 * Initializes the root layout.
-	 */
 	public void initRootLayout()
 	{
 		try
 		{
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/fxml/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+			loader.setLocation(getClass().getResource("/fxml/RootLayout.fxml"));
+			BorderPane rootLayout = loader.load();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
-			// Give the controller access to the main app.
-	        RootLayoutController controller = loader.getController();
-	        controller.setMainApp(this);
+
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-	}
-
-	public Stage getPrimaryStage()
-	{
-		return primaryStage;
 	}
 
 	public static void main(String[] args)
