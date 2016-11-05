@@ -14,17 +14,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<DialogPane expanded="true" headerText="Veuillez configurer l'obstacle:" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.NewObstacleController">
+<DialogPane fx:id="newObstacleDialog" expanded="true" headerText="Veuillez configurer l'obstacle:" prefHeight="226.0" prefWidth="433.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.NewObstacleController">
    <buttonTypes>
       <ButtonType fx:constant="CANCEL" />
       <ButtonType fx:constant="FINISH" />
    </buttonTypes>
    <content>
-      <GridPane>
+      <GridPane prefHeight="162.0" prefWidth="402.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="75.0" />
-          <ColumnConstraints hgrow="SOMETIMES" />
-            <ColumnConstraints hgrow="SOMETIMES" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="48.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="178.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="14.0" prefWidth="157.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints vgrow="SOMETIMES" />
@@ -35,8 +35,8 @@
          <children>
             <Label text="Nom:" />
             <Label text="Image:" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" />
-            <HBox alignment="CENTER" stylesheets="@../css/visuaLigueCSS.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="obstacleName" GridPane.columnIndex="1" />
+            <HBox alignment="CENTER"  stylesheets="@../css/visuaLigueCSS.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Button contentDisplay="TOP" layoutX="189.0" layoutY="10.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionBrowse" text="Ouvrir">
                      <graphic>
@@ -53,7 +53,9 @@
                </GridPane.margin>
             </HBox>
             <Label text="Activer les collisions sur l'obstacle:" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <CheckBox fx:id="hasCollision" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Label prefHeight="16.0" prefWidth="111.0" GridPane.columnIndex="2" />
+            <ImageView fx:id="imagePreview" fitHeight="115.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </content>
