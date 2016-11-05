@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -32,15 +33,22 @@ public class FieldEditorController
     @FXML
     private Spinner fieldWidth;
 
-    //FieldEditorController() {
-    //}
+    @FXML
+    private ChoiceBox fieldSize;
 
     @FXML
     public void initialize() {
         System.out.println("initializeFieldEditor");
 
+        initCanvas();
+
+        initChoiceBox();
+    }
+
+    private void initCanvas()
+    {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
+        gc.setFill(Color.BLUE);
 
         double fieldInitialLength = (fieldDraw.getWidth()) / 100;
         double fieldInitialWidth = (fieldDraw.getHeight()) / 100;
@@ -49,23 +57,9 @@ public class FieldEditorController
         fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, fieldInitialWidth));
     }
 
-    public DialogPane getFieldEditorDialog() {
-        return fieldEditorDialog;
-    }
-
-    public Pane getFieldEditorPane() {
-        return fieldEditorPane;
-    }
-
-    public Canvas getFieldDraw() {
-        return fieldDraw;
-    }
-
-    public Spinner getFieldLength() {
-        return fieldLength;
-    }
-
-    public Spinner getFieldWidth() {
-        return fieldWidth;
+    private void initChoiceBox()
+    {
+        fieldSize.getItems().addAll("m²", "pi²");
+        fieldSize.setValue("m²");
     }
 }
