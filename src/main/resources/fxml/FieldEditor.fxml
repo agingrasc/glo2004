@@ -8,6 +8,8 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -20,7 +22,16 @@
                   <Font size="29.0" />
                </font>
             </Label>
-            <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" width="600.0" />
+            <Button layoutX="295.0" layoutY="369.0" mnemonicParsing="false" onAction="#onPaintColor" prefHeight="28.0" prefWidth="36.0">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" onMouseDragged="#onDraw" width="600.0" />
             <ChoiceBox fx:id="fieldSize" layoutX="555.0" layoutY="19.0" prefHeight="26.0" prefWidth="70.0" />
             <Label layoutX="432.0" layoutY="17.0" text="x">
                <font>
@@ -30,8 +41,17 @@
             <Spinner fx:id="fieldLength" layoutX="325.0" layoutY="19.0" prefHeight="26.0" prefWidth="97.0" />
             <Spinner fx:id="fieldWidth" layoutX="455.0" layoutY="19.0" prefHeight="26.0" prefWidth="88.0" />
             <Button fx:id="saveButton" layoutX="543.0" layoutY="373.0" mnemonicParsing="false" onAction="#onSave" text="Sauvegarder" />
-            <ColorPicker fx:id="fieldColor" editable="true" layoutX="143.0" layoutY="373.0" onAction="#onFieldColorChanged" promptText="Fond du terrain" />
-            <Label layoutX="14.0" layoutY="378.0" text="Couleur du terrain:" />
+            <ColorPicker fx:id="fieldColor" editable="true" layoutX="80.0" layoutY="373.0" onAction="#onFieldColorChanged" prefHeight="26.0" prefWidth="127.0" promptText="Fond du terrain" />
+            <Label layoutX="14.0" layoutY="378.0" text="Couleur:" />
+            <Button layoutX="229.0" layoutY="369.0" mnemonicParsing="false" onAction="#onFillColor" prefHeight="28.0" prefWidth="36.0">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/bucket.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
    </content>

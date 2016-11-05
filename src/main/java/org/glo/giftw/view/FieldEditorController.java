@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -99,9 +100,26 @@ public class FieldEditorController
     public void onFieldColorChanged()
     {
         System.out.println("onColorChanged");
+    }
+
+    @FXML
+    void onFillColor()
+    {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
         gc.setFill(fieldColor.getValue());
         gc.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
     }
 
+    @FXML
+    void onPaintColor()
+    {
+    }
+
+    @FXML
+    void onDraw(MouseEvent me)
+    {
+        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        gc.setFill(fieldColor.getValue());
+        gc.fillRect(me.getX(), me.getY(), 3, 3);
+    }
 }
