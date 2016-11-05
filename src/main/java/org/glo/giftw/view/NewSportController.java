@@ -5,10 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 
 import java.io.File;
+import java.io.IOException;
 
 public class NewSportController
 {
@@ -31,15 +31,19 @@ public class NewSportController
 	}
 
 	@FXML
-	void onActionModify(ActionEvent event)
+	void onActionModify(ActionEvent event) throws IOException
 	{
 		System.out.println("onActionModify");
+
+		Dialog<Object> dialog = new Dialog<Object>();
 
 		FXMLLoader loader = new FXMLLoader();
 
 		loader.setLocation(getClass().getResource("/fxml/FieldEditor.fxml"));
 		DialogPane fieldEditorDialogPane = loader.load();
-		Dialog<Object> dialog = new Dialog<Object>();
+
+		//fieldEditorController.initialize();
+
 		dialog.setDialogPane(fieldEditorDialogPane);
 		dialog.showAndWait();
 	}
