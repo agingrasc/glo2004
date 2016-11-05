@@ -20,20 +20,9 @@ public class NewSportController
 	File getSportFieldImageFile() { return sportFieldImageFile; }
 
 	@FXML
-	void onActionDelete(ActionEvent event)
+	void onActionDraw(ActionEvent event) throws IOException
 	{
-		Window parentWindow = newSportDialog.getScene().getWindow();
-		System.out.println("onActionDelete");
-		OpenImageFileController openImageFileController = new OpenImageFileController();
-
-		File imageToOpen = openImageFileController.startDialog(parentWindow);
-		sportFieldImageFile = imageToOpen;
-	}
-
-	@FXML
-	void onActionModify(ActionEvent event) throws IOException
-	{
-		System.out.println("onActionModify");
+		System.out.println("onActionDraw");
 
 		Dialog<Object> dialog = new Dialog<Object>();
 
@@ -42,9 +31,19 @@ public class NewSportController
 		loader.setLocation(getClass().getResource("/fxml/FieldEditor.fxml"));
 		DialogPane fieldEditorDialogPane = loader.load();
 
-		//fieldEditorController.initialize();
-
 		dialog.setDialogPane(fieldEditorDialogPane);
 		dialog.showAndWait();
+
+	}
+
+	@FXML
+	void onActionBrowse(ActionEvent event)
+	{
+		System.out.println("onActionBrowse");
+		Window parentWindow = newSportDialog.getScene().getWindow();
+		OpenImageFileController openImageFileController = new OpenImageFileController();
+
+		File imageToOpen = openImageFileController.startDialog(parentWindow);
+		sportFieldImageFile = imageToOpen;
 	}
 }

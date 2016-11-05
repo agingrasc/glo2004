@@ -18,18 +18,13 @@ public class NewObstacleController
 	private DialogPane newObstacleDialog;
 
 	@FXML
-	void onActionModify(ActionEvent event)
-	{
-		System.out.println("onActionModify");
-	}
-
-	@FXML
-	void onActionOpen(ActionEvent event)
+	void onActionBrowse(ActionEvent event)
 	{
 		Window parentWindow = newObstacleDialog.getScene().getWindow();
 		OpenImageFileController openImageFileController = new OpenImageFileController();
 
 		File imageToOpen = openImageFileController.startDialog(parentWindow);
 		imagePreview.setImage(new Image(imageToOpen.toURI().toString()));
+		System.out.println("onActionBrowse");
 	}
 }

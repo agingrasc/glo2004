@@ -36,18 +36,9 @@
             <Label text="Nom:" />
             <Label text="Image:" GridPane.rowIndex="1" />
             <TextField fx:id="obstacleName" GridPane.columnIndex="1" />
-            <HBox prefHeight="64.0" prefWidth="138.0" stylesheets="@../css/visuaLigueCSS.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <HBox alignment="CENTER"  stylesheets="@../css/visuaLigueCSS.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionModify" text="Modifier">
-                     <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/edit.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button contentDisplay="TOP" layoutX="189.0" layoutY="10.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionOpen" text="Ouvrir">
+                  <Button contentDisplay="TOP" layoutX="189.0" layoutY="10.0" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionBrowse" text="Ouvrir">
                      <graphic>
                         <ImageView pickOnBounds="true" preserveRatio="true">
                            <image>
