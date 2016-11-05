@@ -19,7 +19,6 @@ public class OpenStrategyController
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/ListPlaceHolder.fxml"));
 		StackPane listPlaceHolder = loader.load();
-		System.out.println(listView);
 		listView.setPlaceholder(listPlaceHolder);
 	}
 

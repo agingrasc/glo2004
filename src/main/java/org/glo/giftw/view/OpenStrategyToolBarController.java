@@ -1,31 +1,25 @@
 package org.glo.giftw.view;
 
+import java.util.Observable;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class OpenStrategyToolBarController
+public class OpenStrategyToolBarController extends Observable
 {	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
 		System.out.println("onActionDelete");
 	}
-
+	
 	@FXML
-	void onActionImageByImage(ActionEvent event)
+	void onActionConfigureStrategy(ActionEvent event)
 	{
-		System.out.println("onActionImageByImage");
-	}
+		String handler = "onActionConfigureStrategy";
+		System.out.println(handler);
 
-	@FXML
-	void onActionRealTime(ActionEvent event)
-	{
-		System.out.println("onActionRealTime");
-	}
-
-	@FXML
-	void onActionWatch(ActionEvent event)
-	{
-		System.out.println("onActionWatch");
+		setChanged();
+		notifyObservers(handler);
 	}
 }

@@ -1,11 +1,12 @@
 package org.glo.giftw.view;
 
+import java.util.Observable;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class OpenObstacleToolBarController
+public class OpenObstacleToolBarController extends Observable
 {
-
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -13,9 +14,12 @@ public class OpenObstacleToolBarController
 	}
 
 	@FXML
-	void onActionModify(ActionEvent event)
+	void onActionConfigureObstacle(ActionEvent event)
 	{
-		System.out.println("onActionModify");
-	}
+		String handler = "onActionConfigureObstacle";
+		System.out.println(handler);
 
+		setChanged();
+		notifyObservers(handler);
+	}
 }
