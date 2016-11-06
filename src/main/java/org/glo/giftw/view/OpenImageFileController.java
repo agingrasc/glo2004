@@ -16,7 +16,7 @@ public class OpenImageFileController {
         initDialog();
     }
 
-    void initDialog() {
+    private void initDialog() {
         imageChooser = new FileChooser();
         imageChooser.setTitle("Sélectionner une image d'obstacle");
         imageChooser.getExtensionFilters().addAll(

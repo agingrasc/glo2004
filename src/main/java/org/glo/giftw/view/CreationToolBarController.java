@@ -12,9 +12,9 @@ public class CreationToolBarController
 	}
 
 	@FXML
-	void onActionLast(ActionEvent event)
+	void onActionPrevious(ActionEvent event)
 	{
-		System.out.println("onActionLast");
+		System.out.println("onActionPrevious");
 	}
 
 	@FXML

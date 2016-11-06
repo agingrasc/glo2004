@@ -7,7 +7,6 @@ package org.glo.giftw.view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -21,12 +20,6 @@ import static java.lang.Math.abs;
 public class FieldEditorController
 {
     private double[] startDragPosition;
-
-    @FXML
-    private DialogPane fieldEditorDialog;
-
-    @FXML
-    private Pane fieldEditorPane;
 
     @FXML
     private Canvas fieldDraw;
@@ -76,8 +69,8 @@ public class FieldEditorController
 
     private void initChoiceBox()
     {
-        fieldSize.getItems().addAll("m²", "pi²");
-        fieldSize.setValue("m²");
+        fieldSize.getItems().addAll("m2", "pi2");
+        fieldSize.setValue("m2");
 
         fieldSize.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -126,22 +119,11 @@ public class FieldEditorController
     }
 
     @FXML
-    public void onFieldColorChanged()
-    {
-        System.out.println("onColorChanged");
-    }
-
-    @FXML
     void onFillColor()
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
         gc.setFill(fieldColor.getValue());
         gc.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
-    }
-
-    @FXML
-    void onPaintColor()
-    {
     }
 
     @FXML
