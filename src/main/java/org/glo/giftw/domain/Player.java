@@ -31,10 +31,12 @@ public class Player extends GameObject implements Serializable
         Player.playerCount++;
     }
 
-    public Player(Vector dimensions)
+    public Player(Vector position, float orientation, Vector dimensions)
     {
         this("", "", playerCount);
-        this.setDimensions(dimensions);
+        this.position = position;
+        this.orientation = orientation;
+        this.dimensions = dimensions;
     }
 
     public Player(Player player)

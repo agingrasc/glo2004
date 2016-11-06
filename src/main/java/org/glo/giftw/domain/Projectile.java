@@ -20,9 +20,11 @@ public class Projectile extends GameObject implements Serializable
         Projectile.projectileCount++;
     }
 
-    public Projectile(Vector dimensions)
+    public Projectile(Vector position, float orientation, Vector dimensions)
     {
         this();
+        this.position = position;
+        this.orientation = orientation;
         this.dimensions = dimensions;
     }
 

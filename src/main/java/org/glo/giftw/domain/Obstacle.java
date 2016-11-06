@@ -14,9 +14,11 @@ public class Obstacle extends GameObject implements Serializable
         Obstacle.obstacleCount++;
     }
 
-    public Obstacle(Vector dimensions)
+    public Obstacle(Vector position, float orientation, Vector dimensions)
     {
         this();
+        this.position = position;
+        this.orientation = orientation;
         this.dimensions = dimensions;
     }
 

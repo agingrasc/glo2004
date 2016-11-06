@@ -36,22 +36,25 @@ public class Controller
         this.currentFrameIdx = 0;
     }
 
-    public Integer addPlayer(double dimX, double dimY)
+    public Integer addPlayer(Vector position, float orientation, Vector dimensions)
     {
-        return this.playersPool.addPlayer(new Vector(dimX, dimY));
+        Integer id = this.playersPool.addPlayer(position, orientation, dimensions);
+        Frame currentFrame = this.currentStrategy.getFrame(this.currentFrameIdx);
+        currentFrame.addGameObject(this.playersPool.getPlayer(id));
+        return id;
     }
 
-    public Integer addObstacle(double dimX, double dimY)
+    public Integer addObstacle(Vector position, float orientation, Vector dimensions)
     {
-        Obstacle obstacle = new Obstacle(new Vector(dimX, dimY));
+        Obstacle obstacle = new Obstacle(position, orientation, dimensions);
         Integer id = obstacle.getId();
         this.obstacles.put(id, obstacle);
         return id;
     }
 
-    public Integer addProjectile(double dimX, double dimY)
+    public Integer addProjectile(Vector position, float orientation, Vector dimensions)
     {
-        Projectile projectile = new Projectile(new Vector(dimX, dimY));
+        Projectile projectile = new Projectile(position, orientation, dimensions);
         Integer id = projectile.getId();
         this.projectiles.put(id, projectile);
         return id;
