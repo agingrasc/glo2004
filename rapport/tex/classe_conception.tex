@@ -6,3 +6,12 @@
 \label{s:classe_conception}
 
 Ce chapitre\ldots
+
+La figure \ref{fig:vue_classes_conception_diag} présente le diagramme de classes de la couche présentation(vue). Puisque la technologie JavaFX est utilisée en union avec le constructeur d'interface graphique \textit{Scene Builder}, chaque classe représente un contrôleur pour une partie de la vue. Il y a donc un fichier FXML associé à chacune de ces classes qui contient le code des éléments graphiques. De prime abord, on remarque que la classe \textit{RootLayoutController} est particulièrement importante. En effet, en plus de représenter la fenêtre de base de l'application, elle contient une majorité des méthodes permettant la gestion des événements. La principale raison de ce choix est que la fenêtre contient la barre de menu principale qui permet d'exécuter la majorité des fonctionnalités du logiciel. On remarque aussi que le patron de conception \textit{Observateur} est utilisé afin de rediriger la gestion de certains événements vers le \textit{RootLayoutController}. Cela permet d'éviter une duplication du code de gestion des événements (la même fonctionnalité peut être exécutée par la barre de menu ou par un bouton dans un autre contrôleur) tout en maintenant le couplage assez bas.
+
+%\begin{figure}[htpb]
+    %\centering
+    %\includegraphics[scale=0.6]{fig/vue_classes_conception_diag.png}
+    %\caption{Diagramme de classes de conception de la couche présentation}
+    %\label{fig:vue_classes_conception_diag}
+%\end{figure}
