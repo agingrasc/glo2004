@@ -30,13 +30,13 @@ public class Frame implements Serializable
         this.gameObjects.remove(id);
     }
     
-    public void placeGameObject(int id, Vector position, float orientation, Vector scale)
+    public void placeGameObject(int id, Vector position, float orientation, Vector dimensions)
     {
         //on copie l'objet pour pouvoir modifier sa position
         GameObject gameObject = this.gameObjects.get(id).copy();
         gameObject.setPosition(position);
         gameObject.setOrientation(orientation);
-        gameObject.setScale(scale);
+        gameObject.setDimensions(dimensions);
         //on remplace l'ancienne copie par la nouvelle
         this.gameObjects.put(id, gameObject);
     }

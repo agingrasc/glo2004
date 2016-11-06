@@ -10,7 +10,7 @@ public abstract class GameObject implements Serializable
 
     protected float orientation;
     protected Vector position;
-    protected Vector scale;
+    protected Vector dimensions;
     protected String name;
     protected boolean collidable;
     protected Integer id;
@@ -19,7 +19,7 @@ public abstract class GameObject implements Serializable
     {
         this.orientation = 0;
         this.position = new Vector(0, 0);
-        this.scale = new Vector(1, 1);
+        this.dimensions = new Vector(1, 1);
         this.name = "";
         this.collidable = true;
         GameObject.objectCount++;
@@ -30,7 +30,7 @@ public abstract class GameObject implements Serializable
     {
         this.orientation = gameObject.orientation;
         this.position = gameObject.position;
-        this.scale = gameObject.scale;
+        this.dimensions = gameObject.dimensions;
         this.name = gameObject.name;
         this.collidable = gameObject.collidable;
         this.id = gameObject.id;
@@ -58,14 +58,14 @@ public abstract class GameObject implements Serializable
         this.position = position;
     }
 
-    public Vector getScale()
+    public Vector getDimensions()
     {
-        return this.scale;
+        return this.dimensions;
     }
 
-    public void setScale(Vector scale)
+    public void setDimensions(Vector dimensions)
     {
-        this.scale = scale;
+        this.dimensions = dimensions;
     }
 
     public String getName()
@@ -127,7 +127,7 @@ public abstract class GameObject implements Serializable
         {
             double dx = Math.abs(other.position.getX() - this.position.getX());
             double dy = Math.abs(other.position.getY() - this.position.getY());
-            return dx < (this.scale.getX() + other.scale.getX())/2 && dy < (this.scale.getY() + other.scale.getY())/2;
+            return dx < (this.dimensions.getX() + other.dimensions.getX())/2 && dy < (this.dimensions.getY() + other.dimensions.getY())/2;
         }  
         else
         {

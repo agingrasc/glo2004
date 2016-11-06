@@ -20,10 +20,10 @@ public class Projectile extends GameObject implements Serializable
         Projectile.projectileCount++;
     }
 
-    public Projectile(Vector scale)
+    public Projectile(Vector dimensions)
     {
         this();
-        this.scale = scale;
+        this.dimensions = dimensions;
     }
 
     public Projectile(Projectile proj)

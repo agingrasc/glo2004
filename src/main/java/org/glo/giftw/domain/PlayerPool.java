@@ -28,18 +28,18 @@ public class PlayerPool implements Serializable
         GameObject.setObjectCount(objCount);
     }
 
-    public Integer addPlayer(Vector scale)
+    public Integer addPlayer(Vector dimensions)
     {
-        Player player = new Player(scale);
+        Player player = new Player(dimensions);
         this.players.put(player.getId(), player);
         this.savePlayerPool(PLAYER_POOL_PATH);
         return player.getId();
     }
 
-    public Integer addPlayer(Vector scale, boolean persistent)
+    public Integer addPlayer(Vector dimension, boolean persistent)
     {
         //FIXME: eliminate code duplication
-        Player player = new Player(scale);
+        Player player = new Player(dimension);
         this.players.put(player.getId(), player);
         return player.getId();
     }
