@@ -7,7 +7,6 @@ package org.glo.giftw.view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -76,8 +75,8 @@ public class FieldEditorController
 
     private void initChoiceBox()
     {
-        fieldSize.getItems().addAll("m²", "pi²");
-        fieldSize.setValue("m²");
+        fieldSize.getItems().addAll("m2", "pi2");
+        fieldSize.setValue("m2");
 
         fieldSize.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
