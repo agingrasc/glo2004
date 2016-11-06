@@ -22,12 +22,6 @@ public class FieldEditorController
     private double[] startDragPosition;
 
     @FXML
-    private DialogPane fieldEditorDialog;
-
-    @FXML
-    private Pane fieldEditorPane;
-
-    @FXML
     private Canvas fieldDraw;
 
     @FXML
@@ -125,22 +119,11 @@ public class FieldEditorController
     }
 
     @FXML
-    public void onFieldColorChanged()
-    {
-        System.out.println("onColorChanged");
-    }
-
-    @FXML
     void onFillColor()
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
         gc.setFill(fieldColor.getValue());
         gc.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
-    }
-
-    @FXML
-    void onPaintColor()
-    {
     }
 
     @FXML
