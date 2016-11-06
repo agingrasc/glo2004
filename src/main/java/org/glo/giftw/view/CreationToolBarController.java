@@ -3,9 +3,8 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class MenuCreation
+public class CreationToolBarController
 {
-
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
