@@ -36,10 +36,10 @@ public class PlayerPool implements Serializable
         return player.getId();
     }
 
-    public Integer addPlayer(Vector dimension, boolean persistent)
+    public Integer addPlayer(Vector dimensions, boolean persistent)
     {
         //FIXME: eliminate code duplication
-        Player player = new Player(dimension);
+        Player player = new Player(dimensions);
         this.players.put(player.getId(), player);
         return player.getId();
     }

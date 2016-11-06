@@ -24,9 +24,9 @@ public class Controller
         this.currentFrameIdx = 0;
     }
 
-    public void createSport(String name, List<String> roles, int length, int height)
+    public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight)
     {
-        this.sportPool.addSport(name, roles, new Vector(length, height));
+        this.sportPool.addSport(name, roles, new Vector(fieldLength, fieldHeight));
     }
 
     public void createStrategy(String name, String sportName)
@@ -36,22 +36,22 @@ public class Controller
         this.currentFrameIdx = 0;
     }
 
-    public Integer addPlayer(double x, double y)
+    public Integer addPlayer(double dimX, double dimY)
     {
-        return this.playersPool.addPlayer(new Vector(x, y));
+        return this.playersPool.addPlayer(new Vector(dimX, dimY));
     }
 
-    public Integer addObstacle(double x, double y)
+    public Integer addObstacle(double dimX, double dimY)
     {
-        Obstacle obstacle = new Obstacle(new Vector(x, y));
+        Obstacle obstacle = new Obstacle(new Vector(dimX, dimY));
         Integer id = obstacle.getId();
         this.obstacles.put(id, obstacle);
         return id;
     }
 
-    public Integer addProjectile(double x, double y)
+    public Integer addProjectile(double dimX, double dimY)
     {
-        Projectile projectile = new Projectile(new Vector(x, y));
+        Projectile projectile = new Projectile(new Vector(dimX, dimY));
         Integer id = projectile.getId();
         this.projectiles.put(id, projectile);
         return id;
