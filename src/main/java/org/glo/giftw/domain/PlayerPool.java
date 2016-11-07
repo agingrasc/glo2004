@@ -12,20 +12,25 @@ public class PlayerPool implements Serializable
     private HashMap<Integer, Player> players;
 
     public PlayerPool()
-    {
-        //load logic
-        players = new HashMap<>();
-        this.loadPlayerPool(PLAYER_POOL_PATH);
-        Integer objCount = this.findHighestId();
-        GameObject.setObjectCount(objCount);
+    {    
+        this(true);      
     }
 
     public PlayerPool(boolean persistent)
     {
-        //FIXME: considere reellement le bool
+        //load logic
         players = new HashMap<>();
-        Integer objCount = 0;
-        GameObject.setObjectCount(objCount);
+        if(persistent)
+        {
+            this.loadPlayerPool(PLAYER_POOL_PATH);
+            Integer objCount = this.findHighestId();
+            GameObject.setObjectCount(objCount);
+        }
+        else
+        {
+            Integer objCount = 0;
+            GameObject.setObjectCount(objCount);
+        }
     }
 
     public Integer addPlayer(Vector position, float orientation, Vector dimensions)
