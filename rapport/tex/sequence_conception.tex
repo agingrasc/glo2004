@@ -80,7 +80,7 @@ Autrement, un identifiant \textit{null} est retourné.
 
 La figure \ref{fig:dsc_edit_image} est le diagramme de séquence des différentes intéractions entre le système et l'utilisateur lors de l'édition d'une stratégie en mode \textbf{image par image}.
 Lorsque l'utilisateur change pour ce mode d'édition, la fenête principale s'occupe d'initialiser les éléments de la vue.
-Si l'utilisateur clique sur un joueur et le déplace, les scénarios pour obtenir la sélection sous la souris \ref{sec:convertir_clic_en_objet} et déplacer un joueur \ref{sec:ajout_joueur} sont exécutés.
+Si l'utilisateur clique sur un joueur et le déplace, les scénarios pour obtenir la sélection sous la souris \ref{sec:convertir_clic_en_objet} et déplacer un joueur \ref{sec:ajouter_joueur} sont exécutés.
 Par soucis de lisibilité, tous les appels ne sont pas reproduits.
 
 Lorsque l'utilisateur clique sur «prochaine image», la fenêtre sauvegarde les informations actuelles, puis appelle le contrôleur pour obtenir la prochaine image.
@@ -106,8 +106,8 @@ Cet appel est uniquement exécuté si l'identifiant n'est pas null.
 \end{figure}
 
 La figure \ref{fig:dsc_edit_real_time} est le diagramme de séquence des différentes intéractions entre le système et l'utilisateur lors de l'édition d'une stratégie en mode \textbf{temps réel}.
-Ce mode est très similaire avec celui image par image (\ref{sec:edition_impage_par_image}).
-La différence principale est que lorsque l'utilisateur exécute le scénario pour déplacer un joueur (\ref{sec:ajout_joueur}), plusieurs appels supplémentaires doivent être faits.
+Ce mode est très similaire avec celui image par image (\ref{sec:edition_image_par_image}).
+La différence principale est que lorsque l'utilisateur exécute le scénario pour déplacer un joueur (\ref{sec:ajouter_joueur}), plusieurs appels supplémentaires doivent être faits.
 Lorsqu'un déplacement est débuté, un booléen est modifié à Vrai (\textit{setRealTimeDrag()}).
 
 À chaque événement de déplacement de la souris, les appels nécessaires pour positionner le joueur sont faits.
