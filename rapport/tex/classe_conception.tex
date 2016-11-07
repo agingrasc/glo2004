@@ -10,13 +10,23 @@ Ce chapitre présente les différents diagrammes de classe de conception de \tex
 \section{Couche domaine}
 \label{couche_domaine}
 
-La figure \ref{fig:vue_classes_conception_diag} présente le diagramme de classe de la couche applicative (domaine).
+La figure \ref{fig:domaine_classe} présente le diagramme de classe de la couche applicative (domaine).
 La classe \textit{Controller} est ce qui permet à la vue d'intéragir avec le domaine.
+Cette classe gère les différents objets du domaines, l'éditions des stratégies ainsi que le visionnement de celles-ci.
 Tout objet qui peut être placé sur le terrain est un \textit{GameObject}.
-Cela permet d'éviter la création de doublons pour les fonctions de déplacement.
-Chaque image du jeu dans le temps hérite de la classe \textit{Frame}.
-Cela permet le visionnement de la simulation, ainsi que l'édition image par image de la Stratégie.
+Trois classes héritent de \textit{GameObject}, soit \textit{Player}, \textit{Obstacle} et \textit{Projectile}.
+Les joueurs sont maintenus dans la classe \textit{PlayerPool}, qui peut être sauvegardée.
+Cela permet à l'entraîneur de réutiliser ses joueurs d'une stratégie à l'autre.
+Un objet \textit{Sport} regroupe un terrain ainsi qu'une liste de rôles pour les joueurs.
+Les sports sont maintenus dans la classe \textit{SportPool}, qui peut être sauvegardée, ce qui permet de réutiliser les sports créés pour différentes stratégies.
+La classe \textit{Frame} représente une image du terrain avec tous les \textit{GameObject} présents à un moment précis.
+La classe \textit{Strategy} regroupe tous les frames d'une stratégie et les associe à un sport.
+Elle permet le visionnement ainsi que l'édition d'une stratégie.
 
+Sous la couche domaine se trouve la couche \textit{Utility}, qui contient certaines classes et méthodes utilitaires qui sont utilisées par les classes du domaine.
+Dans cette couche, on retrouve la classe Vector, qui peut représenter un vecteur 2D ou un point.
+Cette couche comporte aussi le package serialization, qui contient l'interface permettant la sauvegarde et le chargement des données de l'application.
+Pour éviter de surcharger le diagramme, les accesseurs et les constructeurs sans paramètre n'ont pas été représentés, bien que ces méthodes soient implémentés.
 
 \begin{figure}[htpb]
     \centering
