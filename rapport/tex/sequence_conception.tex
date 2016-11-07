@@ -37,8 +37,8 @@ Une fois les coordonnées du terrain obtenues, elles sont converties en coordonn
 La figure \ref{fig:dsc_create_player} est le diagramme séquence lorsqu'un nouveau joueur est ajouté sur le terrain.
 La fenêtre reçoit un événement lorsque que la souris est en mode \textit{Glisser}.
 L'ajout d'un joueur se fait lorsque l'utilisateur dépose celui-ci sur le terrain.
-Le contrôleur est alors appelé.
-Il crée un identifiant pour le nouveau joueur, ajoute ce joueur dans le domaine, puis l'ajoute dans la trame courante.
+Le contrôleur est alors appelé et il crée un identifiant pour le nouveau joueur,
+Puis, ce joueur est ajouté dans le domaine, ainsi que dans l'image courante.
 
 
 %\begin{figure}[htpb]
@@ -130,11 +130,12 @@ L'édition en temps réel peut se poursuivre.
 
 La figure \ref{fig:dsc_view_main} est le diagramme de séquence pour les principales intéractions lors du visionnement.
 
-Lorsque l'utilisateur passe en mode visionnement, le système entre dans une boucle gouverné par un booléen: \textbf{isWatch}.
+Lorsque l'utilisateur passe en mode visionnement, le système entre dans une boucle gouvernée par un booléen: \textbf{isWatch}.
 Par défaut, le visionnement est sur pause.
 Si l'utilisateur active le visionnement, le booléen: \textbf{isPause} est mis à Faux.
 Si l'utilisateur met sur pause, ce même booléen est mis à Vrai.
-À chaque itération de la boucle, le système récupère une image et l'affiche s'il n'est pas sur pause ou si la dernière image affichée n'était pas la dernière image disponible.
+À chaque itération de la boucle, le système récupère une image.
+Si le visionnement n'est pas sur pause ou si la dernière image affichée n'était pas la dernière image disponible, le système affiche l'image.
 
 %\begin{figure}[htpb]
 %    \centering
@@ -144,7 +145,7 @@ Si l'utilisateur met sur pause, ce même booléen est mis à Vrai.
 %\end{figure}
 
 La figure \ref{fig:dsc_view_edit_idx} est le diagramme de séquence lorsque l'utilisateur souhaite avancer ou reculer d'un temps ajustable.
-Lorsque le temps est saisie, le système appel le contrôleur pour ajuster le temps actuel.
+Lorsque le temps est saisi, le système appel le contrôleur pour ajuster le temps actuel.
 Le contrôleur est responsable de traduire le différentiel de temps en un différentiel d'images et il tente de modifier autant que possible l'image en cours.
 La nouvelle image actuelle est retournée et affichée.
 
