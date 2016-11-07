@@ -30,17 +30,17 @@ public class PlayerPool implements Serializable
 
     public Integer addPlayer(Vector position, float orientation, Vector dimensions)
     {
-        Player player = new Player(position, orientation, dimensions);
-        this.players.put(player.getId(), player);
-        this.savePlayerPool(PLAYER_POOL_PATH);
-        return player.getId();
+        return this.addPlayer(position, orientation, dimensions, true);
     }
 
     public Integer addPlayer(Vector position, float orientation, Vector dimensions, boolean persistent)
     {
-        //FIXME: eliminate code duplication
         Player player = new Player(position, orientation, dimensions);
         this.players.put(player.getId(), player);
+        if(persistent)
+        {
+            this.savePlayerPool(PLAYER_POOL_PATH);
+        }
         return player.getId();
     }
 
