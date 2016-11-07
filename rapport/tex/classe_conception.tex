@@ -7,6 +7,24 @@
 
 Ce chapitre présente les différents diagrammes de classe de conception de \textit{VisualLigue}.
 
+\section{Couche domaine}
+\label{couche_domaine}
+
+La figure \ref{fig:vue_classes_conception_diag} présente le diagramme de classe de la couche présentation(vue).
+La classe \textit{Controller} est ce qui permet à la vue d'intéragir avec le domaine.
+Tout objet qui peut être placé sur le terrain est un \textit{GameObject}.
+Cela permet d'éviter la création de doublons pour les fonctions de déplacement.
+Chaque image du jeu dans le temps hérite de la classe \textit{Frame}.
+Cela permet le visionnement de la simulation, ainsi que l'édition image par image de la Stratégie.
+
+
+%\begin{figure}[htpb]
+    %\centering
+    %\includegraphics[scale=0.6]{fig/domaine_classes_conception_diag.png}
+    %\caption{Diagramme de classes de conception de la couche présentation}
+    %\label{fig:vue_classes_conception_diag}
+%\end{figure}
+
 \section{Couche présentation}
 \label{sec:couche_presentation}
 
