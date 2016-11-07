@@ -48,6 +48,8 @@ C'est pour cela que ce contrôleur contient une majorité des méthodes permetta
 Par ailleurs, le patron de conception \textit{Observateur} est utilisé afin de rediriger la gestion de certains événements vers le \textit{RootLayoutController}.
 Cela permet d'éviter une duplication du code de gestion des événements tout en maintenant le couplage bas.
 Ainsi, la même fonctionnalité peut être exécutée par la barre de menu ou par un bouton dans un autre contrôleur.
+Finalement, il est important de comprendre que presque toutes les classes de la vue doivent communiquer avec le contrôleur du domaine. 
+Cela n'est pas représenté dans le diagramme, mais il pourrait y avoir une référence au contrôleur dans presque toutes les classes de la vue.
 
 
 \begin{figure}[htpb]
