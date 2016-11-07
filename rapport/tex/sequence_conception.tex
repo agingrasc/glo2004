@@ -12,7 +12,7 @@ Ce chapitre présente les diagrammes de séquence de conception associée aux fo
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.7]{fig/dsc_getRealCoordinate.png}
+    \includegraphics[scale=0.3]{fig/dsc_get_real_coordinate.png}
     \caption{Diagramme de séquence de conception pour Convertir les coordonnées de la souris en coordonnées réelles}
     \label{fig:dsc_pixel_reel}
 \end{figure}
@@ -27,12 +27,12 @@ Une fois les coordonnées du terrain obtenues, elles sont converties en coordonn
 \section{Ajouter un joueur}
 \label{sec:ajouter_joueur}
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_createPlayer.png}
-%    \caption{Diagramme de séquence de conception pour ajouter un joueur sur le terrain}
-%    \label{fig:dsc_create_player}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_create_player.png}
+    \caption{Diagramme de séquence de conception pour ajouter un joueur sur le terrain}
+    \label{fig:dsc_create_player}
+\end{figure}
 
 La figure \ref{fig:dsc_create_player} est le diagramme séquence lorsqu'un nouveau joueur est ajouté sur le terrain.
 La fenêtre reçoit un événement lorsque que la souris est en mode \textit{Glisser}.
@@ -41,12 +41,12 @@ Le contrôleur est alors appelé et il crée un identifiant pour le nouveau joue
 Puis, ce joueur est ajouté dans le domaine, ainsi que dans l'image courante.
 
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_dragPlayer.png}
-%    \caption{Diagramme de séquence de conception pour déplacer un joueur sur le terrain}
-%    \label{fig:dsc_drag_player}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_drag_player.png}
+    \caption{Diagramme de séquence de conception pour déplacer un joueur sur le terrain}
+    \label{fig:dsc_drag_player}
+\end{figure}
 
 La figure \ref{fig:dsc_drag_player} est le diagramme de séquence lorqu'un joueur est déplacé à un nouvel endroit sur le terrain.
 La sélection du joueur sur le terrain est expliqué en détail à la section \ref{sec:convertir_clic_en_objet}.
@@ -54,12 +54,12 @@ La sélection du joueur sur le terrain est expliqué en détail à la section \r
 \section{Sélectionner l'objet de jeu sous la souris après un clic}
 \label{sec:convertir_clic_en_objet}
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_getGameObject.png}
-%    \caption{Diagramme de séquence de conception pour obtenir l'objet de jeu sous la souris après un clic}
-%    \label{fig:dsc_get_game_object}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_get_game_object_by_coordinate.png}
+    \caption{Diagramme de séquence de conception pour obtenir l'objet de jeu sous la souris après un clic}
+    \label{fig:dsc_get_game_object}
+\end{figure}
 
 La figure \ref{fig:dsc_get_game_object} est le diagramme de séquence pour sélectionner l'objet de jeu sous la souris.
 Les coordonnées du terrain sont obtenus en délégant l'appel à la stratégie courante.
@@ -71,12 +71,12 @@ Autrement, un identifiant \textit{null} est retourné.
 \section{Édition en mode image par image}
 \label{sec:edition_image_par_image}
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_editImageByImage.png}
-%    \caption{Diagramme de séquence de conception pour le mode d'édition image par image}
-%    \label{fig:dsc_edit_image}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_edition_image_par_image.png}
+    \caption{Diagramme de séquence de conception pour le mode d'édition image par image}
+    \label{fig:dsc_edit_image}
+\end{figure}
 
 La figure \ref{fig:dsc_edit_image} est le diagramme de séquence des différentes intéractions entre le système et l'utilisateur lors de l'édition d'une stratégie en mode \textbf{image par image}.
 Lorsque l'utilisateur change pour ce mode d'édition, la fenête principale s'occupe d'initialiser les éléments de la vue.
@@ -98,12 +98,12 @@ Cet appel est uniquement exécuté si l'identifiant n'est pas null.
 \section{Édition en mode temps réel}
 \label{sec:edition_temps_reel}
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_editRealTime.png}
-%    \caption{Diagramme de séquence de conception pour le mode d'édition en temps réel}
-%    \label{fig:dsc_edit_real_time}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_edition_temps_reel.png}
+    \caption{Diagramme de séquence de conception pour le mode d'édition en temps réel}
+    \label{fig:dsc_edit_real_time}
+\end{figure}
 
 La figure \ref{fig:dsc_edit_real_time} est le diagramme de séquence des différentes intéractions entre le système et l'utilisateur lors de l'édition d'une stratégie en mode \textbf{temps réel}.
 Ce mode est très similaire avec celui image par image (\ref{sec:edition_impage_par_image}).
@@ -121,12 +121,12 @@ L'édition en temps réel peut se poursuivre.
 \section{Visionner le jeu}
 \label{sec:visionner_jeu}
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_visionnement_watch.png}
-%    \caption{Diagramme de séquence de conception pour le mode de visionnement (partie principale)}
-%    \label{fig:dsc_view_main}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_visionnement_watch.png}
+    \caption{Diagramme de séquence de conception pour le mode de visionnement (partie principale)}
+    \label{fig:dsc_view_main}
+\end{figure}
 
 La figure \ref{fig:dsc_view_main} est le diagramme de séquence pour les principales intéractions lors du visionnement.
 
@@ -137,35 +137,35 @@ Si l'utilisateur met sur pause, ce même booléen est mis à Vrai.
 À chaque itération de la boucle, le système récupère une image.
 Si le visionnement n'est pas sur pause ou si la dernière image affichée n'était pas la dernière image disponible, le système affiche l'image.
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_visionnement_edit_index.png}
-%    \caption{Diagramme de séquence de conception pour le mode de visionnement (modification du temps)}
-%    \label{fig:dsc_view_edit_idx}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_edit_delta_frame.png}
+    \caption{Diagramme de séquence de conception pour le mode de visionnement (modification du temps)}
+    \label{fig:dsc_view_edit_idx}
+\end{figure}
 
 La figure \ref{fig:dsc_view_edit_idx} est le diagramme de séquence lorsque l'utilisateur souhaite avancer ou reculer d'un temps ajustable.
 Lorsque le temps est saisi, le système appel le contrôleur pour ajuster le temps actuel.
 Le contrôleur est responsable de traduire le différentiel de temps en un différentiel d'images et il tente de modifier autant que possible l'image en cours.
 La nouvelle image actuelle est retournée et affichée.
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_visionnement_forward.png}
-%    \caption{Diagramme de séquence de conception pour le mode de visionnement (avancement rapide)}
-%    \label{fig:dsc_view_forward}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_forward_frame_index.png}
+    \caption{Diagramme de séquence de conception pour le mode de visionnement (avancement rapide)}
+    \label{fig:dsc_view_forward}
+\end{figure}
 
 La figure \ref{fig:dsc_view_forward} est le diagramme de séquence lorsque l'utilisateur souhaite avancer en accélérer la stratégie.
 Le sens est vérifié et si le visionnement se faisait en reculant, la vitesse de visionnement est remise à sa valeur par défaut.
 La vitesse est accélérée en appelant le contrôleur.
 
-%\begin{figure}[htpb]
-%    \centering
-%    \includegraphics[scale=0.7]{fig/dsc_visionnement_rewind.png}
-%    \caption{Diagramme de séquence de conception pour le mode de visionnement (reculuement rapide)}
-%    \label{fig:dsc_view_rewind}
-%\end{figure}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.3]{fig/dsc_rewind.png}
+    \caption{Diagramme de séquence de conception pour le mode de visionnement (reculuement rapide)}
+    \label{fig:dsc_view_rewind}
+\end{figure}
 
 La figure \ref{fig:dsc_view_rewind} est le diagramme de séquence lorsque l'utilisateur souhaite reculer en accélérer la stratégie.
 C'est la même logique que dans le cas de l'avancement rapide, mais modifié pour tenir compte du sens de visionnement renversé.
