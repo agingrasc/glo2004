@@ -43,6 +43,20 @@ public class PlayerPool implements Serializable
         }
         return player.getId();
     }
+    
+    public void deletePlayer(Integer id)
+    {
+        this.deletePlayer(id, true);
+    }
+    
+    public void deletePlayer(Integer id, boolean persistent)
+    {
+        this.players.remove(id);
+        if(persistent)
+        {
+            this.savePlayerPool(PLAYER_POOL_PATH);
+        }
+    }
 
     public void setPlayerInfo(Integer id, String name, int number, String role)
     {
