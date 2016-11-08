@@ -25,6 +25,9 @@ public class FieldEditorController
     private Canvas fieldDraw;
 
     @FXML
+    private Canvas fieldBackground;
+
+    @FXML
     private Spinner fieldLength;
 
     @FXML
@@ -119,65 +122,94 @@ public class FieldEditorController
     }
 
     @FXML
-    void onFillColor()
+    public void onUndo()
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        gc.restore();
+    }
+
+    @FXML
+    public void onSizeChanged()
+    {
+        System.out.println("onSizeChanged");
+        fieldDraw.setHeight((double)fieldWidth.getValue());
+        fieldDraw.setWidth((double)fieldLength.getValue());
+    }
+    @FXML
+    void onFillColor()
+    {
+        GraphicsContext gc = fieldBackground.getGraphicsContext2D();
         gc.setFill(fieldColor.getValue());
-        gc.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
+        gc.fillRect(0, 0, fieldBackground.getWidth(), fieldBackground.getHeight());
     }
 
     @FXML
     void onDraw(MouseEvent me)
     {
+        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        gc.save();
         if(fieldPencil.isSelected())
         {
-            GraphicsContext gc = fieldDraw.getGraphicsContext2D();
             gc.setFill(fieldColor.getValue());
             gc.fillRect(me.getX(), me.getY(), 3, 3);
+        }
+        else if(fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
+        {
+            drawShape(me);
+            gc.restore();
         }
     }
 
     @FXML
     void onInitShape(MouseEvent me)
     {
+        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
         if(fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
         {
-            System.out.println("new Start!");
             startDragPosition[0] = me.getX();
             startDragPosition[1] = me.getY();
+            gc.save();
+        }
+        else if(fieldPencil.isSelected())
+        {
+            gc.setFill(fieldColor.getValue());
+            gc.fillRect(me.getX(), me.getY(), 3, 3);
         }
     }
 
     @FXML
     void onFinishShape(MouseEvent me)
     {
+        drawShape(me);
+        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        gc.save();
+    }
+
+    void drawShape(MouseEvent me)
+    {
+        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        gc.setStroke(fieldColor.getValue());
         if(fieldCircle.isSelected())
         {
-            GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-            gc.setStroke(fieldColor.getValue());
             gc.strokeOval(
                     startDragPosition[0],
                     startDragPosition[1],
-                    abs(me.getX() - startDragPosition[0]),
-                    abs(me.getY() - startDragPosition[1])
+                    (me.getX() - startDragPosition[0]),
+                    (me.getY() - startDragPosition[1])
             );
 
         }
         else if(fieldSquare.isSelected())
         {
-            GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-            gc.setStroke(fieldColor.getValue());
             gc.strokeRect(
                     startDragPosition[0],
                     startDragPosition[1],
-                    abs(me.getX() - startDragPosition[0]),
-                    abs(me.getY() - startDragPosition[1])
+                    (me.getX() - startDragPosition[0]),
+                    (me.getY() - startDragPosition[1])
             );
         }
         else if(fieldLine.isSelected())
         {
-            GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-            gc.setStroke(fieldColor.getValue());
             gc.strokeLine(startDragPosition[0], startDragPosition[1], me.getX(), me.getY());
         }
     }
