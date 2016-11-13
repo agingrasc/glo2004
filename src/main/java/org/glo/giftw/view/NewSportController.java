@@ -39,14 +39,20 @@ public class NewSportController
 	}
 
 	@FXML
-	void onActionBrowse(ActionEvent event)
+	void onActionBrowseField(ActionEvent event)
 	{
-		System.out.println("onActionBrowse");
+		System.out.println("onActionBrowseField");
 		Window parentWindow = newSportDialog.getScene().getWindow();
 		OpenImageFileController openImageFileController = new OpenImageFileController();
 
 		File imageToOpen = openImageFileController.startDialog(parentWindow);
 		sportFieldImageFile = imageToOpen;
+	}
+	
+	@FXML
+	void onActionBrowseProjectile(ActionEvent event)
+	{
+		System.out.println("onActionBrowseField");
 	}
 	
 	public void showDialog(DialogPane dialogPane)
@@ -58,7 +64,7 @@ public class NewSportController
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
 			//TODO Mettre a jour le domaine via le controleur
-			//Et mettre à jour la vue...
+			//Et mettre a jour la vue...
 		}
 	}
 }

@@ -17,7 +17,7 @@ public class NewStrategyController
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
 			//TODO Mettre a jour le domaine via le controleur
-			//Et mettre à jour la vue...
+			//Et mettre a jour la vue...
 		}
 	}
 }
