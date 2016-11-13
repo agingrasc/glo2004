@@ -1,8 +1,11 @@
 package org.glo.giftw.domain;
 
-public class Player extends GameObject
+import java.io.Serializable;
+
+public class Player extends GameObject implements Serializable
 {
-    private String name;
+    public static final long serialVersionUID = 2L;
+
     private int jerseyNumber;
     private String role;
     private Vector speed;
@@ -20,26 +23,34 @@ public class Player extends GameObject
     {
         super();
         this.name = name;
-        this.role = role;
         this.jerseyNumber = number;
+        this.role = role;
+        this.collidable = true;
         this.speed = new Vector(0, 0);
         this.hasProjectile = false;
         Player.playerCount++;
     }
 
-    public String getName()
+    public Player(Vector position, float orientation, Vector dimensions)
     {
-        return this.name;
+        this("", "", playerCount);
+        this.position = position;
+        this.orientation = orientation;
+        this.dimensions = dimensions;
     }
 
-    public String getRole()
+    public Player(Player player)
     {
-        return this.role;
+        super(player);
+        this.jerseyNumber = player.jerseyNumber;
+        this.role = player.role;
+        this.speed = player.speed;
+        this.hasProjectile = player.hasProjectile;
     }
 
-    public void setName(String name)
+    public GameObject copy()
     {
-        this.name = name;
+        return new Player(this);
     }
 
     public int getJerseyNumber()
@@ -50,6 +61,16 @@ public class Player extends GameObject
     public void setJerseyNumber(int jerseyNumber)
     {
         this.jerseyNumber = jerseyNumber;
+    }
+
+    public String getRole()
+    {
+        return this.role;
+    }
+
+    public void setRole(String role)
+    {
+        this.role = role;
     }
 
     public Vector getSpeed()
@@ -64,7 +85,7 @@ public class Player extends GameObject
 
     public boolean hasProjectile()
     {
-        return hasProjectile;
+        return this.hasProjectile;
     }
 
     public void takeProjectile()
@@ -80,5 +101,18 @@ public class Player extends GameObject
     public static int getPlayerCount()
     {
         return Player.playerCount;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Jouer(Nom: " +
+                this.name +
+                ", Numero: " +
+                this.jerseyNumber +
+                ", Role: " +
+                this.role + "ID: " +
+                this.id.toString() + ", Position: " +
+                this.position.toString() + ")";
     }
 }

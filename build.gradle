@@ -33,3 +33,9 @@ task run(type: JavaExec) {
 
     main = 'org.glo.giftw.MainApp'
 }
+
+task runDomain(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    main = 'org.glo.giftw.DomainMain'
+}

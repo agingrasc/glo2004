@@ -1,10 +1,10 @@
 package org.glo.giftw.domain;
 
-public class Obstacle extends GameObject
-{
-    //dictates if the obstacle generate collisions with other game object
-    private boolean collidable;
+import java.io.Serializable;
 
+public class Obstacle extends GameObject implements Serializable
+{
+    public static final long serialVersionUID = 1L;
     private static int obstacleCount = 0;
 
     public Obstacle()
@@ -14,14 +14,22 @@ public class Obstacle extends GameObject
         Obstacle.obstacleCount++;
     }
 
-    public boolean isCollidable()
+    public Obstacle(Vector position, float orientation, Vector dimensions)
     {
-        return this.collidable;
+        this();
+        this.position = position;
+        this.orientation = orientation;
+        this.dimensions = dimensions;
     }
 
-    public void setCollidable(boolean isCollidable)
+    public Obstacle(Obstacle obs)
     {
-        this.collidable = isCollidable;
+        super(obs);
+    }
+    
+    public GameObject copy()
+    {
+        return new Obstacle(this);
     }
 
     public static int getObstacleCount()

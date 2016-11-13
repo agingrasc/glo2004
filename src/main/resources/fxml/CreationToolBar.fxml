@@ -7,20 +7,20 @@
 
 <ToolBar stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationToolBarController">
   <items>
+      <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionPrevious" text="Précédent">
+         <graphic>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
       <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionNext" text="Suivant">
          <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/next.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionLast" text="Précédent">
-         <graphic>
-            <ImageView pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/back.png" />
                </image>
             </ImageView>
          </graphic>

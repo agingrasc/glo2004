@@ -40,7 +40,7 @@ public class NewObstacleController
 		{
 			
 			//TODO Mettre a jour le domaine via le controleur
-			//Et mettre à jour la vue...
+			//Et mettre ï¿½ jour la vue...
 		}
 	}
 }

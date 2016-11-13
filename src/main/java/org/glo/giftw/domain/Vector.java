@@ -1,12 +1,15 @@
 package org.glo.giftw.domain;
 
 import java.lang.Math;
+import java.io.Serializable;
 
 /**
  * Representation of 2D vectors and points.
  */
-public class Vector
+public class Vector implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     private double x;
     private double y;
 
@@ -82,5 +85,11 @@ public class Vector
     public boolean equals(Vector rhd)
     {
         return this.x == rhd.x && this.y == rhd.y;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "(x: " + this.x + ", y: " + this.y + ")";
     }
 }

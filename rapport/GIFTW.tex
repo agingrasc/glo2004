@@ -32,7 +32,7 @@
 \setlength\parskip{\baselineskip}
 
 \TitreProjet{VisuaLigue (VL)}
-\TitreRapport{Rapport de projet -- version 1.0}
+\TitreRapport{Rapport de projet -- version 2.0}
 \Destinataire{Martin Savoie, Jonathan Gaudreault}
 \NumeroEquipe{01}
 \NomEquipe{GIFTW}
@@ -43,11 +43,12 @@
         111\,098\,395 & Alexandra Mercier &\\\hline
 }
 
-\DateRemise{2 octobre 2016}
+\DateRemise{6 novembre 2016}
 
 \HistoriqueVersions{%
     0.0 & 18 septembre 2016 & Création du document \\\hline
     1.0 & 2 octobre 2016 & Première remise \\\hline
+    2.0 & 6 novembre 2016 & Livrable 2\\\hline
 }
 
 %Corps du document
@@ -55,14 +56,16 @@
 \begin{document}
 
 % Chapitres
-\input{tex/vision}
-\input{tex/maquettes_interfaces}
-\input{tex/domaine_modele}
-\input{tex/cas_utilisation}
+\input{tex/classe_conception.tex}
+\input{tex/sequence_conception.tex}
 
 % Annexes
 \appendix
 \input{tex/annexe/echeancier}
+\input{tex/vision}
+\input{tex/maquettes_interfaces}
+\input{tex/domaine_modele}
+\input{tex/cas_utilisation}
 \input{tex/annexe/glossaire}
 \input{tex/annexe/bibliographie}
 \end{document}

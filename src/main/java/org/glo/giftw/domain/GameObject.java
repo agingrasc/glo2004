@@ -1,18 +1,42 @@
 package org.glo.giftw.domain;
 
-public abstract class GameObject
+import java.io.Serializable;
+import java.lang.Math;
+
+public abstract class GameObject implements Serializable
 {
-    private float orientation;
-    private Vector position;
-    private Vector scale;
+    public static final long serialVersionUID = 1L;
+    private static Integer objectCount = 0;
+
+    protected float orientation;
+    protected Vector position;
+    protected Vector dimensions;
+    protected String name;
+    protected boolean collidable;
+    protected Integer id;
 
     public GameObject()
     {
         this.orientation = 0;
         this.position = new Vector(0, 0);
-        this.scale = new Vector(1, 1);
+        this.dimensions = new Vector(1, 1);
+        this.name = "";
+        this.collidable = true;
+        GameObject.objectCount++;
+        this.id = GameObject.objectCount;
     }
 
+    public GameObject(GameObject gameObject)
+    {
+        this.orientation = gameObject.orientation;
+        this.position = gameObject.position;
+        this.dimensions = gameObject.dimensions;
+        this.name = gameObject.name;
+        this.collidable = gameObject.collidable;
+        this.id = gameObject.id;
+    }
+    
+    public abstract GameObject copy();
 
     public float getOrientation()
     {
@@ -34,14 +58,44 @@ public abstract class GameObject
         this.position = position;
     }
 
-    public Vector getScale()
+    public Vector getDimensions()
     {
-        return this.scale;
+        return this.dimensions;
     }
 
-    public void setScale(Vector scale)
+    public void setDimensions(Vector dimensions)
     {
-        this.scale = scale;
+        this.dimensions = dimensions;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public boolean isCollidable()
+    {
+        return this.collidable;
+    }
+
+    public void setCollidable(boolean isCollidable)
+    {
+        this.collidable = isCollidable;
+    }
+    
+    public int getId()
+    {
+        return this.id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
 
@@ -60,5 +114,32 @@ public abstract class GameObject
          */
         this.position.setX(position.getX() + delta.getX());
         this.position.setY(position.getY() + delta.getY());
+    }
+    
+    /**
+     * Check if the specified GameObject collides with this GameObject
+     * @param other : the other GameObject
+     * @return A boolean indicating if there is a collision
+     */
+    public boolean detectCollision(GameObject other)
+    {
+        if(this.collidable && other.collidable)
+        {
+            double dx = Math.abs(other.position.getX() - this.position.getX());
+            double dy = Math.abs(other.position.getY() - this.position.getY());
+            return dx < (this.dimensions.getX() + other.dimensions.getX())/2 && dy < (this.dimensions.getY() + other.dimensions.getY())/2;
+        }  
+        else
+        {
+            return false;
+        }
+    }
+
+    public static void setObjectCount(Integer count)
+    {
+        if (GameObject.objectCount < count)
+        {
+            GameObject.objectCount = count;
+        }
     }
 }
