@@ -21,5 +21,10 @@ public class OpenObstacleController
 		StackPane listPlaceHolder = loader.load();
 		listView.setPlaceholder(listPlaceHolder);
 	}
+	
+	public void updateList()
+	{
+		
+	}
 
 }

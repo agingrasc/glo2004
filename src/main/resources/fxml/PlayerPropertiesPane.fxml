@@ -2,7 +2,9 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,8 +14,9 @@
    <content>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="75.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -21,10 +24,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" text="Afficher le rôle" />
-            <CheckBox mnemonicParsing="false" text="Afficher le nom" GridPane.rowIndex="1" />
+            <CheckBox mnemonicParsing="false" text="Afficher?" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <CheckBox mnemonicParsing="false" text="Afficher?" GridPane.columnIndex="2" />
             <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Équipe:" GridPane.rowIndex="2" />
+            <Label text="Rôle:" />
+            <Label text="Nom:" GridPane.rowIndex="1" />
+            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </content>

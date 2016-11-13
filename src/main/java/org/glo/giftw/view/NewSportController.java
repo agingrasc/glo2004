@@ -3,12 +3,14 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class NewSportController
 {
@@ -45,5 +47,18 @@ public class NewSportController
 
 		File imageToOpen = openImageFileController.startDialog(parentWindow);
 		sportFieldImageFile = imageToOpen;
+	}
+	
+	public void showDialog(DialogPane dialogPane)
+	{
+		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+		dialog.setDialogPane(dialogPane);
+		Optional<ButtonType> result = dialog.showAndWait();
+		
+		if (result.isPresent() && result.get() == ButtonType.FINISH)
+		{
+			//TODO Mettre a jour le domaine via le controleur
+			//Et mettre à jour la vue...
+		}
 	}
 }

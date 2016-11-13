@@ -8,26 +8,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 
-public class RootLayoutController implements Observer
-{	
+public class RootLayoutController implements Observer 
+{
 	@FXML
 	private ToggleGroup mode;
-	
-    @FXML
-    private BorderPane borderPane;
-    
-    @FXML
-    private ToolBar rootToolBar;
 
 	@FXML
-    private void initialize() throws IOException
-	{	
+	private BorderPane borderPane;
+
+	@FXML
+	private ToolBar rootToolBar;
+
+	@FXML
+	private void initialize() throws IOException
+	{
 		openStrategy();
 	}
 
@@ -36,64 +35,63 @@ public class RootLayoutController implements Observer
 	{
 		try
 		{
-			switch((String) arg1)
+			switch ((String) arg1)
 			{
-				case "onActionOpenObstacle":
-					openObstacle();
-					break;
-					
-				case "onActionOpenSport":
-					openSport();
-					break;
-					
-				case "onActionOpenStrategy":
-					openStrategy();
-					break;
-					
-				case "onActionNewObstacle":
-					newObstacle();
-					break;
-					
-				case "onActionNewSport":
-					newSport();
-					break;
-					
-				case "onActionNewStrategy":
-					newStrategy();
-					break;
-				
-				case "onActionWatch":
-					watch();
-					break;
-				
-				case "onActionImageByImage":
-					imageByImage();
-					break;
-				
-				case "onActionRealTime":
-					realTime();
-					break;
-					
-				case "onActionConfigureSport":
-					configureSport();
-					break;
-					
-				case "onActionConfigureObstacle":
-					configureObstacle();
-					break;
-					
-				case "onActionConfigureStrategy":
-					configureStrategy();
-					break;
+			case "onActionOpenObstacle":
+				openObstacle();
+				break;
+
+			case "onActionOpenSport":
+				openSport();
+				break;
+
+			case "onActionOpenStrategy":
+				openStrategy();
+				break;
+
+			case "onActionNewObstacle":
+				newObstacle();
+				break;
+
+			case "onActionNewSport":
+				newSport();
+				break;
+
+			case "onActionNewStrategy":
+				newStrategy();
+				break;
+
+			case "onActionWatch":
+				watch();
+				break;
+
+			case "onActionImageByImage":
+				imageByImage();
+				break;
+
+			case "onActionRealTime":
+				realTime();
+				break;
+
+			case "onActionConfigureSport":
+				configureSport();
+				break;
+
+			case "onActionConfigureObstacle":
+				configureObstacle();
+				break;
+
+			case "onActionConfigureStrategy":
+				configureStrategy();
+				break;
 			}
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void openObstacle() throws IOException
 	{
 		rootToolBar.getItems().clear();
@@ -103,7 +101,7 @@ public class RootLayoutController implements Observer
 		changeCenter("/fxml/OpenObstacle.fxml");
 		borderPane.setBottom(null);
 	}
-	
+
 	private void openSport() throws IOException
 	{
 		rootToolBar.getItems().clear();
@@ -113,7 +111,7 @@ public class RootLayoutController implements Observer
 		changeCenter("/fxml/OpenSport.fxml");
 		borderPane.setBottom(null);
 	}
-	
+
 	private void openStrategy() throws IOException
 	{
 		rootToolBar.getItems().clear();
@@ -124,24 +122,36 @@ public class RootLayoutController implements Observer
 		changeCenter("/fxml/OpenStrategy.fxml");
 		borderPane.setBottom(null);
 	}
-	
+
 	private void newObstacle() throws IOException
 	{
-		showDialog("/fxml/NewObstacle.fxml");
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/NewObstacle.fxml"));
+		DialogPane dialogPane = loader.load();
+		NewObstacleController newObstacleController = loader.getController();
+		newObstacleController.showDialog(dialogPane);
 	}
-	
+
 	private void newSport() throws IOException
-	{	
-		showDialog("/fxml/NewSport.fxml");
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/NewSport.fxml"));
+		DialogPane dialogPane = loader.load();
+		NewSportController newSportController = loader.getController();
+		newSportController.showDialog(dialogPane);
 	}
-	
+
 	private void newStrategy() throws IOException
 	{
-		showDialog("/fxml/NewStrategy.fxml");
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/NewStrategy.fxml"));
+		DialogPane dialogPane = loader.load();
+		NewStrategyController newStrategyController = loader.getController();
+		newStrategyController.showDialog(dialogPane);
 	}
-	
+
 	private void watch() throws IOException
-	{	
+	{
 		rootToolBar.getItems().clear();
 		addToolBar("/fxml/DefaultToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
@@ -150,7 +160,7 @@ public class RootLayoutController implements Observer
 		changeCenter("/fxml/MediaContent.fxml");
 		changeBottom("/fxml/BottomBar.fxml");
 	}
-	
+
 	private void imageByImage() throws IOException
 	{
 		rootToolBar.getItems().clear();
@@ -161,7 +171,7 @@ public class RootLayoutController implements Observer
 		changeCenter("/fxml/CreationStackPane.fxml");
 		changeBottom("/fxml/BottomBar.fxml");
 	}
-	
+
 	private void realTime() throws IOException
 	{
 		rootToolBar.getItems().clear();
@@ -172,82 +182,59 @@ public class RootLayoutController implements Observer
 		changeCenter("/fxml/CreationStackPane.fxml");
 		changeBottom("/fxml/BottomBar.fxml");
 	}
-	
+
 	private void configureSport() throws IOException
 	{
-		showDialog("/fxml/NewSport.fxml");
+		newSport();
 	}
-	
+
 	private void configureObstacle() throws IOException
 	{
-		showDialog("/fxml/NewObstacle.fxml");
+		newObstacle();
 	}
-	
+
 	private void configureStrategy() throws IOException
 	{
-		showDialog("/fxml/NewStrategy.fxml");
+		newStrategy();
 	}
-	
-	private void showDialog(String url) throws IOException
-	{
-		DialogPane dialogPane = (DialogPane) loadNode(url, false);
-		Dialog<Object> dialog = new Dialog<Object>();
-		dialog.setDialogPane(dialogPane);
-		dialog.showAndWait();
-	}
-	
+
 	private void addToolBar(String url, boolean obs) throws IOException
 	{
-		ToolBar toolBar = (ToolBar) loadNode(url, obs);
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(url));
+		ToolBar toolBar = loader.load();
+		if(obs)
+		{	
+			((Observable)loader.getController()).addObserver(this);
+		}	
 		rootToolBar.getItems().addAll(toolBar.getItems());
+	}
 
-		//toolBarArray.add(toolBar.getItems().size());
-	}
-	
-	/*private void removeToolBar(int index)
-	{
-		int fromIndex = 0;
-		int toIndex = 0;
-		
-		for(int i = 0; i < index; i++)
-		{
-			fromIndex += toolBarArray.get(i);
-		}
-		
-		toIndex = fromIndex + toolBarArray.get(index);
-				
-		rootToolBar.getItems().remove(fromIndex, toIndex);
-		toolBarArray.remove(index);
-	}*/
-	
 	private void changeCenter(String url) throws IOException
-	{
-		Node node = loadNode(url, false);
-		borderPane.setCenter(node);
-	}
-	
-	private void changeLeft(String url) throws IOException
-	{
-		Node node = loadNode(url, false);
-		borderPane.setLeft(node);
-	}
-	
-	private void changeBottom(String url) throws IOException
-	{
-		Node node = loadNode(url, false);
-		borderPane.setBottom(node);
-	}
-	
-	private Node loadNode(String url, boolean obs) throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(url));
 		Node node = loader.load();
-		if(obs)
-		{
-			((Observable) loader.getController()).addObserver(this);
-		}
-		return node;
+		
+		borderPane.setCenter(node);
+	}
+
+	private void changeLeft(String url) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(url));
+		Node node = loader.load();
+		
+		borderPane.setLeft(node);
+	}
+
+	private void changeBottom(String url) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(url));
+		Node node = loader.load();
+		
+		borderPane.setBottom(node);
 	}
 
 	@FXML
