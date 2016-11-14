@@ -1,12 +1,18 @@
 package org.glo.giftw.view;
 
-import java.util.Observable;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 
-public class OpenStrategyToolBarController extends Observable
+public class OpenStrategyToolBarController
 {	
+	@FXML
+	private ToolBar rootToolBar;
+	
+	private RootLayoutController rootLayoutController;
+	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -14,12 +20,18 @@ public class OpenStrategyToolBarController extends Observable
 	}
 	
 	@FXML
-	void onActionConfigureStrategy(ActionEvent event)
+	void onActionConfigureStrategy(ActionEvent event) throws IOException
 	{
-		String handler = "onActionConfigureStrategy";
-		System.out.println(handler);
+		rootLayoutController.configureStrategy();
+	}
 
-		setChanged();
-		notifyObservers(handler);
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
+	}
+
+	public void setRootLayoutController(RootLayoutController rootLayoutController)
+	{
+		this.rootLayoutController = rootLayoutController;
 	}
 }

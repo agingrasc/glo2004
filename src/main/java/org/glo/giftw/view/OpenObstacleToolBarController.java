@@ -1,12 +1,18 @@
 package org.glo.giftw.view;
 
-import java.util.Observable;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 
-public class OpenObstacleToolBarController extends Observable
+public class OpenObstacleToolBarController
 {
+	@FXML
+	private ToolBar rootToolBar;
+	
+	private RootLayoutController rootLayoutController;
+	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -14,12 +20,18 @@ public class OpenObstacleToolBarController extends Observable
 	}
 
 	@FXML
-	void onActionConfigureObstacle(ActionEvent event)
+	void onActionConfigureObstacle(ActionEvent event) throws IOException
 	{
-		String handler = "onActionConfigureObstacle";
-		System.out.println(handler);
+		rootLayoutController.configureObstacle();
+	}
 
-		setChanged();
-		notifyObservers(handler);
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
+	}
+
+	public void setRootLayoutController(RootLayoutController rootLayoutController)
+	{
+		this.rootLayoutController = rootLayoutController;
 	}
 }

@@ -1,76 +1,67 @@
 package org.glo.giftw.view;
 
 import java.io.IOException;
-import java.util.Observable;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 
-public class DefaultToolBarController extends Observable
+public class DefaultToolBarController
 {	
+	@FXML 
+	private ToolBar rootToolBar;
+	
+	private RootLayoutController rootLayoutController;
+	
 	@FXML
 	void onActionNewObstacle(ActionEvent event) throws IOException
 	{
-		String handler = "onActionNewObstacle";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		rootLayoutController.newObstacle();
 	}
 
 	@FXML
 	void onActionNewSport(ActionEvent event) throws IOException
 	{
-		String handler = "onActionNewSport";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		rootLayoutController.newSport();
 	}
 
 	@FXML
 	void onActionNewStrategy(ActionEvent event) throws IOException
 	{
-		String handler = "onActionNewStrategy";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		rootLayoutController.newStrategy();
 	}
 
 	@FXML
 	void onActionOpenObstacle(ActionEvent event) throws IOException
 	{
-		String handler = "onActionOpenObstacle";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		rootLayoutController.openObstacle();
 	}
 
 	@FXML
 	void onActionOpenSport(ActionEvent event) throws IOException
 	{
-		String handler = "onActionOpenSport";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		rootLayoutController.openSport();
 	}
 
 	@FXML
 	void onActionOpenStrategy(ActionEvent event) throws IOException
 	{
-		String handler = "onActionOpenStrategy";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		rootLayoutController.openStrategy();
 	}
 
 	@FXML
 	void onActionSave(ActionEvent event)
 	{
 		System.out.println("onActionSave");
+	}
+
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
+	}
+
+	public void setRootLayoutController(RootLayoutController rootLayoutController)
+	{
+		this.rootLayoutController = rootLayoutController;
 	}
 }

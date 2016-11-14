@@ -17,7 +17,7 @@ public class NewSportController
 	private File sportFieldImageFile;
 
 	@FXML
-	private DialogPane newSportDialog;
+	private DialogPane rootDialogPane;
 
 	File getSportFieldImageFile() { return sportFieldImageFile; }
 
@@ -42,7 +42,7 @@ public class NewSportController
 	void onActionBrowseField(ActionEvent event)
 	{
 		System.out.println("onActionBrowseField");
-		Window parentWindow = newSportDialog.getScene().getWindow();
+		Window parentWindow = rootDialogPane.getScene().getWindow();
 		OpenImageFileController openImageFileController = new OpenImageFileController();
 
 		File imageToOpen = openImageFileController.startDialog(parentWindow);
@@ -55,10 +55,10 @@ public class NewSportController
 		System.out.println("onActionBrowseField");
 	}
 	
-	public void showDialog(DialogPane dialogPane)
+	public void showDialog()
 	{
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-		dialog.setDialogPane(dialogPane);
+		dialog.setDialogPane(rootDialogPane);
 		Optional<ButtonType> result = dialog.showAndWait();
 		
 		if (result.isPresent() && result.get() == ButtonType.FINISH)

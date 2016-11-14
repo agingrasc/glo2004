@@ -17,12 +17,12 @@ public class NewObstacleController
 	private ImageView imagePreview;
 
 	@FXML
-	private DialogPane newObstacleDialog;
+	private DialogPane rootDialogPane;
 
 	@FXML
 	void onActionBrowse(ActionEvent event)
 	{
-		Window parentWindow = newObstacleDialog.getScene().getWindow();
+		Window parentWindow = rootDialogPane.getScene().getWindow();
 		OpenImageFileController openImageFileController = new OpenImageFileController();
 
 		File imageToOpen = openImageFileController.startDialog(parentWindow);
@@ -30,15 +30,14 @@ public class NewObstacleController
 		System.out.println("onActionBrowse");
 	}
 	
-	public void showDialog(DialogPane dialogPane)
+	public void showDialog()
 	{
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-		dialog.setDialogPane(dialogPane);
+		dialog.setDialogPane(rootDialogPane);
 		Optional<ButtonType> result = dialog.showAndWait();
 		
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
-			
 			//TODO Mettre a jour le domaine via le controleur
 			//Et mettre a jour la vue...
 		}

@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class OpenStrategyController
 {
-
+	@FXML
+	private VBox rootVBox;
+	
 	@FXML
 	private ListView<?> listView;
 
@@ -22,4 +25,8 @@ public class OpenStrategyController
 		listView.setPlaceholder(listPlaceHolder);
 	}
 
+	public VBox getRootVBox()
+	{
+		return rootVBox;
+	}
 }
