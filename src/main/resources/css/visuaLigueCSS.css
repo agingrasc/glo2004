@@ -1,5 +1,8 @@
 .root {
     -fx-base: #2E3233;
     -fx-background: #2E3233;
+    -fx-focus-color: #474650;
+    -fx-faint-focus-color: #474650;
+    -fx-accent: #474650;
 }
 
