@@ -97,29 +97,32 @@ public class RootLayoutController implements Observer
 	private void openObstacle() throws IOException
 	{
 		rootToolBar.getItems().clear();
-		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/DefaultToolBar.fxml", true);
 		addToolBar("/fxml/OpenObstacleToolBar.fxml", true);
 		borderPane.setLeft(null);
 		changeCenter("/fxml/OpenObstacle.fxml");
+		borderPane.setBottom(null);
 	}
 	
 	private void openSport() throws IOException
 	{
 		rootToolBar.getItems().clear();
-		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/DefaultToolBar.fxml", true);
 		addToolBar("/fxml/OpenSportToolBar.fxml", true);
 		borderPane.setLeft(null);
 		changeCenter("/fxml/OpenSport.fxml");
+		borderPane.setBottom(null);
 	}
 	
 	private void openStrategy() throws IOException
 	{
 		rootToolBar.getItems().clear();
-		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/DefaultToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/OpenStrategyToolBar.fxml", true);
 		borderPane.setLeft(null);
 		changeCenter("/fxml/OpenStrategy.fxml");
+		borderPane.setBottom(null);
 	}
 	
 	private void newObstacle() throws IOException
@@ -140,31 +143,34 @@ public class RootLayoutController implements Observer
 	private void watch() throws IOException
 	{	
 		rootToolBar.getItems().clear();
-		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/DefaultToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/MediaToolBar.fxml", false);
 		borderPane.setLeft(null);
 		changeCenter("/fxml/MediaContent.fxml");
+		changeBottom("/fxml/BottomBar.fxml");
 	}
 	
 	private void imageByImage() throws IOException
 	{
 		rootToolBar.getItems().clear();
-		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/DefaultToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/CreationToolBar.fxml", false);
 		changeLeft("/fxml/ItemsAccordion.fxml");
 		changeCenter("/fxml/CreationStackPane.fxml");
+		changeBottom("/fxml/BottomBar.fxml");
 	}
 	
 	private void realTime() throws IOException
 	{
 		rootToolBar.getItems().clear();
-		addToolBar("/fxml/BaseToolBar.fxml", true);
+		addToolBar("/fxml/DefaultToolBar.fxml", true);
 		addToolBar("/fxml/ModeToolBar.fxml", true);
 		addToolBar("/fxml/CreationToolBar.fxml", false);
 		changeLeft("/fxml/ItemsAccordion.fxml");
 		changeCenter("/fxml/CreationStackPane.fxml");
+		changeBottom("/fxml/BottomBar.fxml");
 	}
 	
 	private void configureSport() throws IOException
@@ -224,6 +230,12 @@ public class RootLayoutController implements Observer
 	{
 		Node node = loadNode(url, false);
 		borderPane.setLeft(node);
+	}
+	
+	private void changeBottom(String url) throws IOException
+	{
+		Node node = loadNode(url, false);
+		borderPane.setBottom(node);
 	}
 	
 	private Node loadNode(String url, boolean obs) throws IOException
