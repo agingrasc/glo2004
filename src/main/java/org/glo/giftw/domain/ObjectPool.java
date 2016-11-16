@@ -8,6 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * Classe mère de tous les types de Pools
+ */
 public abstract class ObjectPool implements Serializable
 {
     public static final long serialVersionUID = 1L;

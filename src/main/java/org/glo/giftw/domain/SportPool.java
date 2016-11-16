@@ -7,6 +7,9 @@ import java.util.HashMap;
 import org.glo.giftw.domain.Sport;
 import org.glo.giftw.domain.Field;
 
+/**
+ * Conteneur permettant de conserver les types de sports créés
+ */
 public class SportPool extends ObjectPool
 {
     public static final long serialVersionUID = 1L;
