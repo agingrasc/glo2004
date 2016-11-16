@@ -47,6 +47,11 @@ public class Sport implements Serializable
     {
         this.roles = roles;
     }
+    
+    public void addRole(String role)
+    {
+        this.roles.add(role);
+    }
 
     public Field getField()
     {
