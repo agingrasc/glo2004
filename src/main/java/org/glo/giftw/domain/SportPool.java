@@ -32,10 +32,11 @@ public class SportPool extends ObjectPool
         }
     }
 
-    public void addSport(String name, List<String> roles, Vector dimension)
+    public void addSport(String name, List<String> roles, Vector dimension, String projectileName,
+            String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
     {
         Field field = new Field(dimension);
-        Sport sport = new Sport(name, roles, field);
+        Sport sport = new Sport(name, roles, field, projectileName, projectileImagePath, maxPLayersPerTeam, maxTeams);
         this.sports.put(sport.getName(), sport);
         if(this.persistent)
         {
@@ -62,11 +63,16 @@ public class SportPool extends ObjectPool
         return this.sports.values();
     }
     
-    public void setSportInfo(String name, List<String> roles, Vector dimensions)
+    public void setSportInfo(String name, List<String> roles, Vector dimensions, String projectileName,
+            String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
     {
         Sport sport = this.sports.get(name);
         sport.setRoles(roles);
         sport.setField(new Field(dimensions));
+        sport.setProjectileName(projectileName);
+        sport.setProjectileImagePath(projectileImagePath);
+        sport.setMaxPLayersPerTeam(maxPLayersPerTeam);
+        sport.setMaxTeams(maxTeams);
         if(this.persistent)
         {
             this.saveObjectPool(SPORT_POOL_PATH);
