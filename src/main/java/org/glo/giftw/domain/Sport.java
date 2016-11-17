@@ -123,6 +123,11 @@ public class Sport implements Serializable
     {
         this.maxTeams = maxTeams;
     }
+    
+    public String getFieldImagePath()
+    {
+        return this.field.getImagePath();
+    }
 
     @Override
     public String toString()

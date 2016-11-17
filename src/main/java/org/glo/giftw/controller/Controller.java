@@ -1,5 +1,6 @@
 package org.glo.giftw.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.glo.giftw.domain.*;
@@ -108,5 +109,14 @@ public class Controller
     public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
         this.currentStrategy.placeGameObject(gameObject, position, orientation, dimensions);
+    }
+    
+    /**
+     * Fourni une description des sports pour le menu de sélection d'un sport de la vue.
+     * @return Une hashmap associant le nom des sports aux chemins des image de son terrain.
+     */
+    public HashMap<String, String> getSportDescription()
+    {
+        return this.sportPool.getSportsDescription();
     }
 }

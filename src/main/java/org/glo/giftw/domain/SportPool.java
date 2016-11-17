@@ -3,6 +3,7 @@ package org.glo.giftw.domain;
 import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.glo.giftw.domain.Sport;
 import org.glo.giftw.domain.Field;
@@ -61,6 +62,16 @@ public class SportPool extends ObjectPool
     public Collection<Sport> getAllSports()
     {
         return this.sports.values();
+    }
+    
+    public HashMap<String, String> getSportsDescription()
+    {
+        HashMap<String, String> ret = new HashMap<>();
+        for(Map.Entry<String, Sport> entry : this.sports.entrySet())
+        {
+            ret.put(entry.getKey(), entry.getValue().getFieldImagePath());
+        }
+        return ret;
     }
     
     public void setSportInfo(String name, List<String> roles, Vector dimensions, String projectileName,
