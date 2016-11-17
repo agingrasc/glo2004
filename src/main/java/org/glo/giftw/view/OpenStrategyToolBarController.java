@@ -11,8 +11,6 @@ public class OpenStrategyToolBarController
 	@FXML
 	private ToolBar rootToolBar;
 	
-	private RootLayoutController rootLayoutController;
-	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -22,16 +20,11 @@ public class OpenStrategyToolBarController
 	@FXML
 	void onActionConfigureStrategy(ActionEvent event) throws IOException
 	{
-		rootLayoutController.configureStrategy();
+		RootLayoutController.getInstance().configureStrategy();
 	}
 
 	public ToolBar getRootToolBar()
 	{
 		return rootToolBar;
-	}
-
-	public void setRootLayoutController(RootLayoutController rootLayoutController)
-	{
-		this.rootLayoutController = rootLayoutController;
 	}
 }

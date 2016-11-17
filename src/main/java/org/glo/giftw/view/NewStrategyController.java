@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 
@@ -12,6 +13,12 @@ public class NewStrategyController
 	@FXML
 	private DialogPane rootDialogPane;
 	
+	 @FXML
+    private CheckBox maxPlayers;
+
+    @FXML
+    private CheckBox maxTeams;
+    
 	public void showDialog()
 	{
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();

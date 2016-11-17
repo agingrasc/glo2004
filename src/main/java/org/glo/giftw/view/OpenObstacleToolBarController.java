@@ -11,8 +11,6 @@ public class OpenObstacleToolBarController
 	@FXML
 	private ToolBar rootToolBar;
 	
-	private RootLayoutController rootLayoutController;
-	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -22,16 +20,11 @@ public class OpenObstacleToolBarController
 	@FXML
 	void onActionConfigureObstacle(ActionEvent event) throws IOException
 	{
-		rootLayoutController.configureObstacle();
+		RootLayoutController.getInstance().configureObstacle();
 	}
 
 	public ToolBar getRootToolBar()
 	{
 		return rootToolBar;
-	}
-
-	public void setRootLayoutController(RootLayoutController rootLayoutController)
-	{
-		this.rootLayoutController = rootLayoutController;
 	}
 }

@@ -11,42 +11,40 @@ public class DefaultToolBarController
 	@FXML 
 	private ToolBar rootToolBar;
 	
-	private RootLayoutController rootLayoutController;
-	
 	@FXML
 	void onActionNewObstacle(ActionEvent event) throws IOException
 	{
-		rootLayoutController.newObstacle();
+		RootLayoutController.getInstance().newObstacle();
 	}
 
 	@FXML
 	void onActionNewSport(ActionEvent event) throws IOException
 	{
-		rootLayoutController.newSport();
+		RootLayoutController.getInstance().newSport();
 	}
 
 	@FXML
 	void onActionNewStrategy(ActionEvent event) throws IOException
 	{
-		rootLayoutController.newStrategy();
+		RootLayoutController.getInstance().newStrategy();
 	}
 
 	@FXML
 	void onActionOpenObstacle(ActionEvent event) throws IOException
 	{
-		rootLayoutController.openObstacle();
+		RootLayoutController.getInstance().openObstacle();
 	}
 
 	@FXML
 	void onActionOpenSport(ActionEvent event) throws IOException
 	{
-		rootLayoutController.openSport();
+		RootLayoutController.getInstance().openSport();
 	}
 
 	@FXML
 	void onActionOpenStrategy(ActionEvent event) throws IOException
 	{
-		rootLayoutController.openStrategy();
+		RootLayoutController.getInstance().openStrategy();
 	}
 
 	@FXML
@@ -58,10 +56,5 @@ public class DefaultToolBarController
 	public ToolBar getRootToolBar()
 	{
 		return rootToolBar;
-	}
-
-	public void setRootLayoutController(RootLayoutController rootLayoutController)
-	{
-		this.rootLayoutController = rootLayoutController;
 	}
 }

@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
 import java.io.File;
@@ -18,6 +20,27 @@ public class NewSportController
 
 	@FXML
 	private DialogPane rootDialogPane;
+	
+	@FXML
+    private TextField sportName;
+
+    @FXML
+    private TextField fieldX;
+
+    @FXML
+    private TextField fieldY;
+
+    @FXML
+    private ComboBox<String> roles;
+
+    @FXML
+    private TextField maxPlayers;
+
+    @FXML
+    private TextField maxTeams;
+
+    @FXML
+    private TextField projectileName;
 
 	File getSportFieldImageFile() { return sportFieldImageFile; }
 
@@ -30,7 +53,7 @@ public class NewSportController
 
 		FXMLLoader loader = new FXMLLoader();
 
-		loader.setLocation(getClass().getResource("/fxml/FieldEditor.fxml"));
+		loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
 		DialogPane fieldEditorDialogPane = loader.load();
 
 		dialog.setDialogPane(fieldEditorDialogPane);
@@ -63,8 +86,11 @@ public class NewSportController
 		
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
-			//TODO Mettre a jour le domaine via le controleur
-			//Et mettre a jour la vue...
+			//Controller.getInstance().createSport(sportName.getText(), sportFieldImageFile.getPath(), roles.getItems(),
+			//Integer.parseInt(fieldX.getText()), Integer.parseInt(fieldY.getText()), Integer.parseInt(maxPlayers.getText()),
+			//Integer.parseInt(maxTeams.getText()), projectileName.getText(), projectileFieldImageFile.getPath());
+			
+			
 		}
 	}
 }

@@ -9,8 +9,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 
-public class RootLayoutController 
-{	
+public class RootLayoutController
+{
 	private BottomToolBarController bottomToolBarController;
 	private CreationStackPaneController creationStackPaneController;
 	private CreationToolBarController creationToolBarController;
@@ -32,7 +32,7 @@ public class RootLayoutController
 	private OpenStrategyToolBarController openStrategyToolBarController;
 	private PlayerPropertiesPaneController playerPropertiesPaneController;
 	private ProjectilePropertiesPaneController projectilePropertiesPaneController;
-	
+
 	@FXML
 	private ToggleGroup mode;
 
@@ -41,6 +41,21 @@ public class RootLayoutController
 
 	@FXML
 	private ToolBar rootToolBar;
+
+	private static RootLayoutController INSTANCE = null;
+
+	private RootLayoutController()
+	{
+	};
+
+	public static synchronized RootLayoutController getInstance()
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = new RootLayoutController();
+		}
+		return INSTANCE;
+	}
 
 	@FXML
 	private void initialize() throws IOException
@@ -152,7 +167,7 @@ public class RootLayoutController
 	{
 		rootToolBar.getItems().addAll(toolBar.getItems());
 	}
-	
+
 	private void clearRootToolBar()
 	{
 		rootToolBar.getItems().clear();
@@ -298,7 +313,7 @@ public class RootLayoutController
 
 	public BottomToolBarController getBottomToolBarController() throws IOException
 	{
-		if(bottomToolBarController == null)
+		if (bottomToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.BOTTOM_TOOL_BAR_PATH.toString()));
@@ -310,7 +325,7 @@ public class RootLayoutController
 
 	public CreationStackPaneController getCreationStackPaneController() throws IOException
 	{
-		if(creationStackPaneController == null)
+		if (creationStackPaneController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.CREATION_STACK_PANE_PATH.toString()));
@@ -322,7 +337,7 @@ public class RootLayoutController
 
 	public CreationToolBarController getCreationToolBarController() throws IOException
 	{
-		if(creationToolBarController == null)
+		if (creationToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.CREATION_TOOL_BAR_PATH.toString()));
@@ -334,20 +349,19 @@ public class RootLayoutController
 
 	public DefaultToolBarController getDefaultToolBarController() throws IOException
 	{
-		if(defaultToolBarController == null)
+		if (defaultToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.DEFAULT_TOOL_BAR_PATH.toString()));
 			loader.load();
 			this.defaultToolBarController = loader.getController();
-			this.defaultToolBarController.setRootLayoutController(this);
 		}
 		return defaultToolBarController;
 	}
 
 	public GeneralPropertiesPaneController getGeneralPropertiesPaneController() throws IOException
 	{
-		if(generalPropertiesPaneController == null)
+		if (generalPropertiesPaneController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.GENERAL_PROPERTIES_PANE_PATH.toString()));
@@ -359,7 +373,7 @@ public class RootLayoutController
 
 	public ItemsAccordionController getItemsAccordionController() throws IOException
 	{
-		if(itemsAccordionController == null)
+		if (itemsAccordionController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.ITEMS_ACCORDION_PATH.toString()));
@@ -371,7 +385,7 @@ public class RootLayoutController
 
 	public MediaContentController getMediaContentController() throws IOException
 	{
-		if(mediaContentController == null)
+		if (mediaContentController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.MEDIA_CONTENT_PATH.toString()));
@@ -383,7 +397,7 @@ public class RootLayoutController
 
 	public MediaToolBarController getMediaToolBarController() throws IOException
 	{
-		if(mediaToolBarController == null)
+		if (mediaToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.MEDIA_TOOL_BAR_PATH.toString()));
@@ -395,20 +409,19 @@ public class RootLayoutController
 
 	public ModeToolBarController getModeToolBarController() throws IOException
 	{
-		if(modeToolBarController == null)
+		if (modeToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.MODE_TOOL_BAR_PATH.toString()));
 			loader.load();
 			this.modeToolBarController = loader.getController();
-			this.modeToolBarController.setRootLayoutController(this);
 		}
 		return modeToolBarController;
 	}
-	
+
 	public NewObstacleController getNewObstacleController() throws IOException
 	{
-		if(newObstacleController == null)
+		if (newObstacleController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.NEW_OBSTACLE_PATH.toString()));
@@ -417,10 +430,10 @@ public class RootLayoutController
 		}
 		return newObstacleController;
 	}
-	
+
 	public NewSportController getNewSportController() throws IOException
 	{
-		if(newSportController == null)
+		if (newSportController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.NEW_SPORT_PATH.toString()));
@@ -432,7 +445,7 @@ public class RootLayoutController
 
 	public NewStrategyController getNewStrategyController() throws IOException
 	{
-		if(newStrategyController == null)
+		if (newStrategyController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.NEW_STRATEGY_PATH.toString()));
@@ -444,7 +457,7 @@ public class RootLayoutController
 
 	public ObstaclePropertiesPaneController getObstaclePropertiesPaneController() throws IOException
 	{
-		if(obstaclePropertiesPaneController == null)
+		if (obstaclePropertiesPaneController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.OBSTACLE_PROPERTIES_PANE_PATH.toString()));
@@ -456,7 +469,7 @@ public class RootLayoutController
 
 	public OpenObstacleController getOpenObstacleController() throws IOException
 	{
-		if(openObstacleController == null)
+		if (openObstacleController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_OBSTACLE_PATH.toString()));
@@ -468,20 +481,19 @@ public class RootLayoutController
 
 	public OpenObstacleToolBarController getOpenObstacleToolBarController() throws IOException
 	{
-		if(openObstacleToolBarController == null)
+		if (openObstacleToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_OBSTACLE_TOOL_BAR_PATH.toString()));
 			loader.load();
 			this.openObstacleToolBarController = loader.getController();
-			this.openObstacleToolBarController.setRootLayoutController(this);
 		}
 		return openObstacleToolBarController;
 	}
 
 	public OpenSportController getOpenSportController() throws IOException
 	{
-		if(openSportController == null)
+		if (openSportController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_PATH.toString()));
@@ -493,20 +505,19 @@ public class RootLayoutController
 
 	public OpenSportToolBarController getOpenSportToolBarController() throws IOException
 	{
-		if(openSportToolBarController == null)
+		if (openSportToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_TOOL_BAR_PATH.toString()));
 			loader.load();
 			this.openSportToolBarController = loader.getController();
-			this.openSportToolBarController.setRootLayoutController(this);
 		}
 		return openSportToolBarController;
 	}
 
 	public OpenStrategyController getOpenStrategyController() throws IOException
 	{
-		if(openStrategyController == null)
+		if (openStrategyController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_STRATEGY_PATH.toString()));
@@ -518,20 +529,19 @@ public class RootLayoutController
 
 	public OpenStrategyToolBarController getOpenStrategyToolBarController() throws IOException
 	{
-		if(openStrategyToolBarController == null)
+		if (openStrategyToolBarController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_STRATEGY_TOOL_BAR_PATH.toString()));
 			loader.load();
 			this.openStrategyToolBarController = loader.getController();
-			this.openStrategyToolBarController.setRootLayoutController(this);
 		}
 		return openStrategyToolBarController;
 	}
 
 	public PlayerPropertiesPaneController getPlayerPropertiesPaneController() throws IOException
 	{
-		if(playerPropertiesPaneController == null)
+		if (playerPropertiesPaneController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_PROPERTIES_PANE_PATH.toString()));
@@ -543,7 +553,7 @@ public class RootLayoutController
 
 	public ProjectilePropertiesPaneController getProjectilePropertiesPaneController() throws IOException
 	{
-		if(projectilePropertiesPaneController == null)
+		if (projectilePropertiesPaneController == null)
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.PROJECTILE_PROPERTIES_PANE_PATH.toString()));

@@ -11,33 +11,26 @@ public class ModeToolBarController
 	@FXML
 	private ToolBar rootToolBar;
 	
-	private RootLayoutController rootLayoutController;
-	
 	@FXML
 	void onActionImageByImage(ActionEvent event) throws IOException 
 	{
-		rootLayoutController.imageByImage();
+		RootLayoutController.getInstance().imageByImage();
 	}
 	
 	@FXML
 	void onActionRealTime(ActionEvent event) throws IOException 
 	{
-		rootLayoutController.realTime();
+		RootLayoutController.getInstance().realTime();
 	}
 	
 	@FXML
 	void onActionWatch(ActionEvent event) throws IOException 
 	{
-		rootLayoutController.watch();
+		RootLayoutController.getInstance().watch();
 	}
 
 	public ToolBar getRootToolBar()
 	{
 		return rootToolBar;
-	}
-
-	public void setRootLayoutController(RootLayoutController rootLayoutController)
-	{
-		this.rootLayoutController = rootLayoutController;
 	}
 }

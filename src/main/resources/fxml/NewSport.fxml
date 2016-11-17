@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
@@ -29,7 +28,6 @@
               <columnConstraints>
                 <ColumnConstraints minWidth="150.0" />
                 <ColumnConstraints halignment="CENTER" maxWidth="274.0" />
-                  <ColumnConstraints halignment="CENTER" minWidth="112.0" />
                   <ColumnConstraints halignment="CENTER" />
               </columnConstraints>
               <rowConstraints>
@@ -40,7 +38,6 @@
                   <RowConstraints fillHeight="false" minHeight="40.0" />
                   <RowConstraints fillHeight="false" />
                   <RowConstraints fillHeight="false" minHeight="20.0" />
-                  <RowConstraints minHeight="40.0" />
                   <RowConstraints minHeight="40.0" />
                   <RowConstraints minHeight="40.0" />
                   <RowConstraints minHeight="20.0" />
@@ -56,7 +53,7 @@
                <children>
                   <Label text="Nom:" />
                   <Label text="Terrain" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" />
+                  <TextField fx:id="sportName" GridPane.columnIndex="1" />
                   <HBox alignment="CENTER" stylesheets="@../css/visuaLigueCSS.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <children>
                         <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionDraw" text="Dessiner">
@@ -83,41 +80,29 @@
                      </GridPane.margin>
                   </HBox>
                   <Label text="Rôles:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                  <Label text="Max joueurs:" GridPane.rowIndex="12" />
-                  <Label text="Nbr. d'équipes:" GridPane.rowIndex="13" GridPane.valignment="CENTER">
+                  <Label text="Max joueurs:" GridPane.rowIndex="11" />
+                  <Label text="Nbr. d'équipes:" GridPane.rowIndex="12" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Projectile:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="15" />
+                  <Label text="Projectile:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
                   <Label text="Longueur(m):" GridPane.rowIndex="3" />
                   <Label text="Largeur(m):" GridPane.rowIndex="4" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="fieldX" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="fieldY" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
                   <Label text="Ajouter:" GridPane.rowIndex="8" />
-                  <ComboBox editable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <Label text="Liste:" GridPane.rowIndex="9" />
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="10" />
+                  <ComboBox fx:id="roles" editable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="9" />
                   <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
-                  <Label text="Équipe" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                  <CheckBox mnemonicParsing="false" text="Activer?" GridPane.columnIndex="2" GridPane.rowIndex="12">
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Activer?" GridPane.columnIndex="2" GridPane.rowIndex="13">
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </CheckBox>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                  <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="14" />
-                  <Label text="Nom:" GridPane.rowIndex="16" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                  <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionBrowseProjectile" text="Ouvrir" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="17">
+                  <Label text="Équipe" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                  <TextField fx:id="maxPlayers" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <TextField fx:id="maxTeams" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="13" />
+                  <Label text="Nom:" GridPane.rowIndex="15" />
+                  <TextField fx:id="projectileName" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                  <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionBrowseProjectile" text="Ouvrir" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="16">
                      <graphic>
                         <ImageView pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -129,7 +114,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </Button>
-                  <Label text="Image:" GridPane.rowIndex="17" />
+                  <Label text="Image:" GridPane.rowIndex="16" />
                   <Label text="Image:" GridPane.rowIndex="5" />
                </children>
             </GridPane>

@@ -11,8 +11,6 @@ public class OpenSportToolBarController
 	@FXML
 	private ToolBar rootToolBar;
 	
-	private RootLayoutController rootLayoutController;
-	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -22,16 +20,11 @@ public class OpenSportToolBarController
 	@FXML
 	void onActionConfigureSport(ActionEvent event) throws IOException
 	{
-		rootLayoutController.configureSport();
+		RootLayoutController.getInstance().configureSport();
 	}
 
 	public ToolBar getRootToolBar()
 	{
 		return rootToolBar;
-	}
-
-	public void setRootLayoutController(RootLayoutController rootLayoutController)
-	{
-		this.rootLayoutController = rootLayoutController;
 	}
 }
