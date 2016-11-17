@@ -71,9 +71,9 @@ public class TestGameObjectState
     {
         assertTrue(gos1.occupiesPosition(new Vector(50, 50)));
         assertTrue(gos1.occupiesPosition(new Vector(55, 60)));
-        assertTrue(gos1.occupiesPosition(new Vector(40, 30)));
-        assertTrue(gos1.occupiesPosition(new Vector(60, 45)));
-        assertTrue(gos1.occupiesPosition(new Vector(41, 70)));
+        assertTrue(gos1.occupiesPosition(new Vector(46, 41)));
+        assertTrue(gos1.occupiesPosition(new Vector(55, 45)));
+        assertTrue(gos1.occupiesPosition(new Vector(45, 59)));
         
         assertFalse(gos1.occupiesPosition(new Vector(0, 0)));
         assertFalse(gos1.occupiesPosition(new Vector(50, 71)));
