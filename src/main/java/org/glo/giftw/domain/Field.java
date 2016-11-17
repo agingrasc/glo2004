@@ -7,15 +7,22 @@ public class Field implements Serializable
     public static final long serialVersionUID = 1L;
 
     private Vector dimensions;
+    private int unitRatio;  //nombre d'unités par mètre
 
     public Field()
     {
-        this.dimensions = new Vector(100, 100);
+        this(new Vector(6096, 2590), 100); //taille d'une patinoire nord-américaine standard en cm
     }
 
     public Field(Vector dimensions)
     {
+        this(dimensions, 100);
+    }
+    
+    public Field(Vector dimensions, int unitRatio)
+    {
         this.dimensions = dimensions;
+        this.unitRatio = unitRatio;
     }
 
     public Vector getDimensions()
@@ -26,6 +33,16 @@ public class Field implements Serializable
     public void setDimensions(Vector dimensions)
     {
         this.dimensions = dimensions;
+    }
+    
+    public int getUnitRatio()
+    {
+        return this.unitRatio;
+    }
+    
+    public void setUnitRatio(int unitRatio)
+    {
+        this.unitRatio = unitRatio;
     }
 
     public boolean validatePosition(Vector position)
@@ -39,5 +56,22 @@ public class Field implements Serializable
     public String toString()
     {
         return "Dimension: " + this.dimensions.toString();
+    }
+    
+    public Vector getCoordinate(Vector clickPosition, Vector fieldPosition, float zoomLevel)
+    {
+        assert zoomLevel > 0;
+        
+        double x = (clickPosition.getX() - fieldPosition.getX()) / zoomLevel;
+        double y = (clickPosition.getY() - fieldPosition.getY()) / zoomLevel;
+        
+        if(x >= 0 && y >= 0 && x < this.dimensions.getX() && y < this.dimensions.getY())
+        {
+            return new Vector(x, y);
+        }
+        else
+        {
+            return null;
+        }
     }
 }
