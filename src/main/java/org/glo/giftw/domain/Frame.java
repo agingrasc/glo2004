@@ -7,17 +7,36 @@ public class Frame implements Serializable
 {
     public static final long serialVersionUID = 1L;
     
+    private boolean isKeyFrame;
     private final HashMap<GameObject, GameObjectState> gameObjects; // associe un GameObject avec son état
 
     public Frame()
     {
+        this.isKeyFrame = false;
+        this.gameObjects = new HashMap<>();
+    }
+    
+    public Frame(boolean isKeyFrame)
+    {
+        this.isKeyFrame = isKeyFrame;
         this.gameObjects = new HashMap<>();
     }
     
     public Frame(Frame frame)
     {
+        this.isKeyFrame = frame.isKeyFrame;
         this.gameObjects = new HashMap<>();
         frame.gameObjects.forEach((gameObject, gameObjectState) -> this.addGameObject(gameObject, gameObjectState));
+    }
+
+    public boolean isKeyFrame()
+    {
+        return isKeyFrame;
+    }
+
+    public void setKeyFrame(boolean isKeyFrame)
+    {
+        this.isKeyFrame = isKeyFrame;
     }
 
     public void addGameObject(GameObject gameObject, GameObjectState gameObjectState)
