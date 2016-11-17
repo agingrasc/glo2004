@@ -1,7 +1,6 @@
 package org.glo.giftw.controller;
 
 import java.util.List;
-import java.util.HashMap;
 
 import org.glo.giftw.domain.*;
 
@@ -59,41 +58,55 @@ public class Controller
         this.obstaclePool.addObstacle(name, imagePath);
     }
 
+    /**
+     * Crée une nouvelle stratégie.
+     * @param name Le nom de la nouvelle stratédie.
+     * @param sportName Le nom du sport (déjà existant) associé à la stratégie.
+     */
     public void createStrategy(String name, String sportName)
     {
         Sport strategySport = this.sportPool.getSportByName(sportName);
         this.currentStrategy = new Strategy(name, strategySport);
     }
 
-    //FIXME : utiliser les listes de la classe Stratégie pour stocker les instances des GameObjects temporaires
-    //FIXME : positionner les GameObjects dans la frame courante avec la méthode frame.placeGameObject
+    /**
+     * Crée un nouveau joueur dans la stratégie et l'ajoute dans la frame courante.
+     * @param position La position initiale du joueur.
+     * @param orientation L'orientation initiale du joueur.
+     * @param dimensions Les dimensions initiales du joueur.
+     * @return L'id du joueur nouvellement créé.
+     */
     public Integer addPlayer(Vector position, float orientation, Vector dimensions)
     {
-        Integer id = this.playersPool.addPlayer(position, orientation, dimensions);
-        Frame currentFrame = this.currentStrategy.getFrame(this.currentFrameIdx);
-        currentFrame.addGameObject(this.playersPool.getPlayer(id));
-        return id;
+        return this.currentStrategy.addPlayer(position, orientation, dimensions);
     }
 
+    /**
+     * Crée un nouvel obstacle dans la stratégie et l'ajoute dans la frame courante.
+     * @param position La position initiale de l'obstacle.
+     * @param orientation L'orientation initiale de l'obstacle.
+     * @param dimensions Les dimensions initiales de l'obstacle.
+     * @return L'id de l'obstacle nouvellement créé.
+     */
     public Integer addObstacle(Vector position, float orientation, Vector dimensions)
     {
-        Obstacle obstacle = new Obstacle(position, orientation, dimensions);
-        Integer id = obstacle.getId();
-        this.obstacles.put(id, obstacle);
-        return id;
+        return this.currentStrategy.addObstacle(position, orientation, dimensions);
     }
 
+    /**
+     * Crée un nouveau projectile dans la stratégie et l'ajoute dans la frame courante.
+     * @param position La position initiale du projectile.
+     * @param orientation L'orientation initiale du projectile.
+     * @param dimensions Les dimensions initiales du projectile.
+     * @return L'id du projectile nouvellement créé.
+     */
     public Integer addProjectile(Vector position, float orientation, Vector dimensions)
     {
-        Projectile projectile = new Projectile(position, orientation, dimensions);
-        Integer id = projectile.getId();
-        this.projectiles.put(id, projectile);
-        return id;
+        return this.currentStrategy.addProjectile(position, orientation, dimensions);
     }
     
-    public void placeGameObject(Integer id, Vector position, float orientation, Vector dimensions)
+    public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
-        Frame currentFrame = this.currentStrategy.getFrame(this.currentFrameIdx);
-        currentFrame.placeGameObject(id, position, orientation, dimensions);
+        this.currentStrategy.placeGameObject(gameObject, position, orientation, dimensions);
     }
 }
