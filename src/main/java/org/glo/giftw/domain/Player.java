@@ -31,14 +31,6 @@ public class Player extends GameObject implements Serializable
         Player.playerCount++;
     }
 
-    public Player(Vector position, float orientation, Vector dimensions)
-    {
-        this("", "", playerCount);
-        this.position = position;
-        this.orientation = orientation;
-        this.dimensions = dimensions;
-    }
-
     public Player(Player player)
     {
         super(player);
@@ -112,7 +104,6 @@ public class Player extends GameObject implements Serializable
                 this.jerseyNumber +
                 ", Role: " +
                 this.role + "ID: " +
-                this.id.toString() + ", Position: " +
-                this.position.toString() + ")";
+                this.id.toString() + ")";
     }
 }

@@ -15,18 +15,21 @@ public class Strategy implements Serializable
 
     private String name;
     private Sport sport;
-    /**
-     * Associe chaque equipe impliquee dans une strategie avec son nom
-     */
-    private HashMap<String, ArrayList<Player>> team;
+    private int currentFrameIdx;    
+    private HashMap<String, ArrayList<Player>> team; //Associe chaque équipe impliquée dans une strategie avec son nom
+    private ArrayList<Obstacle> obstacles;           //Liste contenant les instances des obstacles de la stratégie
+    private ArrayList<Projectile> projectiles;       //Liste contenant les instances des projectiles de la stratégie
     private ArrayList<Frame> frames;
 
     public Strategy(String name, Sport sport)
     {
         this.name = name;
         this.sport = sport;
-        this.frames = new ArrayList<>();
+        this.currentFrameIdx = 0;
         this.team = new HashMap<>();
+        this.obstacles = new ArrayList<>();
+        this.projectiles = new ArrayList<>();
+        this.frames = new ArrayList<>();
     }
 
     public String getName()
