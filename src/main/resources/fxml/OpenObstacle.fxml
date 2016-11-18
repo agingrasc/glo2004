@@ -2,7 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -16,6 +17,14 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ListView fx:id="listView" VBox.vgrow="ALWAYS" />
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="imageColumn" prefWidth="75.0" text="Aperçu" />
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nom" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </children>
 </VBox>

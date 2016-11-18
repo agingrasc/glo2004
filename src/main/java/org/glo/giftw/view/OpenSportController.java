@@ -1,17 +1,16 @@
 package org.glo.giftw.view;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 public class OpenSportController
 {
@@ -19,56 +18,30 @@ public class OpenSportController
 	private VBox rootVBox;
 
 	@FXML
-	private ListView<String> listView;
+	private TableView<HashMap.Entry<String, String>> tableView;
 
-	ObservableList<String> data = FXCollections.observableArrayList("path");
+	@FXML
+	private TableColumn<HashMap.Entry<String, String>, String> imageColumn;
+
+	@FXML
+	private TableColumn<HashMap.Entry<String, String>, String> nameColumn;
+
+	ObservableList<HashMap.Entry<String, String>> data = FXCollections.observableArrayList();
 
 	@FXML
 	private void initialize() throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(FXMLPaths.LIST_PLACE_HOLDER.toString()));
-		StackPane listPlaceHolder = loader.load();
-		listView.setPlaceholder(listPlaceHolder);
-
-		listView.setItems(data);
-
-		listView.setCellFactory(new Callback<ListView<String>, ListCell<String>>()
-		{
-			@Override
-			public ListCell<String> call(ListView<String> listView)
-			{
-				return new SportCell();
-			}
-		});
+		Label listPlaceHolder = loader.load();
+		tableView.setPlaceholder(listPlaceHolder);
 	}
 
-	static class SportCell extends ListCell<String>
+	public void updateList()
 	{
-		@Override
-		public void updateItem(String item, boolean empty)
-		{
-			try
-			{
-				super.updateItem(item, empty);
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource(FXMLPaths.OPEN_LIST_ITEM.toString()));
-				GridPane gridPane;
-				gridPane = (GridPane) loader.load();
-
-				OpenListItemController openListItemController = loader.getController();
-
-				if (item != null)
-				{
-					// openListItemController.getImageView().setImage(new Image(item));
-					setGraphic(gridPane);
-				}
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		// TODO
+		// Controller.getInstance().getSportPool()
+		// update la liste
 	}
 
 	public VBox getRootVBox()

@@ -90,7 +90,7 @@ public class NewSportController
 			//Integer.parseInt(fieldX.getText()), Integer.parseInt(fieldY.getText()), Integer.parseInt(maxPlayers.getText()),
 			//Integer.parseInt(maxTeams.getText()), projectileName.getText(), projectileFieldImageFile.getPath());
 			
-			
+			//RootLayoutController.getInstance().getOpenSportController().updateList();
 		}
 	}
 }
