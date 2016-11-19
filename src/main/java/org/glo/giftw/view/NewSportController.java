@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.glo.giftw.controller.Controller;
+
 public class NewSportController
 {
 	private File sportFieldImageFile;
@@ -78,7 +80,7 @@ public class NewSportController
 		System.out.println("onActionBrowseField");
 	}
 	
-	public void showDialog()
+	public void showDialog() throws IOException
 	{
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(rootDialogPane);
@@ -86,11 +88,12 @@ public class NewSportController
 		
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
-			//Controller.getInstance().createSport(sportName.getText(), sportFieldImageFile.getPath(), roles.getItems(),
-			//Integer.parseInt(fieldX.getText()), Integer.parseInt(fieldY.getText()), Integer.parseInt(maxPlayers.getText()),
-			//Integer.parseInt(maxTeams.getText()), projectileName.getText(), projectileFieldImageFile.getPath());
+			//TODO en attente du projectileImageFileFile et de l'ajout du parametre pour le sportFieldImageFile 
+			/*Controller.getInstance().createSport(sportName.getText(), sportFieldImageFile.getPath(), roles.getItems(),
+			Integer.parseInt(fieldX.getText()), Integer.parseInt(fieldY.getText()), projectileName.getText(),
+			projectileImageFile.getPath(), Integer.parseInt(maxPlayers.getText()), Integer.parseInt(maxTeams.getText()));*/
 			
-			//RootLayoutController.getInstance().getOpenSportController().updateList();
+			RootLayoutController.getInstance().getOpenSportController().updateTable();
 		}
 	}
 }

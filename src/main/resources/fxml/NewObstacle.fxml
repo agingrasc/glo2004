@@ -42,7 +42,7 @@
                </graphic>
             </Button>
             <ImageView fx:id="imagePreview" fitHeight="115.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="Activer les collisions?" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <CheckBox fx:id="isCollision" mnemonicParsing="false" text="Activer les collisions?" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
    </content>
