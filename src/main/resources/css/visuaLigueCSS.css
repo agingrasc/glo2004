@@ -6,3 +6,15 @@
     -fx-accent: #474650;
 }
 
+.table-view {
+  -fx-table-cell-border-color: transparent;
+}
+
+.table-column {
+  -fx-alignment: CENTER-LEFT;
+}
+
+.table-cell {
+    -fx-font-size: 24px;
+}
+

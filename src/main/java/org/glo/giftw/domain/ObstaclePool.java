@@ -66,7 +66,12 @@ public class ObstaclePool extends ObjectPool
         return this.obstacles.values();
     }
     
-    @Override
+    public HashMap<String, String> getObstacles()
+	{
+		return obstacles;
+	}
+
+	@Override
     protected void copy(ObjectPool op)
     {
         ObstaclePool tmp = (ObstaclePool)op;
