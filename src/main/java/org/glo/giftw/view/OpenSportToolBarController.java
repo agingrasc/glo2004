@@ -1,12 +1,16 @@
 package org.glo.giftw.view;
 
-import java.util.Observable;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 
-public class OpenSportToolBarController extends Observable
+public class OpenSportToolBarController
 {
+	@FXML
+	private ToolBar rootToolBar;
+	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -14,12 +18,13 @@ public class OpenSportToolBarController extends Observable
 	}
 
 	@FXML
-	void onActionConfigureSport(ActionEvent event)
+	void onActionConfigureSport(ActionEvent event) throws IOException
 	{
-		String handler = "onActionConfigureSport";
-		System.out.println(handler);
+		RootLayoutController.getInstance().configureSport();
+	}
 
-		setChanged();
-		notifyObservers(handler);
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
 	}
 }

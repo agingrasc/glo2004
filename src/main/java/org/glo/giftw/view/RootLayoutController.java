@@ -1,253 +1,176 @@
 package org.glo.giftw.view;
 
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 
-public class RootLayoutController implements Observer
-{	
-	@FXML
-	private ToggleGroup mode;
-	
-    @FXML
-    private BorderPane borderPane;
-    
-    @FXML
-    private ToolBar rootToolBar;
+public class RootLayoutController
+{
+	private BottomToolBarController bottomToolBarController;
+	private CreationStackPaneController creationStackPaneController;
+	private CreationToolBarController creationToolBarController;
+	private DefaultToolBarController defaultToolBarController;
+	private GeneralPropertiesPaneController generalPropertiesPaneController;
+	private ItemsAccordionController itemsAccordionController;
+	private MediaContentController mediaContentController;
+	private MediaToolBarController mediaToolBarController;
+	private ModeToolBarController modeToolBarController;
+	private NewObstacleController newObstacleController;
+	private NewSportController newSportController;
+	private NewStrategyController newStrategyController;
+	private ObstaclePropertiesPaneController obstaclePropertiesPaneController;
+	private OpenObstacleController openObstacleController;
+	private OpenObstacleToolBarController openObstacleToolBarController;
+	private OpenSportController openSportController;
+	private OpenSportToolBarController openSportToolBarController;
+	private OpenStrategyController openStrategyController;
+	private OpenStrategyToolBarController openStrategyToolBarController;
+	private PlayerPropertiesPaneController playerPropertiesPaneController;
+	private ProjectilePropertiesPaneController projectilePropertiesPaneController;
 
 	@FXML
-    private void initialize() throws IOException
-	{	
+	private ToggleGroup mode;
+
+	@FXML
+	private BorderPane borderPane;
+
+	@FXML
+	private ToolBar rootToolBar;
+
+	private static RootLayoutController INSTANCE = null;
+
+	private RootLayoutController()
+	{
+	};
+
+	public static synchronized RootLayoutController getInstance()
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = new RootLayoutController();
+		}
+		return INSTANCE;
+	}
+
+	@FXML
+	private void initialize() throws IOException
+	{
 		openStrategy();
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1)
+	public void openObstacle() throws IOException
 	{
-		try
-		{
-			switch((String) arg1)
-			{
-				case "onActionOpenObstacle":
-					openObstacle();
-					break;
-					
-				case "onActionOpenSport":
-					openSport();
-					break;
-					
-				case "onActionOpenStrategy":
-					openStrategy();
-					break;
-					
-				case "onActionNewObstacle":
-					newObstacle();
-					break;
-					
-				case "onActionNewSport":
-					newSport();
-					break;
-					
-				case "onActionNewStrategy":
-					newStrategy();
-					break;
-				
-				case "onActionWatch":
-					watch();
-					break;
-				
-				case "onActionImageByImage":
-					imageByImage();
-					break;
-				
-				case "onActionRealTime":
-					realTime();
-					break;
-					
-				case "onActionConfigureSport":
-					configureSport();
-					break;
-					
-				case "onActionConfigureObstacle":
-					configureObstacle();
-					break;
-					
-				case "onActionConfigureStrategy":
-					configureStrategy();
-					break;
-			}
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	private void openObstacle() throws IOException
-	{
-		rootToolBar.getItems().clear();
-		addToolBar("/fxml/DefaultToolBar.fxml", true);
-		addToolBar("/fxml/OpenObstacleToolBar.fxml", true);
+		clearRootToolBar();
+		addToolBar(getDefaultToolBarController().getRootToolBar());
+		addToolBar(getOpenObstacleToolBarController().getRootToolBar());
 		borderPane.setLeft(null);
-		changeCenter("/fxml/OpenObstacle.fxml");
+		borderPane.setCenter(getOpenObstacleController().getRootVBox());
 		borderPane.setBottom(null);
+		borderPane.setRight(null);
 	}
-	
-	private void openSport() throws IOException
-	{
-		rootToolBar.getItems().clear();
-		addToolBar("/fxml/DefaultToolBar.fxml", true);
-		addToolBar("/fxml/OpenSportToolBar.fxml", true);
-		borderPane.setLeft(null);
-		changeCenter("/fxml/OpenSport.fxml");
-		borderPane.setBottom(null);
-	}
-	
-	private void openStrategy() throws IOException
-	{
-		rootToolBar.getItems().clear();
-		addToolBar("/fxml/DefaultToolBar.fxml", true);
-		addToolBar("/fxml/ModeToolBar.fxml", true);
-		addToolBar("/fxml/OpenStrategyToolBar.fxml", true);
-		borderPane.setLeft(null);
-		changeCenter("/fxml/OpenStrategy.fxml");
-		borderPane.setBottom(null);
-	}
-	
-	private void newObstacle() throws IOException
-	{
-		showDialog("/fxml/NewObstacle.fxml");
-	}
-	
-	private void newSport() throws IOException
-	{	
-		showDialog("/fxml/NewSport.fxml");
-	}
-	
-	private void newStrategy() throws IOException
-	{
-		showDialog("/fxml/NewStrategy.fxml");
-	}
-	
-	private void watch() throws IOException
-	{	
-		rootToolBar.getItems().clear();
-		addToolBar("/fxml/DefaultToolBar.fxml", true);
-		addToolBar("/fxml/ModeToolBar.fxml", true);
-		addToolBar("/fxml/MediaToolBar.fxml", false);
-		borderPane.setLeft(null);
-		changeCenter("/fxml/MediaContent.fxml");
-		changeBottom("/fxml/BottomBar.fxml");
-	}
-	
-	private void imageByImage() throws IOException
-	{
-		rootToolBar.getItems().clear();
-		addToolBar("/fxml/DefaultToolBar.fxml", true);
-		addToolBar("/fxml/ModeToolBar.fxml", true);
-		addToolBar("/fxml/CreationToolBar.fxml", false);
-		changeLeft("/fxml/ItemsAccordion.fxml");
-		changeCenter("/fxml/CreationStackPane.fxml");
-		changeBottom("/fxml/BottomBar.fxml");
-	}
-	
-	private void realTime() throws IOException
-	{
-		rootToolBar.getItems().clear();
-		addToolBar("/fxml/DefaultToolBar.fxml", true);
-		addToolBar("/fxml/ModeToolBar.fxml", true);
-		addToolBar("/fxml/CreationToolBar.fxml", false);
-		changeLeft("/fxml/ItemsAccordion.fxml");
-		changeCenter("/fxml/CreationStackPane.fxml");
-		changeBottom("/fxml/BottomBar.fxml");
-	}
-	
-	private void configureSport() throws IOException
-	{
-		showDialog("/fxml/NewSport.fxml");
-	}
-	
-	private void configureObstacle() throws IOException
-	{
-		showDialog("/fxml/NewObstacle.fxml");
-	}
-	
-	private void configureStrategy() throws IOException
-	{
-		showDialog("/fxml/NewStrategy.fxml");
-	}
-	
-	private void showDialog(String url) throws IOException
-	{
-		DialogPane dialogPane = (DialogPane) loadNode(url, false);
-		Dialog<Object> dialog = new Dialog<Object>();
-		dialog.setDialogPane(dialogPane);
-		dialog.showAndWait();
-	}
-	
-	private void addToolBar(String url, boolean obs) throws IOException
-	{
-		ToolBar toolBar = (ToolBar) loadNode(url, obs);
-		rootToolBar.getItems().addAll(toolBar.getItems());
 
-		//toolBarArray.add(toolBar.getItems().size());
+	public void openSport() throws IOException
+	{
+		clearRootToolBar();
+		addToolBar(getDefaultToolBarController().getRootToolBar());
+		addToolBar(getOpenSportToolBarController().getRootToolBar());
+		borderPane.setLeft(null);
+		borderPane.setCenter(getOpenSportController().getRootVBox());
+		borderPane.setBottom(null);
+		borderPane.setRight(null);
 	}
-	
-	/*private void removeToolBar(int index)
+
+	public void openStrategy() throws IOException
 	{
-		int fromIndex = 0;
-		int toIndex = 0;
-		
-		for(int i = 0; i < index; i++)
-		{
-			fromIndex += toolBarArray.get(i);
-		}
-		
-		toIndex = fromIndex + toolBarArray.get(index);
-				
-		rootToolBar.getItems().remove(fromIndex, toIndex);
-		toolBarArray.remove(index);
-	}*/
-	
-	private void changeCenter(String url) throws IOException
-	{
-		Node node = loadNode(url, false);
-		borderPane.setCenter(node);
+		clearRootToolBar();
+		addToolBar(getDefaultToolBarController().getRootToolBar());
+		addToolBar(getModeToolBarController().getRootToolBar());
+		addToolBar(getOpenStrategyToolBarController().getRootToolBar());
+		borderPane.setLeft(null);
+		borderPane.setCenter(getOpenStrategyController().getRootVBox());
+		borderPane.setBottom(null);
+		borderPane.setRight(null);
 	}
-	
-	private void changeLeft(String url) throws IOException
+
+	public void newObstacle() throws IOException
 	{
-		Node node = loadNode(url, false);
-		borderPane.setLeft(node);
+		getNewObstacleController().showDialog();
 	}
-	
-	private void changeBottom(String url) throws IOException
+
+	public void newSport() throws IOException
 	{
-		Node node = loadNode(url, false);
-		borderPane.setBottom(node);
+		getNewSportController().showDialog();
 	}
-	
-	private Node loadNode(String url, boolean obs) throws IOException
+
+	public void newStrategy() throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource(url));
-		Node node = loader.load();
-		if(obs)
-		{
-			((Observable) loader.getController()).addObserver(this);
-		}
-		return node;
+		getNewStrategyController().showDialog();
+	}
+
+	public void watch() throws IOException
+	{
+		clearRootToolBar();
+		addToolBar(getDefaultToolBarController().getRootToolBar());
+		addToolBar(getModeToolBarController().getRootToolBar());
+		addToolBar(getMediaToolBarController().getRootToolBar());
+		borderPane.setLeft(null);
+		borderPane.setCenter(getMediaContentController().getRootStackPane());
+		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
+		borderPane.setRight(null);
+	}
+
+	public void imageByImage() throws IOException
+	{
+		clearRootToolBar();
+		addToolBar(getDefaultToolBarController().getRootToolBar());
+		addToolBar(getModeToolBarController().getRootToolBar());
+		addToolBar(getCreationToolBarController().getRootToolBar());
+		borderPane.setLeft(getItemsAccordionController().getRootAccordion());
+		borderPane.setCenter(getCreationStackPaneController().getRootStackPane());
+		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
+		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
+	}
+
+	public void realTime() throws IOException
+	{
+		clearRootToolBar();
+		addToolBar(getDefaultToolBarController().getRootToolBar());
+		addToolBar(getModeToolBarController().getRootToolBar());
+		addToolBar(getCreationToolBarController().getRootToolBar());
+		borderPane.setLeft(getItemsAccordionController().getRootAccordion());
+		borderPane.setCenter(getCreationStackPaneController().getRootStackPane());
+		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
+		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
+	}
+
+	public void configureSport() throws IOException
+	{
+		newSport();
+	}
+
+	public void configureObstacle() throws IOException
+	{
+		newObstacle();
+	}
+
+	public void configureStrategy() throws IOException
+	{
+		newStrategy();
+	}
+
+	private void addToolBar(ToolBar toolBar)
+	{
+		rootToolBar.getItems().addAll(toolBar.getItems());
+	}
+
+	private void clearRootToolBar()
+	{
+		rootToolBar.getItems().clear();
 	}
 
 	@FXML
@@ -386,5 +309,257 @@ public class RootLayoutController implements Observer
 	void onActionZoomOut(ActionEvent event)
 	{
 		System.out.println("onActionZoomOut");
+	}
+
+	public BottomToolBarController getBottomToolBarController() throws IOException
+	{
+		if (bottomToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.BOTTOM_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.bottomToolBarController = loader.getController();
+		}
+		return bottomToolBarController;
+	}
+
+	public CreationStackPaneController getCreationStackPaneController() throws IOException
+	{
+		if (creationStackPaneController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.CREATION_STACK_PANE_PATH.toString()));
+			loader.load();
+			this.creationStackPaneController = loader.getController();
+		}
+		return creationStackPaneController;
+	}
+
+	public CreationToolBarController getCreationToolBarController() throws IOException
+	{
+		if (creationToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.CREATION_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.creationToolBarController = loader.getController();
+		}
+		return creationToolBarController;
+	}
+
+	public DefaultToolBarController getDefaultToolBarController() throws IOException
+	{
+		if (defaultToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.DEFAULT_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.defaultToolBarController = loader.getController();
+		}
+		return defaultToolBarController;
+	}
+
+	public GeneralPropertiesPaneController getGeneralPropertiesPaneController() throws IOException
+	{
+		if (generalPropertiesPaneController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.GENERAL_PROPERTIES_PANE_PATH.toString()));
+			loader.load();
+			this.generalPropertiesPaneController = loader.getController();
+		}
+		return generalPropertiesPaneController;
+	}
+
+	public ItemsAccordionController getItemsAccordionController() throws IOException
+	{
+		if (itemsAccordionController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.ITEMS_ACCORDION_PATH.toString()));
+			loader.load();
+			this.itemsAccordionController = loader.getController();
+		}
+		return itemsAccordionController;
+	}
+
+	public MediaContentController getMediaContentController() throws IOException
+	{
+		if (mediaContentController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.MEDIA_CONTENT_PATH.toString()));
+			loader.load();
+			this.mediaContentController = loader.getController();
+		}
+		return mediaContentController;
+	}
+
+	public MediaToolBarController getMediaToolBarController() throws IOException
+	{
+		if (mediaToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.MEDIA_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.mediaToolBarController = loader.getController();
+		}
+		return mediaToolBarController;
+	}
+
+	public ModeToolBarController getModeToolBarController() throws IOException
+	{
+		if (modeToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.MODE_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.modeToolBarController = loader.getController();
+		}
+		return modeToolBarController;
+	}
+
+	public NewObstacleController getNewObstacleController() throws IOException
+	{
+		if (newObstacleController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.NEW_OBSTACLE_PATH.toString()));
+			loader.load();
+			this.newObstacleController = loader.getController();
+		}
+		return newObstacleController;
+	}
+
+	public NewSportController getNewSportController() throws IOException
+	{
+		if (newSportController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.NEW_SPORT_PATH.toString()));
+			loader.load();
+			this.newSportController = loader.getController();
+		}
+		return newSportController;
+	}
+
+	public NewStrategyController getNewStrategyController() throws IOException
+	{
+		if (newStrategyController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.NEW_STRATEGY_PATH.toString()));
+			loader.load();
+			this.newStrategyController = loader.getController();
+		}
+		return newStrategyController;
+	}
+
+	public ObstaclePropertiesPaneController getObstaclePropertiesPaneController() throws IOException
+	{
+		if (obstaclePropertiesPaneController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.OBSTACLE_PROPERTIES_PANE_PATH.toString()));
+			loader.load();
+			this.obstaclePropertiesPaneController = loader.getController();
+		}
+		return obstaclePropertiesPaneController;
+	}
+
+	public OpenObstacleController getOpenObstacleController() throws IOException
+	{
+		if (openObstacleController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_OBSTACLE_PATH.toString()));
+			loader.load();
+			this.openObstacleController = loader.getController();
+		}
+		return openObstacleController;
+	}
+
+	public OpenObstacleToolBarController getOpenObstacleToolBarController() throws IOException
+	{
+		if (openObstacleToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_OBSTACLE_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.openObstacleToolBarController = loader.getController();
+		}
+		return openObstacleToolBarController;
+	}
+
+	public OpenSportController getOpenSportController() throws IOException
+	{
+		if (openSportController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_PATH.toString()));
+			loader.load();
+			this.openSportController = loader.getController();
+		}
+		return openSportController;
+	}
+
+	public OpenSportToolBarController getOpenSportToolBarController() throws IOException
+	{
+		if (openSportToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.openSportToolBarController = loader.getController();
+		}
+		return openSportToolBarController;
+	}
+
+	public OpenStrategyController getOpenStrategyController() throws IOException
+	{
+		if (openStrategyController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_STRATEGY_PATH.toString()));
+			loader.load();
+			this.openStrategyController = loader.getController();
+		}
+		return openStrategyController;
+	}
+
+	public OpenStrategyToolBarController getOpenStrategyToolBarController() throws IOException
+	{
+		if (openStrategyToolBarController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_STRATEGY_TOOL_BAR_PATH.toString()));
+			loader.load();
+			this.openStrategyToolBarController = loader.getController();
+		}
+		return openStrategyToolBarController;
+	}
+
+	public PlayerPropertiesPaneController getPlayerPropertiesPaneController() throws IOException
+	{
+		if (playerPropertiesPaneController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_PROPERTIES_PANE_PATH.toString()));
+			loader.load();
+			this.playerPropertiesPaneController = loader.getController();
+		}
+		return playerPropertiesPaneController;
+	}
+
+	public ProjectilePropertiesPaneController getProjectilePropertiesPaneController() throws IOException
+	{
+		if (projectilePropertiesPaneController == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(FXMLPaths.PROJECTILE_PROPERTIES_PANE_PATH.toString()));
+			loader.load();
+			this.projectilePropertiesPaneController = loader.getController();
+		}
+		return projectilePropertiesPaneController;
 	}
 }
