@@ -1,5 +1,6 @@
 package org.glo.giftw.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -119,4 +120,20 @@ public class Controller
     {
         return this.sportPool.getSportsDescription();
     }
+    
+    public HashMap<String, String> getObstacles()
+    {
+    	return this.obstaclePool.getObstacles();
+    }
+    
+    public Collection<Sport> getSports()
+    {
+    	return this.sportPool.getAllSports();
+    }
+    
+    //TODO Implementer ceci s.v.p
+    /*public Collection<Strategy> getStrategies()
+    {
+    	return this.strategyPool.getAllStrategies();
+    }*/
 }

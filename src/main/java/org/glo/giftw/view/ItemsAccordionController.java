@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -15,6 +16,9 @@ import javafx.scene.input.TransferMode;
 
 public class ItemsAccordionController
 {
+	@FXML
+	private Accordion rootAccordion;
+	
 	@FXML
 	private ListView<String> playersListView;
 
@@ -35,6 +39,11 @@ public class ItemsAccordionController
 		playersListView.setItems(players);
 
 		playersListView.setCellFactory(param -> new PlayerCell());
+	}
+
+	public Accordion getRootAccordion()
+	{
+		return rootAccordion;
 	}
 
 	private class PlayerCell extends ListCell<String>
