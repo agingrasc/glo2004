@@ -121,4 +121,14 @@ public class Frame implements Serializable
         }
         return null;
     }
+    
+    public Vector getPosition(GameObject gameObject)
+    {
+        return this.gameObjects.get(gameObject).getPosition();
+    }
+    
+    public Set<GameObject> getGameObjects()
+    {
+        return this.gameObjects.keySet();
+    }
 }
