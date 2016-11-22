@@ -1,39 +1,36 @@
 package org.glo.giftw.view;
 
-import java.util.Observable;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 
-public class ModeToolBarController extends Observable
+public class ModeToolBarController
 {
 	@FXML
-	void onActionImageByImage(ActionEvent event) 
+	private ToolBar rootToolBar;
+	
+	@FXML
+	void onActionImageByImage(ActionEvent event) throws IOException 
 	{
-		String handler = "onActionImageByImage";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		RootLayoutController.getInstance().imageByImage();
 	}
 	
 	@FXML
-	void onActionRealTime(ActionEvent event) 
+	void onActionRealTime(ActionEvent event) throws IOException 
 	{
-		String handler = "onActionRealTime";
-		System.out.println(handler);
-
-		setChanged();
-		notifyObservers(handler);
+		RootLayoutController.getInstance().realTime();
 	}
 	
 	@FXML
-	void onActionWatch(ActionEvent event) 
+	void onActionWatch(ActionEvent event) throws IOException 
 	{
-		String handler = "onActionWatch";
-		System.out.println(handler);
+		RootLayoutController.getInstance().watch();
+	}
 
-		setChanged();
-		notifyObservers(handler);
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
 	}
 }

@@ -6,10 +6,14 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class CreationStackPaneController
 {
+	@FXML
+	private StackPane rootStackPane;
+	
 	@FXML
 	private VBox vBox;
 	
@@ -49,5 +53,10 @@ public class CreationStackPaneController
 	void onDragEntered(DragEvent event)
 	{
 		vBox.setVisible(false);
+	}
+
+	public StackPane getRootStackPane()
+	{
+		return rootStackPane;
 	}
 }

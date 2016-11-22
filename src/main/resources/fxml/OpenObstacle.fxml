@@ -2,11 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.OpenObstacleController">
+<VBox fx:id="rootVBox" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.OpenObstacleController">
    <children>
       <Label text="Veuillez sélectionner un obstacle:">
          <VBox.margin>
@@ -16,6 +17,14 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ListView fx:id="listView" VBox.vgrow="ALWAYS" />
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="imageColumn" prefWidth="75.0" text="Aperçu" />
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nom" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </children>
 </VBox>

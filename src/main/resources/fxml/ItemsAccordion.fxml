@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TitledPane?>
 
-<Accordion prefHeight="476.0" prefWidth="146.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.ItemsAccordionController">
+<Accordion fx:id="rootAccordion" prefHeight="476.0" prefWidth="146.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.ItemsAccordionController">
   <panes>
     <TitledPane animated="false" text="Joueurs">
          <content>

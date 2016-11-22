@@ -7,60 +7,79 @@ public class Frame implements Serializable
 {
     public static final long serialVersionUID = 1L;
     
-    private final HashMap<Integer, GameObject> gameObjects;
+    private boolean isKeyFrame;
+    private final HashMap<GameObject, GameObjectState> gameObjects; // associe un GameObject avec son état
 
     public Frame()
     {
+        this.isKeyFrame = false;
+        this.gameObjects = new HashMap<>();
+    }
+    
+    public Frame(boolean isKeyFrame)
+    {
+        this.isKeyFrame = isKeyFrame;
         this.gameObjects = new HashMap<>();
     }
     
     public Frame(Frame frame)
     {
+        this.isKeyFrame = frame.isKeyFrame;
         this.gameObjects = new HashMap<>();
-        frame.gameObjects.forEach((id, gameObject) -> this.addGameObject(gameObject));
+        frame.gameObjects.forEach((gameObject, gameObjectState) -> this.addGameObject(gameObject, gameObjectState));
     }
 
-    public void addGameObject(GameObject gameObject)
+    public boolean isKeyFrame()
     {
-        this.gameObjects.put(gameObject.getId(), gameObject.copy());
+        return isKeyFrame;
+    }
+
+    public void setKeyFrame(boolean isKeyFrame)
+    {
+        this.isKeyFrame = isKeyFrame;
+    }
+
+    public void addGameObject(GameObject gameObject, GameObjectState gameObjectState)
+    {
+        this.gameObjects.put(gameObject, gameObjectState);
     }
     
-    public void removeGameObject(int id)
+    public void removeGameObject(GameObject gameObject)
     {
-        this.gameObjects.remove(id);
+        this.gameObjects.remove(gameObject);
     }
     
-    public void placeGameObject(int id, Vector position, float orientation, Vector dimensions)
+    public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
-        //on copie l'objet pour pouvoir modifier sa position
-        GameObject gameObject = this.gameObjects.get(id).copy();
-        gameObject.setPosition(position);
-        gameObject.setOrientation(orientation);
-        gameObject.setDimensions(dimensions);
-        //on remplace l'ancienne copie par la nouvelle
-        this.gameObjects.put(id, gameObject);
+        GameObjectState gameObjectState = this.gameObjects.get(gameObject);
+        gameObjectState.setPosition(position);
+        gameObjectState.setOrientation(orientation);
+        gameObjectState.setDimensions(dimensions);
     }
     
     /**
      * Detects collisions between a specified GameObject and all the other GameObjects of the frame.
      * A GameObject does not generate a collision with himself.
-     * @param gameObject : The GameObject generating the collisions. 
-     * @return An ArrayList of Integers containing the id of the colliding GameObjects (can be empty).
+     * @param reference : The reference GameObject generating the collisions. 
+     * @return An ArrayList of GameObjects colliding with the reference GameObjects (can be empty).
      */
-    public Set<Integer> detectCollisions(GameObject gameObject)
+    public Set<GameObject> detectCollisions(GameObject reference)
     {
-        Set<Integer> idInCollision = new HashSet<>();
-        Integer gameObjId = gameObject.getId();
-        for (GameObject gameObjToCheck : this.gameObjects.values())
+        GameObjectState referenceState = this.gameObjects.get(reference);
+        Set<GameObject> GameObjectsInCollision = new HashSet<>();
+        for (Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
         {
-            Integer gameObjToCheckId = gameObjToCheck.getId();
-            if (!gameObjToCheckId.equals(gameObjId) && gameObjToCheck.detectCollision(gameObject))
+            GameObject other = entry.getKey();
+            if (reference.getId() != other.getId() && reference.isCollidable() && other.isCollidable())
             {
-                idInCollision.add(gameObjToCheckId);
+                if(referenceState.detectCollision(entry.getValue()))
+                {
+                    GameObjectsInCollision.add(other);
+                }
             }
         }
 
-        return idInCollision;
+        return GameObjectsInCollision;
     }
     
     /**
@@ -68,12 +87,12 @@ public class Frame implements Serializable
      * @return A HashMap mapping the id of every GameObjects of the frame with an ArrayList of Integers containing the
      * id of the colliding GameObjects. Those ArrayLists may be empty.
      */
-    public HashMap<Integer, Set<Integer>> detectCollisions()
+    public HashMap<GameObject, Set<GameObject>> detectCollisions()
     {
-        HashMap<Integer, Set<Integer>> collisions = new HashMap<>();
-        for(Map.Entry<Integer, GameObject> entry : gameObjects.entrySet())
+        HashMap<GameObject, Set<GameObject>> collisions = new HashMap<>();
+        for(Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
         {
-            collisions.put(entry.getKey(), this.detectCollisions(entry.getValue()));
+            collisions.put(entry.getKey(), this.detectCollisions(entry.getKey()));
         }
         return collisions;
     }
@@ -83,11 +102,33 @@ public class Frame implements Serializable
     {
         String repr = "Frame: \n";
 
-        for (GameObject go : this.gameObjects.values())
+        for (Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
         {
-            repr += go.toString() + "\n";
+            repr += entry.getKey().toString() + "\n" + entry.getValue().toString() + "\n";
         }
 
         return repr;
+    }
+    
+    public GameObject getGameObjectByCoordinate(Vector coordinate)
+    {
+        for(Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
+        {
+            if(entry.getValue().occupiesPosition(coordinate))
+            {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+    
+    public Vector getPosition(GameObject gameObject)
+    {
+        return this.gameObjects.get(gameObject).getPosition();
+    }
+    
+    public Set<GameObject> getGameObjects()
+    {
+        return this.gameObjects.keySet();
     }
 }

@@ -92,4 +92,9 @@ public class Vector implements Serializable
     {
         return "(x: " + this.x + ", y: " + this.y + ")";
     }
+    
+    public double getDistance(Vector other)
+    {
+        return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
+    }
 }
