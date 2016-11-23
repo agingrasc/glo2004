@@ -34,10 +34,10 @@ public class NewSportController
 
 	File getSportFieldImageFile() { return new File(fieldImage.getImage().toString()); }
 
-	private void initSpinners()
+	private void initSpinners(double initialLength, double initialWidth)
 	{
-		fieldLength.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100));
-		fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100));
+		fieldLength.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialLength));
+		fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialWidth));
 
 		fieldLength.setEditable(true);
 		fieldWidth.setEditable(true);
@@ -46,7 +46,7 @@ public class NewSportController
 	@FXML
 	public void initialize() {
 		System.out.println("initializeNewSport");
-		initSpinners();
+		initSpinners(0, 0);
 	}
 
 	@FXML
@@ -62,7 +62,18 @@ public class NewSportController
 		DialogPane fieldEditorDialogPane = loader.load();
 
 		dialog.setDialogPane(fieldEditorDialogPane);
+		FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
+
+		fieldEditorController.initSpinners((double)fieldLength.getValue(), (double)fieldWidth.getValue());
+
 		dialog.showAndWait();
+
+		setImage(fieldEditorController.getDrawnFieldFilePath());
+		if(fieldEditorController.getDrawnFieldFilePath()!=null) {
+			double newLength = fieldEditorController.getLength();
+			double newWidth = fieldEditorController.getWidth();
+			if( newLength > 0 && newWidth > 0 ) { initSpinners(newLength, newWidth); }
+		}
 
 	}
 
@@ -74,6 +85,11 @@ public class NewSportController
 		ImageFileController imageFileController = new ImageFileController();
 
 		File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+		setImage(imageToOpen);
+	}
+
+	private void setImage(File imageToOpen)
+	{
 		if(imageToOpen != null)
 		{
 			if ( (double)fieldLength.getValue() > 0 && (double)fieldWidth.getValue() > 0) {

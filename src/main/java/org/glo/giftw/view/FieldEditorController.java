@@ -55,16 +55,24 @@ public class FieldEditorController
     @FXML
     private RadioButton fieldLine;
 
-    public DialogPane getFieldEditorDialog() {
-        return fieldEditorDialog;
-    }
-
     public File getDrawnFieldFilePath() { return fieldSelectedFilePath; }
 
-    private void initSpinners()
-    {
-        double fieldInitialLength = (fieldDraw.getWidth()) / 100;
-        double fieldInitialWidth = (fieldDraw.getHeight()) / 100;
+    public double getLength() { return (double)fieldLength.getValue(); }
+    public double getWidth() { return (double)fieldWidth.getValue(); }
+
+    public void initSpinners(double initialLength, double initialWidth) {
+        double fieldInitialLength;
+        double fieldInitialWidth;
+
+        if (initialLength > 0 && initialWidth > 0) {
+            fieldInitialLength = initialLength;
+            fieldInitialWidth = initialWidth;
+        }
+        else
+        {
+            fieldInitialLength = (fieldDraw.getWidth()) / 100;
+            fieldInitialWidth = (fieldDraw.getHeight()) / 100;
+        }
 
         fieldLength.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, fieldInitialLength));
         fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, fieldInitialWidth));
@@ -120,7 +128,6 @@ public class FieldEditorController
         System.out.println("initializeFieldEditor");
         startDragPosition = new double[2];
         initCanvas();
-        initSpinners();
         initChoiceBox();
         initRadioButtons();
     }
