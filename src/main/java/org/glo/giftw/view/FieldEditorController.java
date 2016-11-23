@@ -29,9 +29,6 @@ public class FieldEditorController
     private Canvas fieldDraw;
 
     @FXML
-    private Canvas fieldBackground;
-
-    @FXML
     private Spinner fieldLength;
 
     @FXML
@@ -153,7 +150,6 @@ public class FieldEditorController
     {
         System.out.println("onUndo");
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        gc.restore();
     }
 
     @FXML
@@ -166,25 +162,20 @@ public class FieldEditorController
     @FXML
     void onFillColor()
     {
-        GraphicsContext gc = fieldBackground.getGraphicsContext2D();
+        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
         gc.setFill(fieldColor.getValue());
-        gc.fillRect(0, 0, fieldBackground.getWidth(), fieldBackground.getHeight());
+        gc.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
     }
 
     @FXML
     void onDraw(MouseEvent me)
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        gc.save();
+
         if(fieldPencil.isSelected())
         {
             gc.setFill(fieldColor.getValue());
             gc.fillRect(me.getX(), me.getY(), 3, 3);
-        }
-        else if(fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
-        {
-            drawShape(me);
-            gc.restore();
         }
     }
 
@@ -192,18 +183,15 @@ public class FieldEditorController
     void onInitShape(MouseEvent me)
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        gc.save();
         if(fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
         {
             startDragPosition[0] = me.getX();
             startDragPosition[1] = me.getY();
-            gc.save();
         }
         else if(fieldPencil.isSelected())
         {
             gc.setFill(fieldColor.getValue());
             gc.fillRect(me.getX(), me.getY(), 3, 3);
-            gc.save();
         }
     }
 
@@ -212,7 +200,6 @@ public class FieldEditorController
     {
         drawShape(me);
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        gc.save();
     }
 
     void drawShape(MouseEvent me)
