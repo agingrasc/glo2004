@@ -42,15 +42,16 @@ public class ImageFileController {
     }
 
     File startSaveFileDialog(Window parentWindow, Image content) {
+        File selectedImagePath = null;
         try {
-            File selectedImagePath = imageChooser.showSaveDialog(parentWindow);
+            selectedImagePath = imageChooser.showSaveDialog(parentWindow);
             if (selectedImagePath != null) {
                 List<String> fileType = imageChooser.getSelectedExtensionFilter().getExtensions();
                 BufferedImage bImage = SwingFXUtils.fromFXImage(content, null);
                 String format = fileType.get(0).replace("*.", "");
                 ImageIO.write(bImage, format, selectedImagePath);
             }
-            return selectedImagePath;
         } catch (IOException ex){}
+        return selectedImagePath;
     }
 }

@@ -16,9 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Window;
 import java.io.File;
 
-import static java.lang.Math.abs;
-
-
 public class FieldEditorController
 {
     private double[] startDragPosition;
@@ -57,6 +54,10 @@ public class FieldEditorController
 
     @FXML
     private RadioButton fieldLine;
+
+    public DialogPane getFieldEditorDialog() {
+        return fieldEditorDialog;
+    }
 
     public File getDrawnFieldFilePath() { return fieldSelectedFilePath; }
 
@@ -143,6 +144,7 @@ public class FieldEditorController
     @FXML
     public void onUndo()
     {
+        System.out.println("onUndo");
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
         gc.restore();
     }
@@ -183,6 +185,7 @@ public class FieldEditorController
     void onInitShape(MouseEvent me)
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        gc.save();
         if(fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
         {
             startDragPosition[0] = me.getX();
@@ -193,6 +196,7 @@ public class FieldEditorController
         {
             gc.setFill(fieldColor.getValue());
             gc.fillRect(me.getX(), me.getY(), 3, 3);
+            gc.save();
         }
     }
 
