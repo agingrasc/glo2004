@@ -39,7 +39,6 @@ public class NewSportController
 		dialog.setDialogPane(fieldEditorDialogPane);
 		dialog.showAndWait();
 
-
 	}
 
 	@FXML

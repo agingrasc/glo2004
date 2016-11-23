@@ -12,7 +12,6 @@ import javafx.stage.Window;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 

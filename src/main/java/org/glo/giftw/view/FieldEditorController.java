@@ -12,9 +12,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
+import java.io.File;
 
 import static java.lang.Math.abs;
 
@@ -22,6 +22,8 @@ import static java.lang.Math.abs;
 public class FieldEditorController
 {
     private double[] startDragPosition;
+
+    private File fieldSelectedFilePath;
 
     @FXML
     private DialogPane fieldEditorDialog;
@@ -55,6 +57,8 @@ public class FieldEditorController
 
     @FXML
     private RadioButton fieldLine;
+
+    public File getDrawnFieldFilePath() { return fieldSelectedFilePath; }
 
     private void initSpinners()
     {
@@ -132,7 +136,7 @@ public class FieldEditorController
         Window parentWindow = fieldEditorDialog.getScene().getWindow();
         ImageFileController saveFileDialog = new ImageFileController();
 
-        saveFileDialog.startSaveFileDialog(parentWindow, currentField);
+        fieldSelectedFilePath = saveFileDialog.startSaveFileDialog(parentWindow, currentField);
 
     }
 

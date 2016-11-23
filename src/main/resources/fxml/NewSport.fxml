@@ -14,8 +14,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
+
 <DialogPane fx:id="newSportDialog" expanded="true" headerText="Veuillez configurer le sport:" prefHeight="475.0" prefWidth="544.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.NewSportController">
-   <buttonTypes>
+    <fx:include source="FieldEditor.fxml" fx:id="fieldEditor" />
+    <buttonTypes>
       <ButtonType fx:constant="CANCEL" />
       <ButtonType fx:constant="FINISH" />
    </buttonTypes>
