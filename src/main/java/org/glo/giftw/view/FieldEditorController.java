@@ -10,9 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Window;
 
 import static java.lang.Math.abs;
 
@@ -20,6 +22,9 @@ import static java.lang.Math.abs;
 public class FieldEditorController
 {
     private double[] startDragPosition;
+
+    @FXML
+    private DialogPane fieldEditorDialog;
 
     @FXML
     private Canvas fieldDraw;
@@ -118,7 +123,17 @@ public class FieldEditorController
     @FXML
     public void onSave()
     {
-        System.out.println("onSave");
+        //format canvas as image
+        WritableImage currentField = new WritableImage((int)fieldDraw.getWidth(),
+                                                       (int)fieldDraw.getHeight());
+
+        fieldDraw.snapshot(null, currentField);
+
+        Window parentWindow = fieldEditorDialog.getScene().getWindow();
+        ImageFileController saveFileDialog = new ImageFileController();
+
+        saveFileDialog.startSaveFileDialog(parentWindow, currentField);
+
     }
 
     @FXML

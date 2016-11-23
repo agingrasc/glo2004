@@ -20,9 +20,9 @@ public class NewObstacleController
 	void onActionBrowse(ActionEvent event)
 	{
 		Window parentWindow = newObstacleDialog.getScene().getWindow();
-		OpenImageFileController openImageFileController = new OpenImageFileController();
+		ImageFileController imageFileController = new ImageFileController();
 
-		File imageToOpen = openImageFileController.startDialog(parentWindow);
+		File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
 		imagePreview.setImage(new Image(imageToOpen.toURI().toString()));
 		System.out.println("onActionBrowse");
 	}

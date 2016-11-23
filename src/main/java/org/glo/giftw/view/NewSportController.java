@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Window;
 
 import java.io.File;
@@ -17,7 +19,10 @@ public class NewSportController
 	@FXML
 	private DialogPane newSportDialog;
 
-	File getSportFieldImageFile() { return sportFieldImageFile; }
+	@FXML
+	private ImageView fieldImage;
+
+	File getSportFieldImageFile() { return new File(fieldImage.getImage().toString()); }
 
 	@FXML
 	void onActionDraw(ActionEvent event) throws IOException
@@ -34,6 +39,7 @@ public class NewSportController
 		dialog.setDialogPane(fieldEditorDialogPane);
 		dialog.showAndWait();
 
+
 	}
 
 	@FXML
@@ -41,9 +47,10 @@ public class NewSportController
 	{
 		System.out.println("onActionBrowse");
 		Window parentWindow = newSportDialog.getScene().getWindow();
-		OpenImageFileController openImageFileController = new OpenImageFileController();
+		ImageFileController imageFileController = new ImageFileController();
 
-		File imageToOpen = openImageFileController.startDialog(parentWindow);
+		File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
 		sportFieldImageFile = imageToOpen;
+		fieldImage.setImage(new Image(imageToOpen.toURI().toString()));
 	}
 }
