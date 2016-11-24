@@ -32,12 +32,6 @@ public class NewSportController
     private TextField sportName;
 
     @FXML
-    private TextField fieldX;
-
-    @FXML
-    private TextField fieldY;
-
-    @FXML
     private ComboBox<String> roles;
 
     @FXML
@@ -51,6 +45,9 @@ public class NewSportController
 
 	@FXML
 	private ImageView fieldImage;
+
+	@FXML
+	private ImageView fieldProjectile;
 
 	@FXML
 	private Spinner fieldLength;
@@ -95,7 +92,7 @@ public class NewSportController
 
 		dialog.showAndWait();
 
-		setImage(fieldEditorController.getDrawnFieldFilePath());
+		setImage(fieldEditorController.getDrawnFieldFilePath(), fieldImage);
 		if(fieldEditorController.getDrawnFieldFilePath()!=null) {
 			double newLength = fieldEditorController.getLength();
 			double newWidth = fieldEditorController.getWidth();
@@ -112,26 +109,31 @@ public class NewSportController
 		ImageFileController imageFileController = new ImageFileController();
 
 		File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
-		setImage(imageToOpen);
+		setImage(imageToOpen, fieldImage);
 	}
 
-	private void setImage(File imageToOpen)
-	{
-		if(imageToOpen != null)
-		{
-			if ( (double)fieldLength.getValue() > 0 && (double)fieldWidth.getValue() > 0) {
-				fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
-				fieldImage.setFitWidth((double)fieldLength.getValue() * 100);
-			}
-			sportFieldImageFile = imageToOpen;
-			fieldImage.setImage(new Image(imageToOpen.toURI().toString()));
-		}
-	}
-	
 	@FXML
 	void onActionBrowseProjectile(ActionEvent event)
 	{
-		System.out.println("onActionBrowseField");
+		System.out.println("onActionBrowseProjectile");
+		Window parentWindow = rootDialogPane.getScene().getWindow();
+		ImageFileController imageFileController = new ImageFileController();
+
+		File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+		setImage(imageToOpen, fieldProjectile);
+	}
+
+	private void setImage(File imageToOpen, ImageView imageView)
+	{
+		if(imageToOpen != null)
+		{
+			/*if ( (double)fieldLength.getValue() > 0 && (double)fieldWidth.getValue() > 0) {
+				fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
+				fieldImage.setFitWidth((double)fieldLength.getValue() * 100);
+			}*/
+			sportFieldImageFile = imageToOpen;
+			imageView.setImage(new Image(imageToOpen.toURI().toString()));
+		}
 	}
 	
 	public void showDialog() throws IOException
