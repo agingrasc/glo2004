@@ -43,11 +43,11 @@ public class Controller
      * @param maxPLayersPerTeam Le nombre maximum de joueurs par équipe sur le terrain à un moment donné.
      * @param maxTeams Le nombre maximum d'équipe lors d'une partie.
      */
-    public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight, String projectileName,
-            String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
+    public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight, String fieldImagePath, 
+            String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
     {
-        this.sportPool.addSport(name, roles, new Vector(fieldLength, fieldHeight), projectileName, projectileImagePath,
-                maxPLayersPerTeam, maxTeams);
+        this.sportPool.addSport(name, roles, new Vector(fieldLength, fieldHeight), fieldImagePath, projectileName,
+                projectileImagePath, maxPLayersPerTeam, maxTeams);
     }
     
     /**
@@ -90,9 +90,9 @@ public class Controller
      * @param dimensions Les dimensions initiales de l'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public Integer addObstacle(Vector position, float orientation, Vector dimensions)
+    public Integer addObstacle(Vector position, float orientation, Vector dimensions, boolean isCollidable)
     {
-        return this.currentStrategy.addObstacle(position, orientation, dimensions);
+        return this.currentStrategy.addObstacle(position, orientation, dimensions, isCollidable);
     }
 
     /**

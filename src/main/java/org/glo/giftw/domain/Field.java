@@ -12,19 +12,19 @@ public class Field implements Serializable
 
     public Field()
     {
-        this(new Vector(6096, 2590), 100); //taille d'une patinoire nord-américaine standard en cm
+        this(new Vector(6096, 2590), 100, ""); //taille d'une patinoire nord-américaine standard en cm
     }
 
-    public Field(Vector dimensions)
+    public Field(Vector dimensions, String fieldImagePath)
     {
-        this(dimensions, 100);
+        this(dimensions, 100, fieldImagePath);
     }
     
-    public Field(Vector dimensions, int unitRatio)
+    public Field(Vector dimensions, int unitRatio, String fieldImagePath)
     {
         this.dimensions = dimensions;
         this.unitRatio = unitRatio;
-        this.imagePath = "";
+        this.imagePath = fieldImagePath;
     }
 
     public Vector getDimensions()

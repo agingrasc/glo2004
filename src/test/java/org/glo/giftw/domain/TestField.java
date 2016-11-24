@@ -15,7 +15,7 @@ public class TestField
     @Before
     public void setUp()
     {
-        field = new Field(new Vector(9000, 6000));
+        field = new Field(new Vector(9000, 6000), "");
     }
 
     @Test
