@@ -163,9 +163,9 @@ public class Strategy implements Serializable
         return this.addGameObject(projectile, position, orientation, dimensions);
     }
     
-    public Integer addObstacle(Vector position, float orientation, Vector dimensions)
+    public Integer addObstacle(Vector position, float orientation, Vector dimensions, boolean isCollidable)
     {
-        Obstacle obstacle = new Obstacle();
+        Obstacle obstacle = new Obstacle(isCollidable);
         return this.addGameObject(obstacle, position, orientation, dimensions);
     }
     

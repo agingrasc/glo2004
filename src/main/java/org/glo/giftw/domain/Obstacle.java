@@ -9,8 +9,13 @@ public class Obstacle extends GameObject implements Serializable
 
     public Obstacle()
     {
+        this(true);        
+    }
+    
+    public Obstacle(boolean isCollidable)
+    {
         super();
-        this.collidable = true;
+        this.collidable = isCollidable;
         Obstacle.obstacleCount++;
     }
 
