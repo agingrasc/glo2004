@@ -3,10 +3,8 @@ package org.glo.giftw.view;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.glo.giftw.controller.Controller;
-import org.glo.giftw.domain.Obstacle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;

@@ -29,13 +29,13 @@ public class FieldEditorController
     private Canvas fieldDraw;
 
     @FXML
-    private Spinner fieldLength;
+    private Spinner<Double> fieldLength;
 
     @FXML
-    private Spinner fieldWidth;
+    private Spinner<Double> fieldWidth;
 
     @FXML
-    private ChoiceBox fieldSize;
+    private ChoiceBox<String> fieldSize;
 
     @FXML
     private ColorPicker fieldColor;
@@ -149,7 +149,7 @@ public class FieldEditorController
     public void onUndo()
     {
         System.out.println("onUndo");
-        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        fieldDraw.getGraphicsContext2D();
     }
 
     @FXML
@@ -199,7 +199,7 @@ public class FieldEditorController
     void onFinishShape(MouseEvent me)
     {
         drawShape(me);
-        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        fieldDraw.getGraphicsContext2D();
     }
 
     void drawShape(MouseEvent me)

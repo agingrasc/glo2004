@@ -3,8 +3,6 @@ package org.glo.giftw.view;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -26,7 +24,7 @@ public class OpenSportController
 	@FXML
 	private TableColumn<HashMap.Entry<String, String>, String> nameColumn;
 
-	private ObservableList<HashMap.Entry<String, String>> sports;
+	//private ObservableList<HashMap.Entry<String, String>> sports;
 
 	@FXML
 	private void initialize() throws IOException

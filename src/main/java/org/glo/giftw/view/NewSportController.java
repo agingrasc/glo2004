@@ -11,7 +11,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
@@ -48,10 +47,10 @@ public class NewSportController
 	private ImageView fieldProjectile;
 
 	@FXML
-	private Spinner fieldLength;
+	private Spinner<Double> fieldLength;
 
 	@FXML
-	private Spinner fieldWidth;
+	private Spinner<Double> fieldWidth;
 
 	public File getSportFieldImageFile() { return new File(fieldImage.getImage().toString()); }
 
@@ -142,11 +141,11 @@ public class NewSportController
 		
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
-			//TODO en attente du projectileImageFileFile et de l'ajout du parametre pour le sportFieldImageFile 
-			/*Controller.getInstance().createSport(sportName.getText(), sportFieldImageFile.getPath(), roles.getItems(),
-			Integer.parseInt(fieldX.getText()), Integer.parseInt(fieldY.getText()), projectileName.getText(),
-			projectileImageFile.getPath(), Integer.parseInt(maxPlayers.getText()), Integer.parseInt(maxTeams.getText()));*/
-			
+			Controller.getInstance().createSport(sportName.getText(), roles.getItems(), 
+			Integer.parseInt(fieldLength.getEditor().getText()), Integer.parseInt(fieldWidth.getEditor().getText()),
+			getSportFieldImageFile().getPath(), projectileName.getText(), getSportProjectileImageFile().getPath(), 
+			Integer.parseInt(maxPlayers.getText()), Integer.parseInt(maxTeams.getText()));
+		       
 			RootLayoutController.getInstance().getOpenSportController().updateTable();
 		}
 	}
