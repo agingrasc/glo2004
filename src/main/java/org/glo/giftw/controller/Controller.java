@@ -90,9 +90,9 @@ public class Controller
      * @param dimensions Les dimensions initiales de l'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public Integer addObstacle(Vector position, float orientation, Vector dimensions)
+    public Integer addObstacle(Vector position, float orientation, Vector dimensions, boolean isCollidable)
     {
-        return this.currentStrategy.addObstacle(position, orientation, dimensions);
+        return this.currentStrategy.addObstacle(position, orientation, dimensions, isCollidable);
     }
 
     /**
