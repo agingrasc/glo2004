@@ -127,6 +127,16 @@ public class Frame implements Serializable
         return this.gameObjects.get(gameObject).getPosition();
     }
     
+    public float getOrientation(GameObject gameObject)
+    {
+        return this.gameObjects.get(gameObject).getOrientation();
+    }
+    
+    public Vector getDimensions(GameObject gameObject)
+    {
+        return this.gameObjects.get(gameObject).getDimensions();
+    }
+    
     public Set<GameObject> getGameObjects()
     {
         return this.gameObjects.keySet();

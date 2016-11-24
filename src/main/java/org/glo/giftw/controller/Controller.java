@@ -137,4 +137,54 @@ public class Controller
     {
     	return this.strategyPool.getAllStrategies();
     }
+    
+    /**
+     * Retourne la frame courante de la stratégie.
+     * @return la frame courante.
+     */
+    public Frame getCurrentFrame()
+    {
+        return this.currentStrategy.getCurrentFrame();
+    }
+    
+    /**
+     * Retourne la frame précédente de la stratégie. 
+     * @return La frame précédente.
+     */
+    public Frame previousFrame()
+    {
+        return this.currentStrategy.previousFrame();
+    }
+    
+    /**
+     * Retourne la frame suivante de la stratégie. 
+     * @return La frame suivante.
+     */
+    public Frame nextFrame()
+    {
+        return this.currentStrategy.nextFrame();
+    }
+    
+    /**
+     * Crée une nouvelle frame à la fin de la suite de frames.
+     * @return La nouvelle frame.
+     */
+    public Frame createNewFrame()
+    {
+        this.currentStrategy.goToEnd();
+        this.currentStrategy.createNewFrame();
+        return this.currentStrategy.nextFrame();
+    }
+    
+    /**
+     * Permet de modifier la frame courante de la stratégie selon un delta de temps, en secondes, précis auxs dixième de
+     * secondes.
+     * @param delta La longueur du saut entre les frames, en secondes.
+     * @return La nouvelle frame courante.
+     */
+    public Frame changeCurrentFrame(float delta)
+    {
+        this.currentStrategy.changeCurrentFrame(delta);
+        return this.currentStrategy.getCurrentFrame();
+    }
 }
