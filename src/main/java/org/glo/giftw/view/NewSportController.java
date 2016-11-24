@@ -23,8 +23,6 @@ import org.glo.giftw.controller.Controller;
 
 public class NewSportController
 {
-	private File sportFieldImageFile;
-
 	@FXML
 	private DialogPane rootDialogPane;
 	
@@ -55,8 +53,15 @@ public class NewSportController
 	@FXML
 	private Spinner fieldWidth;
 
+	public File getSportFieldImageFile() { return new File(fieldImage.getImage().toString()); }
 
-	File getSportFieldImageFile() { return new File(fieldImage.getImage().toString()); }
+	public File getSportProjectileImageFile() { return new File(fieldProjectile.getImage().toString()); }
+
+	@FXML
+	public void initialize() {
+		System.out.println("initializeNewSport");
+		initSpinners(0, 0);
+	}
 
 	private void initSpinners(double initialLength, double initialWidth)
 	{
@@ -65,12 +70,6 @@ public class NewSportController
 
 		fieldLength.setEditable(true);
 		fieldWidth.setEditable(true);
-	}
-
-	@FXML
-	public void initialize() {
-		System.out.println("initializeNewSport");
-		initSpinners(0, 0);
 	}
 
 	@FXML
