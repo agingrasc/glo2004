@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.RootLayoutController">
+<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>

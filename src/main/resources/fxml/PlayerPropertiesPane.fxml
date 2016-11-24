@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<Accordion fx:id="rootAccordion" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.PlayerPropertiesPaneController">
+  <panes>
+      <TitledPane animated="false" stylesheets="@../css/visuaLigueCSS.css" text="Propriétés du joueur:">
+         <content>
+            <VBox>
+               <children>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="Afficher?" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <CheckBox mnemonicParsing="false" text="Afficher?" GridPane.columnIndex="2" />
+                        <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Équipe:" GridPane.rowIndex="2" />
+                        <Label text="Rôle:" />
+                        <Label text="Nom:" GridPane.rowIndex="1" />
+                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </content>
+      </TitledPane>
+  </panes>
+</Accordion>

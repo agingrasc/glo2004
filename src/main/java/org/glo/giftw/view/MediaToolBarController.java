@@ -2,14 +2,12 @@ package org.glo.giftw.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 
 public class MediaToolBarController
 {
 	@FXML
-	void onActionForward(ActionEvent event)
-	{
-		System.out.println("onActionForward");
-	}
+	private ToolBar rootToolBar;
 
 	@FXML
 	void onActionPause(ActionEvent event)
@@ -22,10 +20,15 @@ public class MediaToolBarController
 	{
 		System.out.println("onActionPlay");
 	}
-
-	@FXML
-	void onActionRewind(ActionEvent event)
+	
+	@FXML 
+	void onActionReplay(ActionEvent event)
 	{
-		System.out.println("onActionRewind");
+		System.out.println("onActionReplay");
+	}
+
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
 	}
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitMenuButton?>
@@ -9,30 +10,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 
-<ToolBar stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.MediaToolBarController">
+<ToolBar fx:id="rootToolBar" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.MediaToolBarController">
   <items>
-      <SplitMenuButton contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionRewind" text="Reculer">
-         <graphic>
-            <ImageView pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/rewind.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <items>
-            <MenuItem mnemonicParsing="false" text="Vitesse">
-               <graphic>
-                  <ToolBar>
-                     <items>
-                        <Slider orientation="VERTICAL" prefHeight="39.0" prefWidth="14.0" />
-                        <TextField prefHeight="25.0" prefWidth="46.0" text="00:00" />
-                     </items>
-                  </ToolBar>
-               </graphic>
-            </MenuItem>
-         </items>
-      </SplitMenuButton>
-      <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionPlay" text="Débuter">
+      <SplitMenuButton contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionPlay" text="Débuter">
          <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
@@ -40,7 +20,16 @@
                </image>
             </ImageView>
          </graphic>
-      </Button>
+         <items>
+            <MenuItem mnemonicParsing="false" text="-8x" />
+            <MenuItem mnemonicParsing="false" text="-4x" />
+            <MenuItem mnemonicParsing="false" text="-2x" />
+            <MenuItem mnemonicParsing="false" text="1x" />
+            <MenuItem mnemonicParsing="false" text="2x" />
+            <MenuItem mnemonicParsing="false" text="4x" />
+            <MenuItem mnemonicParsing="false" text="8x" />
+         </items>
+      </SplitMenuButton>
       <Button contentDisplay="TOP" layoutX="70.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionPause" text="Pause">
          <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
@@ -50,28 +39,17 @@
             </ImageView>
          </graphic>
       </Button>
-      <SplitMenuButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionForward" text="Avancer">
+      <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onActionReplay" text="Rejouer">
          <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/fast-forward.png" />
+                  <Image url="@../images/circular-arrrow.png" />
                </image>
             </ImageView>
          </graphic>
-         <items>
-            <MenuItem mnemonicParsing="false" text="Vitesse">
-               <graphic>
-                  <ToolBar>
-                     <items>
-                        <Slider orientation="VERTICAL" prefHeight="39.0" prefWidth="14.0" />
-                        <TextField prefHeight="25.0" prefWidth="46.0" text="00:00" />
-                     </items>
-                  </ToolBar>
-               </graphic>
-            </MenuItem>
-         </items>
-      </SplitMenuButton>
+      </Button>
+      <TextField prefHeight="25.0" prefWidth="58.0" promptText="Delta t" />
       <Slider prefHeight="14.0" prefWidth="318.0" />
-      <TextField prefHeight="25.0" prefWidth="46.0" text="00:00" />
+      <Label text="00:00" />
   </items>
 </ToolBar>

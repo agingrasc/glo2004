@@ -2,9 +2,13 @@ package org.glo.giftw.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToolBar;
 
 public class CreationToolBarController
 {
+	@FXML
+	private ToolBar rootToolBar;
+	
 	@FXML
 	void onActionDelete(ActionEvent event)
 	{
@@ -45,5 +49,10 @@ public class CreationToolBarController
 	void onActionZoomOut(ActionEvent event)
 	{
 		System.out.println("onActionZoomOut");
+	}
+
+	public ToolBar getRootToolBar()
+	{
+		return rootToolBar;
 	}
 }

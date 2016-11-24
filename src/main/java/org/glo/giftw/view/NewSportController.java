@@ -3,6 +3,8 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Spinner;
@@ -10,17 +12,42 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
+
+import org.glo.giftw.controller.Controller;
 
 public class NewSportController
 {
 	private File sportFieldImageFile;
 
 	@FXML
-	private DialogPane newSportDialog;
+	private DialogPane rootDialogPane;
+	
+	@FXML
+    private TextField sportName;
+
+    @FXML
+    private TextField fieldX;
+
+    @FXML
+    private TextField fieldY;
+
+    @FXML
+    private ComboBox<String> roles;
+
+    @FXML
+    private TextField maxPlayers;
+
+    @FXML
+    private TextField maxTeams;
+
+    @FXML
+    private TextField projectileName;
 
 	@FXML
 	private ImageView fieldImage;
@@ -58,7 +85,7 @@ public class NewSportController
 
 		FXMLLoader loader = new FXMLLoader();
 
-		loader.setLocation(getClass().getResource("/fxml/FieldEditor.fxml"));
+		loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
 		DialogPane fieldEditorDialogPane = loader.load();
 
 		dialog.setDialogPane(fieldEditorDialogPane);
@@ -78,10 +105,10 @@ public class NewSportController
 	}
 
 	@FXML
-	void onActionBrowse(ActionEvent event)
+	void onActionBrowseField(ActionEvent event)
 	{
-		System.out.println("onActionBrowse");
-		Window parentWindow = newSportDialog.getScene().getWindow();
+		System.out.println("onActionBrowseField");
+		Window parentWindow = rootDialogPane.getScene().getWindow();
 		ImageFileController imageFileController = new ImageFileController();
 
 		File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
@@ -98,6 +125,29 @@ public class NewSportController
 			}
 			sportFieldImageFile = imageToOpen;
 			fieldImage.setImage(new Image(imageToOpen.toURI().toString()));
+		}
+	}
+	
+	@FXML
+	void onActionBrowseProjectile(ActionEvent event)
+	{
+		System.out.println("onActionBrowseField");
+	}
+	
+	public void showDialog() throws IOException
+	{
+		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+		dialog.setDialogPane(rootDialogPane);
+		Optional<ButtonType> result = dialog.showAndWait();
+		
+		if (result.isPresent() && result.get() == ButtonType.FINISH)
+		{
+			//TODO en attente du projectileImageFileFile et de l'ajout du parametre pour le sportFieldImageFile 
+			/*Controller.getInstance().createSport(sportName.getText(), sportFieldImageFile.getPath(), roles.getItems(),
+			Integer.parseInt(fieldX.getText()), Integer.parseInt(fieldY.getText()), projectileName.getText(),
+			projectileImageFile.getPath(), Integer.parseInt(maxPlayers.getText()), Integer.parseInt(maxTeams.getText()));*/
+			
+			RootLayoutController.getInstance().getOpenSportController().updateTable();
 		}
 	}
 }
