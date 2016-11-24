@@ -42,7 +42,7 @@ public abstract class ObjectPool implements Serializable
         }
         catch (IOException e)
         {
-            System.out.println("Il n'y a pas de fichier existant de PlayerPool, aucun chargement.");
+            System.out.println(String.format("Il n'y a pas de fichier existant au path: %s, aucun chargement.", poolPath));
         }
     }
 
