@@ -130,7 +130,6 @@ public class NewSportController
 				fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
 				fieldImage.setFitWidth((double)fieldLength.getValue() * 100);
 			}*/
-			sportFieldImageFile = imageToOpen;
 			imageView.setImage(new Image(imageToOpen.toURI().toString()));
 		}
 	}
