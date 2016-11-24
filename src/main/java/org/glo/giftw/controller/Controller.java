@@ -10,6 +10,7 @@ public class Controller
 {
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
+    private StrategyPool strategyPool;
 
     private Strategy currentStrategy;
     
@@ -20,6 +21,7 @@ public class Controller
         super();
         this.sportPool = new SportPool();
         this.obstaclePool = new ObstaclePool();
+        this.strategyPool = new StrategyPool();
         this.currentStrategy = null;
     }
     
@@ -68,7 +70,7 @@ public class Controller
     public void createStrategy(String name, String sportName)
     {
         Sport strategySport = this.sportPool.getSportByName(sportName);
-        this.currentStrategy = new Strategy(name, strategySport);
+        this.currentStrategy = this.strategyPool.addStrategy(name, strategySport);
     }
 
     /**
@@ -131,9 +133,8 @@ public class Controller
     	return this.sportPool.getAllSports();
     }
     
-    //TODO Implementer ceci s.v.p
-    /*public Collection<Strategy> getStrategies()
+    public Collection<Strategy> getStrategies()
     {
     	return this.strategyPool.getAllStrategies();
-    }*/
+    }
 }
