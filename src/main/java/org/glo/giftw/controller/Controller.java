@@ -10,6 +10,7 @@ public class Controller
 {
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
+    private StrategyPool strategyPool;
 
     private Strategy currentStrategy;
     
@@ -20,6 +21,7 @@ public class Controller
         super();
         this.sportPool = new SportPool();
         this.obstaclePool = new ObstaclePool();
+        this.strategyPool = new StrategyPool();
         this.currentStrategy = null;
     }
     
@@ -68,7 +70,7 @@ public class Controller
     public void createStrategy(String name, String sportName)
     {
         Sport strategySport = this.sportPool.getSportByName(sportName);
-        this.currentStrategy = new Strategy(name, strategySport);
+        this.currentStrategy = this.strategyPool.addStrategy(name, strategySport);
     }
 
     /**
@@ -131,9 +133,58 @@ public class Controller
     	return this.sportPool.getAllSports();
     }
     
-    //TODO Implementer ceci s.v.p
-    /*public Collection<Strategy> getStrategies()
+    public Collection<Strategy> getStrategies()
     {
     	return this.strategyPool.getAllStrategies();
-    }*/
+    }
+    
+    /**
+     * Retourne la frame courante de la stratégie.
+     * @return la frame courante.
+     */
+    public Frame getCurrentFrame()
+    {
+        return this.currentStrategy.getCurrentFrame();
+    }
+    
+    /**
+     * Retourne la frame précédente de la stratégie. 
+     * @return La frame précédente.
+     */
+    public Frame previousFrame()
+    {
+        return this.currentStrategy.previousFrame();
+    }
+    
+    /**
+     * Retourne la frame suivante de la stratégie. 
+     * @return La frame suivante.
+     */
+    public Frame nextFrame()
+    {
+        return this.currentStrategy.nextFrame();
+    }
+    
+    /**
+     * Crée une nouvelle frame à la fin de la suite de frames.
+     * @return La nouvelle frame.
+     */
+    public Frame createNewFrame()
+    {
+        this.currentStrategy.goToEnd();
+        this.currentStrategy.createNewFrame();
+        return this.currentStrategy.nextFrame();
+    }
+    
+    /**
+     * Permet de modifier la frame courante de la stratégie selon un delta de temps, en secondes, précis auxs dixième de
+     * secondes.
+     * @param delta La longueur du saut entre les frames, en secondes.
+     * @return La nouvelle frame courante.
+     */
+    public Frame changeCurrentFrame(float delta)
+    {
+        this.currentStrategy.changeCurrentFrame(delta);
+        return this.currentStrategy.getCurrentFrame();
+    }
 }

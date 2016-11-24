@@ -81,7 +81,7 @@ public class ObstaclePool extends ObjectPool
     @Override
     public String toString()
     {
-        String ret = "GameObjectPool contient: " + this.obstacles.size() + "obstacles\n";
+        String ret = "ObstaclePool contient: " + this.obstacles.size() + "obstacles\n";
         for (Map.Entry<String, String> entry : this.obstacles.entrySet())
         {
             ret += entry.getKey() + ": " + entry.getValue() + "\n";
