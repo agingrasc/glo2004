@@ -421,37 +421,28 @@ public class RootLayoutController
 
 	public NewObstacleController getNewObstacleController() throws IOException
 	{
-		if (newObstacleController == null)
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.NEW_OBSTACLE_PATH.toString()));
-			loader.load();
-			this.newObstacleController = loader.getController();
-		}
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(FXMLPaths.NEW_OBSTACLE_PATH.toString()));
+		loader.load();
+		this.newObstacleController = loader.getController();
 		return newObstacleController;
 	}
 
 	public NewSportController getNewSportController() throws IOException
 	{
-		if (newSportController == null)
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.NEW_SPORT_PATH.toString()));
-			loader.load();
-			this.newSportController = loader.getController();
-		}
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(FXMLPaths.NEW_SPORT_PATH.toString()));
+		loader.load();
+		this.newSportController = loader.getController();
 		return newSportController;
 	}
 
 	public NewStrategyController getNewStrategyController() throws IOException
 	{
-		if (newStrategyController == null)
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.NEW_STRATEGY_PATH.toString()));
-			loader.load();
-			this.newStrategyController = loader.getController();
-		}
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(FXMLPaths.NEW_STRATEGY_PATH.toString()));
+		loader.load();
+		this.newStrategyController = loader.getController();
 		return newStrategyController;
 	}
 

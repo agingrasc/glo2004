@@ -3,10 +3,8 @@ package org.glo.giftw.view;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.glo.giftw.controller.Controller;
-import org.glo.giftw.domain.Obstacle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -63,14 +61,20 @@ public class OpenObstacleController
 			                @Override
 			                public void updateItem(String item, boolean empty)
 			                {
-				                if (item != null)
+			                	super.updateItem(item, empty);
+				                if (item != null && !empty)
 				                {
+				                	System.out.println("UpdateItem");
 				                	System.out.println(item);
 				                	File file = new File(item);
 					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
 					                imageView.setFitWidth(200);
 					                imageView.setFitHeight(100);
 					                setGraphic(imageView);
+				                }
+				                else
+				                {
+				                	setGraphic(null);
 				                }
 			                }
 		                };
@@ -106,6 +110,10 @@ public class OpenObstacleController
 	{
 		// TODO il serait plus efficace de seulement updater l'item qui
 		// change...
-		obstacles.setAll(Controller.getInstance().getObstacles().entrySet());
+		System.out.println("Update la table");
+		System.out.println(Controller.getInstance().getObstacles().entrySet());
+		//obstacles.setAll(Controller.getInstance().getObstacles().entrySet());
+		obstacles.clear();
+		obstacles.addAll(Controller.getInstance().getObstacles().entrySet());
 	}
 }
