@@ -136,6 +136,7 @@ public class NewSportController
 
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
+			//FIXME: completer l'interface
             String name = sportName.getText();
 			List<String> lroles = Arrays.asList("un", "deux", "trois");
 			Integer flength = Integer.parseInt(fieldLength.getEditor().getText());
