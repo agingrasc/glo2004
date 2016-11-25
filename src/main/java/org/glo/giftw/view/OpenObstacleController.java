@@ -1,11 +1,5 @@
 package org.glo.giftw.view;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-
-import org.glo.giftw.controller.Controller;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +15,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Obstacle;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 
 public class OpenObstacleController
 {
@@ -36,7 +36,7 @@ public class OpenObstacleController
 	@FXML
 	private TableColumn<HashMap.Entry<String, String>, String> nameColumn;
 
-	private ObservableList<HashMap.Entry<String, String>> obstacles;
+	private ObservableList<Obstacle> obstacles;
 
 	@FXML
 	private void initialize() throws IOException
@@ -46,9 +46,7 @@ public class OpenObstacleController
 		Label listPlaceHolder = loader.load();
 		tableView.setPlaceholder(listPlaceHolder);
 
-		obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles().entrySet());
-		tableView.setItems(obstacles);
-
+		obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
 		imageColumn.setCellFactory(
 		        new Callback<TableColumn<HashMap.Entry<String, String>, String>, TableCell<HashMap.Entry<String, String>, String>>()
 		        {
@@ -111,9 +109,9 @@ public class OpenObstacleController
 		// TODO il serait plus efficace de seulement updater l'item qui
 		// change...
 		System.out.println("Update la table");
-		System.out.println(Controller.getInstance().getObstacles().entrySet());
+		System.out.println(Controller.getInstance().getObstacles());
 		//obstacles.setAll(Controller.getInstance().getObstacles().entrySet());
 		obstacles.clear();
-		obstacles.addAll(Controller.getInstance().getObstacles().entrySet());
+		obstacles.addAll(Controller.getInstance().getObstacles());
 	}
 }

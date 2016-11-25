@@ -3,42 +3,37 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.TextField;
 import javafx.stage.Window;
+import org.glo.giftw.controller.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
-
-import org.glo.giftw.controller.Controller;
 
 public class NewSportController
 {
 	@FXML
 	private DialogPane rootDialogPane;
-	
+
 	@FXML
-    private TextField sportName;
+	private TextField sportName;
 
-    @FXML
-    private ComboBox<String> roles;
+	@FXML
+	private ComboBox<String> roles;
 
-    @FXML
-    private TextField maxPlayers;
+	@FXML
+	private TextField maxPlayers;
 
-    @FXML
-    private TextField maxTeams;
+	@FXML
+	private TextField maxTeams;
 
-    @FXML
-    private TextField projectileName;
+	@FXML
+	private TextField projectileName;
 
 	@FXML
 	private ImageView fieldImage;
@@ -132,20 +127,34 @@ public class NewSportController
 			imageView.setImage(new Image(imageToOpen.toURI().toString()));
 		}
 	}
-	
+
 	public void showDialog() throws IOException
 	{
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(rootDialogPane);
 		Optional<ButtonType> result = dialog.showAndWait();
-		
+
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
-			Controller.getInstance().createSport(sportName.getText(), roles.getItems(), 
-			Integer.parseInt(fieldLength.getEditor().getText()), Integer.parseInt(fieldWidth.getEditor().getText()),
-			getSportFieldImageFile().getPath(), projectileName.getText(), getSportProjectileImageFile().getPath(), 
-			Integer.parseInt(maxPlayers.getText()), Integer.parseInt(maxTeams.getText()));
-		       
+			//FIXME: completer l'interface
+            String name = sportName.getText();
+			List<String> lroles = Arrays.asList("un", "deux", "trois");
+			Integer flength = Integer.parseInt(fieldLength.getEditor().getText());
+			Integer fwidth = Integer.parseInt(fieldWidth.getEditor().getText());
+			//Integer flength = 5;
+			//Integer fwidth = 2;
+            String sportImgPath = getSportFieldImageFile().getPath();
+			//String projName = projectileName.getText();
+			String projName = "Puck";
+            //String projPath = getSportProjectileImageFile().getPath();
+			String projPath = "/home/alexandre/git/glo2004/test.png";
+            //Integer maxNumberOfPlayer = Integer.parseInt(maxPlayers.getText());
+			//Integer maxNumberOfTeams = Integer.parseInt(maxTeams.getText());
+			Integer maxNumberOfPlayer = 6;
+			Integer maxNumberOfTeams = 2;
+
+			Controller.getInstance().createSport(name, lroles, flength, fwidth, sportImgPath, projName, projPath, maxNumberOfPlayer, maxNumberOfTeams);
+
 			RootLayoutController.getInstance().getOpenSportController().updateTable();
 		}
 	}

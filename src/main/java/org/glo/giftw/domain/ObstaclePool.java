@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Conteneur permettant de conserver les associations entre les types d'obstacle et les images correspondantes
+ * Conteneur permettant de conserver les types d'obstacles créés
  */
 public class ObstaclePool extends ObjectPool
 {
     public static final long serialVersionUID = 1L;
     public static final String obstacle_POOL_PATH = "./data/obstacle_pool.ser";
 
-    private HashMap<String, String> obstacles;    // Associe le nom d'un obstacle avec le chemin vers son image
+    private HashMap<String, Obstacle> obstacles;    // Associe le nom d'un obstacle avec le chemin vers son image
     
     public ObstaclePool()
     {
@@ -29,9 +29,9 @@ public class ObstaclePool extends ObjectPool
         }
     }
     
-    public void addObstacle(String name, String imagePath)
+    public void addObstacleType(String name, boolean isCollidable, String imagePath)
     {
-        this.obstacles.put(name, imagePath);
+        this.obstacles.put(name, new Obstacle(name, isCollidable, imagePath));
         if(this.persistent)
         {
             this.saveObjectPool(obstacle_POOL_PATH);
@@ -47,28 +47,19 @@ public class ObstaclePool extends ObjectPool
         }
     }
     
-    public String getObstacleImagePath(String obstacleName)
+    public Obstacle create(String name)
     {
-        return this.obstacles.get(obstacleName);
+        return new Obstacle(this.obstacles.get(name));
     }
     
-    public void setObstacleImagePath(String name, String imagePath)
+    public Obstacle getObstacle(String name)
     {
-        this.obstacles.put(name, imagePath);
-        if(this.persistent)
-        {
-            this.saveObjectPool(obstacle_POOL_PATH);
-        }
+        return this.obstacles.get(name);
     }
     
-    public Collection<String> getAllObstaclePaths()
-    {
-        return this.obstacles.values();
-    }
-    
-    public HashMap<String, String> getObstacles()
+    public Collection<Obstacle> getAllObstacles()
 	{
-		return obstacles;
+		return obstacles.values();
 	}
 
 	@Override
@@ -82,9 +73,9 @@ public class ObstaclePool extends ObjectPool
     public String toString()
     {
         String ret = "ObstaclePool contient: " + this.obstacles.size() + "obstacles\n";
-        for (Map.Entry<String, String> entry : this.obstacles.entrySet())
+        for (Map.Entry<String, Obstacle> entry : this.obstacles.entrySet())
         {
-            ret += entry.getKey() + ": " + entry.getValue() + "\n";
+            ret += "    " + entry.getValue() + "\n";
         }
         
         return ret;
