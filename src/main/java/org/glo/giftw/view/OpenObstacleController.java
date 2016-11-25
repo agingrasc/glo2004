@@ -20,7 +20,6 @@ import org.glo.giftw.domain.Obstacle;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class OpenObstacleController
 {
@@ -28,13 +27,13 @@ public class OpenObstacleController
 	private VBox rootVBox;
 
 	@FXML
-	private TableView<HashMap.Entry<String, String>> tableView;
+	private TableView<Obstacle> tableView;
 
 	@FXML
-	private TableColumn<HashMap.Entry<String, String>, String> imageColumn;
+	private TableColumn<Obstacle, String> imageColumn;
 
 	@FXML
-	private TableColumn<HashMap.Entry<String, String>, String> nameColumn;
+	private TableColumn<Obstacle, String> nameColumn;
 
 	private ObservableList<Obstacle> obstacles;
 
@@ -45,16 +44,16 @@ public class OpenObstacleController
 		loader.setLocation(getClass().getResource(FXMLPaths.LIST_PLACE_HOLDER.toString()));
 		Label listPlaceHolder = loader.load();
 		tableView.setPlaceholder(listPlaceHolder);
-
 		obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
+		tableView.setItems(obstacles);
 		imageColumn.setCellFactory(
-		        new Callback<TableColumn<HashMap.Entry<String, String>, String>, TableCell<HashMap.Entry<String, String>, String>>()
+		        new Callback<TableColumn<Obstacle, String>, TableCell<Obstacle, String>>()
 		        {
 			        @Override
-			        public TableCell<HashMap.Entry<String, String>, String> call(
-		                    TableColumn<HashMap.Entry<String, String>, String> param)
+			        public TableCell<Obstacle, String> call(
+		                    TableColumn<Obstacle, String> param)
 			        {
-				        TableCell<HashMap.Entry<String, String>, String> cell = new TableCell<HashMap.Entry<String, String>, String>()
+				        TableCell<Obstacle, String> cell = new TableCell<Obstacle, String>()
 		                {
 			                @Override
 			                public void updateItem(String item, boolean empty)
@@ -81,20 +80,20 @@ public class OpenObstacleController
 		        });
 
 		imageColumn.setCellValueFactory(
-		        new Callback<CellDataFeatures<HashMap.Entry<String, String>, String>, ObservableValue<String>>()
+		        new Callback<CellDataFeatures<Obstacle, String>, ObservableValue<String>>()
 		        {
-			        public ObservableValue<String> call(CellDataFeatures<HashMap.Entry<String, String>, String> p)
+			        public ObservableValue<String> call(CellDataFeatures<Obstacle, String> p)
 			        {
-				        return new ReadOnlyObjectWrapper<String>(p.getValue().getValue());
+				        return new ReadOnlyObjectWrapper<String>(p.getValue().getImagePath());
 			        }
 		        });
 
 		nameColumn.setCellValueFactory(
-		        new Callback<CellDataFeatures<HashMap.Entry<String, String>, String>, ObservableValue<String>>()
+		        new Callback<CellDataFeatures<Obstacle, String>, ObservableValue<String>>()
 		        {
-			        public ObservableValue<String> call(CellDataFeatures<HashMap.Entry<String, String>, String> p)
+			        public ObservableValue<String> call(CellDataFeatures<Obstacle, String> p)
 			        {
-				        return new ReadOnlyObjectWrapper<String>(p.getValue().getKey());
+				        return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
 			        }
 		        });
 	}

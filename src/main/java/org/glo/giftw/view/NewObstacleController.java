@@ -34,7 +34,7 @@ public class NewObstacleController
         Window parentWindow = rootDialogPane.getScene().getWindow();
         ImageFileController imageFileController = new ImageFileController();
 
-        File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+        imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
 
         imagePreview.setImage(new Image(imageToOpen.toURI().toString()));
         System.out.println("onActionBrowse");
@@ -48,13 +48,7 @@ public class NewObstacleController
 
         if (result.isPresent() && result.get() == ButtonType.FINISH)
         {
-            //FIXME: extraire data depuis GUI
-            String name = "Obstacle";
-            //String name = obstacleName.getText();
-            boolean isCollidable = true;
-            String imgPath = "Fubar";
-            //String imgPath = imageToOpen.getPath();
-            Controller.getInstance().createObstacle(name, isCollidable, imgPath);
+            Controller.getInstance().createObstacle(obstacleName.getText(), isCollision.isSelected(), imageToOpen.getPath());
             RootLayoutController.getInstance().getOpenObstacleController().updateTable();
         }
     }
