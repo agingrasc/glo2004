@@ -23,7 +23,8 @@ public abstract class GameObject implements Serializable
     {
         this.name = gameObject.name;
         this.collidable = gameObject.collidable;
-        this.id = gameObject.id;
+        GameObject.objectCount++;
+        this.id = GameObject.objectCount;
     }
     
     public abstract GameObject copy();

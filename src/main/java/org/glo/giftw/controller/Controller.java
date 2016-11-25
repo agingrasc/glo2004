@@ -57,9 +57,9 @@ public class Controller
      * @param name Le nom de l'obstacle.
      * @param imagePath Le chemin vers l'image associé à l'obstacle.
      */
-    public void createObstacle(String name, String imagePath)
+    public void createObstacle(String name, boolean isCollidable, String imagePath)
     {
-        this.obstaclePool.addObstacle(name, imagePath);
+        this.obstaclePool.addObstacleType(name, isCollidable, imagePath);
     }
 
     /**
@@ -92,9 +92,10 @@ public class Controller
      * @param dimensions Les dimensions initiales de l'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public Integer addObstacle(Vector position, float orientation, Vector dimensions, boolean isCollidable)
+    public Integer addObstacle(String name, Vector position, float orientation, Vector dimensions)
     {
-        return this.currentStrategy.addObstacle(position, orientation, dimensions, isCollidable);
+        Obstacle obstacle = this.obstaclePool.create(name);
+        return this.currentStrategy.addObstacle(obstacle, position, orientation, dimensions);
     }
 
     /**
@@ -123,9 +124,9 @@ public class Controller
         return this.sportPool.getSportsDescription();
     }
     
-    public HashMap<String, String> getObstacles()
+    public Collection<Obstacle> getObstacles()
     {
-    	return this.obstaclePool.getObstacles();
+    	return this.obstaclePool.getAllObstacles();
     }
     
     public Collection<Sport> getSports()
