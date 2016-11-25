@@ -31,6 +31,7 @@ public class MainApp extends Application
 		try
 		{
 			Controller.getInstance();
+			System.out.println(Controller.getInstance().getSports());
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.ROOT_LAYOUT_PATH.toString()));
 			loader.setController(RootLayoutController.getInstance());
