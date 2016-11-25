@@ -48,6 +48,7 @@ public abstract class ObjectPool implements Serializable
 
     protected void saveObjectPool(String poolPath)
     {
+        System.out.println("Sauvegarde au path: " + poolPath);
         File f = new File(poolPath);
         //noinspection ResultOfMethodCallIgnored
         f.getParentFile().mkdirs();

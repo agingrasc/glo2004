@@ -27,11 +27,11 @@ public class Controller
     
     public static Controller getInstance()
     {
-        if(INSTANCE == null)
+        if(Controller.INSTANCE == null)
         {
-            INSTANCE = new Controller();
+            Controller.INSTANCE = new Controller();
         }
-        return INSTANCE;
+        return Controller.INSTANCE;
     }
     
     /**

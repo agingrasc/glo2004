@@ -13,45 +13,49 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class NewObstacleController
-{	
-	@FXML
-	private ImageView imagePreview;
+{
+    @FXML
+    private ImageView imagePreview;
 
-	@FXML
-	private DialogPane rootDialogPane;
-	
-	@FXML
-	private CheckBox isCollision;
-	
-	@FXML
-	private TextField obstacleName;
-	
-	private File imageToOpen;
+    @FXML
+    private DialogPane rootDialogPane;
 
-	@FXML
-	void onActionBrowse(ActionEvent event)
-	{
-		Window parentWindow = rootDialogPane.getScene().getWindow();
-		ImageFileController imageFileController = new ImageFileController();
+    @FXML
+    private CheckBox isCollision;
 
-		File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+    @FXML
+    private TextField obstacleName;
 
-		imagePreview.setImage(new Image(imageToOpen.toURI().toString()));
-		System.out.println("onActionBrowse");
-	}
-	
-	public void showDialog() throws IOException
-	{
-		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-		dialog.setDialogPane(rootDialogPane);
-		Optional<ButtonType> result = dialog.showAndWait();
-		
-		if (result.isPresent() && result.get() == ButtonType.FINISH)
-		{
-			//TODO ajouter le checkBox collision
-			boolean isCollidable = true;
-			Controller.getInstance().createObstacle(obstacleName.getText(), isCollidable, imageToOpen.getPath());
-			RootLayoutController.getInstance().getOpenObstacleController().updateTable();
-		}
-	}
+    private File imageToOpen;
+
+    @FXML
+    void onActionBrowse(ActionEvent event)
+    {
+        Window parentWindow = rootDialogPane.getScene().getWindow();
+        ImageFileController imageFileController = new ImageFileController();
+
+        File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+
+        imagePreview.setImage(new Image(imageToOpen.toURI().toString()));
+        System.out.println("onActionBrowse");
+    }
+
+    public void showDialog() throws IOException
+    {
+        Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+        dialog.setDialogPane(rootDialogPane);
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.FINISH)
+        {
+            //FIXME: extraire data depuis GUI
+            String name = "Obstacle";
+            //String name = obstacleName.getText();
+            boolean isCollidable = true;
+            String imgPath = "Fubar"
+            //String imgPath = imageToOpen.getPath();
+            Controller.getInstance().createObstacle(name, isCollidable, imgPath);
+            RootLayoutController.getInstance().getOpenObstacleController().updateTable();
+        }
+    }
 }
