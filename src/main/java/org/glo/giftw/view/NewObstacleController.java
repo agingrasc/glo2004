@@ -52,7 +52,7 @@ public class NewObstacleController
             String name = "Obstacle";
             //String name = obstacleName.getText();
             boolean isCollidable = true;
-            String imgPath = "Fubar"
+            String imgPath = "Fubar";
             //String imgPath = imageToOpen.getPath();
             Controller.getInstance().createObstacle(name, isCollidable, imgPath);
             RootLayoutController.getInstance().getOpenObstacleController().updateTable();
