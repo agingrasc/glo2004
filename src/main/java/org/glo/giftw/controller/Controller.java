@@ -1,10 +1,10 @@
 package org.glo.giftw.controller;
 
+import org.glo.giftw.domain.*;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-
-import org.glo.giftw.domain.*;
 
 public class Controller
 {
@@ -109,7 +109,7 @@ public class Controller
     {
         return this.currentStrategy.addProjectile(position, orientation, dimensions);
     }
-    
+
     public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
         this.currentStrategy.placeGameObject(gameObject, position, orientation, dimensions);

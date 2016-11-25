@@ -2,19 +2,15 @@ package org.glo.giftw.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
+import org.glo.giftw.controller.Controller;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
-
-import org.glo.giftw.controller.Controller;
 
 public class NewObstacleController
 {	
@@ -53,7 +49,8 @@ public class NewObstacleController
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
 			//TODO ajouter le checkBox collision
-			Controller.getInstance().createObstacle(obstacleName.getText(),imageToOpen.getPath());
+			boolean isCollidable = true;
+			Controller.getInstance().createObstacle(obstacleName.getText(), isCollidable, imageToOpen.getPath());
 			RootLayoutController.getInstance().getOpenObstacleController().updateTable();
 		}
 	}
