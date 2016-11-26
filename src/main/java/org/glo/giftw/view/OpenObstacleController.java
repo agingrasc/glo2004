@@ -1,13 +1,5 @@
 package org.glo.giftw.view;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.glo.giftw.controller.Controller;
-import org.glo.giftw.domain.Obstacle;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +15,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Obstacle;
+
+import java.io.File;
+import java.io.IOException;
 
 public class OpenObstacleController
 {
@@ -30,15 +27,15 @@ public class OpenObstacleController
 	private VBox rootVBox;
 
 	@FXML
-	private TableView<HashMap.Entry<String, String>> tableView;
+	private TableView<Obstacle> tableView;
 
 	@FXML
-	private TableColumn<HashMap.Entry<String, String>, String> imageColumn;
+	private TableColumn<Obstacle, String> imageColumn;
 
 	@FXML
-	private TableColumn<HashMap.Entry<String, String>, String> nameColumn;
+	private TableColumn<Obstacle, String> nameColumn;
 
-	private ObservableList<HashMap.Entry<String, String>> obstacles;
+	private ObservableList<Obstacle> obstacles;
 
 	@FXML
 	private void initialize() throws IOException
@@ -47,30 +44,34 @@ public class OpenObstacleController
 		loader.setLocation(getClass().getResource(FXMLPaths.LIST_PLACE_HOLDER.toString()));
 		Label listPlaceHolder = loader.load();
 		tableView.setPlaceholder(listPlaceHolder);
-
-		obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles().entrySet());
+		obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
 		tableView.setItems(obstacles);
-
 		imageColumn.setCellFactory(
-		        new Callback<TableColumn<HashMap.Entry<String, String>, String>, TableCell<HashMap.Entry<String, String>, String>>()
+		        new Callback<TableColumn<Obstacle, String>, TableCell<Obstacle, String>>()
 		        {
 			        @Override
-			        public TableCell<HashMap.Entry<String, String>, String> call(
-		                    TableColumn<HashMap.Entry<String, String>, String> param)
+			        public TableCell<Obstacle, String> call(
+		                    TableColumn<Obstacle, String> param)
 			        {
-				        TableCell<HashMap.Entry<String, String>, String> cell = new TableCell<HashMap.Entry<String, String>, String>()
+				        TableCell<Obstacle, String> cell = new TableCell<Obstacle, String>()
 		                {
 			                @Override
 			                public void updateItem(String item, boolean empty)
 			                {
-				                if (item != null)
+			                	super.updateItem(item, empty);
+				                if (item != null && !empty)
 				                {
+				                	System.out.println("UpdateItem");
 				                	System.out.println(item);
 				                	File file = new File(item);
 					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
 					                imageView.setFitWidth(200);
 					                imageView.setFitHeight(100);
 					                setGraphic(imageView);
+				                }
+				                else
+				                {
+				                	setGraphic(null);
 				                }
 			                }
 		                };
@@ -79,20 +80,20 @@ public class OpenObstacleController
 		        });
 
 		imageColumn.setCellValueFactory(
-		        new Callback<CellDataFeatures<HashMap.Entry<String, String>, String>, ObservableValue<String>>()
+		        new Callback<CellDataFeatures<Obstacle, String>, ObservableValue<String>>()
 		        {
-			        public ObservableValue<String> call(CellDataFeatures<HashMap.Entry<String, String>, String> p)
+			        public ObservableValue<String> call(CellDataFeatures<Obstacle, String> p)
 			        {
-				        return new ReadOnlyObjectWrapper<String>(p.getValue().getValue());
+				        return new ReadOnlyObjectWrapper<String>(p.getValue().getImagePath());
 			        }
 		        });
 
 		nameColumn.setCellValueFactory(
-		        new Callback<CellDataFeatures<HashMap.Entry<String, String>, String>, ObservableValue<String>>()
+		        new Callback<CellDataFeatures<Obstacle, String>, ObservableValue<String>>()
 		        {
-			        public ObservableValue<String> call(CellDataFeatures<HashMap.Entry<String, String>, String> p)
+			        public ObservableValue<String> call(CellDataFeatures<Obstacle, String> p)
 			        {
-				        return new ReadOnlyObjectWrapper<String>(p.getValue().getKey());
+				        return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
 			        }
 		        });
 	}
@@ -106,6 +107,10 @@ public class OpenObstacleController
 	{
 		// TODO il serait plus efficace de seulement updater l'item qui
 		// change...
-		obstacles.setAll(Controller.getInstance().getObstacles().entrySet());
+		System.out.println("Update la table");
+		System.out.println(Controller.getInstance().getObstacles());
+		//obstacles.setAll(Controller.getInstance().getObstacles().entrySet());
+		obstacles.clear();
+		obstacles.addAll(Controller.getInstance().getObstacles());
 	}
 }

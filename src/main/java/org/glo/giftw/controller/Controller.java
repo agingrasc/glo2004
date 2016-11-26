@@ -1,15 +1,16 @@
 package org.glo.giftw.controller;
 
+import org.glo.giftw.domain.*;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-
-import org.glo.giftw.domain.*;
 
 public class Controller
 {
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
+    private StrategyPool strategyPool;
 
     private Strategy currentStrategy;
     
@@ -20,16 +21,17 @@ public class Controller
         super();
         this.sportPool = new SportPool();
         this.obstaclePool = new ObstaclePool();
+        this.strategyPool = new StrategyPool();
         this.currentStrategy = null;
     }
     
     public static Controller getInstance()
     {
-        if(INSTANCE == null)
+        if(Controller.INSTANCE == null)
         {
-            INSTANCE = new Controller();
+            Controller.INSTANCE = new Controller();
         }
-        return INSTANCE;
+        return Controller.INSTANCE;
     }
     
     /**
@@ -43,11 +45,11 @@ public class Controller
      * @param maxPLayersPerTeam Le nombre maximum de joueurs par équipe sur le terrain à un moment donné.
      * @param maxTeams Le nombre maximum d'équipe lors d'une partie.
      */
-    public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight, String projectileName,
-            String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
+    public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight, String fieldImagePath, 
+            String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
     {
-        this.sportPool.addSport(name, roles, new Vector(fieldLength, fieldHeight), projectileName, projectileImagePath,
-                maxPLayersPerTeam, maxTeams);
+        this.sportPool.addSport(name, roles, new Vector(fieldLength, fieldHeight), fieldImagePath, projectileName,
+                projectileImagePath, maxPLayersPerTeam, maxTeams);
     }
     
     /**
@@ -55,9 +57,9 @@ public class Controller
      * @param name Le nom de l'obstacle.
      * @param imagePath Le chemin vers l'image associé à l'obstacle.
      */
-    public void createObstacle(String name, String imagePath)
+    public void createObstacle(String name, boolean isCollidable, String imagePath)
     {
-        this.obstaclePool.addObstacle(name, imagePath);
+        this.obstaclePool.addObstacleType(name, isCollidable, imagePath);
     }
 
     /**
@@ -68,7 +70,7 @@ public class Controller
     public void createStrategy(String name, String sportName)
     {
         Sport strategySport = this.sportPool.getSportByName(sportName);
-        this.currentStrategy = new Strategy(name, strategySport);
+        this.currentStrategy = this.strategyPool.addStrategy(name, strategySport);
     }
 
     /**
@@ -90,9 +92,10 @@ public class Controller
      * @param dimensions Les dimensions initiales de l'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public Integer addObstacle(Vector position, float orientation, Vector dimensions)
+    public Integer addObstacle(String name, Vector position, float orientation, Vector dimensions)
     {
-        return this.currentStrategy.addObstacle(position, orientation, dimensions);
+        Obstacle obstacle = this.obstaclePool.create(name);
+        return this.currentStrategy.addObstacle(obstacle, position, orientation, dimensions);
     }
 
     /**
@@ -106,7 +109,7 @@ public class Controller
     {
         return this.currentStrategy.addProjectile(position, orientation, dimensions);
     }
-    
+
     public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
         this.currentStrategy.placeGameObject(gameObject, position, orientation, dimensions);
@@ -121,9 +124,9 @@ public class Controller
         return this.sportPool.getSportsDescription();
     }
     
-    public HashMap<String, String> getObstacles()
+    public Collection<Obstacle> getObstacles()
     {
-    	return this.obstaclePool.getObstacles();
+    	return this.obstaclePool.getAllObstacles();
     }
     
     public Collection<Sport> getSports()
@@ -131,9 +134,58 @@ public class Controller
     	return this.sportPool.getAllSports();
     }
     
-    //TODO Implementer ceci s.v.p
-    /*public Collection<Strategy> getStrategies()
+    public Collection<Strategy> getStrategies()
     {
     	return this.strategyPool.getAllStrategies();
-    }*/
+    }
+    
+    /**
+     * Retourne la frame courante de la stratégie.
+     * @return la frame courante.
+     */
+    public Frame getCurrentFrame()
+    {
+        return this.currentStrategy.getCurrentFrame();
+    }
+    
+    /**
+     * Retourne la frame précédente de la stratégie. 
+     * @return La frame précédente.
+     */
+    public Frame previousFrame()
+    {
+        return this.currentStrategy.previousFrame();
+    }
+    
+    /**
+     * Retourne la frame suivante de la stratégie. 
+     * @return La frame suivante.
+     */
+    public Frame nextFrame()
+    {
+        return this.currentStrategy.nextFrame();
+    }
+    
+    /**
+     * Crée une nouvelle frame à la fin de la suite de frames.
+     * @return La nouvelle frame.
+     */
+    public Frame createNewFrame()
+    {
+        this.currentStrategy.goToEnd();
+        this.currentStrategy.createNewFrame();
+        return this.currentStrategy.nextFrame();
+    }
+    
+    /**
+     * Permet de modifier la frame courante de la stratégie selon un delta de temps, en secondes, précis auxs dixième de
+     * secondes.
+     * @param delta La longueur du saut entre les frames, en secondes.
+     * @return La nouvelle frame courante.
+     */
+    public Frame changeCurrentFrame(float delta)
+    {
+        this.currentStrategy.changeCurrentFrame(delta);
+        return this.currentStrategy.getCurrentFrame();
+    }
 }

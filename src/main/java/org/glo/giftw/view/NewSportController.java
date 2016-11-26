@@ -3,34 +3,25 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Window;
+import org.glo.giftw.controller.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
-
-import org.glo.giftw.controller.Controller;
 
 public class NewSportController
 {
-	private File sportFieldImageFile;
+    @FXML
+    private DialogPane rootDialogPane;
 
-	@FXML
-	private DialogPane rootDialogPane;
-	
-	@FXML
+    @FXML
     private TextField sportName;
-
-    @FXML
-    private TextField fieldX;
-
-    @FXML
-    private TextField fieldY;
 
     @FXML
     private ComboBox<String> roles;
@@ -44,56 +35,134 @@ public class NewSportController
     @FXML
     private TextField projectileName;
 
-	File getSportFieldImageFile() { return sportFieldImageFile; }
+    @FXML
+    private ImageView fieldImage;
 
-	@FXML
-	void onActionDraw(ActionEvent event) throws IOException
-	{
-		System.out.println("onActionDraw");
+    @FXML
+    private ImageView fieldProjectile;
 
-		Dialog<Object> dialog = new Dialog<Object>();
+    @FXML
+    private Spinner<Double> fieldLength;
 
-		FXMLLoader loader = new FXMLLoader();
+    @FXML
+    private Spinner<Double> fieldWidth;
 
-		loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
-		DialogPane fieldEditorDialogPane = loader.load();
+    public File getSportFieldImageFile()
+    {
+        return new File(fieldImage.getImage().toString());
+    }
 
-		dialog.setDialogPane(fieldEditorDialogPane);
-		dialog.showAndWait();
+    public File getSportProjectileImageFile()
+    {
+        return new File(fieldProjectile.getImage().toString());
+    }
 
-	}
+    @FXML
+    public void initialize()
+    {
+        System.out.println("initializeNewSport");
+        initSpinners(0, 0);
+    }
 
-	@FXML
-	void onActionBrowseField(ActionEvent event)
-	{
-		System.out.println("onActionBrowseField");
-		Window parentWindow = rootDialogPane.getScene().getWindow();
-		OpenImageFileController openImageFileController = new OpenImageFileController();
+    private void initSpinners(double initialLength, double initialWidth)
+    {
+        fieldLength.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialLength));
+        fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialWidth));
 
-		File imageToOpen = openImageFileController.startDialog(parentWindow);
-		sportFieldImageFile = imageToOpen;
-	}
-	
-	@FXML
-	void onActionBrowseProjectile(ActionEvent event)
-	{
-		System.out.println("onActionBrowseField");
-	}
-	
-	public void showDialog() throws IOException
-	{
-		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-		dialog.setDialogPane(rootDialogPane);
-		Optional<ButtonType> result = dialog.showAndWait();
-		
-		if (result.isPresent() && result.get() == ButtonType.FINISH)
-		{
-			//TODO en attente du projectileImageFileFile et de l'ajout du parametre pour le sportFieldImageFile 
-			/*Controller.getInstance().createSport(sportName.getText(), sportFieldImageFile.getPath(), roles.getItems(),
-			Integer.parseInt(fieldX.getText()), Integer.parseInt(fieldY.getText()), projectileName.getText(),
-			projectileImageFile.getPath(), Integer.parseInt(maxPlayers.getText()), Integer.parseInt(maxTeams.getText()));*/
-			
-			RootLayoutController.getInstance().getOpenSportController().updateTable();
-		}
-	}
+        fieldLength.setEditable(true);
+        fieldWidth.setEditable(true);
+    }
+
+    @FXML
+    void onActionDraw(ActionEvent event) throws IOException
+    {
+        System.out.println("onActionDraw");
+
+        Dialog<Object> dialog = new Dialog<Object>();
+
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
+        DialogPane fieldEditorDialogPane = loader.load();
+
+        dialog.setDialogPane(fieldEditorDialogPane);
+        FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
+
+        fieldEditorController.initSpinners((double) fieldLength.getValue(), (double) fieldWidth.getValue());
+
+        dialog.showAndWait();
+
+        setImage(fieldEditorController.getDrawnFieldFilePath(), fieldImage);
+        if (fieldEditorController.getDrawnFieldFilePath() != null)
+        {
+            double newLength = fieldEditorController.getLength();
+            double newWidth = fieldEditorController.getWidth();
+            if (newLength > 0 && newWidth > 0)
+            {
+                initSpinners(newLength, newWidth);
+            }
+        }
+
+    }
+
+    @FXML
+    void onActionBrowseField(ActionEvent event)
+    {
+        System.out.println("onActionBrowseField");
+        Window parentWindow = rootDialogPane.getScene().getWindow();
+        ImageFileController imageFileController = new ImageFileController();
+
+        File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+        setImage(imageToOpen, fieldImage);
+    }
+
+    @FXML
+    void onActionBrowseProjectile(ActionEvent event)
+    {
+        System.out.println("onActionBrowseProjectile");
+        Window parentWindow = rootDialogPane.getScene().getWindow();
+        ImageFileController imageFileController = new ImageFileController();
+
+        File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+        setImage(imageToOpen, fieldProjectile);
+    }
+
+    private void setImage(File imageToOpen, ImageView imageView)
+    {
+        if (imageToOpen != null)
+        {
+            /*if ( (double)fieldLength.getValue() > 0 && (double)fieldWidth.getValue() > 0) {
+				fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
+				fieldImage.setFitWidth((double)fieldLength.getValue() * 100);
+			}*/
+            imageView.setImage(new Image(imageToOpen.toURI().toString()));
+        }
+    }
+
+    public void showDialog() throws IOException
+    {
+        Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+        dialog.setDialogPane(rootDialogPane);
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.FINISH)
+        {
+            //FIXME: completer l'interface
+            String name = sportName.getText();
+            List<String> lroles = Arrays.asList("un", "deux", "trois");
+            //List<String> lroles = roles.getItems();
+            Integer flength = Integer.parseInt(fieldLength.getEditor().getText());
+            Integer fwidth = Integer.parseInt(fieldWidth.getEditor().getText());
+            String sportImgPath = getSportFieldImageFile().getPath();
+            String projName = projectileName.getText();
+            String projPath = getSportProjectileImageFile().getPath();
+            Integer maxNumberOfPlayer = Integer.parseInt(maxPlayers.getText());
+            Integer maxNumberOfTeams = Integer.parseInt(maxTeams.getText());
+
+            Controller.getInstance().createSport(name, lroles, flength, fwidth, sportImgPath, projName, projPath,
+                                                 maxNumberOfPlayer, maxNumberOfTeams);
+
+            RootLayoutController.getInstance().getOpenSportController().updateTable();
+        }
+    }
 }
