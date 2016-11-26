@@ -52,8 +52,7 @@ public class NewStrategyController
 		{
 			String stratName = strategyName.getText();
 			String selectedSport = sportsComboBox.getValue();
-			//TODO ajouter les booleens
-			Controller.getInstance().createStrategy(stratName, selectedSport);
+			Controller.getInstance().createStrategy(stratName, selectedSport, maxPlayers.isSelected(), maxTeams.isSelected());
 			RootLayoutController.getInstance().getOpenStrategyController().updateTree();
 		}
 	}
