@@ -17,7 +17,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TreeTableView fx:id="treeTableView" prefHeight="200.0" prefWidth="200.0">
+      <TreeTableView fx:id="treeTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <columns>
           <TreeTableColumn fx:id="imageColumn" prefWidth="75.0" text="Aperçu" />
           <TreeTableColumn fx:id="nameColumn" prefWidth="75.0" text="Nom" />

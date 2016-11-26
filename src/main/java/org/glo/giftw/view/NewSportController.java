@@ -13,7 +13,6 @@ import org.glo.giftw.controller.Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +23,9 @@ public class NewSportController
 
     @FXML
     private TextField sportName;
+    
+    @FXML
+    private TextField addRole;
 
     @FXML
     private ComboBox<String> roles;
@@ -104,7 +106,6 @@ public class NewSportController
                 initSpinners(newLength, newWidth);
             }
         }
-
     }
 
     @FXML
@@ -142,23 +143,23 @@ public class NewSportController
     }
     
     @FXML
-    void onActionRoles(ActionEvent event) 
+    void onKeyPressed(KeyEvent event) 
     {
-    	if (roles.getValue() != null && !roles.getValue().isEmpty())
+    	if(event.getCode().equals(KeyCode.DELETE))
     	{
-    		roles.getItems().add(roles.getValue());
+    		if(roles.getValue() != null)
+    		{
+    			roles.getItems().remove(roles.getValue());
+    		}
     	}
     }
     
     @FXML
-    void onKeyPressed(KeyEvent event) 
+    void onActionAddRole(ActionEvent event)
     {
-    	if(event.getCode().equals(KeyCode.DELETE) && roles.getSelectionModel().getSelectedItem() != null)
-    	{
-    		roles.getItems().remove(roles.getSelectionModel().getSelectedItem());
-    	}
+    	roles.getItems().add(addRole.getText());
+    	addRole.setText(null);
     }
-
 
     public void showDialog() throws IOException
     {

@@ -3,20 +3,17 @@ package org.glo.giftw.view;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.glo.giftw.controller.Controller;
-import org.glo.giftw.domain.ObjectPool;
-import org.glo.giftw.domain.Obstacle;
 import org.glo.giftw.domain.Sport;
 import org.glo.giftw.domain.Strategy;
+import org.glo.giftw.domain.TreeViewable;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
@@ -33,15 +30,15 @@ public class OpenStrategyController
 	private VBox rootVBox;
 	
 	@FXML
-	private TreeTableView<Displayable> treeTableView;
+	private TreeTableView<TreeViewable> treeTableView;
 
 	@FXML
-	private TreeTableColumn<Displayable, String> imageColumn;
+	private TreeTableColumn<TreeViewable, String> imageColumn;
 
 	@FXML
-	private TreeTableColumn<Displayable, String> nameColumn;
+	private TreeTableColumn<TreeViewable, String> nameColumn;
 	
-	private TreeItem<Displayable> root;
+	private TreeItem<TreeViewable> root;
 
 	@FXML
 	private void initialize() throws IOException
@@ -51,18 +48,18 @@ public class OpenStrategyController
 		Label listPlaceHolder = loader.load();
 		treeTableView.setPlaceholder(listPlaceHolder);
 		
-		root = new TreeItem<Displayable>();
+		root = new TreeItem<TreeViewable>();
 		treeTableView.setRoot(root);
 		treeTableView.setShowRoot(false);
 		
 		imageColumn.setCellFactory(
-		        new Callback<TreeTableColumn<Displayable, String>, TreeTableCell<Displayable, String>>()
+		        new Callback<TreeTableColumn<TreeViewable, String>, TreeTableCell<TreeViewable, String>>()
 		        {
 			        @Override
-			        public TreeTableCell<Displayable, String> call(
-		                    TreeTableColumn<Displayable, String> param)
+			        public TreeTableCell<TreeViewable, String> call(
+		                    TreeTableColumn<TreeViewable, String> param)
 			        {
-				        TreeTableCell<Displayable, String> cell = new TreeTableCell<Displayable, String>()
+				        TreeTableCell<TreeViewable, String> cell = new TreeTableCell<TreeViewable, String>()
 		                {
 			                @Override
 			                public void updateItem(String item, boolean empty)
@@ -86,21 +83,23 @@ public class OpenStrategyController
 			        }
 		        });
 		
-		imageColumn.setCellValueFactory(new Callback<CellDataFeatures<Displayable, String>, ObservableValue<String>>() {
-		     public ObservableValue<String> call(CellDataFeatures<Displayable, String> p) {
-		         // p.getValue() returns the TreeItem<Person> instance for a particular TreeTableView row,
-		         // p.getValue().getValue() returns the Person instance inside the TreeItem<Person>
-		         return p.getValue().getValue().getDisplayableImagePath();
-		     }
-		});
+		imageColumn.setCellValueFactory(
+		        new Callback<CellDataFeatures<TreeViewable, String>, ObservableValue<String>>()
+		        {
+			        public ObservableValue<String> call(CellDataFeatures<TreeViewable, String> p)
+			        {
+				        return new ReadOnlyObjectWrapper<String>(p.getValue().getValue().getImagePath());
+			        }
+		        });
 		
-		nameColumn.setCellValueFactory(new Callback<CellDataFeatures<Displayable, String>, ObservableValue<String>>() {
-		     public ObservableValue<String> call(CellDataFeatures<Displayable, String> p) {
-		         // p.getValue() returns the TreeItem<Person> instance for a particular TreeTableView row,
-		         // p.getValue().getValue() returns the Person instance inside the TreeItem<Person>
-		         return p.getValue().getValue().getDisplayableName();
-		     }
-		});
+		nameColumn.setCellValueFactory(
+		        new Callback<CellDataFeatures<TreeViewable, String>, ObservableValue<String>>()
+		        {
+			        public ObservableValue<String> call(CellDataFeatures<TreeViewable, String> p)
+			        {
+				        return new ReadOnlyObjectWrapper<String>(p.getValue().getValue().getDisplayName());
+			        }
+		        });
 	}
 	
 	public void updateTreeTable()
@@ -110,13 +109,13 @@ public class OpenStrategyController
 		root.getChildren().clear();
 		for (Sport sport : sports) 
 		{
-			TreeItem<Displayable> sportItem = new TreeItem<>(sport);
+			TreeItem<TreeViewable> sportItem = new TreeItem<>(sport);
 			root.getChildren().add(sportItem);
 			for(Strategy strategy: strategies)
 			{
 				if(strategy.getSport().getName() == sport.getName())
 				{
-					sportItem.getChildren().add(strategy);
+					sportItem.getChildren().add(new TreeItem<TreeViewable>(strategy));
 				}
 			}
 		}
