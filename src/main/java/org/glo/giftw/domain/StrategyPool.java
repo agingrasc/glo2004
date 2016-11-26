@@ -29,9 +29,9 @@ public class StrategyPool extends ObjectPool
         }
     }
     
-    public Strategy addStrategy(String name, Sport sport)
+    public Strategy addStrategy(String name, Sport sport, boolean activateMaxNumberPlayer, boolean activateMaxNumberTeam)
     {
-        Strategy strat = new Strategy(name, sport);
+        Strategy strat = new Strategy(name, sport, activateMaxNumberPlayer, activateMaxNumberTeam);
         this.strategies.put(name, strat);
         if(this.persistent)
         {

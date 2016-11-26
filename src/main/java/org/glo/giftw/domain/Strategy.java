@@ -18,11 +18,13 @@ public class Strategy implements Serializable, TreeViewable
     private String name;
     private Sport sport;
     private int currentFrameIdx;
-    private HashMap<String, ArrayList<Player>> teams; //Associe chaque équipe impliquée dans une strategie avec son nom
+    private HashMap<String, Team> teams; //Associe chaque équipe impliquée dans une strategie avec son nom
     private ArrayList<GameObject> gameObjects;        //Liste contenant les instances des gameObjects de la stratégie
     private ArrayList<Frame> frames;
+    private boolean checkMaxNumberPlayer;
+    private boolean checkMaxNumberTeam;
 
-    public Strategy(String name, Sport sport)
+    public Strategy(String name, Sport sport, boolean checkMaxNumberPlayer, boolean checkMaxNumberTeam)
     {
         this.name = name;
         this.sport = sport;
@@ -31,6 +33,8 @@ public class Strategy implements Serializable, TreeViewable
         this.gameObjects = new ArrayList<>();
         this.frames = new ArrayList<>();
         this.frames.add(new Frame(true));
+        this.checkMaxNumberPlayer = checkMaxNumberPlayer;
+        this.checkMaxNumberTeam = checkMaxNumberTeam;
     }
 
 
@@ -84,8 +88,35 @@ public class Strategy implements Serializable, TreeViewable
 
     public List<Player> getTeam(String teamName)
     {
-        return this.teams.get(teamName);
+        return this.teams.get(teamName).getPlayers();
     }
+
+    public String getPlayerTeam(Player player)
+    {
+        for (String teamName : this.teams.keySet())
+        {
+            if (this.teams.get(teamName).isPlayerInTeam(player))
+            {
+                return teamName;
+            }
+        }
+        return null;
+    }
+
+    public void setCheckMaxNumberTeam(boolean checkMaxNumberTeam)
+    {
+        this.checkMaxNumberTeam = checkMaxNumberTeam;
+    }
+
+    public void setCheckMaxNumberPlayer(boolean checkMaxNumberPlayer)
+    {
+        this.checkMaxNumberPlayer = checkMaxNumberPlayer;
+        for (Team team : this.teams.values())
+        {
+            team.setCheckMaxNumberOfPlayers(checkMaxNumberPlayer);
+        }
+    }
+
 
     public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
     {
@@ -191,7 +222,17 @@ public class Strategy implements Serializable, TreeViewable
      */
     public void addTeam(String teamName)
     {
-        this.teams.put(teamName, new ArrayList<>());
+        if (!teamName.equals("default"))
+        {
+            this.removeTeam("default");
+        }
+
+        Team team = new Team(this.sport.getMaxPLayersPerTeam(), this.checkMaxNumberPlayer);
+
+        if (!this.checkMaxNumberTeam || this.teams.size() < this.sport.getMaxTeams())
+        {
+            this.teams.put(teamName, team);
+        }
     }
 
     public void removeTeam(String teamName)
@@ -201,12 +242,12 @@ public class Strategy implements Serializable, TreeViewable
 
     public void addTeamPlayer(String teamName, Player player)
     {
-        this.teams.get(teamName).add(player);
+        this.teams.get(teamName).addPlayer(player);
     }
 
     public void removeTeamPlayer(String teamName, Player player)
     {
-        this.teams.get(teamName).remove(player);
+        this.teams.get(teamName).removePlayer(player);
     }
 
     public void switchTeamPlayer(String oldTeamName, String newTeamName, Player player)
@@ -227,9 +268,18 @@ public class Strategy implements Serializable, TreeViewable
         return gameObject.getId();
     }
 
-    public Integer addPlayer(Vector position, float orientation, Vector dimensions)
+    public Integer addPlayer(Vector position, float orientation, Vector dimensions, String team)
     {
         Player player = new Player();
+        if (team == null)
+        {
+            if (this.getTeam("default") == null)
+            {
+                this.addTeam("default");
+            }
+            team = "default";
+        }
+        this.addTeamPlayer(team, player);
         return this.addGameObject(player, position, orientation, dimensions);
     }
 
