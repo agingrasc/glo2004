@@ -73,10 +73,10 @@ public class Controller
      * @param name      Le nom de la nouvelle stratédie.
      * @param sportName Le nom du sport (déjà existant) associé à la stratégie.
      */
-    public void createStrategy(String name, String sportName)
+    public void createStrategy(String name, String sportName, boolean activateMaxNumberPlayer, boolean activateMaxNumberTeam)
     {
         Sport strategySport = this.sportPool.getSportByName(sportName);
-        this.currentStrategy = this.strategyPool.addStrategy(name, strategySport);
+        this.currentStrategy = this.strategyPool.addStrategy(name, strategySport, activateMaxNumberPlayer, activateMaxNumberTeam);
     }
 
     /**
@@ -87,9 +87,9 @@ public class Controller
      * @param dimensions  Les dimensions initiales du joueur.
      * @return L'id du joueur nouvellement créé.
      */
-    public Integer addPlayer(Vector position, float orientation, Vector dimensions)
+    public Integer addPlayer(Vector position, float orientation, Vector dimensions, String team)
     {
-        return this.currentStrategy.addPlayer(position, orientation, dimensions);
+        return this.currentStrategy.addPlayer(position, orientation, dimensions, team);
     }
 
     /**
@@ -117,6 +117,12 @@ public class Controller
     public Integer addProjectile(Vector position, float orientation, Vector dimensions)
     {
         return this.currentStrategy.addProjectile(position, orientation, dimensions);
+    }
+
+    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, float zoomLevel)
+    {
+        Vector coordinate = this.currentStrategy.getFieldCoordinate(adjustedMouseCoordinate, zoomLevel);
+        return currentStrategy.getGameObjectByCoordinate(coordinate);
     }
 
     public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
@@ -147,6 +153,20 @@ public class Controller
     public Collection<Strategy> getStrategies()
     {
         return this.strategyPool.getAllStrategies();
+    }
+
+    public String getPlayerTeam(Player player){
+        return this.currentStrategy.getPlayerTeam(player);
+    }
+
+    public void setCheckMaxNumberTeam(boolean checkMaxNumberTeam)
+    {
+        currentStrategy.setCheckMaxNumberTeam(checkMaxNumberTeam);
+    }
+
+    public void setCheckMaxNumberPlayer(boolean checkMaxNumberPlayer)
+    {
+        currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
     }
 
     public Vector getRealCoordinate(Vector adjustedCoordinate, float zoomLevel)
