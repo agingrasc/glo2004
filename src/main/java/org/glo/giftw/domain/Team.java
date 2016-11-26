@@ -29,7 +29,7 @@ public class Team implements Serializable
 
     public void addPlayer(Player player)
     {
-        if (!this.checkMaxNumberOfPlayers || this.players.size() <= maxNumberOfPlayers)
+        if (!this.checkMaxNumberOfPlayers || this.players.size() < maxNumberOfPlayers)
         {
             this.players.add(player);
         }
