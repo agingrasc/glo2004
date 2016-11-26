@@ -24,6 +24,12 @@ public class Vector implements Serializable
         this(0, 0);
     }
 
+    public Vector(Vector vec)
+    {
+        this.x = vec.x;
+        this.y = vec.y;
+    }
+
 
     public double getX()
     {
@@ -82,9 +88,22 @@ public class Vector implements Serializable
         return new Vector(x/len, y/len);
     }
 
+    //Operateurs mathematiques et logique
     public boolean equals(Vector rhd)
     {
         return this.x == rhd.x && this.y == rhd.y;
+    }
+
+    public void mul(double multiplier)
+    {
+        this.x *= multiplier;
+        this.y *= multiplier;
+    }
+
+    public void div(double divider)
+    {
+        this.x /= divider;
+        this.y /= divider;
     }
 
     @Override

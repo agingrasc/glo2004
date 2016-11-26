@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -47,5 +48,41 @@ public class TestField
         assertFalse(field.validatePosition(badP4));
         assertFalse(field.validatePosition(badP5));
         assertFalse(field.validatePosition(badP6));
+    }
+
+    @Test
+    public void testGetFieldCoordinateUnitZoom()
+    {
+        Vector coordInPixel = new Vector(500, 500);
+        float zoomLevel = 1.0f;
+        Vector expected = new Vector(500, 500);
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, zoomLevel)));
+
+    }
+
+    @Test
+    public void testGetFieldCoordinateZoomIn()
+    {
+        Vector coordInPixel = new Vector(500, 500);
+        float zoomLevel = 2.0f;
+        Vector expected = new Vector(250, 250);
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, zoomLevel)));
+    }
+
+    @Test
+    public void testGetFieldCoordinateZoomOut()
+    {
+        Vector coordInPixel = new Vector(500, 500);
+        float zoomLevel = 0.5f;
+        Vector expected = new Vector(1000, 1000);
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, zoomLevel)));
+    }
+
+    @Test
+    public void testGetFieldCoordinateOutOfBound()
+    {
+        Vector coordInPixel = new Vector(-100, 200);
+        float zoomLevel = 1.0f;
+        assertNull(field.getFieldCoordinate(coordInPixel, zoomLevel));
     }
 }
