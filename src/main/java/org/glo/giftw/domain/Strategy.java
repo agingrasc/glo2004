@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Contient les frames et les appels necessaires pour les joueurs
  */
-public class Strategy implements Serializable
+public class Strategy implements Serializable, TreeViewable
 {
     public static final long serialVersionUID = 1L;
     public static final String STRATEGY_PATH = "data/strategies";
@@ -351,5 +351,18 @@ public class Strategy implements Serializable
         this.teams = strat.teams;
         this.gameObjects = strat.gameObjects;
         this.frames = strat.frames;
+    }
+
+    @Override
+    public String getDisplayName()
+    {
+        return this.name;
+    }
+
+    @Override
+    public String getImagePath()
+    {
+        //FIXME: retourner le path vers l'image exporter de la stratégie
+        return this.sport.getImagePath();
     }
 }
