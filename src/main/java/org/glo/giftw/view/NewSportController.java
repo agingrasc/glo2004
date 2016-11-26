@@ -6,12 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Window;
 import org.glo.giftw.controller.Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,9 @@ public class NewSportController
 
     @FXML
     private TextField sportName;
+    
+    @FXML
+    private TextField addRole;
 
     @FXML
     private ComboBox<String> roles;
@@ -102,7 +106,6 @@ public class NewSportController
                 initSpinners(newLength, newWidth);
             }
         }
-
     }
 
     @FXML
@@ -138,6 +141,25 @@ public class NewSportController
             imageView.setImage(new Image(imageToOpen.toURI().toString()));
         }
     }
+    
+    @FXML
+    void onKeyPressed(KeyEvent event) 
+    {
+    	if(event.getCode().equals(KeyCode.DELETE))
+    	{
+    		if(roles.getValue() != null)
+    		{
+    			roles.getItems().remove(roles.getValue());
+    		}
+    	}
+    }
+    
+    @FXML
+    void onActionAddRole(ActionEvent event)
+    {
+    	roles.getItems().add(addRole.getText());
+    	addRole.setText(null);
+    }
 
     public void showDialog() throws IOException
     {
@@ -147,10 +169,8 @@ public class NewSportController
 
         if (result.isPresent() && result.get() == ButtonType.FINISH)
         {
-            //FIXME: completer l'interface
             String name = sportName.getText();
-            List<String> lroles = Arrays.asList("un", "deux", "trois");
-            //List<String> lroles = roles.getItems();
+            List<String> lroles = roles.getItems();
             Integer flength = Integer.parseInt(fieldLength.getEditor().getText());
             Integer fwidth = Integer.parseInt(fieldWidth.getEditor().getText());
             String sportImgPath = getSportFieldImageFile().getPath();

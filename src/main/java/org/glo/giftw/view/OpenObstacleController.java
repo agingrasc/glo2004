@@ -61,8 +61,6 @@ public class OpenObstacleController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {
-				                	System.out.println("UpdateItem");
-				                	System.out.println(item);
 				                	File file = new File(item);
 					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
 					                imageView.setFitWidth(200);
@@ -105,11 +103,6 @@ public class OpenObstacleController
 
 	public void updateTable()
 	{
-		// TODO il serait plus efficace de seulement updater l'item qui
-		// change...
-		System.out.println("Update la table");
-		System.out.println(Controller.getInstance().getObstacles());
-		//obstacles.setAll(Controller.getInstance().getObstacles().entrySet());
 		obstacles.clear();
 		obstacles.addAll(Controller.getInstance().getObstacles());
 	}
