@@ -26,8 +26,6 @@ public class RootLayoutController
 	private ObstaclePropertiesPaneController obstaclePropertiesPaneController;
 	private OpenObstacleController openObstacleController;
 	private OpenObstacleToolBarController openObstacleToolBarController;
-	private OpenSportController openSportController;
-	private OpenSportToolBarController openSportToolBarController;
 	private OpenStrategyController openStrategyController;
 	private OpenStrategyToolBarController openStrategyToolBarController;
 	private PlayerPropertiesPaneController playerPropertiesPaneController;
@@ -70,17 +68,6 @@ public class RootLayoutController
 		addToolBar(getOpenObstacleToolBarController().getRootToolBar());
 		borderPane.setLeft(null);
 		borderPane.setCenter(getOpenObstacleController().getRootVBox());
-		borderPane.setBottom(null);
-		borderPane.setRight(null);
-	}
-
-	public void openSport() throws IOException
-	{
-		clearRootToolBar();
-		addToolBar(getDefaultToolBarController().getRootToolBar());
-		addToolBar(getOpenSportToolBarController().getRootToolBar());
-		borderPane.setLeft(null);
-		borderPane.setCenter(getOpenSportController().getRootVBox());
 		borderPane.setBottom(null);
 		borderPane.setRight(null);
 	}
@@ -480,30 +467,6 @@ public class RootLayoutController
 			this.openObstacleToolBarController = loader.getController();
 		}
 		return openObstacleToolBarController;
-	}
-
-	public OpenSportController getOpenSportController() throws IOException
-	{
-		if (openSportController == null)
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_PATH.toString()));
-			loader.load();
-			this.openSportController = loader.getController();
-		}
-		return openSportController;
-	}
-
-	public OpenSportToolBarController getOpenSportToolBarController() throws IOException
-	{
-		if (openSportToolBarController == null)
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_TOOL_BAR_PATH.toString()));
-			loader.load();
-			this.openSportToolBarController = loader.getController();
-		}
-		return openSportToolBarController;
 	}
 
 	public OpenStrategyController getOpenStrategyController() throws IOException

@@ -67,6 +67,7 @@ public class OpenStrategyController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {
+				                	System.out.println(item);
 				                	File file = new File(item);
 					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
 					                imageView.setFitWidth(200);
@@ -100,9 +101,10 @@ public class OpenStrategyController
 				        return new ReadOnlyObjectWrapper<String>(p.getValue().getValue().getDisplayName());
 			        }
 		        });
+		updateTree();
 	}
 	
-	public void updateTreeTable()
+	public void updateTree()
 	{
 		ArrayList<Strategy> strategies = new ArrayList<Strategy>(Controller.getInstance().getStrategies());
 		ArrayList<Sport> sports = new ArrayList<Sport>(Controller.getInstance().getSports());
@@ -113,7 +115,7 @@ public class OpenStrategyController
 			root.getChildren().add(sportItem);
 			for(Strategy strategy: strategies)
 			{
-				if(strategy.getSport().getName() == sport.getName())
+				if(strategy.getSport().getName().equals(sport.getName()))
 				{
 					sportItem.getChildren().add(new TreeItem<TreeViewable>(strategy));
 				}

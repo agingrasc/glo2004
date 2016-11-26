@@ -38,7 +38,7 @@ public class DefaultToolBarController
 	@FXML
 	void onActionOpenSport(ActionEvent event) throws IOException
 	{
-		RootLayoutController.getInstance().openSport();
+		RootLayoutController.getInstance().openStrategy();
 	}
 
 	@FXML

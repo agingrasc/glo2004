@@ -1,25 +1,48 @@
 package org.glo.giftw.view;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
+
+import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Sport;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.TextField;
 
 public class NewStrategyController
 {
 	@FXML
 	private DialogPane rootDialogPane;
 	
-	 @FXML
+	@FXML
+    private TextField strategyName;
+
+    @FXML
+    private ComboBox<String> sportsComboBox;
+	
+	@FXML
     private CheckBox maxPlayers;
 
     @FXML
     private CheckBox maxTeams;
     
-	public void showDialog()
+    @FXML
+	private void initialize() throws IOException
+	{
+    	ArrayList<Sport> sports = new ArrayList<Sport>(Controller.getInstance().getSports());
+    	for(Sport sport : sports)
+    	{
+    		sportsComboBox.getItems().add(sport.getName());
+    	}
+	}
+    
+	public void showDialog() throws IOException
 	{
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(rootDialogPane);
@@ -27,8 +50,11 @@ public class NewStrategyController
 		
 		if (result.isPresent() && result.get() == ButtonType.FINISH)
 		{
-			//TODO Mettre a jour le domaine via le controleur
-			//Et mettre a jour la vue...
+			String stratName = strategyName.getText();
+			String selectedSport = sportsComboBox.getValue();
+			//TODO ajouter les booleens
+			Controller.getInstance().createStrategy(stratName, selectedSport);
+			RootLayoutController.getInstance().getOpenStrategyController().updateTree();
 		}
 	}
 }

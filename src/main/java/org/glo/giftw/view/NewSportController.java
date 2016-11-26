@@ -51,15 +51,9 @@ public class NewSportController
     @FXML
     private Spinner<Double> fieldWidth;
 
-    public File getSportFieldImageFile()
-    {
-        return new File(fieldImage.getImage().toString());
-    }
-
-    public File getSportProjectileImageFile()
-    {
-        return new File(fieldProjectile.getImage().toString());
-    }
+    private File fieldImageFile;
+    
+    private File projectileImageFile;
 
     @FXML
     public void initialize()
@@ -95,7 +89,7 @@ public class NewSportController
         fieldEditorController.initSpinners((double) fieldLength.getValue(), (double) fieldWidth.getValue());
 
         dialog.showAndWait();
-
+        fieldImageFile = fieldEditorController.getDrawnFieldFilePath();
         setImage(fieldEditorController.getDrawnFieldFilePath(), fieldImage);
         if (fieldEditorController.getDrawnFieldFilePath() != null)
         {
@@ -116,6 +110,7 @@ public class NewSportController
         ImageFileController imageFileController = new ImageFileController();
 
         File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+        fieldImageFile = imageToOpen;
         setImage(imageToOpen, fieldImage);
     }
 
@@ -127,6 +122,7 @@ public class NewSportController
         ImageFileController imageFileController = new ImageFileController();
 
         File imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
+        projectileImageFile = imageToOpen;
         setImage(imageToOpen, fieldProjectile);
     }
 
@@ -173,16 +169,16 @@ public class NewSportController
             List<String> lroles = roles.getItems();
             Integer flength = Integer.parseInt(fieldLength.getEditor().getText());
             Integer fwidth = Integer.parseInt(fieldWidth.getEditor().getText());
-            String sportImgPath = getSportFieldImageFile().getPath();
+            String sportImgPath = fieldImageFile.getPath();
             String projName = projectileName.getText();
-            String projPath = getSportProjectileImageFile().getPath();
+            String projPath = projectileImageFile.getPath();
             Integer maxNumberOfPlayer = Integer.parseInt(maxPlayers.getText());
             Integer maxNumberOfTeams = Integer.parseInt(maxTeams.getText());
-
+            
             Controller.getInstance().createSport(name, lroles, flength, fwidth, sportImgPath, projName, projPath,
                                                  maxNumberOfPlayer, maxNumberOfTeams);
 
-            RootLayoutController.getInstance().getOpenSportController().updateTable();
+            RootLayoutController.getInstance().getOpenStrategyController().updateTree();
         }
     }
 }
