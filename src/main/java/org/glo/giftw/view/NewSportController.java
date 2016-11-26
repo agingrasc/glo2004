@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Window;
 import org.glo.giftw.controller.Controller;
 
@@ -138,6 +140,25 @@ public class NewSportController
             imageView.setImage(new Image(imageToOpen.toURI().toString()));
         }
     }
+    
+    @FXML
+    void onActionRoles(ActionEvent event) 
+    {
+    	if (roles.getValue() != null && !roles.getValue().isEmpty())
+    	{
+    		roles.getItems().add(roles.getValue());
+    	}
+    }
+    
+    @FXML
+    void onKeyPressed(KeyEvent event) 
+    {
+    	if(event.getCode().equals(KeyCode.DELETE) && roles.getSelectionModel().getSelectedItem() != null)
+    	{
+    		roles.getItems().remove(roles.getSelectionModel().getSelectedItem());
+    	}
+    }
+
 
     public void showDialog() throws IOException
     {
@@ -147,10 +168,8 @@ public class NewSportController
 
         if (result.isPresent() && result.get() == ButtonType.FINISH)
         {
-            //FIXME: completer l'interface
             String name = sportName.getText();
-            List<String> lroles = Arrays.asList("un", "deux", "trois");
-            //List<String> lroles = roles.getItems();
+            List<String> lroles = roles.getItems();
             Integer flength = Integer.parseInt(fieldLength.getEditor().getText());
             Integer fwidth = Integer.parseInt(fieldWidth.getEditor().getText());
             String sportImgPath = getSportFieldImageFile().getPath();

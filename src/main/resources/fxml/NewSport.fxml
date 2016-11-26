@@ -17,13 +17,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<DialogPane fx:id="rootDialogPane" expanded="true" headerText="Veuillez configurer le sport:" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.NewSportController">
+<DialogPane fx:id="rootDialogPane" expanded="true" headerText="Veuillez configurer le sport:" onKeyPressed="#onKeyPressed" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.NewSportController">
     <buttonTypes>
         <ButtonType fx:constant="CANCEL" />
         <ButtonType fx:constant="FINISH" />
     </buttonTypes>
     <content>
-        <ScrollPane prefHeight="337.0">
+        <ScrollPane prefHeight="337.0" vvalue="0.66">
             <content>
                 <GridPane>
                     <columnConstraints>
@@ -95,7 +95,7 @@
                         <Spinner fx:id="fieldWidth" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
                         <Label text="Ajouter:" GridPane.rowIndex="9" />
-                        <ComboBox fx:id="roles" editable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="roles" editable="true" onAction="#onActionRoles" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="10" />
                         <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
                         <Label text="Équipe" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
