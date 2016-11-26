@@ -8,10 +8,12 @@ import java.util.List;
 /**
  * Contient les frames et les appels necessaires pour les joueurs
  */
-public class Strategy implements Serializable
+public class Strategy implements Serializable, TreeViewable
 {
     public static final long serialVersionUID = 1L;
     public static final String STRATEGY_PATH = "data/strategies";
+    private static int framePerSecond = 30;
+    private static int keyFramePerSecond = 2;
 
     private String name;
     private Sport sport;
@@ -19,7 +21,7 @@ public class Strategy implements Serializable
     private HashMap<String, ArrayList<Player>> teams; //Associe chaque équipe impliquée dans une strategie avec son nom
     private ArrayList<GameObject> gameObjects;        //Liste contenant les instances des gameObjects de la stratégie
     private ArrayList<Frame> frames;
-
+    
     public Strategy(String name, Sport sport)
     {
         this.name = name;
@@ -94,19 +96,87 @@ public class Strategy implements Serializable
         this.frames.add(frameId, frame);
     }
     
+    public void createNewFrame()
+    {
+        if(this.frames.isEmpty())
+        {
+            this.frames.add(new Frame(true));
+        }
+        else
+        {
+            Frame lastKeyFrame = this.frames.get(this.frames.size() - 1);
+            
+            //ajout des subFrames
+            for(int i = 1; i < (Strategy.framePerSecond / Strategy.keyFramePerSecond); i++)
+            {
+                Frame subFrame = new Frame(lastKeyFrame);
+                subFrame.setKeyFrame(false);
+                this.frames.add(subFrame);
+            }
+            
+            this.frames.add(new Frame(lastKeyFrame));
+        }
+    }
+    
+    public boolean isLastFrame()
+    {
+        return this.currentFrameIdx == this.frames.size() - 1;
+    }
+    
     public Frame getCurrentFrame()
     {
         return this.frames.get(this.currentFrameIdx);
     }
     
+    /**
+     * Retourne la frame précédant la frame courrante. Si la frame courante est la première frame, retourne celle-ci.
+     * @return La frame précédente.
+     */
     public Frame previousFrame()
     {
-        return this.frames.get(this.currentFrameIdx--);
+        if(this.currentFrameIdx != 0)
+        {
+            this.currentFrameIdx--;
+        }
+        return this.frames.get(this.currentFrameIdx);
     }
     
+    /**
+     * Retourne la frame suivant la frame courante. Si la frame courante est la dernière frame, retourne celle-ci.
+     * @return La frame suivante.
+     */
     public Frame nextFrame()
     {
-        return this.frames.get(this.currentFrameIdx++);
+        if(!this.isLastFrame())
+        {
+            this.currentFrameIdx++;
+        }
+        return this.frames.get(this.currentFrameIdx);
+    }
+    
+    /**
+     * Permet de modifier la frame courant selon un delta de temps, en secondes, précis aux dixièmes de secondes.
+     * @param delta La longueur du saut entre les frames, en secondes.
+     */
+    public void changeCurrentFrame(float delta)
+    {
+        this.currentFrameIdx += Math.round(delta * 10) * Strategy.framePerSecond / 10; //bond précis au 1/10 de secondes 
+    }
+    
+    /**
+     * Place l'index de la frame courante à la première frame.
+     */
+    public void goToBeginning()
+    {
+        this.currentFrameIdx = 0;
+    }
+    
+    /**
+     * Place l'index de la frame courante à la dernière frame.
+     */
+    public void goToEnd()
+    {
+        this.currentFrameIdx = this.frames.size() - 1;
     }
 
     
@@ -163,15 +233,36 @@ public class Strategy implements Serializable
         return this.addGameObject(projectile, position, orientation, dimensions);
     }
     
-    public Integer addObstacle(Vector position, float orientation, Vector dimensions)
+    public Integer addObstacle(Obstacle obstacle, Vector position, float orientation, Vector dimensions)
     {
-        Obstacle obstacle = new Obstacle();
         return this.addGameObject(obstacle, position, orientation, dimensions);
     }
     
     public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
         this.getCurrentFrame().placeGameObject(gameObject, position, orientation, dimensions);
+        if(this.currentFrameIdx != 0)
+        {
+            int nbFrames = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+            int previousKeyFrameId = this.currentFrameIdx - nbFrames;
+            Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
+            
+            double posDeltaX = (position.getX() - previousKeyFrame.getPosition(gameObject).getX()) / nbFrames;
+            double posDeltaY = (position.getY() - previousKeyFrame.getPosition(gameObject).getY()) / nbFrames;
+            float deltaOrientation = (orientation - previousKeyFrame.getOrientation(gameObject)) / nbFrames;
+            double dimDeltaX = (dimensions.getX() - previousKeyFrame.getDimensions(gameObject).getX()) / nbFrames;
+            double dimDeltaY = (dimensions.getY() - previousKeyFrame.getDimensions(gameObject).getY()) / nbFrames;
+            
+            for(int i = 1; i < nbFrames; i++)
+            {
+                Frame subFrame = this.getFrame(this.currentFrameIdx + i);
+                Vector p = subFrame.getPosition(gameObject);
+                float o = subFrame.getOrientation(gameObject);
+                Vector d = subFrame.getDimensions(gameObject);
+                subFrame.placeGameObject(gameObject, new Vector(p.getX() + i*posDeltaX, p.getY() + i*posDeltaY),
+                        o + i*deltaOrientation, new Vector(d.getX() + i*dimDeltaX, d.getY() + i*dimDeltaY));
+            }
+        }
     }
     
     
@@ -260,5 +351,18 @@ public class Strategy implements Serializable
         this.teams = strat.teams;
         this.gameObjects = strat.gameObjects;
         this.frames = strat.frames;
+    }
+
+    @Override
+    public String getDisplayName()
+    {
+        return this.name;
+    }
+
+    @Override
+    public String getImagePath()
+    {
+        //FIXME: retourner le path vers l'image exporter de la stratégie
+        return this.sport.getImagePath();
     }
 }

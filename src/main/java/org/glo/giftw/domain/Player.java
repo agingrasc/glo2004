@@ -98,7 +98,7 @@ public class Player extends GameObject implements Serializable
     @Override
     public String toString()
     {
-        return "Jouer(Nom: " +
+        return "Joueur(Nom: " +
                 this.name +
                 ", Numero: " +
                 this.jerseyNumber +
