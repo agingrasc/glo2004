@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Controller
 {
+    public static final double COORDINATE_CONVERSION_RATIO = 1.0; //mm par pixel
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
     private StrategyPool strategyPool;
@@ -16,7 +17,7 @@ public class Controller
 
     private static Controller INSTANCE = null;
 
-    private Controller()
+    protected Controller()
     {
         super();
         this.sportPool = new SportPool();
@@ -49,7 +50,9 @@ public class Controller
     public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight, String fieldImagePath,
                             String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
     {
-        this.sportPool.addSport(name, roles, new Vector(fieldLength, fieldHeight), fieldImagePath, projectileName,
+        Vector fieldDimension = new Vector(fieldLength / COORDINATE_CONVERSION_RATIO,
+                                           fieldHeight / COORDINATE_CONVERSION_RATIO);
+        this.sportPool.addSport(name, roles, fieldDimension, fieldImagePath, projectileName,
                                 projectileImagePath, maxPLayersPerTeam, maxTeams);
     }
 
@@ -144,6 +147,21 @@ public class Controller
     public Collection<Strategy> getStrategies()
     {
         return this.strategyPool.getAllStrategies();
+    }
+
+    public Vector getRealCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        Vector fieldCoord = this.currentStrategy.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return this.convertToRealCoordinate(fieldCoord, COORDINATE_CONVERSION_RATIO);
+    }
+
+    public Vector convertToRealCoordinate(Vector fieldCoord, double ratio)
+    {
+        if (fieldCoord != null)
+        {
+            fieldCoord.mul(ratio);
+        }
+        return fieldCoord;
     }
 
     /**

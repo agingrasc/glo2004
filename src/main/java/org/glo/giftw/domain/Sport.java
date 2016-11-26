@@ -150,6 +150,11 @@ public class Sport implements Serializable, TreeViewable
         return this.name;
     }
 
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        return field.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+    }
+
     @Override
     public String getImagePath()
     {

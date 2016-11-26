@@ -79,4 +79,44 @@ public class TestVector
         Vector normTestVec = testVec.normalized();
         assertEquals(normTestVec.magnitude(), 1, EPSILON);
     }
+
+    @Test
+    public void testMulIntegerPositive()
+    {
+        Vector uut = new Vector(500, 450);
+        uut.mul(2);
+        Vector expected = new Vector(1000, 900);
+        assertTrue(expected.equals(uut));
+    }
+
+    @Test
+    public void testMulIntegerNegative()
+    {
+        Vector uut = new Vector(-500, 450);
+        uut.mul(2);
+        Vector expected = new Vector(-1000, 900);
+        assertTrue(expected.equals(uut));
+
+        uut.mul(-1);
+        expected = new Vector(1000, -900);
+        assertTrue(expected.equals(uut));
+    }
+
+    @Test
+    public void testMulDecimal()
+    {
+        Vector uut = new Vector(500.2, 400.7);
+        uut.mul(2);
+        Vector expected = new Vector(1000.4, 801.4);
+        assertTrue(expected.equals(uut));
+    }
+
+    @Test
+    public void TestDiv()
+    {
+        Vector uut = new Vector(525, 400);
+        uut.div(2);
+        Vector expected = new Vector(262.5, 200);
+        assertTrue(expected.equals(uut));
+    }
 }
