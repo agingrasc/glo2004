@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Sport implements Serializable
+public class Sport implements Serializable, TreeViewable
 {
     public static final long serialVersionUID = 1L;
 
@@ -142,5 +142,17 @@ public class Sport implements Serializable
         ret += "Joué par " + Integer.toString(this.maxTeams) + " équipes de " + Integer.toString(this.maxPLayersPerTeam)
                 + " joueurs";
         return ret;
+    }
+
+    @Override
+    public String getDisplayName()
+    {
+        return this.name;
+    }
+
+    @Override
+    public String getImagePath()
+    {
+        return this.field.getImagePath();
     }
 }
