@@ -93,7 +93,7 @@ public class Strategy implements Serializable, TreeViewable
 
     public String getPlayerTeam(Player player)
     {
-        for (String teamName: this.teams.keySet())
+        for (String teamName : this.teams.keySet())
         {
             if (this.teams.get(teamName).isPlayerInTeam(player))
             {
@@ -111,7 +111,7 @@ public class Strategy implements Serializable, TreeViewable
     public void setCheckMaxNumberPlayer(boolean checkMaxNumberPlayer)
     {
         this.checkMaxNumberPlayer = checkMaxNumberPlayer;
-        for (Team team: this.teams.values())
+        for (Team team : this.teams.values())
         {
             team.setCheckMaxNumberOfPlayers(checkMaxNumberPlayer);
         }

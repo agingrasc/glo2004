@@ -1,12 +1,15 @@
 package org.glo.giftw.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Team
+public class Team implements Serializable
 {
+    public final static long serialVersionUUID = 0L;
+
     private Set<Player> players;
     private int maxNumberOfPlayers;
     private boolean checkMaxNumberOfPlayers;

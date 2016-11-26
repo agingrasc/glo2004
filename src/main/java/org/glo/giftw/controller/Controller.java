@@ -73,10 +73,12 @@ public class Controller
      * @param name      Le nom de la nouvelle stratédie.
      * @param sportName Le nom du sport (déjà existant) associé à la stratégie.
      */
-    public void createStrategy(String name, String sportName, boolean activateMaxNumberPlayer, boolean activateMaxNumberTeam)
+    public void createStrategy(String name, String sportName, boolean activateMaxNumberPlayer,
+                               boolean activateMaxNumberTeam)
     {
         Sport strategySport = this.sportPool.getSportByName(sportName);
-        this.currentStrategy = this.strategyPool.addStrategy(name, strategySport, activateMaxNumberPlayer, activateMaxNumberTeam);
+        this.currentStrategy = this.strategyPool.addStrategy(name, strategySport, activateMaxNumberPlayer,
+                                                             activateMaxNumberTeam);
     }
 
     /**
@@ -155,7 +157,8 @@ public class Controller
         return this.strategyPool.getAllStrategies();
     }
 
-    public String getPlayerTeam(Player player){
+    public String getPlayerTeam(Player player)
+    {
         return this.currentStrategy.getPlayerTeam(player);
     }
 
