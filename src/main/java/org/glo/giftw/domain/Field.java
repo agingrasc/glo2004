@@ -57,6 +57,21 @@ public class Field implements Serializable
         this.imagePath = imagePath;
     }
 
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        Vector fieldCoord = new Vector(adjustedCoordinate);
+        fieldCoord.div(zoomLevel);
+        if (this.validatePosition(fieldCoord))
+        {
+            return fieldCoord;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
     public boolean validatePosition(Vector position)
     {
         return position.getX() >= 0 && position.getY() >= 0 &&

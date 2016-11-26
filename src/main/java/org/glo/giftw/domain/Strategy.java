@@ -17,11 +17,11 @@ public class Strategy implements Serializable, TreeViewable
 
     private String name;
     private Sport sport;
-    private int currentFrameIdx;    
+    private int currentFrameIdx;
     private HashMap<String, ArrayList<Player>> teams; //Associe chaque équipe impliquée dans une strategie avec son nom
     private ArrayList<GameObject> gameObjects;        //Liste contenant les instances des gameObjects de la stratégie
     private ArrayList<Frame> frames;
-    
+
     public Strategy(String name, Sport sport)
     {
         this.name = name;
@@ -33,7 +33,7 @@ public class Strategy implements Serializable, TreeViewable
         this.frames.add(new Frame(true));
     }
 
-    
+
     /*
      * Getters et setters
      */
@@ -81,88 +81,94 @@ public class Strategy implements Serializable, TreeViewable
     {
         return this.frames.get(frameId);
     }
-    
+
     public List<Player> getTeam(String teamName)
     {
         return this.teams.get(teamName);
     }
 
-    
-    /*
-     * Logique de frame
-     */
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        return sport.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+    }
+
+    //Logique des frames
     public void addFrame(int frameId, Frame frame)
     {
         this.frames.add(frameId, frame);
     }
-    
+
     public void createNewFrame()
     {
-        if(this.frames.isEmpty())
+        if (this.frames.isEmpty())
         {
             this.frames.add(new Frame(true));
         }
         else
         {
             Frame lastKeyFrame = this.frames.get(this.frames.size() - 1);
-            
+
             //ajout des subFrames
-            for(int i = 1; i < (Strategy.framePerSecond / Strategy.keyFramePerSecond); i++)
+            for (int i = 1; i < (Strategy.framePerSecond / Strategy.keyFramePerSecond); i++)
             {
                 Frame subFrame = new Frame(lastKeyFrame);
                 subFrame.setKeyFrame(false);
                 this.frames.add(subFrame);
             }
-            
+
             this.frames.add(new Frame(lastKeyFrame));
         }
     }
-    
+
     public boolean isLastFrame()
     {
         return this.currentFrameIdx == this.frames.size() - 1;
     }
-    
+
     public Frame getCurrentFrame()
     {
         return this.frames.get(this.currentFrameIdx);
     }
-    
+
     /**
      * Retourne la frame précédant la frame courrante. Si la frame courante est la première frame, retourne celle-ci.
+     *
      * @return La frame précédente.
      */
     public Frame previousFrame()
     {
-        if(this.currentFrameIdx != 0)
+        if (this.currentFrameIdx != 0)
         {
             this.currentFrameIdx--;
         }
         return this.frames.get(this.currentFrameIdx);
     }
-    
+
     /**
      * Retourne la frame suivant la frame courante. Si la frame courante est la dernière frame, retourne celle-ci.
+     *
      * @return La frame suivante.
      */
     public Frame nextFrame()
     {
-        if(!this.isLastFrame())
+        if (!this.isLastFrame())
         {
             this.currentFrameIdx++;
         }
         return this.frames.get(this.currentFrameIdx);
     }
-    
+
     /**
      * Permet de modifier la frame courant selon un delta de temps, en secondes, précis aux dixièmes de secondes.
+     *
      * @param delta La longueur du saut entre les frames, en secondes.
      */
     public void changeCurrentFrame(float delta)
     {
-        this.currentFrameIdx += Math.round(delta * 10) * Strategy.framePerSecond / 10; //bond précis au 1/10 de secondes 
+        this.currentFrameIdx += Math.round(
+                delta * 10) * Strategy.framePerSecond / 10; //bond précis au 1/10 de secondes
     }
-    
+
     /**
      * Place l'index de la frame courante à la première frame.
      */
@@ -170,7 +176,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.currentFrameIdx = 0;
     }
-    
+
     /**
      * Place l'index de la frame courante à la dernière frame.
      */
@@ -179,7 +185,7 @@ public class Strategy implements Serializable, TreeViewable
         this.currentFrameIdx = this.frames.size() - 1;
     }
 
-    
+
     /*
      * Gestion des équipes
      */
@@ -187,7 +193,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.teams.put(teamName, new ArrayList<>());
     }
-    
+
     public void removeTeam(String teamName)
     {
         this.teams.remove(teamName);
@@ -197,19 +203,19 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.teams.get(teamName).add(player);
     }
-    
+
     public void removeTeamPlayer(String teamName, Player player)
     {
         this.teams.get(teamName).remove(player);
     }
-    
+
     public void switchTeamPlayer(String oldTeamName, String newTeamName, Player player)
     {
         this.addTeamPlayer(newTeamName, player);
         this.removeTeamPlayer(oldTeamName, player);
     }
-    
-    
+
+
     /*
      * Gestion des GameObjects
      */
@@ -220,52 +226,53 @@ public class Strategy implements Serializable, TreeViewable
         this.getCurrentFrame().addGameObject(gameObject, gameObjectState);
         return gameObject.getId();
     }
-    
+
     public Integer addPlayer(Vector position, float orientation, Vector dimensions)
     {
         Player player = new Player();
         return this.addGameObject(player, position, orientation, dimensions);
     }
-    
+
     public Integer addProjectile(Vector position, float orientation, Vector dimensions)
     {
         Projectile projectile = new Projectile();
         return this.addGameObject(projectile, position, orientation, dimensions);
     }
-    
+
     public Integer addObstacle(Obstacle obstacle, Vector position, float orientation, Vector dimensions)
     {
         return this.addGameObject(obstacle, position, orientation, dimensions);
     }
-    
+
     public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
         this.getCurrentFrame().placeGameObject(gameObject, position, orientation, dimensions);
-        if(this.currentFrameIdx != 0)
+        if (this.currentFrameIdx != 0)
         {
             int nbFrames = Strategy.framePerSecond / Strategy.keyFramePerSecond;
             int previousKeyFrameId = this.currentFrameIdx - nbFrames;
             Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
-            
+
             double posDeltaX = (position.getX() - previousKeyFrame.getPosition(gameObject).getX()) / nbFrames;
             double posDeltaY = (position.getY() - previousKeyFrame.getPosition(gameObject).getY()) / nbFrames;
             float deltaOrientation = (orientation - previousKeyFrame.getOrientation(gameObject)) / nbFrames;
             double dimDeltaX = (dimensions.getX() - previousKeyFrame.getDimensions(gameObject).getX()) / nbFrames;
             double dimDeltaY = (dimensions.getY() - previousKeyFrame.getDimensions(gameObject).getY()) / nbFrames;
-            
-            for(int i = 1; i < nbFrames; i++)
+
+            for (int i = 1; i < nbFrames; i++)
             {
                 Frame subFrame = this.getFrame(this.currentFrameIdx + i);
                 Vector p = subFrame.getPosition(gameObject);
                 float o = subFrame.getOrientation(gameObject);
                 Vector d = subFrame.getDimensions(gameObject);
-                subFrame.placeGameObject(gameObject, new Vector(p.getX() + i*posDeltaX, p.getY() + i*posDeltaY),
-                        o + i*deltaOrientation, new Vector(d.getX() + i*dimDeltaX, d.getY() + i*dimDeltaY));
+                subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
+                                         o + i * deltaOrientation,
+                                         new Vector(d.getX() + i * dimDeltaX, d.getY() + i * dimDeltaY));
             }
         }
     }
-    
-    
+
+
     /*
      * Autre méthodes
      */
@@ -273,12 +280,12 @@ public class Strategy implements Serializable, TreeViewable
     {
         return this.sport.validatePosition(position);
     }
-    
+
     public GameObject getGameObjectByCoordinate(Vector coordinate)
     {
         return this.getCurrentFrame().getGameObjectByCoordinate(coordinate);
     }
-    
+
     @Override
     public String toString()
     {
@@ -286,7 +293,7 @@ public class Strategy implements Serializable, TreeViewable
         int i = 0;
         for (Frame f : this.frames)
         {
-            repr += "FID: " + i + " -- " +  f.toString();
+            repr += "FID: " + i + " -- " + f.toString();
             i++;
         }
 
