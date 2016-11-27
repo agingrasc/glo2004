@@ -15,7 +15,7 @@ public class TestTeam
     @Before
     public void setUp()
     {
-        this.team = new Team(6, false);
+        this.team = new Team(6, false, "0x0000FF");
         this.player = new Player("Foo", "Centre", 13);
     }
 
@@ -30,7 +30,7 @@ public class TestTeam
     @Test(expected = MaxNumberException.class)
     public void testAddPlayerCheck() throws MaxNumberException
     {
-        this.team = new Team(1, true);
+        this.team = new Team(1, true, "0x0000FF");
         this.team.addPlayer(this.player);
         Player nPlayer = new Player("Fubar", "Fubar", 42);
         this.team.addPlayer(nPlayer);

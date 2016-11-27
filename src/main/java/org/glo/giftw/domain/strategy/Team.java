@@ -15,17 +15,19 @@ public class Team implements Serializable
     private Set<Player> players;
     private int maxNumberOfPlayers;
     private boolean checkMaxNumberOfPlayers;
+    private String colour;
 
-    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers)
+    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, String colour)
     {
         this.players = new HashSet<>();
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.checkMaxNumberOfPlayers = checkMaxNumberOfPlayers;
+        this.colour = colour;
     }
 
-    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, Set<Player> players)
+    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, String color, Set<Player> players)
     {
-        this(maxNumberOfPlayers, checkMaxNumberOfPlayers);
+        this(maxNumberOfPlayers, checkMaxNumberOfPlayers, color);
         this.players = new HashSet<>(players);
     }
 
@@ -61,5 +63,15 @@ public class Team implements Serializable
     public void setCheckMaxNumberOfPlayers(boolean checkMaxNumberOfPlayers)
     {
         this.checkMaxNumberOfPlayers = checkMaxNumberOfPlayers;
+    }
+
+    public String getColour()
+    {
+        return colour;
+    }
+
+    public void setColour(String colour)
+    {
+        this.colour = colour;
     }
 }

@@ -129,9 +129,19 @@ public class Controller
         return this.currentStrategy.addProjectile(position, orientation, dimensions);
     }
 
-    public void addTeam(String teamName) throws MaxNumberException
+    public void addTeam(String teamName, String colour) throws MaxNumberException
     {
-        this.currentStrategy.addTeam(teamName);
+        this.currentStrategy.addTeam(teamName, colour);
+    }
+    
+    public String getTeamColour(String teamName)
+    {
+        return this.currentStrategy.getTeamColour(teamName);
+    }
+    
+    public void setTeamColour(String teamName, String colour)
+    {
+        this.currentStrategy.setTeamColour(teamName, colour);
     }
 
     public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, float zoomLevel)

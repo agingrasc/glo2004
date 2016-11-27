@@ -225,14 +225,14 @@ public class Strategy implements Serializable, TreeViewable
     /*
      * Gestion des équipes
      */
-    public void addTeam(String teamName) throws MaxNumberException
+    public void addTeam(String teamName, String colour) throws MaxNumberException
     {
         if (!teamName.equals("default"))
         {
             this.removeTeam("default");
         }
 
-        Team team = new Team(this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer);
+        Team team = new Team(this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer, colour);
 
         if (!this.checkMaxNumberTeam || this.teams.size() < this.sport.getMaxTeams())
         {
@@ -273,6 +273,16 @@ public class Strategy implements Serializable, TreeViewable
         this.addTeamPlayer(newTeamName, player);
         this.removeTeamPlayer(oldTeamName, player);
     }
+    
+    public String getTeamColour(String teamName)
+    {
+        return this.teams.get(teamName).getColour();
+    }
+    
+    public void setTeamColour(String teamName, String colour)
+    {
+        this.teams.get(teamName).setColour(colour);
+    }
 
 
     /*
@@ -294,7 +304,7 @@ public class Strategy implements Serializable, TreeViewable
         {
             if (this.teams.get("default") == null)
             {
-                this.addTeam("default");
+                this.addTeam("default", "0x0000FF");
             }
             team = "default";
         }
