@@ -210,7 +210,7 @@ public class ItemsAccordionController
 		        {
 			        public ObservableValue<String> call(CellDataFeatures<Projectile, String> p)
 			        {
-				        return new ReadOnlyObjectWrapper<String>(p.getValue().getProjectileImagePath());
+				        return new ReadOnlyObjectWrapper<String>(p.getValue().getImagePath());
 			        }
 		        });
 
@@ -239,8 +239,8 @@ public class ItemsAccordionController
 	
 	public void updateProjectilesTable()
 	{
-		teams.clear();
-		teams.addAll(Controller.getInstance().getProjectile());
+		projectiles.clear();
+		projectiles.add(Controller.getInstance().getProjectile());
 	}
 	
 	public void updateAllTables()
