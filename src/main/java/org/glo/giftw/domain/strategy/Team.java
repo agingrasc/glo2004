@@ -1,4 +1,4 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 

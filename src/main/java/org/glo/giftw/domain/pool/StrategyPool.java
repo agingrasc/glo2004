@@ -1,6 +1,8 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.pool;
 
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
+import org.glo.giftw.domain.strategy.Sport;
+import org.glo.giftw.domain.strategy.Strategy;
 
 import java.util.Collection;
 import java.util.HashMap;

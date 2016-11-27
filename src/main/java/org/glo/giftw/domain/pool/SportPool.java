@@ -1,12 +1,13 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.pool;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.glo.giftw.domain.Sport;
-import org.glo.giftw.domain.Field;
+import org.glo.giftw.domain.strategy.Field;
+import org.glo.giftw.domain.strategy.Sport;
+import org.glo.giftw.domain.util.Vector;
 
 /**
  * Conteneur permettant de conserver les types de sports créés
@@ -33,8 +34,8 @@ public class SportPool extends ObjectPool
         }
     }
 
-    public void addSport(String name, List<String> roles, Vector dimension, String fieldImagePath, 
-            String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
+    public void addSport(String name, List<String> roles, Vector dimension, String fieldImagePath,
+                         String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
     {
         Field field = new Field(dimension, fieldImagePath);
         Sport sport = new Sport(name, roles, field, projectileName, projectileImagePath, maxPLayersPerTeam, maxTeams);

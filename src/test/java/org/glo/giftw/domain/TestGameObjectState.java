@@ -1,5 +1,7 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.strategy.GameObjectState;
+import org.glo.giftw.domain.util.Vector;
 import org.junit.Before;
 import org.junit.Test;
 

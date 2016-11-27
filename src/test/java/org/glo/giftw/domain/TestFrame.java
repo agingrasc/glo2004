@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.strategy.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,18 +28,18 @@ public class TestFrame
         playerOne = new Player("Foo", "Goaler", 13);
         gosP1 = new GameObjectState();        
         playerTwo = new Player("Bar", "Ailier", 42);
-        gosP2 = new GameObjectState(new Vector(1500, 3000), 0, new Vector(1, 1));
+        gosP2 = new GameObjectState(new org.glo.giftw.domain.util.Vector(1500, 3000), 0, new org.glo.giftw.domain.util.Vector(1, 1));
         
         obsOne = new Obstacle();
         gosO1 = new GameObjectState();
         obsTwo = new Obstacle();
         gosO2 = new GameObjectState();
         obsThree = new Obstacle();
-        gosO3 = new GameObjectState(new Vector(1500, 3000), 0, new Vector(1, 1));
+        gosO3 = new GameObjectState(new org.glo.giftw.domain.util.Vector(1500, 3000), 0, new org.glo.giftw.domain.util.Vector(1, 1));
         obsNo = new Obstacle();
-        gosNo = new GameObjectState(new Vector(500, 700), 0, new Vector());
+        gosNo = new GameObjectState(new org.glo.giftw.domain.util.Vector(500, 700), 0, new org.glo.giftw.domain.util.Vector());
         obsNoTwo = new Obstacle();
-        gosNo2 = new GameObjectState(new Vector(700, 120), 0, new Vector());
+        gosNo2 = new GameObjectState(new org.glo.giftw.domain.util.Vector(700, 120), 0, new org.glo.giftw.domain.util.Vector());
 
         frame = new Frame();
         frame.addGameObject(playerOne, gosP1);

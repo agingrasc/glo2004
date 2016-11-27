@@ -1,4 +1,4 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.pool;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
-import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Controller;
 
 import java.io.File;
 import java.io.IOException;

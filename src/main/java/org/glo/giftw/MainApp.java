@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.view.FXMLPaths;
 import org.glo.giftw.view.RootLayoutController;
 

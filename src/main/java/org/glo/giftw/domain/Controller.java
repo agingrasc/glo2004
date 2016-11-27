@@ -1,9 +1,13 @@
-package org.glo.giftw.controller;
+package org.glo.giftw.domain;
 
-import org.glo.giftw.domain.*;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
+import org.glo.giftw.domain.pool.ObstaclePool;
+import org.glo.giftw.domain.pool.SportPool;
+import org.glo.giftw.domain.pool.StrategyPool;
+import org.glo.giftw.domain.strategy.*;
+import org.glo.giftw.domain.util.Vector;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -166,9 +170,9 @@ public class Controller
         return this.strategyPool.getAllStrategies();
     }
 
-    public String getPlayerTeam(Player player)
+    public String getPlayerTeam(GameObject player)
     {
-        return this.currentStrategy.getPlayerTeam(player);
+        return this.currentStrategy.getPlayerTeam((Player) player);
     }
 
     public void openStrategy(String strategyName) throws StrategyNotFound
