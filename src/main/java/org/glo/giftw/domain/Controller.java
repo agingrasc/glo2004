@@ -134,6 +134,11 @@ public class Controller
         this.currentStrategy.addTeam(teamName, colour);
     }
     
+    public Collection<Team> getTeams()
+    {
+        return this.currentStrategy.getTeams();
+    }
+    
     public String getTeamColour(String teamName)
     {
         return this.currentStrategy.getTeamColour(teamName);

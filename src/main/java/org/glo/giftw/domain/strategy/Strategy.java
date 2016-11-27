@@ -7,6 +7,7 @@ import org.glo.giftw.domain.util.Vector;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -89,6 +90,11 @@ public class Strategy implements Serializable, TreeViewable
     public Frame getFrame(int frameId)
     {
         return this.frames.get(frameId);
+    }
+    
+    public Collection<Team> getTeams()
+    {
+        return this.teams.values();
     }
 
     public List<Player> getTeamPlayers(String teamName)
