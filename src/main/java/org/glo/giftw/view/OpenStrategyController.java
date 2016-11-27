@@ -123,6 +123,11 @@ public class OpenStrategyController
 		}
 	}
 
+	public TreeTableView<TreeViewable> getTreeTableView()
+	{
+		return treeTableView;
+	}
+
 	public VBox getRootVBox()
 	{
 		return rootVBox;

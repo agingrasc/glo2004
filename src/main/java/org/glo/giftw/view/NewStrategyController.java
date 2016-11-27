@@ -54,6 +54,7 @@ public class NewStrategyController
 			String selectedSport = sportsComboBox.getValue();
 			Controller.getInstance().createStrategy(stratName, selectedSport, maxPlayers.isSelected(), maxTeams.isSelected());
 			RootLayoutController.getInstance().getOpenStrategyController().updateTree();
+			RootLayoutController.getInstance().imageByImage();
 		}
 	}
 }

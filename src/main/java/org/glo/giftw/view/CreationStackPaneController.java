@@ -1,5 +1,10 @@
 package org.glo.giftw.view;
 
+import java.io.IOException;
+
+import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Strategy;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -16,9 +21,14 @@ public class CreationStackPaneController
 	
 	@FXML
 	private VBox vBox;
-	
+    
+    private Strategy strategy;
+    
     @FXML
-    private Pane pane;
+	private void initialize() throws IOException
+	{
+    	displayNewFrame();
+	}
 
 	@FXML
 	void onDragOver(DragEvent event)
@@ -54,9 +64,19 @@ public class CreationStackPaneController
 	{
 		vBox.setVisible(false);
 	}
+	
+	private void displayNewFrame()
+	{
+		Controller.getInstance().createNewFrame();
+	}
 
 	public StackPane getRootStackPane()
 	{
 		return rootStackPane;
+	}
+
+	public void setStrategy(Strategy strategy)
+	{
+		this.strategy = strategy;
 	}
 }
