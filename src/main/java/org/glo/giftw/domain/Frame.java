@@ -49,7 +49,7 @@ public class Frame implements Serializable
         this.gameObjects.remove(gameObject);
     }
     
-    public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
+    public void placeGameObject(GameObject gameObject, org.glo.giftw.domain.util.Vector position, float orientation, org.glo.giftw.domain.util.Vector dimensions)
     {
         GameObjectState gameObjectState = this.gameObjects.get(gameObject);
         gameObjectState.setPosition(position);
@@ -110,7 +110,7 @@ public class Frame implements Serializable
         return repr;
     }
     
-    public GameObject getGameObjectByCoordinate(Vector coordinate)
+    public GameObject getGameObjectByCoordinate(org.glo.giftw.domain.util.Vector coordinate)
     {
         for(Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
         {
@@ -122,7 +122,7 @@ public class Frame implements Serializable
         return null;
     }
     
-    public Vector getPosition(GameObject gameObject)
+    public org.glo.giftw.domain.util.Vector getPosition(GameObject gameObject)
     {
         return this.gameObjects.get(gameObject).getPosition();
     }
@@ -132,7 +132,7 @@ public class Frame implements Serializable
         return this.gameObjects.get(gameObject).getOrientation();
     }
     
-    public Vector getDimensions(GameObject gameObject)
+    public org.glo.giftw.domain.util.Vector getDimensions(GameObject gameObject)
     {
         return this.gameObjects.get(gameObject).getDimensions();
     }

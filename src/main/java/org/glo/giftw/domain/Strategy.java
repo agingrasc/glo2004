@@ -2,6 +2,7 @@ package org.glo.giftw.domain;
 
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
+import org.glo.giftw.domain.util.Vector;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.util;
 
 import java.lang.Math;
 import java.io.Serializable;

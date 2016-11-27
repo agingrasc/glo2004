@@ -1,6 +1,6 @@
 package org.glo.giftw.domain;
 
-import org.glo.giftw.domain.Vector;
+import org.glo.giftw.domain.util.Vector;
 
 public class VectorFactory
 {
