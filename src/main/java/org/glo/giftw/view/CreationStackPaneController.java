@@ -57,11 +57,13 @@ public class CreationStackPaneController
 		stackPane.setBackground(new Background(new BackgroundImage(sportFieldImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,bgSize)));
 		stackPane.setPrefSize(scrollPane.getWidth(),scrollPane.getHeight());
 
+		//FIXME: trouver dynamiquement la taille restreignante
 		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
-		double width = sportFieldImage.getWidth();
-		double height = stackPane.getHeight();
-		System.out.println(String.format("RatioPixelTounit -- width: %f -- height: %f", width, height));
-		this.ratioPixelToUnit = new Vector(width/fieldDimensions.getX(), height/fieldDimensions.getY());
+		double adjustedHeight = stackPane.getPrefHeight();
+		double imgHeight = sportFieldImage.getHeight();
+		double ratio = adjustedHeight/imgHeight;
+		double adjustedWidth = sportFieldImage.getWidth() * ratio;
+		this.ratioPixelToUnit = new Vector(adjustedWidth/fieldDimensions.getX(), adjustedHeight/fieldDimensions.getY());
 
 		createCurrentGroup();
 	}
