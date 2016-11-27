@@ -28,14 +28,14 @@ public class Sport implements Serializable, TreeViewable
     }
 
     public Sport(String name, List<String> roles, Field field, String projectileName, String projectileImagePath,
-                 int maxPLayersPerTeam, int maxTeams)
+                 int maxPlayersPerTeam, int maxTeams)
     {
         this.name = name;
         this.roles = new ArrayList<String>(roles);
         this.field = field;
         this.projectileName = projectileName;
         this.projectileImagePath = projectileImagePath;
-        this.maxPLayersPerTeam = maxPLayersPerTeam;
+        this.maxPLayersPerTeam = maxPlayersPerTeam;
         this.maxTeams = maxTeams;
     }
 
@@ -104,7 +104,7 @@ public class Sport implements Serializable, TreeViewable
         this.projectileImagePath = projectileImagePath;
     }
 
-    public int getMaxPLayersPerTeam()
+    public int getMaxPlayersPerTeam()
     {
         return maxPLayersPerTeam;
     }

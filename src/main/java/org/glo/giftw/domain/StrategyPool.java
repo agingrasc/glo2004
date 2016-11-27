@@ -1,5 +1,7 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.exceptions.StrategyNotFound;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,69 +13,77 @@ public class StrategyPool extends ObjectPool
 {
     public static final long serialVersionUID = 1L;
     public static final String STRATEGY_POOL_PATH = "./data/strategy_pool.ser";
-    
+
     private HashMap<String, Strategy> strategies;
-    
+
     public StrategyPool()
     {
         this(true);
     }
-    
+
     public StrategyPool(boolean persistent)
     {
         super(persistent);
         strategies = new HashMap<>();
-        if(persistent)
+        if (persistent)
         {
             this.loadObjectPool(STRATEGY_POOL_PATH);
         }
     }
-    
-    public Strategy addStrategy(String name, Sport sport, boolean activateMaxNumberPlayer, boolean activateMaxNumberTeam)
+
+    public Strategy addStrategy(String name, Sport sport, boolean activateMaxNumberPlayer,
+                                boolean activateMaxNumberTeam)
     {
         Strategy strat = new Strategy(name, sport, activateMaxNumberPlayer, activateMaxNumberTeam);
         this.strategies.put(name, strat);
-        if(this.persistent)
+        if (this.persistent)
         {
             this.saveObjectPool(STRATEGY_POOL_PATH);
         }
         return strat;
     }
-    
+
     public void deleteStrategy(String name)
     {
         this.strategies.remove(name);
-        if(this.persistent)
+        if (this.persistent)
         {
             this.saveObjectPool(STRATEGY_POOL_PATH);
         }
     }
-    
-    public Strategy getStrategy(String name)
+
+    public Strategy getStrategy(String name) throws StrategyNotFound
     {
-        return this.strategies.get(name);
+        try
+        {
+            return this.strategies.get(name);
+        }
+        catch (NullPointerException e)
+        {
+            throw new StrategyNotFound(String.format("La strategie %s n'existe pas.", name), e);
+        }
     }
-    
+
     public Collection<Strategy> getAllStrategies()
     {
         return this.strategies.values();
     }
-    
+
     /**
      * Méthode publique permettant de sauvegarder le StrategyPool après avoir modifiée une stratégie.
      */
     public void save()
     {
-        if(this.persistent)
+        if (this.persistent)
         {
             this.saveObjectPool(STRATEGY_POOL_PATH);
         }
     }
-    
+
     @Override
     protected void copy(ObjectPool op)
     {
-        StrategyPool tmp = (StrategyPool)op;
+        StrategyPool tmp = (StrategyPool) op;
         this.strategies = tmp.strategies;
     }
 
@@ -85,7 +95,7 @@ public class StrategyPool extends ObjectPool
         {
             ret += entry.getKey() + ": " + entry.getValue().getSport().getName() + "\n";
         }
-        
+
         return ret;
     }
 }

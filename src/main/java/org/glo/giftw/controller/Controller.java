@@ -1,6 +1,9 @@
 package org.glo.giftw.controller;
 
 import org.glo.giftw.domain.*;
+import org.glo.giftw.domain.exceptions.MaxNumberException;
+import org.glo.giftw.domain.exceptions.StrategyNotFound;
+import org.glo.giftw.domain.exceptions.TeamNotFound;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,7 +16,7 @@ public class Controller
     private ObstaclePool obstaclePool;
     private StrategyPool strategyPool;
 
-    private Strategy currentStrategy;
+    protected Strategy currentStrategy;
 
     private static Controller INSTANCE = null;
 
@@ -89,7 +92,8 @@ public class Controller
      * @param dimensions  Les dimensions initiales du joueur.
      * @return L'id du joueur nouvellement créé.
      */
-    public Integer addPlayer(Vector position, float orientation, Vector dimensions, String team)
+    public GameObject addPlayer(Vector position, float orientation, Vector dimensions,
+                                String team) throws TeamNotFound, MaxNumberException
     {
         return this.currentStrategy.addPlayer(position, orientation, dimensions, team);
     }
@@ -102,7 +106,7 @@ public class Controller
      * @param dimensions  Les dimensions initiales de l'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public Integer addObstacle(String name, Vector position, float orientation, Vector dimensions)
+    public GameObject addObstacle(String name, Vector position, float orientation, Vector dimensions)
     {
         Obstacle obstacle = this.obstaclePool.create(name);
         return this.currentStrategy.addObstacle(obstacle, position, orientation, dimensions);
@@ -116,9 +120,14 @@ public class Controller
      * @param dimensions  Les dimensions initiales du projectile.
      * @return L'id du projectile nouvellement créé.
      */
-    public Integer addProjectile(Vector position, float orientation, Vector dimensions)
+    public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
     {
         return this.currentStrategy.addProjectile(position, orientation, dimensions);
+    }
+
+    public void addTeam(String teamName) throws MaxNumberException
+    {
+        this.currentStrategy.addTeam(teamName);
     }
 
     public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, float zoomLevel)
@@ -160,6 +169,12 @@ public class Controller
     public String getPlayerTeam(Player player)
     {
         return this.currentStrategy.getPlayerTeam(player);
+    }
+
+    public void openStrategy(String strategyName) throws StrategyNotFound
+    {
+        Strategy strategy = this.strategyPool.getStrategy(strategyName);
+        this.currentStrategy = strategy;
     }
 
     public void setCheckMaxNumberTeam(boolean checkMaxNumberTeam)
