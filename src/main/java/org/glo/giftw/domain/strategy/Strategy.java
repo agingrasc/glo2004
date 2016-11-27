@@ -330,7 +330,7 @@ public class Strategy implements Serializable, TreeViewable
 
             for (int i = 1; i < nbFrames; i++)
             {
-                Frame subFrame = this.getFrame(this.currentFrameIdx + i);
+                Frame subFrame = this.getFrame(previousKeyFrameId + i);
                 Vector p = subFrame.getPosition(gameObject);
                 float o = subFrame.getOrientation(gameObject);
                 Vector d = subFrame.getDimensions(gameObject);
