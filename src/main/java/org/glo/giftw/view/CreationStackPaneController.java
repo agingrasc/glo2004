@@ -75,7 +75,8 @@ public class CreationStackPaneController
 	{
 		Controller.getInstance().createNewFrame();
 		currentPane = new Pane();
-		rootStackPane.setBackground(new Background(new BackgroundImage(new Image(Controller.getInstance().))));
+		Image sportFieldImage = new Image(Controller.getInstance().getSportFieldImagePath());
+		rootStackPane.setBackground(new Background(new BackgroundImage(sportFieldImage,null,null,null,null)));
 		rootStackPane.getChildren().add(currentPane);
 		
 	}
