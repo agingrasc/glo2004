@@ -314,7 +314,7 @@ public class Strategy implements Serializable, TreeViewable
 
     public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
     {
-        Projectile projectile = new Projectile();
+        Projectile projectile = new Projectile(this.sport.getProjectile());
         return this.addGameObject(projectile, position, orientation, dimensions);
     }
 

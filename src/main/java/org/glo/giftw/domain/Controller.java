@@ -169,6 +169,11 @@ public class Controller
     {
         return this.currentStrategy.getFieldImagePath();
     }
+    
+    public Projectile getProjectile()
+    {
+        return this.currentStrategy.getSport().getProjectile();
+    }
 
     public Collection<Obstacle> getObstacles()
     {
