@@ -356,6 +356,11 @@ public class Strategy implements Serializable, TreeViewable
         return this.getCurrentFrame().getGameObjectByCoordinate(coordinate);
     }
 
+    public String getFieldImagePath()
+    {
+        return this.sport.getFieldImagePath();
+    }
+
     @Override
     public String toString()
     {
