@@ -9,7 +9,7 @@ public class Field implements Serializable
     public static final long serialVersionUID = 1L;
 
     private Vector dimensions;
-    private int unitRatio;  //nombre d'unités par mètre
+    private double unitRatio;  //nombre d'unités par mètre
     private String imagePath;
 
     public Field()
@@ -22,7 +22,7 @@ public class Field implements Serializable
         this(dimensions, 100, fieldImagePath);
     }
     
-    public Field(Vector dimensions, int unitRatio, String fieldImagePath)
+    public Field(Vector dimensions, double unitRatio, String fieldImagePath)
     {
         this.dimensions = dimensions;
         this.unitRatio = unitRatio;
@@ -39,14 +39,15 @@ public class Field implements Serializable
         this.dimensions = dimensions;
     }
     
-    public int getUnitRatio()
+    public double getUnitRatio()
     {
         return this.unitRatio;
     }
     
-    public void setUnitRatio(int unitRatio)
+    public void setUnitRatio(Vector dimensionInPixel)
     {
-        this.unitRatio = unitRatio;
+        double ratio = this.getDimensions().getX() / dimensionInPixel.getX();
+        this.unitRatio = ratio;
     }
 
     public String getImagePath()
@@ -74,6 +75,16 @@ public class Field implements Serializable
 
     }
 
+    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        Vector fieldCoord = this.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        if (fieldCoord != null)
+        {
+            fieldCoord.mul(this.getUnitRatio());
+        }
+        return fieldCoord;
+    }
+
     public boolean validatePosition(Vector position)
     {
         return position.getX() >= 0 && position.getY() >= 0 &&
@@ -84,7 +95,7 @@ public class Field implements Serializable
     @Override
     public String toString()
     {
-        return "Dimension: " + this.dimensions.toString() + "\nUnit Ratio: " + Integer.toString(this.unitRatio) +
+        return "Dimension: " + this.dimensions.toString() + "\nUnit Ratio: " + Double.toString(this.unitRatio) +
                 "\nImage path: " + this.imagePath;
     }
     

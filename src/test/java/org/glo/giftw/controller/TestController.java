@@ -38,34 +38,6 @@ public class TestController
     }
 
     @Test
-    public void testConvertToRealCoordinateUnitRatio()
-    {
-        Vector coord = new Vector(500, 500);
-        double ratio = 1.0;
-        Vector expected = new Vector(500, 500);
-        Assert.assertTrue(expected.equals(controller.convertToRealCoordinate(coord, ratio)));
-
-    }
-
-    @Test
-    public void testConvertToRealCoordinateDoubleRatio()
-    {
-        Vector coord = new Vector(500, 500);
-        double ratio = 2.0;
-        Vector expected = new Vector(1000, 1000);
-        Assert.assertTrue(expected.equals(controller.convertToRealCoordinate(coord, ratio)));
-    }
-
-    @Test
-    public void testConvertToRealCoordinateHalfRatio()
-    {
-        Vector coord = new Vector(500, 500);
-        double ratio = 0.5;
-        Vector expected = new Vector(250, 250);
-        Assert.assertTrue(expected.equals(controller.convertToRealCoordinate(coord, ratio)));
-    }
-
-    @Test
     public void testAddPlayerDefaultTeam() throws TeamNotFound, MaxNumberException
     {
         Player player = (Player) this.controller.addPlayer(new Vector(), 0f, new Vector(), null);

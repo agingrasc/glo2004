@@ -30,6 +30,21 @@ public class Sport implements Serializable, TreeViewable
         this.maxTeams = 2;
     }
 
+    public double getUnitRatio()
+    {
+        return field.getUnitRatio();
+    }
+
+    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        return field.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
+    }
+
+    public void setUnitRatio(Vector dimensionInPixel)
+    {
+        field.setUnitRatio(dimensionInPixel);
+    }
+
     public Sport(String name, List<String> roles, Field field, String projectileName, String projectileImagePath,
                  int maxPlayersPerTeam, int maxTeams)
     {
