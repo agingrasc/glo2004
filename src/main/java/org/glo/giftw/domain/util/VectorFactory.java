@@ -1,4 +1,4 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.util;
 
 import org.glo.giftw.domain.util.Vector;
 

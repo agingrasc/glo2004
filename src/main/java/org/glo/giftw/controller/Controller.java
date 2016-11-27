@@ -1,9 +1,12 @@
 package org.glo.giftw.controller;
 
-import org.glo.giftw.domain.*;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
+import org.glo.giftw.domain.pool.ObstaclePool;
+import org.glo.giftw.domain.pool.SportPool;
+import org.glo.giftw.domain.pool.StrategyPool;
+import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
 
 import java.util.Collection;

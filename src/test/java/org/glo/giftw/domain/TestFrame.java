@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.strategy.*;
 import org.junit.Before;
 import org.junit.Test;
 

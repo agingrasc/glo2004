@@ -1,6 +1,8 @@
 package org.glo.giftw.domain;
 
 import org.glo.giftw.domain.exceptions.MaxNumberException;
+import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.strategy.Team;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

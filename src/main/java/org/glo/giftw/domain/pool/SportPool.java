@@ -1,10 +1,12 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.pool;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.glo.giftw.domain.strategy.Field;
+import org.glo.giftw.domain.strategy.Sport;
 import org.glo.giftw.domain.util.Vector;
 
 /**

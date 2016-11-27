@@ -1,4 +1,6 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.pool;
+
+import org.glo.giftw.domain.strategy.Obstacle;
 
 import java.util.Collection;
 import java.util.HashMap;

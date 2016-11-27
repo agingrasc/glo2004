@@ -1,5 +1,6 @@
-package org.glo.giftw.domain;
+package org.glo.giftw.domain.strategy;
 
+import org.glo.giftw.domain.TreeViewable;
 import org.glo.giftw.domain.util.Vector;
 
 import java.io.*;
