@@ -82,6 +82,11 @@ public class Sport implements Serializable, TreeViewable
         return field;
     }
 
+    public Vector getFieldDimensions()
+    {
+        return field.getDimensions();
+    }
+
     public void setField(Field field)
     {
         this.field = field;

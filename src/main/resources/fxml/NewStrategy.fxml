@@ -30,8 +30,8 @@
          <children>
             <Label text="Nom:" />
             <Label text="Sport:" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="strategyName" GridPane.columnIndex="1" />
+            <ComboBox fx:id="sportsComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <CheckBox fx:id="maxPlayers" mnemonicParsing="false" text="Activer le nombre maximum de joueurs par équipe" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
             <CheckBox fx:id="maxTeams" mnemonicParsing="false" text="Activer le nombre maximum d'équipes" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
          </children>

@@ -1,11 +1,11 @@
 package org.glo.giftw;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.glo.giftw.domain.Controller;
 import org.glo.giftw.view.FXMLPaths;
 import org.glo.giftw.view.RootLayoutController;
 
@@ -17,21 +17,20 @@ public class MainApp extends Application
 	public static final String TITLE = "VisuaLigue";
 
 	@Override
-	public void start(Stage primaryStage)
+	public void start(Stage primaryStage) throws IOException
 	{
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle(TITLE);
 		this.primaryStage.setMaximized(true);
 
 		initRootLayout();
+		RootLayoutController.getInstance().openStrategy();
 	}
 
 	public void initRootLayout()
 	{
 		try
 		{
-			Controller.getInstance();
-			System.out.println(Controller.getInstance().getSports());
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(FXMLPaths.ROOT_LAYOUT_PATH.toString()));
 			loader.setController(RootLayoutController.getInstance());

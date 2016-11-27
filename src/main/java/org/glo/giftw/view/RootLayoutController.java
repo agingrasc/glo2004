@@ -26,8 +26,6 @@ public class RootLayoutController
 	private ObstaclePropertiesPaneController obstaclePropertiesPaneController;
 	private OpenObstacleController openObstacleController;
 	private OpenObstacleToolBarController openObstacleToolBarController;
-	private OpenSportController openSportController;
-	private OpenSportToolBarController openSportToolBarController;
 	private OpenStrategyController openStrategyController;
 	private OpenStrategyToolBarController openStrategyToolBarController;
 	private PlayerPropertiesPaneController playerPropertiesPaneController;
@@ -57,12 +55,6 @@ public class RootLayoutController
 		return INSTANCE;
 	}
 
-	@FXML
-	private void initialize() throws IOException
-	{
-		openStrategy();
-	}
-
 	public void openObstacle() throws IOException
 	{
 		clearRootToolBar();
@@ -70,17 +62,6 @@ public class RootLayoutController
 		addToolBar(getOpenObstacleToolBarController().getRootToolBar());
 		borderPane.setLeft(null);
 		borderPane.setCenter(getOpenObstacleController().getRootVBox());
-		borderPane.setBottom(null);
-		borderPane.setRight(null);
-	}
-
-	public void openSport() throws IOException
-	{
-		clearRootToolBar();
-		addToolBar(getDefaultToolBarController().getRootToolBar());
-		addToolBar(getOpenSportToolBarController().getRootToolBar());
-		borderPane.setLeft(null);
-		borderPane.setCenter(getOpenSportController().getRootVBox());
 		borderPane.setBottom(null);
 		borderPane.setRight(null);
 	}
@@ -131,9 +112,12 @@ public class RootLayoutController
 		addToolBar(getModeToolBarController().getRootToolBar());
 		addToolBar(getCreationToolBarController().getRootToolBar());
 		borderPane.setLeft(getItemsAccordionController().getRootAccordion());
-		borderPane.setCenter(getCreationStackPaneController().getRootStackPane());
+		borderPane.setCenter(getCreationStackPaneController().getScrollPane());
 		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
 		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
+		borderPane.applyCss();
+		borderPane.layout();
+		getCreationStackPaneController().displayNewFrame();
 	}
 
 	public void realTime() throws IOException
@@ -143,7 +127,8 @@ public class RootLayoutController
 		addToolBar(getModeToolBarController().getRootToolBar());
 		addToolBar(getCreationToolBarController().getRootToolBar());
 		borderPane.setLeft(getItemsAccordionController().getRootAccordion());
-		borderPane.setCenter(getCreationStackPaneController().getRootStackPane());
+		borderPane.setCenter(getCreationStackPaneController().getScrollPane());
+		getCreationStackPaneController().displayNewFrame();
 		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
 		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
 	}
@@ -482,30 +467,6 @@ public class RootLayoutController
 		return openObstacleToolBarController;
 	}
 
-	public OpenSportController getOpenSportController() throws IOException
-	{
-		if (openSportController == null)
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_PATH.toString()));
-			loader.load();
-			this.openSportController = loader.getController();
-		}
-		return openSportController;
-	}
-
-	public OpenSportToolBarController getOpenSportToolBarController() throws IOException
-	{
-		if (openSportToolBarController == null)
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.OPEN_SPORT_TOOL_BAR_PATH.toString()));
-			loader.load();
-			this.openSportToolBarController = loader.getController();
-		}
-		return openSportToolBarController;
-	}
-
 	public OpenStrategyController getOpenStrategyController() throws IOException
 	{
 		if (openStrategyController == null)
@@ -552,5 +513,10 @@ public class RootLayoutController
 			this.projectilePropertiesPaneController = loader.getController();
 		}
 		return projectilePropertiesPaneController;
+	}
+
+	public BorderPane getBorderPane()
+	{
+		return borderPane;
 	}
 }

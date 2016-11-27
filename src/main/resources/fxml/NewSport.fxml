@@ -23,7 +23,7 @@
         <ButtonType fx:constant="FINISH" />
     </buttonTypes>
     <content>
-        <ScrollPane prefViewportHeight="300.0" prefViewportWidth="318.0" vvalue="0.66">
+        <ScrollPane prefViewportHeight="300.0" prefViewportWidth="318.0">
             <content>
                 <GridPane onKeyPressed="#onKeyPressed">
                     <columnConstraints>
