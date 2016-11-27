@@ -48,9 +48,9 @@ public class Field implements Serializable
         this.imagePath = imagePath;
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, float ratioPixelToUnit)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        assert ratioPixelToUnit > 0;
+        assert ratioPixelToUnit.getX() > 0 && ratioPixelToUnit.getY() > 0;
         Vector zoomAdjustedCoordinate = adjustedCoordinate.div(ratioPixelToUnit);
         if (this.validatePosition(zoomAdjustedCoordinate))
         {

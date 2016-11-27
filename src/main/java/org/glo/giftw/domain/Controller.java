@@ -144,9 +144,9 @@ public class Controller
         this.currentStrategy.setTeamColour(teamName, colour);
     }
 
-    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, float zoomLevel)
+    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, Vector ratioPixelToUnit)
     {
-        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate, zoomLevel);
+        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate, ratioPixelToUnit);
         return currentStrategy.getGameObjectByCoordinate(coordinate);
     }
 
@@ -206,9 +206,9 @@ public class Controller
         this.currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     /**

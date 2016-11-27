@@ -57,9 +57,9 @@ public class TestField
     public void testGetFieldCoordinateUnitZoom()
     {
         Vector coordInPixel = new Vector(500, 500);
-        float zoomLevel = 1.0f;
+        Vector ratioPixelToUnit = new Vector(1, 1);
         Vector expected = new Vector(500, 500);
-        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, zoomLevel)));
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit)));
 
     }
 
@@ -67,35 +67,35 @@ public class TestField
     public void testGetFieldCoordinateZoomIn()
     {
         Vector coordInPixel = new Vector(500, 500);
-        float zoomLevel = 2.0f;
+        Vector ratioPixelToUnit = new Vector(2, 2);
         Vector expected = new Vector(250, 250);
-        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, zoomLevel)));
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit)));
     }
 
     @Test
     public void testGetFieldCoordinateZoomOut()
     {
         Vector coordInPixel = new Vector(500, 500);
-        float zoomLevel = 0.5f;
+        Vector ratioPixelToUnit = new Vector(0.5, 0.5);
         Vector expected = new Vector(1000, 1000);
-        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, zoomLevel)));
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit)));
     }
 
     @Test
     public void testGetFieldCoordinateOutOfBound()
     {
         Vector coordInPixel = new Vector(-100, 200);
-        float zoomLevel = 1.0f;
-        assertNull(field.getFieldCoordinate(coordInPixel, zoomLevel));
+        Vector ratioPixelToUnit = new Vector(1, 1);
+        assertNull(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit));
     }
 
     @Test
     public void testGetRealFieldCoordinateUnitRatio()
     {
         Vector coord = new Vector(500, 500);
-        float zoomLevel = 1.0f;
+        Vector ratioPixelToUnit = new Vector(1, 1);
         Vector expected = new Vector(500, 500);
-        Assert.assertTrue(expected.equals(field.getFieldCoordinate(coord, zoomLevel)));
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(coord, ratioPixelToUnit)));
 
     }
     
@@ -103,7 +103,7 @@ public class TestField
     public void testGetFieldCoordinateNormalRatio()
     {
         Vector pixelCoord = new Vector(500, 500);
-        float ratioPixelToUnit = 1.0f;  //1 pixel per unit
+        Vector ratioPixelToUnit = new Vector(1, 1);  //1 pixel per unit
         Vector expected = new Vector(500, 500);
         Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
     }
@@ -112,7 +112,7 @@ public class TestField
     public void testGetFieldCoordinateDoubleRatio()
     {
         Vector pixelCoord = new Vector(500, 500);
-        float ratioPixelToUnit = 2.0f;  //2 pixels par unit
+        Vector ratioPixelToUnit = new Vector(2, 2);  //2 pixels par unit
         Vector expected = new Vector(250, 250);
         Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
     }
@@ -121,7 +121,7 @@ public class TestField
     public void testGetFieldCoordinateHalfRatio()
     {
         Vector pixelCoord = new Vector(500, 500);
-        float ratioPixelToUnit = 0.5f; //0.5 pixels per unit
+        Vector ratioPixelToUnit = new Vector(0.5, 0.5); //0.5 pixels per unit
         Vector expected = new Vector(1000, 1000);
         Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
     }
@@ -130,7 +130,7 @@ public class TestField
     public void testGetFieldCoordinateOutsideField()
     {
         Vector pixelCoord = new Vector(10000, 7000);
-        float ratioPixelToUnit = 1.0f;  //1 pixel per unit
+        Vector ratioPixelToUnit = new Vector(1, 1);  //1 pixel per unit
         Assert.assertEquals(null, field.getFieldCoordinate(pixelCoord, ratioPixelToUnit));
     }
 }

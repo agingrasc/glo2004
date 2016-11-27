@@ -123,9 +123,9 @@ public class Strategy implements Serializable, TreeViewable
     }
 
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        return this.sport.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return this.sport.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     //Logique des frames
