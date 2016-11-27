@@ -51,6 +51,7 @@ public class CreationStackPaneController
 			ImageView imageView = new ImageView(db.getImage());
 			imageView.setX(event.getX());
 			imageView.setY(event.getY());
+			
 			pane.getChildren().add(imageView);
 			success = true;
 		}
