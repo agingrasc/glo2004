@@ -30,6 +30,16 @@ public class Sport implements Serializable, TreeViewable
         this.maxTeams = 2;
     }
 
+    public double getUnitRatio()
+    {
+        return field.getUnitRatio();
+    }
+
+    public void setUnitRatio(double unitRatio)
+    {
+        field.setUnitRatio(unitRatio);
+    }
+
     public Sport(String name, List<String> roles, Field field, String projectileName, String projectileImagePath,
                  int maxPlayersPerTeam, int maxTeams)
     {
