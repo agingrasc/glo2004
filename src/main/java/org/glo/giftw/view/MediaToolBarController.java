@@ -14,6 +14,12 @@ public class MediaToolBarController
 	{
 		System.out.println("onActionPause");
 	}
+	
+	@FXML
+	void onActionStop(ActionEvent event)
+	{
+		System.out.println("onActionStop");
+	}
 
 	@FXML
 	void onActionPlay(ActionEvent event)
