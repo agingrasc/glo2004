@@ -29,6 +29,13 @@ public class GameObjectState
         this.dimensions = dimensions;
     }
     
+    public GameObjectState(GameObjectState gos)
+    {
+        this.position = new Vector(gos.position);
+        this.orientation = gos.orientation;
+        this.dimensions = new Vector(gos.dimensions);
+    }
+    
     public float getOrientation()
     {
         return this.orientation;
