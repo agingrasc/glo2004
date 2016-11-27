@@ -105,7 +105,7 @@ public class Player extends GameObject implements Serializable
                 ", Numero: " +
                 this.jerseyNumber +
                 ", Role: " +
-                this.role + "ID: " +
+                this.role + ", ID: " +
                 this.id.toString() + ")";
     }
 }
