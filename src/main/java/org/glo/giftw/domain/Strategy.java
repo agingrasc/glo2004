@@ -1,5 +1,8 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.exceptions.MaxNumberException;
+import org.glo.giftw.domain.exceptions.TeamNotFound;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +89,7 @@ public class Strategy implements Serializable, TreeViewable
         return this.frames.get(frameId);
     }
 
-    public List<Player> getTeam(String teamName)
+    public List<Player> getTeamPlayers(String teamName)
     {
         return this.teams.get(teamName).getPlayers();
     }
@@ -220,18 +223,23 @@ public class Strategy implements Serializable, TreeViewable
     /*
      * Gestion des équipes
      */
-    public void addTeam(String teamName)
+    public void addTeam(String teamName) throws MaxNumberException
     {
         if (!teamName.equals("default"))
         {
             this.removeTeam("default");
         }
 
-        Team team = new Team(this.sport.getMaxPLayersPerTeam(), this.checkMaxNumberPlayer);
+        Team team = new Team(this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer);
 
         if (!this.checkMaxNumberTeam || this.teams.size() < this.sport.getMaxTeams())
         {
             this.teams.put(teamName, team);
+        }
+        else
+        {
+            throw new MaxNumberException(
+                    String.format("Le nombre maximal d'equipe a ete atteint %d", this.sport.getMaxTeams()));
         }
     }
 
@@ -240,9 +248,16 @@ public class Strategy implements Serializable, TreeViewable
         this.teams.remove(teamName);
     }
 
-    public void addTeamPlayer(String teamName, Player player)
+    public void addTeamPlayer(String teamName, Player player) throws TeamNotFound, MaxNumberException
     {
-        this.teams.get(teamName).addPlayer(player);
+        try
+        {
+            this.teams.get(teamName).addPlayer(player);
+        }
+        catch (NullPointerException e)
+        {
+            throw new TeamNotFound(String.format("L'equipe %s n'existe pas", teamName), e);
+        }
     }
 
     public void removeTeamPlayer(String teamName, Player player)
@@ -250,7 +265,8 @@ public class Strategy implements Serializable, TreeViewable
         this.teams.get(teamName).removePlayer(player);
     }
 
-    public void switchTeamPlayer(String oldTeamName, String newTeamName, Player player)
+    public void switchTeamPlayer(String oldTeamName, String newTeamName,
+                                 Player player) throws TeamNotFound, MaxNumberException
     {
         this.addTeamPlayer(newTeamName, player);
         this.removeTeamPlayer(oldTeamName, player);
@@ -260,20 +276,21 @@ public class Strategy implements Serializable, TreeViewable
     /*
      * Gestion des GameObjects
      */
-    private Integer addGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
+    private GameObject addGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
     {
         GameObjectState gameObjectState = new GameObjectState(position, orientation, dimensions);
         this.gameObjects.add(gameObject);
         this.getCurrentFrame().addGameObject(gameObject, gameObjectState);
-        return gameObject.getId();
+        return gameObject;
     }
 
-    public Integer addPlayer(Vector position, float orientation, Vector dimensions, String team)
+    public GameObject addPlayer(Vector position, float orientation, Vector dimensions,
+                                String team) throws TeamNotFound, MaxNumberException
     {
         Player player = new Player();
         if (team == null)
         {
-            if (this.getTeam("default") == null)
+            if (this.teams.get("default") == null)
             {
                 this.addTeam("default");
             }
@@ -283,13 +300,13 @@ public class Strategy implements Serializable, TreeViewable
         return this.addGameObject(player, position, orientation, dimensions);
     }
 
-    public Integer addProjectile(Vector position, float orientation, Vector dimensions)
+    public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
     {
         Projectile projectile = new Projectile();
         return this.addGameObject(projectile, position, orientation, dimensions);
     }
 
-    public Integer addObstacle(Obstacle obstacle, Vector position, float orientation, Vector dimensions)
+    public GameObject addObstacle(Obstacle obstacle, Vector position, float orientation, Vector dimensions)
     {
         return this.addGameObject(obstacle, position, orientation, dimensions);
     }
@@ -330,6 +347,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         return this.sport.validatePosition(position);
     }
+
 
     public GameObject getGameObjectByCoordinate(Vector coordinate)
     {

@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,25 +18,25 @@ public class TestTeam
     }
 
     @Test
-    public void testAddPlayerNoCheck()
+    public void testAddPlayerNoCheck() throws MaxNumberException
     {
         Assert.assertFalse(this.team.isPlayerInTeam(player));
         this.team.addPlayer(this.player);
         Assert.assertTrue(this.team.isPlayerInTeam(this.player));
     }
 
-    @Test
-    public void testAddPlayerCheck()
+    @Test(expected = MaxNumberException.class)
+    public void testAddPlayerCheck() throws MaxNumberException
     {
         this.team = new Team(1, true);
         this.team.addPlayer(this.player);
         Player nPlayer = new Player("Fubar", "Fubar", 42);
         this.team.addPlayer(nPlayer);
-        Assert.assertFalse(this.team.isPlayerInTeam(nPlayer));
+        Assert.fail();
     }
 
     @Test
-    public void testRemovePlayer()
+    public void testRemovePlayer() throws MaxNumberException
     {
         this.team.addPlayer(this.player);
         Assert.assertTrue(this.team.isPlayerInTeam(this.player));

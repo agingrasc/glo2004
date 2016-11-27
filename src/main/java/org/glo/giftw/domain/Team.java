@@ -1,5 +1,7 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.exceptions.MaxNumberException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,11 +29,16 @@ public class Team implements Serializable
         this.players = new HashSet<>(players);
     }
 
-    public void addPlayer(Player player)
+    public void addPlayer(Player player) throws MaxNumberException
     {
         if (!this.checkMaxNumberOfPlayers || this.players.size() < maxNumberOfPlayers)
         {
             this.players.add(player);
+        }
+        else
+        {
+            throw new MaxNumberException(
+                    String.format("L'equipe contient le nombre maximal de joueur %d", this.maxNumberOfPlayers));
         }
     }
 
