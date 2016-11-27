@@ -2,8 +2,7 @@ package org.glo.giftw.view;
 
 import java.io.IOException;
 
-import org.glo.giftw.controller.Controller;
-import org.glo.giftw.domain.Strategy;
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.TreeViewable;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 

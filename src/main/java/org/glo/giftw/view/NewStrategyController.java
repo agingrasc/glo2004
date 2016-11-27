@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.glo.giftw.controller.Controller;
-import org.glo.giftw.domain.Sport;
+import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.strategy.Sport;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;

@@ -2,14 +2,17 @@ package org.glo.giftw.view;
 
 import java.io.IOException;
 
-import org.glo.giftw.controller.Controller;
-import org.glo.giftw.domain.Strategy;
+import org.glo.giftw.domain.Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -21,8 +24,11 @@ public class CreationStackPaneController
 	
 	@FXML
 	private VBox vBox;
-    
-    private Strategy strategy;
+	
+	private Pane currentPane;
+	
+	@FXML
+    private ScrollPane scrollPane;
     
     @FXML
 	private void initialize() throws IOException
@@ -51,8 +57,7 @@ public class CreationStackPaneController
 			ImageView imageView = new ImageView(db.getImage());
 			imageView.setX(event.getX());
 			imageView.setY(event.getY());
-			
-			pane.getChildren().add(imageView);
+			currentPane.getChildren().add(imageView);
 			success = true;
 		}
 		event.setDropCompleted(success);
@@ -69,15 +74,14 @@ public class CreationStackPaneController
 	private void displayNewFrame()
 	{
 		Controller.getInstance().createNewFrame();
+		currentPane = new Pane();
+		rootStackPane.setBackground(new Background(new BackgroundImage(new Image(Controller.getInstance().))));
+		rootStackPane.getChildren().add(currentPane);
+		
 	}
 
 	public StackPane getRootStackPane()
 	{
 		return rootStackPane;
-	}
-
-	public void setStrategy(Strategy strategy)
-	{
-		this.strategy = strategy;
 	}
 }
