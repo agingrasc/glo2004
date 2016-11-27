@@ -10,7 +10,7 @@
          <children>
             <Group fx:id="subGroup">
                <children>
-                  <StackPane fx:id="stackPane" prefHeight="0.0" prefWidth="0.0" />
+                  <StackPane fx:id="stackPane" onMouseMoved="#onMouseMoved" prefHeight="0.0" prefWidth="0.0" />
                </children>
             </Group>
          </children>
