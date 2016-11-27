@@ -12,23 +12,45 @@ public class Team implements Serializable
 {
     public final static long serialVersionUID = 0L;
 
+    private String name;
+    private String colour;
     private Set<Player> players;
     private int maxNumberOfPlayers;
     private boolean checkMaxNumberOfPlayers;
-    private String colour;
 
-    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, String colour)
+    public Team(String name, String colour, int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers)
     {
+        this.name = name;
+        this.colour = colour;
         this.players = new HashSet<>();
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.checkMaxNumberOfPlayers = checkMaxNumberOfPlayers;
-        this.colour = colour;
     }
 
-    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, String color, Set<Player> players)
+    public Team(String name, String colour, int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, Set<Player> players)
     {
-        this(maxNumberOfPlayers, checkMaxNumberOfPlayers, color);
+        this(name, colour, maxNumberOfPlayers, checkMaxNumberOfPlayers);
         this.players = new HashSet<>(players);
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getColour()
+    {
+        return colour;
+    }
+
+    public void setColour(String colour)
+    {
+        this.colour = colour;
     }
 
     public void addPlayer(Player player) throws MaxNumberException
@@ -63,15 +85,5 @@ public class Team implements Serializable
     public void setCheckMaxNumberOfPlayers(boolean checkMaxNumberOfPlayers)
     {
         this.checkMaxNumberOfPlayers = checkMaxNumberOfPlayers;
-    }
-
-    public String getColour()
-    {
-        return colour;
-    }
-
-    public void setColour(String colour)
-    {
-        this.colour = colour;
     }
 }

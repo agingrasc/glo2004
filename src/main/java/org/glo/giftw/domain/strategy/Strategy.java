@@ -232,7 +232,7 @@ public class Strategy implements Serializable, TreeViewable
             this.removeTeam("default");
         }
 
-        Team team = new Team(this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer, colour);
+        Team team = new Team(teamName, colour, this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer);
 
         if (!this.checkMaxNumberTeam || this.teams.size() < this.sport.getMaxTeams())
         {
