@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Team implements Serializable
 {
-    public final static long serialVersionUUID = 0L;
+    public final static long serialVersionUID = 0L;
 
     private Set<Player> players;
     private int maxNumberOfPlayers;

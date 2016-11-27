@@ -98,25 +98,39 @@ public class TestField
         Assert.assertTrue(expected.equals(field.getFieldCoordinate(coord, zoomLevel)));
 
     }
-
+    
     @Test
-    public void testGetRealFieldCoordinateDoubleRatio()
+    public void testGetFieldCoordinateNormalRatio()
     {
-        Vector coord = new Vector(500, 500);
-        float zoomLevel = 1.0f;
-        field.setUnitRatio(new Vector(4500, 3000));
-        Vector expected = new Vector(1000, 1000);
-        Assert.assertTrue(expected.equals(field.getRealFieldCoordinate(coord, zoomLevel)));
+        Vector pixelCoord = new Vector(500, 500);
+        float ratioPixelToUnit = 1.0f;  //1 pixel per unit
+        Vector expected = new Vector(500, 500);
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
     }
 
     @Test
-    public void testGetRealFieldCoordinateHalfRatio()
+    public void testGetFieldCoordinateDoubleRatio()
     {
-        Vector coord = new Vector(500, 500);
-        float zoomLevel = 1.0f;
-        field.setUnitRatio(new Vector(18000, 12000));
+        Vector pixelCoord = new Vector(500, 500);
+        float ratioPixelToUnit = 2.0f;  //2 pixels par unit
         Vector expected = new Vector(250, 250);
-        Assert.assertTrue(expected.equals(field.getRealFieldCoordinate(coord, zoomLevel)));
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
     }
 
+    @Test
+    public void testGetFieldCoordinateHalfRatio()
+    {
+        Vector pixelCoord = new Vector(500, 500);
+        float ratioPixelToUnit = 0.5f; //0.5 pixels per unit
+        Vector expected = new Vector(1000, 1000);
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
+    }
+    
+    @Test
+    public void testGetFieldCoordinateOutsideField()
+    {
+        Vector pixelCoord = new Vector(10000, 7000);
+        float ratioPixelToUnit = 1.0f;  //1 pixel per unit
+        Assert.assertEquals(null, field.getFieldCoordinate(pixelCoord, ratioPixelToUnit));
+    }
 }
