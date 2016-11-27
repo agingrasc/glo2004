@@ -30,6 +30,15 @@
             <MenuItem mnemonicParsing="false" text="8x" />
          </items>
       </SplitMenuButton>
+      <Button contentDisplay="TOP" layoutX="98.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionStop" text="Stop">
+         <graphic>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/video-player-stop-button.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
       <Button contentDisplay="TOP" layoutX="70.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionPause" text="Pause">
          <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
