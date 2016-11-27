@@ -1,25 +1,18 @@
 package org.glo.giftw.view;
 
-import java.io.File;
-import java.io.IOException;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.input.*;
-import org.glo.giftw.domain.Controller;
-
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.*;
+import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.util.Vector;
+
+import java.io.File;
+import java.io.IOException;
 
 public class CreationStackPaneController
 {
@@ -45,7 +38,8 @@ public class CreationStackPaneController
 	void onMouseMoved(MouseEvent event) throws IOException
 	{
 	    BottomToolBarController bottomToolBarController = RootLayoutController.getInstance().getBottomToolBarController();
-        bottomToolBarController.updateCoordinate(event, this.ratioPixelToUnit);
+	    Vector adjCoord = new Vector(event.getX(), event.getY());
+        bottomToolBarController.updateCoordinate(adjCoord, this.ratioPixelToUnit);
 	}
 
 	public void displayNewFrame()
