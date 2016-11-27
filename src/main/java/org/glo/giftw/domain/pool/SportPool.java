@@ -75,11 +75,6 @@ public class SportPool extends ObjectPool
         return ret;
     }
 
-    public String getFieldImagePath(String sportName)
-    {
-        return this.getSportByName(sportName).getFieldImagePath();
-    }
-
     public void setSportInfo(String name, List<String> roles, Vector dimensions, String fieldImagePath, 
             String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
     {

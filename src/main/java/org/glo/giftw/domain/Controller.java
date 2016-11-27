@@ -155,9 +155,9 @@ public class Controller
         return this.sportPool.getSportsDescription();
     }
 
-    public String getSportFieldImagePath(String sportName)
+    public String getSportFieldImagePath()
     {
-        return this.sportPool.getFieldImagePath(sportName);
+        return this.currentStrategy.getFieldImagePath();
     }
 
     public Collection<Obstacle> getObstacles()
