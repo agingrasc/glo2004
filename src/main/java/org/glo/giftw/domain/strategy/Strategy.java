@@ -123,9 +123,9 @@ public class Strategy implements Serializable, TreeViewable
     }
 
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        return sport.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return this.sport.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     //Logique des frames
@@ -225,14 +225,14 @@ public class Strategy implements Serializable, TreeViewable
     /*
      * Gestion des équipes
      */
-    public void addTeam(String teamName) throws MaxNumberException
+    public void addTeam(String teamName, String colour) throws MaxNumberException
     {
         if (!teamName.equals("default"))
         {
             this.removeTeam("default");
         }
 
-        Team team = new Team(this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer);
+        Team team = new Team(teamName, colour, this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer);
 
         if (!this.checkMaxNumberTeam || this.teams.size() < this.sport.getMaxTeams())
         {
@@ -273,6 +273,16 @@ public class Strategy implements Serializable, TreeViewable
         this.addTeamPlayer(newTeamName, player);
         this.removeTeamPlayer(oldTeamName, player);
     }
+    
+    public String getTeamColour(String teamName)
+    {
+        return this.teams.get(teamName).getColour();
+    }
+    
+    public void setTeamColour(String teamName, String colour)
+    {
+        this.teams.get(teamName).setColour(colour);
+    }
 
 
     /*
@@ -294,7 +304,7 @@ public class Strategy implements Serializable, TreeViewable
         {
             if (this.teams.get("default") == null)
             {
-                this.addTeam("default");
+                this.addTeam("default", "0x0000FF");
             }
             team = "default";
         }
@@ -330,7 +340,7 @@ public class Strategy implements Serializable, TreeViewable
 
             for (int i = 1; i < nbFrames; i++)
             {
-                Frame subFrame = this.getFrame(this.currentFrameIdx + i);
+                Frame subFrame = this.getFrame(previousKeyFrameId + i);
                 Vector p = subFrame.getPosition(gameObject);
                 float o = subFrame.getOrientation(gameObject);
                 Vector d = subFrame.getDimensions(gameObject);
@@ -356,14 +366,9 @@ public class Strategy implements Serializable, TreeViewable
         return this.getCurrentFrame().getGameObjectByCoordinate(coordinate);
     }
 
-    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldDimensions()
     {
-        return sport.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
-    }
-
-    public void setUnitRatio(Vector dimensionInPixel)
-    {
-        sport.setUnitRatio(dimensionInPixel);
+        return sport.getFieldDimensions();
     }
 
     public String getFieldImagePath()

@@ -35,16 +35,6 @@ public class Sport implements Serializable, TreeViewable
         return field.getUnitRatio();
     }
 
-    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
-    {
-        return field.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
-    }
-
-    public void setUnitRatio(Vector dimensionInPixel)
-    {
-        field.setUnitRatio(dimensionInPixel);
-    }
-
     public Sport(String name, List<String> roles, Field field, String projectileName, String projectileImagePath,
                  int maxPlayersPerTeam, int maxTeams)
     {
@@ -90,6 +80,11 @@ public class Sport implements Serializable, TreeViewable
     public Field getField()
     {
         return field;
+    }
+
+    public Vector getFieldDimensions()
+    {
+        return field.getDimensions();
     }
 
     public void setField(Field field)
@@ -168,9 +163,9 @@ public class Sport implements Serializable, TreeViewable
         return this.name;
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        return field.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return field.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     @Override

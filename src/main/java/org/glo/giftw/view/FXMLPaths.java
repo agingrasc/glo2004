@@ -20,8 +20,6 @@ public enum FXMLPaths
 	OPEN_LIST_ITEM("/fxml/OpenListItem.fxml"),
 	OPEN_OBSTACLE_PATH("/fxml/OpenObstacle.fxml"),
 	OPEN_OBSTACLE_TOOL_BAR_PATH("/fxml/OpenObstacleToolBar.fxml"),
-	OPEN_SPORT_PATH("/fxml/OpenSport.fxml"),
-	OPEN_SPORT_TOOL_BAR_PATH("/fxml/OpenSportToolBar.fxml"),
 	OPEN_STRATEGY_PATH("/fxml/OpenStrategy.fxml"),
 	OPEN_STRATEGY_TOOL_BAR_PATH("/fxml/OpenStrategyToolBar.fxml"),
 	PLAYER_PROPERTIES_PANE_PATH("/fxml/PlayerPropertiesPane.fxml"),

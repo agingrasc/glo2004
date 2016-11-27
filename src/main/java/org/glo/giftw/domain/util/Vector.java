@@ -94,22 +94,36 @@ public class Vector implements Serializable
         return this.x == rhd.x && this.y == rhd.y;
     }
 
-    public void mul(double multiplier)
+    //multiplication par une constante
+    public Vector mul(double multiplier)
     {
-        this.x *= multiplier;
-        this.y *= multiplier;
+        return new Vector(this.x * multiplier, this.y * multiplier);
+    }
+    
+    //multiplication par deux constantes idépendantes pour x et y
+    //ceci n'est pas un produit scalaire ou vectoriel
+    public Vector mul(Vector multiplier)
+    {
+        return new Vector(this.x * multiplier.x, this.y * multiplier.y);
     }
 
-    public void div(double divider)
+    //division par une constante
+    public Vector div(double divider)
     {
-        this.x /= divider;
-        this.y /= divider;
+        return new Vector(this.x / divider, this.y / divider);
+    }
+    
+    //division par deux constantes idépendantes pour x et y
+    //ceci n'est pas un produit scalaire ou vectoriel
+    public Vector div(Vector divider)
+    {
+        return new Vector(this.x / divider.x, this.y / divider.y);
     }
 
     @Override
     public String toString()
     {
-        return "(x: " + this.x + ", y: " + this.y + ")";
+        return "(x: " + this.x + ", y: " + this.y + ") cm";
     }
     
     public double getDistance(Vector other)

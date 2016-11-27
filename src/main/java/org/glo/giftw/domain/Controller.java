@@ -129,14 +129,24 @@ public class Controller
         return this.currentStrategy.addProjectile(position, orientation, dimensions);
     }
 
-    public void addTeam(String teamName) throws MaxNumberException
+    public void addTeam(String teamName, String colour) throws MaxNumberException
     {
-        this.currentStrategy.addTeam(teamName);
+        this.currentStrategy.addTeam(teamName, colour);
+    }
+    
+    public String getTeamColour(String teamName)
+    {
+        return this.currentStrategy.getTeamColour(teamName);
+    }
+    
+    public void setTeamColour(String teamName, String colour)
+    {
+        this.currentStrategy.setTeamColour(teamName, colour);
     }
 
-    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, float zoomLevel)
+    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, Vector ratioPixelToUnit)
     {
-        Vector coordinate = this.currentStrategy.getFieldCoordinate(adjustedMouseCoordinate, zoomLevel);
+        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate, ratioPixelToUnit);
         return currentStrategy.getGameObjectByCoordinate(coordinate);
     }
 
@@ -196,19 +206,14 @@ public class Controller
         this.currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
     }
 
-    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldDimensions()
     {
-        return currentStrategy.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return currentStrategy.getFieldDimensions();
     }
 
-    public void setFieldUnitRatio(Vector dimensionInPixel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        this.currentStrategy.setUnitRatio(dimensionInPixel);
-    }
-
-    public Vector getRealCoordinate(Vector adjustedCoordinate, float zoomLevel)
-    {
-        return this.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     /**

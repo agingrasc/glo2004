@@ -1,5 +1,7 @@
 package org.glo.giftw.view;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
@@ -40,15 +42,17 @@ public class CreationToolBarController
 	}
 
 	@FXML
-	void onActionZoomIn(ActionEvent event)
+	void onActionZoomIn(ActionEvent event) throws IOException
 	{
 		System.out.println("onActionZoomIn");
+		RootLayoutController.getInstance().getCreationStackPaneController().zoomIn();
 	}
 
 	@FXML
-	void onActionZoomOut(ActionEvent event)
+	void onActionZoomOut(ActionEvent event) throws IOException
 	{
 		System.out.println("onActionZoomOut");
+		RootLayoutController.getInstance().getCreationStackPaneController().zoomOut();
 	}
 
 	public ToolBar getRootToolBar()

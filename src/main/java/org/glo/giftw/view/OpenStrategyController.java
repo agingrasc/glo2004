@@ -100,9 +100,10 @@ public class OpenStrategyController
 				        return new ReadOnlyObjectWrapper<String>(p.getValue().getValue().getDisplayName());
 			        }
 		        });
+		updateTree();
 	}
 	
-	public void updateTreeTable()
+	public void updateTree()
 	{
 		ArrayList<Strategy> strategies = new ArrayList<Strategy>(Controller.getInstance().getStrategies());
 		ArrayList<Sport> sports = new ArrayList<Sport>(Controller.getInstance().getSports());
@@ -113,12 +114,17 @@ public class OpenStrategyController
 			root.getChildren().add(sportItem);
 			for(Strategy strategy: strategies)
 			{
-				if(strategy.getSport().getName() == sport.getName())
+				if(strategy.getSport().getName().equals(sport.getName()))
 				{
 					sportItem.getChildren().add(new TreeItem<TreeViewable>(strategy));
 				}
 			}
 		}
+	}
+
+	public TreeTableView<TreeViewable> getTreeTableView()
+	{
+		return treeTableView;
 	}
 
 	public VBox getRootVBox()
