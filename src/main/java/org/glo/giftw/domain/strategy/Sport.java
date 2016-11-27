@@ -35,9 +35,14 @@ public class Sport implements Serializable, TreeViewable
         return field.getUnitRatio();
     }
 
-    public void setUnitRatio(double unitRatio)
+    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
     {
-        field.setUnitRatio(unitRatio);
+        return field.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
+    }
+
+    public void setUnitRatio(Vector dimensionInPixel)
+    {
+        field.setUnitRatio(dimensionInPixel);
     }
 
     public Sport(String name, List<String> roles, Field field, String projectileName, String projectileImagePath,

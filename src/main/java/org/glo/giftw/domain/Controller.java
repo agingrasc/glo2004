@@ -188,27 +188,27 @@ public class Controller
 
     public void setCheckMaxNumberTeam(boolean checkMaxNumberTeam)
     {
-        currentStrategy.setCheckMaxNumberTeam(checkMaxNumberTeam);
+        this.currentStrategy.setCheckMaxNumberTeam(checkMaxNumberTeam);
     }
 
     public void setCheckMaxNumberPlayer(boolean checkMaxNumberPlayer)
     {
-        currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
+        this.currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
+    }
+
+    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        return currentStrategy.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
+    }
+
+    public void setFieldUnitRatio(Vector dimensionInPixel)
+    {
+        this.currentStrategy.setUnitRatio(dimensionInPixel);
     }
 
     public Vector getRealCoordinate(Vector adjustedCoordinate, float zoomLevel)
     {
-        Vector fieldCoord = this.currentStrategy.getFieldCoordinate(adjustedCoordinate, zoomLevel);
-        return this.convertToRealCoordinate(fieldCoord, COORDINATE_CONVERSION_RATIO);
-    }
-
-    public Vector convertToRealCoordinate(Vector fieldCoord, double ratio)
-    {
-        if (fieldCoord != null)
-        {
-            fieldCoord.mul(ratio);
-        }
-        return fieldCoord;
+        return this.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
     }
 
     /**

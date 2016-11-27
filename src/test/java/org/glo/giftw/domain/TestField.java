@@ -2,6 +2,7 @@ package org.glo.giftw.domain;
 
 import org.glo.giftw.domain.strategy.Field;
 import org.glo.giftw.domain.util.Vector;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -87,4 +88,35 @@ public class TestField
         float zoomLevel = 1.0f;
         assertNull(field.getFieldCoordinate(coordInPixel, zoomLevel));
     }
+
+    @Test
+    public void testGetRealFieldCoordinateUnitRatio()
+    {
+        Vector coord = new Vector(500, 500);
+        float zoomLevel = 1.0f;
+        Vector expected = new Vector(500, 500);
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(coord, zoomLevel)));
+
+    }
+
+    @Test
+    public void testGetRealFieldCoordinateDoubleRatio()
+    {
+        Vector coord = new Vector(500, 500);
+        float zoomLevel = 1.0f;
+        field.setUnitRatio(new Vector(4500, 3000));
+        Vector expected = new Vector(1000, 1000);
+        Assert.assertTrue(expected.equals(field.getRealFieldCoordinate(coord, zoomLevel)));
+    }
+
+    @Test
+    public void testGetRealFieldCoordinateHalfRatio()
+    {
+        Vector coord = new Vector(500, 500);
+        float zoomLevel = 1.0f;
+        field.setUnitRatio(new Vector(18000, 12000));
+        Vector expected = new Vector(250, 250);
+        Assert.assertTrue(expected.equals(field.getRealFieldCoordinate(coord, zoomLevel)));
+    }
+
 }

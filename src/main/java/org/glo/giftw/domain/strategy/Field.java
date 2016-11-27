@@ -44,9 +44,10 @@ public class Field implements Serializable
         return this.unitRatio;
     }
     
-    public void setUnitRatio(double unitRatio)
+    public void setUnitRatio(Vector dimensionInPixel)
     {
-        this.unitRatio = unitRatio;
+        double ratio = this.getDimensions().getX() / dimensionInPixel.getX();
+        this.unitRatio = ratio;
     }
 
     public String getImagePath()
@@ -72,6 +73,16 @@ public class Field implements Serializable
             return null;
         }
 
+    }
+
+    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    {
+        Vector fieldCoord = this.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        if (fieldCoord != null)
+        {
+            fieldCoord.mul(this.getUnitRatio());
+        }
+        return fieldCoord;
     }
 
     public boolean validatePosition(Vector position)
