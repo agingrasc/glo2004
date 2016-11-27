@@ -1,5 +1,6 @@
 package org.glo.giftw.view;
 
+import com.sun.javafx.binding.StringFormatter;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -35,11 +36,20 @@ public class BottomToolBarController
 
     public void updateCoordinate(MouseEvent event, Vector ratioPixelToUnit)
     {
-        System.out.println(ratioPixelToUnit);
         Vector mouseCoordinate = new Vector(event.getX(), event.getY());
         Vector fieldCoordinate = Controller.getInstance().getFieldCoordinate(mouseCoordinate, ratioPixelToUnit);
 
-        this.xCoord.setText("Foo");
-        this.yCoord.setText("Bar");
+        if (fieldCoordinate != null)
+        {
+            String xText = String.format("X: %f", fieldCoordinate.getX());
+            String yText = String.format("Y: %f", fieldCoordinate.getY());
+            this.xCoord.setText(xText);
+            this.yCoord.setText(yText);
+        }
+        else
+        {
+            this.xCoord.setText("N/A");
+            this.yCoord.setText("N/A");
+        }
     }
 }

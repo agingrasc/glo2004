@@ -88,7 +88,10 @@ public class CreationStackPaneController
 		stackPane.getChildren().add(new Label("LABEL"));
 
 		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
-		this.ratioPixelToUnit = new Vector(bgSize.getWidth()/fieldDimensions.getX(), bgSize.getHeight()/fieldDimensions.getY());
+		double width = sportFieldImage.getWidth();
+		double height = stackPane.getHeight();
+		System.out.println(String.format("RatioPixelTounit -- width: %f -- height: %f", width, height));
+		this.ratioPixelToUnit = new Vector(width/fieldDimensions.getX(), height/fieldDimensions.getY());
 	}
 	
 	public void zoomIn()
