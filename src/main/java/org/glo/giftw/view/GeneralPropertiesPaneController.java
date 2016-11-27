@@ -1,5 +1,7 @@
 package org.glo.giftw.view;
 
+import java.io.IOException;
+
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 
@@ -33,7 +35,7 @@ public class GeneralPropertiesPaneController
     private TextField teamNameTextField;
 
     @FXML
-    void onActionAddTeam(ActionEvent event) 
+    void onActionAddTeam(ActionEvent event) throws IOException 
     {
     	try
 		{

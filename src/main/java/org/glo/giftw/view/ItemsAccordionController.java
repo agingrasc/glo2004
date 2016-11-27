@@ -13,18 +13,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class ItemsAccordionController
@@ -64,6 +64,7 @@ public class ItemsAccordionController
     private ObservableList<Team> teams;
     
     private ObservableList<Projectile> projectiles;
+    
 
 	@FXML
 	private void initialize() throws IOException
@@ -135,13 +136,12 @@ public class ItemsAccordionController
 			                {
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
-				                {
-				                	//TODO afficher le display d'un joueur 
-				                	File file = new File(item);
-					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
-					                imageView.setFitWidth(32);
-					                imageView.setFitHeight(32);
-					                setGraphic(imageView);
+				                {          
+				                	final Canvas canvas = new Canvas(32, 32);
+				                	GraphicsContext gc = canvas.getGraphicsContext2D();
+				                	gc.setFill(Color.web(item));
+				                	gc.fillOval(0, 0, 32, 32);
+					                setGraphic(canvas);
 				                }
 				                else
 				                {
@@ -188,7 +188,6 @@ public class ItemsAccordionController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {
-				                	//TODO afficher le display d'un projectile
 				                	File file = new File(item);
 					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
 					                imageView.setFitWidth(32);
@@ -234,6 +233,7 @@ public class ItemsAccordionController
 	public void updateTeamsTable()
 	{
 		teams.clear();
+		System.out.println(Controller.getInstance().getTeams());
 		teams.addAll(Controller.getInstance().getTeams());
 	}
 	
