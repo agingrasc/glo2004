@@ -4,13 +4,13 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<ScrollPane fx:id="scrollPane" onScroll="#onScroll" pannable="true" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationStackPaneController">
+<ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" onScroll="#onScroll" pannable="true" stylesheets="@../css/visuaLigueCSS.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationStackPaneController">
    <content>
       <Group fx:id="mainGroup">
          <children>
             <Group fx:id="subGroup">
                <children>
-                  <StackPane fx:id="stackPane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" onMouseMoved="#onMouseMoved" prefHeight="0.0" prefWidth="0.0" />
+                  <StackPane fx:id="stackPane" onMouseMoved="#onMouseMoved" prefHeight="0.0" prefWidth="0.0" />
                </children>
             </Group>
          </children>
