@@ -196,6 +196,11 @@ public class Controller
         this.currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
     }
 
+    public Vector getFieldDimensions()
+    {
+        return currentStrategy.getFieldDimensions();
+    }
+
     public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
     {
         return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, zoomLevel);
