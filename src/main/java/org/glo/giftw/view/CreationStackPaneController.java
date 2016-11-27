@@ -1,7 +1,10 @@
 package org.glo.giftw.view;
 
 import java.io.File;
+import java.io.IOException;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.input.*;
 import org.glo.giftw.domain.Controller;
 
 import javafx.fxml.FXML;
@@ -10,10 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundRepeat;
@@ -21,6 +20,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
+import org.glo.giftw.domain.util.Vector;
 
 public class CreationStackPaneController
 {
@@ -37,6 +37,8 @@ public class CreationStackPaneController
 	
 	@FXML
     private ScrollPane scrollPane;
+
+	private Vector ratioPixelToUnit;
 
 
 	@FXML
@@ -67,7 +69,14 @@ public class CreationStackPaneController
 
 		event.consume();
 	}
-	
+
+	@FXML
+	void onMouseMoved(MouseEvent event) throws IOException
+	{
+	    BottomToolBarController bottomToolBarController = RootLayoutController.getInstance().getBottomToolBarController();
+        bottomToolBarController.updateCoordinate(event, this.ratioPixelToUnit);
+	}
+
 	public void displayNewFrame()
 	{
 		Controller.getInstance().createNewFrame();
@@ -77,6 +86,9 @@ public class CreationStackPaneController
 		stackPane.setBackground(new Background(new BackgroundImage(sportFieldImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,bgSize)));
 		stackPane.setPrefSize(scrollPane.getWidth(),scrollPane.getHeight());
 		stackPane.getChildren().add(new Label("LABEL"));
+
+		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
+		this.ratioPixelToUnit = new Vector(bgSize.getWidth()/fieldDimensions.getX(), bgSize.getHeight()/fieldDimensions.getY());
 	}
 	
 	public void zoomIn()
