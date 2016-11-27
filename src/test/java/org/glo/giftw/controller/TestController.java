@@ -54,7 +54,7 @@ public class TestController
     @Test
     public void testAddPlayerNewTeam() throws TeamNotFound, MaxNumberException
     {
-        this.controller.addTeam("BLU");
+        this.controller.addTeam("BLU", "0x0000FF");
         Player player = (Player) this.controller.addPlayer(new Vector(), 0f, new Vector(), "BLU");
         Assert.assertEquals("BLU", this.controller.getPlayerTeam(player));
     }
@@ -63,9 +63,9 @@ public class TestController
     public void testAddTeamCheckLimit() throws TeamNotFound, MaxNumberException
     {
         this.controller.setCheckMaxNumberTeam(true);
-        this.controller.addTeam("BLU");
-        this.controller.addTeam("RED");
-        this.controller.addTeam("FUBAR");
+        this.controller.addTeam("BLU", "0x0000FF");
+        this.controller.addTeam("RED", "0xFF0000");
+        this.controller.addTeam("FUBAR", "0x00FF00");
         Assert.fail();
     }
 }

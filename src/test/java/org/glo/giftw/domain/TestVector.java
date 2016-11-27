@@ -86,39 +86,39 @@ public class TestVector
     public void testMulIntegerPositive()
     {
         Vector uut = new Vector(500, 450);
-        uut.mul(2);
+        Vector actual = uut.mul(2);
         Vector expected = new Vector(1000, 900);
-        assertTrue(expected.equals(uut));
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void testMulIntegerNegative()
     {
         Vector uut = new Vector(-500, 450);
-        uut.mul(2);
+        Vector actual = uut.mul(2);
         Vector expected = new Vector(-1000, 900);
-        assertTrue(expected.equals(uut));
+        assertTrue(expected.equals(actual));
 
-        uut.mul(-1);
-        expected = new Vector(1000, -900);
-        assertTrue(expected.equals(uut));
+        Vector actual2 = uut.mul(-1);
+        expected = new Vector(500, -450);
+        assertTrue(expected.equals(actual2));
     }
 
     @Test
     public void testMulDecimal()
     {
         Vector uut = new Vector(500.2, 400.7);
-        uut.mul(2);
+        Vector actual = uut.mul(2);
         Vector expected = new Vector(1000.4, 801.4);
-        assertTrue(expected.equals(uut));
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void TestDiv()
     {
         Vector uut = new Vector(525, 400);
-        uut.div(2);
+        Vector actual = uut.div(2);
         Vector expected = new Vector(262.5, 200);
-        assertTrue(expected.equals(uut));
+        assertTrue(expected.equals(actual));
     }
 }

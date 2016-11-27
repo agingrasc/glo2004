@@ -14,8 +14,7 @@ public class Sport implements Serializable, TreeViewable
     private String name;
     private List<String> roles;
     private Field field;
-    private String projectileName;
-    private String projectileImagePath;
+    private Projectile projectile;
     private int maxPLayersPerTeam;
     private int maxTeams;
 
@@ -24,25 +23,9 @@ public class Sport implements Serializable, TreeViewable
         this.name = "";
         this.roles = new ArrayList<>();
         this.field = new Field();
-        this.projectileName = "";
-        this.projectileImagePath = "";
+        this.projectile = new Projectile("", "");
         this.maxPLayersPerTeam = 6; //valeur par défaut pour le hockey
         this.maxTeams = 2;
-    }
-
-    public double getUnitRatio()
-    {
-        return field.getUnitRatio();
-    }
-
-    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
-    {
-        return field.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
-    }
-
-    public void setUnitRatio(Vector dimensionInPixel)
-    {
-        field.setUnitRatio(dimensionInPixel);
     }
 
     public Sport(String name, List<String> roles, Field field, String projectileName, String projectileImagePath,
@@ -51,10 +34,14 @@ public class Sport implements Serializable, TreeViewable
         this.name = name;
         this.roles = new ArrayList<String>(roles);
         this.field = field;
-        this.projectileName = projectileName;
-        this.projectileImagePath = projectileImagePath;
+        this.projectile = new Projectile(projectileName, projectileImagePath);
         this.maxPLayersPerTeam = maxPlayersPerTeam;
         this.maxTeams = maxTeams;
+    }
+    
+    public double getUnitRatio()
+    {
+        return field.getUnitRatio();
     }
 
     public String getName()
@@ -92,34 +79,24 @@ public class Sport implements Serializable, TreeViewable
         return field;
     }
 
+    public Vector getFieldDimensions()
+    {
+        return field.getDimensions();
+    }
+
     public void setField(Field field)
     {
         this.field = field;
+    }
+    
+    public Projectile getProjectile()
+    {
+        return this.projectile;
     }
 
     public boolean validatePosition(Vector position)
     {
         return this.field.validatePosition(position);
-    }
-
-    public String getProjectileName()
-    {
-        return projectileName;
-    }
-
-    public void setProjectileName(String projectileName)
-    {
-        this.projectileName = projectileName;
-    }
-
-    public String getProjectileImagePath()
-    {
-        return projectileImagePath;
-    }
-
-    public void setProjectileImagePath(String projectileImagePath)
-    {
-        this.projectileImagePath = projectileImagePath;
     }
 
     public int getMaxPlayersPerTeam()
@@ -156,7 +133,7 @@ public class Sport implements Serializable, TreeViewable
             ret += "- " + r + "\n";
         }
         ret += "Terrain\n" + this.field.toString();
-        ret += "Projectile: " + this.projectileName + " " + this.projectileImagePath + "\n";
+        ret += "Projectile: " + this.projectile + "\n";
         ret += "Joué par " + Integer.toString(this.maxTeams) + " équipes de " + Integer.toString(this.maxPLayersPerTeam)
                 + " joueurs";
         return ret;
@@ -168,9 +145,9 @@ public class Sport implements Serializable, TreeViewable
         return this.name;
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        return field.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return field.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     @Override

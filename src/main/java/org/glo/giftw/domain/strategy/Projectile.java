@@ -7,15 +7,17 @@ import java.io.Serializable;
 public class Projectile extends GameObject implements Serializable
 {
     public static final long serialVersionUID = 1L;
+    private static int projectileCount = 0;
 
+    private String imagePath;
     private Player controller;
     private Vector speed;
 
-    private static int projectileCount = 0;
-
-    public Projectile()
+    public Projectile(String name, String imagePath)
     {
         super();
+        this.name = name;
+        this.imagePath = imagePath;
         this.controller = null;
         this.speed = new Vector(0, 0);
         this.collidable = false;
@@ -25,13 +27,25 @@ public class Projectile extends GameObject implements Serializable
     public Projectile(Projectile proj)
     {
         super(proj);
+        this.imagePath = proj.imagePath;
         this.controller = proj.controller;
         this.speed = proj.speed;
+        Projectile.projectileCount++;
     }
     
     public GameObject copy()
     {
         return new Projectile(this);
+    }
+
+    public String getImagePath()
+    {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imagePath)
+    {
+        this.imagePath = imagePath;
     }
 
     public boolean isControlled()
@@ -62,5 +76,11 @@ public class Projectile extends GameObject implements Serializable
     public static int getProjectileCount()
     {
         return Projectile.projectileCount;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return this.name + " path: " + this.imagePath;
     }
 }

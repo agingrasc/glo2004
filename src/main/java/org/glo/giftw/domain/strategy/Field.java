@@ -7,25 +7,19 @@ import java.io.Serializable;
 public class Field implements Serializable
 {
     public static final long serialVersionUID = 1L;
+    private static double unitRatio = 100;  //nombre d'unités par mètre
 
     private Vector dimensions;
-    private double unitRatio;  //nombre d'unités par mètre
     private String imagePath;
 
     public Field()
     {
-        this(new Vector(6096, 2590), 100, ""); //taille d'une patinoire nord-américaine standard en cm
+        this(new Vector(6096, 2590), ""); //taille d'une patinoire nord-américaine standard en cm
     }
 
     public Field(Vector dimensions, String fieldImagePath)
     {
-        this(dimensions, 100, fieldImagePath);
-    }
-    
-    public Field(Vector dimensions, double unitRatio, String fieldImagePath)
-    {
         this.dimensions = dimensions;
-        this.unitRatio = unitRatio;
         this.imagePath = fieldImagePath;
     }
 
@@ -41,13 +35,7 @@ public class Field implements Serializable
     
     public double getUnitRatio()
     {
-        return this.unitRatio;
-    }
-    
-    public void setUnitRatio(Vector dimensionInPixel)
-    {
-        double ratio = this.getDimensions().getX() / dimensionInPixel.getX();
-        this.unitRatio = ratio;
+        return Field.unitRatio;
     }
 
     public String getImagePath()
@@ -60,29 +48,19 @@ public class Field implements Serializable
         this.imagePath = imagePath;
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        Vector fieldCoord = new Vector(adjustedCoordinate);
-        fieldCoord.div(zoomLevel);
-        if (this.validatePosition(fieldCoord))
+        assert ratioPixelToUnit.getX() > 0 && ratioPixelToUnit.getY() > 0;
+        Vector zoomAdjustedCoordinate = adjustedCoordinate.div(ratioPixelToUnit);
+        if (this.validatePosition(zoomAdjustedCoordinate))
         {
-            return fieldCoord;
+            return zoomAdjustedCoordinate;
         }
         else
         {
             return null;
         }
 
-    }
-
-    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
-    {
-        Vector fieldCoord = this.getFieldCoordinate(adjustedCoordinate, zoomLevel);
-        if (fieldCoord != null)
-        {
-            fieldCoord.mul(this.getUnitRatio());
-        }
-        return fieldCoord;
     }
 
     public boolean validatePosition(Vector position)
@@ -95,24 +73,6 @@ public class Field implements Serializable
     @Override
     public String toString()
     {
-        return "Dimension: " + this.dimensions.toString() + "\nUnit Ratio: " + Double.toString(this.unitRatio) +
-                "\nImage path: " + this.imagePath;
-    }
-    
-    public Vector getCoordinate(Vector clickPosition, Vector fieldPosition, float zoomLevel)
-    {
-        assert zoomLevel > 0;
-        
-        double x = (clickPosition.getX() - fieldPosition.getX()) / zoomLevel;
-        double y = (clickPosition.getY() - fieldPosition.getY()) / zoomLevel;
-        
-        if(x >= 0 && y >= 0 && x < this.dimensions.getX() && y < this.dimensions.getY())
-        {
-            return new Vector(x, y);
-        }
-        else
-        {
-            return null;
-        }
+        return "Dimension: " + this.dimensions.toString() + "\nImage path: " + this.imagePath;
     }
 }

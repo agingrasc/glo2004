@@ -10,23 +10,47 @@ import java.util.Set;
 
 public class Team implements Serializable
 {
-    public final static long serialVersionUUID = 0L;
+    public final static long serialVersionUID = 0L;
 
+    private String name;
+    private String colour;
     private Set<Player> players;
     private int maxNumberOfPlayers;
     private boolean checkMaxNumberOfPlayers;
 
-    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers)
+    public Team(String name, String colour, int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers)
     {
+        this.name = name;
+        this.colour = colour;
         this.players = new HashSet<>();
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.checkMaxNumberOfPlayers = checkMaxNumberOfPlayers;
     }
 
-    public Team(int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, Set<Player> players)
+    public Team(String name, String colour, int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, Set<Player> players)
     {
-        this(maxNumberOfPlayers, checkMaxNumberOfPlayers);
+        this(name, colour, maxNumberOfPlayers, checkMaxNumberOfPlayers);
         this.players = new HashSet<>(players);
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getColour()
+    {
+        return colour;
+    }
+
+    public void setColour(String colour)
+    {
+        this.colour = colour;
     }
 
     public void addPlayer(Player player) throws MaxNumberException

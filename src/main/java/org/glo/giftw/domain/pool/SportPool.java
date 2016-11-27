@@ -81,8 +81,8 @@ public class SportPool extends ObjectPool
         Sport sport = this.sports.get(name);
         sport.setRoles(roles);
         sport.setField(new Field(dimensions, fieldImagePath));
-        sport.setProjectileName(projectileName);
-        sport.setProjectileImagePath(projectileImagePath);
+        sport.getProjectile().setName(projectileName);
+        sport.getProjectile().setImagePath(projectileImagePath);
         sport.setMaxPLayersPerTeam(maxPLayersPerTeam);
         sport.setMaxTeams(maxTeams);
         if(this.persistent)
