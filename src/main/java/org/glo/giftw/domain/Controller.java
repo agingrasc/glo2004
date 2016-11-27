@@ -136,7 +136,7 @@ public class Controller
 
     public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, float zoomLevel)
     {
-        Vector coordinate = this.currentStrategy.getFieldCoordinate(adjustedMouseCoordinate, zoomLevel);
+        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate, zoomLevel);
         return currentStrategy.getGameObjectByCoordinate(coordinate);
     }
 
@@ -196,19 +196,9 @@ public class Controller
         this.currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
     }
 
-    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
     {
-        return currentStrategy.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
-    }
-
-    public void setFieldUnitRatio(Vector dimensionInPixel)
-    {
-        this.currentStrategy.setUnitRatio(dimensionInPixel);
-    }
-
-    public Vector getRealCoordinate(Vector adjustedCoordinate, float zoomLevel)
-    {
-        return this.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, zoomLevel);
     }
 
     /**

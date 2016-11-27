@@ -94,22 +94,20 @@ public class Vector implements Serializable
         return this.x == rhd.x && this.y == rhd.y;
     }
 
-    public void mul(double multiplier)
+    public Vector mul(double multiplier)
     {
-        this.x *= multiplier;
-        this.y *= multiplier;
+        return new Vector(this.x * multiplier, this.y * multiplier);
     }
 
-    public void div(double divider)
+    public Vector div(double divider)
     {
-        this.x /= divider;
-        this.y /= divider;
+        return new Vector(this.x / divider, this.y / divider);
     }
 
     @Override
     public String toString()
     {
-        return "(x: " + this.x + ", y: " + this.y + ")";
+        return "(x: " + this.x + ", y: " + this.y + ") cm";
     }
     
     public double getDistance(Vector other)

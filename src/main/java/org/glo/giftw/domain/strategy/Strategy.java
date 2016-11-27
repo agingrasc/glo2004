@@ -125,7 +125,7 @@ public class Strategy implements Serializable, TreeViewable
 
     public Vector getFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
     {
-        return sport.getFieldCoordinate(adjustedCoordinate, zoomLevel);
+        return this.sport.getFieldCoordinate(adjustedCoordinate, zoomLevel);
     }
 
     //Logique des frames
@@ -354,16 +354,6 @@ public class Strategy implements Serializable, TreeViewable
     public GameObject getGameObjectByCoordinate(Vector coordinate)
     {
         return this.getCurrentFrame().getGameObjectByCoordinate(coordinate);
-    }
-
-    public Vector getRealFieldCoordinate(Vector adjustedCoordinate, float zoomLevel)
-    {
-        return sport.getRealFieldCoordinate(adjustedCoordinate, zoomLevel);
-    }
-
-    public void setUnitRatio(Vector dimensionInPixel)
-    {
-        sport.setUnitRatio(dimensionInPixel);
     }
 
     public String getFieldImagePath()
