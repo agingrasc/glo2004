@@ -1,40 +1,43 @@
 package org.glo.giftw.view;
 
-import java.io.IOException;
+import java.io.File;
 
 import org.glo.giftw.domain.Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.transform.Scale;
 
 public class CreationStackPaneController
 {
 	@FXML
-	private StackPane rootStackPane;
+	private StackPane stackPane;
 	
 	@FXML
-	private VBox vBox;
+	private Group mainGroup;
+	
+	@FXML
+	private Group subGroup;
 	
 	private Pane currentPane;
 	
 	@FXML
     private ScrollPane scrollPane;
-    
-    @FXML
-	private void initialize() throws IOException
-	{
-    	displayNewFrame();
-	}
+
 
 	@FXML
 	void onDragOver(DragEvent event)
@@ -64,25 +67,55 @@ public class CreationStackPaneController
 
 		event.consume();
 	}
-
-	@FXML
-	void onDragEntered(DragEvent event)
-	{
-		vBox.setVisible(false);
-	}
 	
-	private void displayNewFrame()
+	public void displayNewFrame()
 	{
 		Controller.getInstance().createNewFrame();
-		currentPane = new Pane();
-		Image sportFieldImage = new Image(Controller.getInstance().getSportFieldImagePath());
-		rootStackPane.setBackground(new Background(new BackgroundImage(sportFieldImage,null,null,null,null)));
-		rootStackPane.getChildren().add(currentPane);
+		File file = new File(Controller.getInstance().getSportFieldImagePath());
+		Image sportFieldImage = new Image(file.toURI().toString());
+		BackgroundSize bgSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+		stackPane.setBackground(new Background(new BackgroundImage(sportFieldImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,bgSize)));
+		stackPane.setPrefSize(scrollPane.getWidth(),scrollPane.getHeight());
+		stackPane.getChildren().add(new Label("LABEL"));
+	}
+	
+	public void zoomIn()
+	{
+		Scale scaleTransform = new Scale(1.25, 1.25, 0, 0);
+		subGroup.getTransforms().add(scaleTransform);
+	}
+	
+	public void zoomOut()
+	{
+		Scale scaleTransform = new Scale(0.75, 0.75, 0, 0);
+		subGroup.getTransforms().add(scaleTransform);
+	}
+	
+	@FXML
+    void onScroll(ScrollEvent event) 
+	{
+		if (event.getDeltaY() == 0) 
+		{
+			return;
+		}
 		
+		if(event.getDeltaY() < 0)
+		{
+			zoomIn();
+		}
+		else
+		{
+			zoomOut();
+		}
 	}
 
-	public StackPane getRootStackPane()
+	public StackPane getStackPane()
 	{
-		return rootStackPane;
+		return stackPane;
+	}
+
+	public ScrollPane getScrollPane()
+	{
+		return scrollPane;
 	}
 }

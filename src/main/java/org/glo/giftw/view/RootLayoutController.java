@@ -55,12 +55,6 @@ public class RootLayoutController
 		return INSTANCE;
 	}
 
-	@FXML
-	private void initialize() throws IOException
-	{
-		openStrategy();
-	}
-
 	public void openObstacle() throws IOException
 	{
 		clearRootToolBar();
@@ -118,9 +112,12 @@ public class RootLayoutController
 		addToolBar(getModeToolBarController().getRootToolBar());
 		addToolBar(getCreationToolBarController().getRootToolBar());
 		borderPane.setLeft(getItemsAccordionController().getRootAccordion());
-		borderPane.setCenter(getCreationStackPaneController().getRootStackPane());
+		borderPane.setCenter(getCreationStackPaneController().getScrollPane());
 		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
 		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
+		borderPane.applyCss();
+		borderPane.layout();
+		getCreationStackPaneController().displayNewFrame();
 	}
 
 	public void realTime() throws IOException
@@ -130,7 +127,8 @@ public class RootLayoutController
 		addToolBar(getModeToolBarController().getRootToolBar());
 		addToolBar(getCreationToolBarController().getRootToolBar());
 		borderPane.setLeft(getItemsAccordionController().getRootAccordion());
-		borderPane.setCenter(getCreationStackPaneController().getRootStackPane());
+		borderPane.setCenter(getCreationStackPaneController().getScrollPane());
+		getCreationStackPaneController().displayNewFrame();
 		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
 		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
 	}
@@ -515,5 +513,10 @@ public class RootLayoutController
 			this.projectilePropertiesPaneController = loader.getController();
 		}
 		return projectilePropertiesPaneController;
+	}
+
+	public BorderPane getBorderPane()
+	{
+		return borderPane;
 	}
 }

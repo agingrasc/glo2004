@@ -67,7 +67,6 @@ public class OpenStrategyController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {
-				                	System.out.println(item);
 				                	File file = new File(item);
 					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
 					                imageView.setFitWidth(200);
