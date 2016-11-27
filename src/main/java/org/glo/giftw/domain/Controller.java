@@ -1,4 +1,4 @@
-package org.glo.giftw.controller;
+package org.glo.giftw.domain;
 
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;

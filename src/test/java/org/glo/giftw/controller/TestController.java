@@ -1,5 +1,6 @@
 package org.glo.giftw.controller;
 
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.Field;

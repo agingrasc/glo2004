@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Window;
-import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Controller;
 
 import java.io.File;
 import java.io.IOException;

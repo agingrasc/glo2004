@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.glo.giftw.controller.Controller;
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.strategy.Sport;
 import org.glo.giftw.domain.strategy.Strategy;
 import org.glo.giftw.domain.TreeViewable;
