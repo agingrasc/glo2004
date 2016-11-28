@@ -9,13 +9,14 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.StackPane;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.strategy.Frame;
 
 import java.io.File;
 
 public class MediaContentController extends AnimationTimer
 {
 
-    private final static long FPS = 1/30 * 1000 * 1000 * 1000; //en nanoseconde
+    private final static long FPS = 1000 * 1000 * 1000 / 30; //en nanoseconde
 
 	@FXML
 	private StackPane rootStackPane;
@@ -31,10 +32,16 @@ public class MediaContentController extends AnimationTimer
     {
         long delta_t = timestamp - this.lastTimeStamp;
         this.lastTimeStamp = timestamp;
-        if (delta_t >= FPS)
+        boolean isLastFrame = Controller.getInstance().isLastFrame();
+
+        if (delta_t >= FPS && !isLastFrame)
         {
             //actual stuff
             System.out.println("FUBAR: " + timestamp);
+            StackPane field = (StackPane) this.rootStackPane.getChildren().get(0);
+            field.getChildren().clear();
+
+			Frame frame = Controller.getInstance().nextFrame();
         }
     }
 

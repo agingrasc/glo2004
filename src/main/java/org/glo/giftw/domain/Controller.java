@@ -1,6 +1,5 @@
 package org.glo.giftw.domain;
 
-import org.glo.giftw.domain.Dragable;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
@@ -24,6 +23,11 @@ public class Controller
     protected Strategy currentStrategy;
 
     private static Controller INSTANCE = null;
+
+    public boolean isLastFrame()
+    {
+        return currentStrategy.isLastFrame();
+    }
 
     public void goToBeginning()
     {
