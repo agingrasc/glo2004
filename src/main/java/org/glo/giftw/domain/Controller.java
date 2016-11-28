@@ -24,6 +24,16 @@ public class Controller
 
     private static Controller INSTANCE = null;
 
+    public void goToBeginning()
+    {
+        currentStrategy.goToBeginning();
+    }
+
+    public void goToEnd()
+    {
+        currentStrategy.goToEnd();
+    }
+
     protected Controller()
     {
         super();
