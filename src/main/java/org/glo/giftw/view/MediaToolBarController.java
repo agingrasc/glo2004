@@ -3,6 +3,7 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
+import org.glo.giftw.domain.Controller;
 
 import java.io.IOException;
 
@@ -14,7 +15,15 @@ public class MediaToolBarController
 	@FXML
 	void onActionPause(ActionEvent event)
 	{
-		System.out.println("onActionPause");
+		try
+		{
+			RootLayoutController.getInstance().getMediaContentController().stop();
+			Controller.getInstance().goToBeginning();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -23,6 +32,7 @@ public class MediaToolBarController
 		try
 		{
 			RootLayoutController.getInstance().getMediaContentController().stop();
+			Controller.getInstance().goToBeginning();
 		}
 		catch (IOException e)
 		{
@@ -46,7 +56,7 @@ public class MediaToolBarController
 	@FXML 
 	void onActionReplay(ActionEvent event)
 	{
-		System.out.println("onActionReplay");
+	    Controller.getInstance().goToBeginning();
 	}
 
 	public ToolBar getRootToolBar()
