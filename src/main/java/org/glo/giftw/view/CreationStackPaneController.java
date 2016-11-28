@@ -3,19 +3,24 @@ package org.glo.giftw.view;
 import java.io.File;
 import java.io.IOException;
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.input.*;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.strategy.Obstacle;
+import org.glo.giftw.domain.strategy.Projectile;
+import org.glo.giftw.domain.strategy.Team;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
@@ -75,10 +80,9 @@ public class CreationStackPaneController
 		currentPane.prefHeightProperty().bind(stackPane.heightProperty());
 		
 		currentPane.setOnDragOver((DragEvent event) -> {
-			System.out.println("hey2");
-			if (event.getDragboard().hasImage())
+			if (event.getDragboard().hasString())
 			{
-				event.acceptTransferModes(TransferMode.COPY);
+				event.acceptTransferModes(TransferMode.ANY);
 			}
 
 			event.consume();
@@ -87,12 +91,52 @@ public class CreationStackPaneController
 		currentPane.setOnDragDropped((DragEvent event) -> {
 			Dragboard db = event.getDragboard();
 			boolean success = false;
-			if (db.hasImage())
+			if (db.hasString())
 			{
-				ImageView imageView = new ImageView(db.getImage());
-				imageView.setX(event.getX());
-				imageView.setY(event.getY());
-				currentPane.getChildren().add(imageView);
+				//Draggable item = Controller.getInstance().getDraggableItem(db.getString());
+				Vector coord = Controller.getInstance().getFieldCoordinate(new Vector(event.getX(),event.getY()), ratioPixelToUnit);
+				if(item instanceof )
+				{
+					Controller.getInstance().addObstacle(db.getString(), coord, 0, new Vector(32,32));
+					Object obj = db.getContent(new DataFormat("Obstacle"));
+					Obstacle obstacle = (Obstacle)obj;
+					File imageFile = new File(obstacle.getImagePath());
+	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
+					ImageView imageView = new ImageView(image);
+					imageView.setX(event.getX());
+					imageView.setY(event.getY());
+					currentPane.getChildren().add(imageView);
+				}
+				else if(db.getContent(new DataFormat("Projectile")) instanceof Projectile)
+				{
+					Controller.getInstance().addProjectile(coord, 0, new Vector(32,32));
+					Object obj = db.getContent(new DataFormat("Obstacle"));
+					Projectile projectile = (Projectile)obj;
+					File imageFile = new File(projectile.getImagePath());
+	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
+					ImageView imageView = new ImageView(image);
+					imageView.setX(event.getX());
+					imageView.setY(event.getY());
+					currentPane.getChildren().add(imageView);
+				}
+				else if(db.getContent(new DataFormat("Team")) instanceof Team)
+				{
+					try
+					{
+						Controller.getInstance().addPlayer(coord, 0, new Vector(32,32), db.getString());
+						FXMLLoader loader = new FXMLLoader();
+						loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_DISPLAY_PATH.toString()));
+						GridPane playerDisplay = loader.load();
+						currentPane.getChildren().add(playerDisplay);
+						playerDisplay.relocate(event.getX(), event.getY());
+					} catch (Exception e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				
 				success = true;
 			}
 			event.setDropCompleted(success);

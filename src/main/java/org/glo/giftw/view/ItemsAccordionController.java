@@ -12,8 +12,9 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Accordion;
@@ -23,7 +24,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -221,7 +227,68 @@ public class ItemsAccordionController
 				        return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
 			        }
 		        });
+		
 		updateAllTables();
+		
+		obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
+	        @Override
+	        public void handle(MouseEvent event) {
+	            // drag was detected, start drag-and-drop gesture
+	            Obstacle selected = obstaclesTableView.getSelectionModel().getSelectedItem();
+	            if(selected !=null){
+
+	                Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
+	                ClipboardContent content = new ClipboardContent();
+	                File imageFile = new File(selected.getImagePath());
+	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
+	                db.setDragView(image);
+	                content.put(new DataFormat("Obstacle"), selected);
+	                db.setContent(content);
+	                event.consume(); 
+	            }
+	        }
+	    });
+		
+		projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
+	        @Override
+	        public void handle(MouseEvent event) {
+	            // drag was detected, start drag-and-drop gesture
+	            Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
+	            if(selected !=null)
+	            {
+	                Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
+	                ClipboardContent content = new ClipboardContent();
+	                File imageFile = new File(selected.getImagePath());
+	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
+	                db.setDragView(image);
+	                content.put(new DataFormat("Projectile"), selected);
+	                db.setContent(content);
+	                event.consume(); 
+	            }
+	        }
+	    });
+		
+		teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
+	        @Override
+	        public void handle(MouseEvent event) {
+	            // drag was detected, start drag-and-drop gesture
+	            Team selected = teamsTableView.getSelectionModel().getSelectedItem();
+	            if(selected != null){
+
+	                Dragboard db = teamsTableView.startDragAndDrop(TransferMode.ANY);
+	                ClipboardContent content = new ClipboardContent();
+	                final Canvas canvas = new Canvas(32, 32);
+                	GraphicsContext gc = canvas.getGraphicsContext2D();
+                	gc.setFill(Color.web(selected.getColour()));
+                	gc.fillOval(0, 0, 32, 32);
+                	WritableImage snapshot = canvas.snapshot(new SnapshotParameters(), null);
+	                db.setDragView(snapshot);
+	                content.put(new DataFormat("Team"), selected);
+	                db.setContent(content);
+	                event.consume(); 
+	            }
+	        }
+	    });
 	}
 	
 	public void updateObstaclesTable()
