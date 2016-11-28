@@ -14,7 +14,7 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
+            <MenuBar prefHeight="30.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                   <items>
@@ -77,7 +77,7 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <ToolBar fx:id="rootToolBar" />
+            <ToolBar fx:id="rootToolBar" prefHeight="120.0"/>
          </children>
       </VBox>
    </top>

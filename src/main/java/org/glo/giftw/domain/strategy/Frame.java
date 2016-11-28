@@ -26,7 +26,8 @@ public class Frame implements Serializable
     {
         this.isKeyFrame = frame.isKeyFrame;
         this.gameObjects = new HashMap<>();
-        frame.gameObjects.forEach((gameObject, gameObjectState) -> this.addGameObject(gameObject, gameObjectState));
+        frame.gameObjects.forEach((gameObject, gameObjectState) -> this.addGameObject(gameObject,
+                new GameObjectState(gameObjectState)));
     }
 
     public boolean isKeyFrame()

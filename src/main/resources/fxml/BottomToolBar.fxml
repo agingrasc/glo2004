@@ -3,9 +3,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToolBar?>
 
-<ToolBar fx:id="rootToolBar" prefHeight="27.0" prefWidth="142.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.BottomToolBarController">
-  <items>
-      <Label minWidth="75.0" text="X : 0m" />
-      <Label minWidth="75.0" text="Y : 0m" />
-  </items>
+<ToolBar fx:id="rootToolBar" prefHeight="30.0" prefWidth="142.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.BottomToolBarController">
+    <items>
+      <Label fx:id="xCoord" minWidth="75.0" text="X : 0m" />
+      <Label fx:id="yCoord" minWidth="75.0" text="Y : 0m" />
+    </items>
 </ToolBar>
