@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.strategy.*;
@@ -99,6 +100,8 @@ public class MediaContentController extends AnimationTimer
                 }
 
                 GridPane gp = new GridPane();
+                Circle playerImg = new Circle(dimension.getX());
+                playerImg.setFill(Color.web(teamColor));
                 gp.add(new Label(player.getName()), 0, 0);
                 gp.add(new Label(player.getRole()), 0, 1);
                 gp.add(new Circle(dimension.getX()), 0, 2);
@@ -106,6 +109,7 @@ public class MediaContentController extends AnimationTimer
                 gp.setPrefHeight(this.ratioPixelToUnit.getY() * dimension.getY());
                 gp.setLayoutX(this.ratioPixelToUnit.getX() * position.getX());
                 gp.setLayoutY(this.ratioPixelToUnit.getY() * position.getY());
+                gp.setRotate(orientation);
                 this.field.getChildren().add(gp);
             }
             if (go instanceof Projectile)
@@ -118,6 +122,7 @@ public class MediaContentController extends AnimationTimer
                 iv.setFitHeight(this.ratioPixelToUnit.getY() * dimension.getY());
                 iv.setLayoutX(this.ratioPixelToUnit.getX() * position.getX());
                 iv.setLayoutY(this.ratioPixelToUnit.getY() * position.getY());
+                iv.setRotate(orientation);
                 this.field.getChildren().add(iv);
             }
             if (go instanceof Obstacle)
@@ -130,6 +135,7 @@ public class MediaContentController extends AnimationTimer
                 iv.setFitHeight(this.ratioPixelToUnit.getY() * dimension.getY());
                 iv.setLayoutX(this.ratioPixelToUnit.getX() * position.getX());
                 iv.setLayoutY(this.ratioPixelToUnit.getY() * position.getY());
+                iv.setRotate(orientation);
                 this.field.getChildren().add(iv);
             }
 		}
