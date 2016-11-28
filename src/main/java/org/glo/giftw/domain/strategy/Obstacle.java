@@ -1,10 +1,8 @@
 package org.glo.giftw.domain.strategy;
 
-import org.glo.giftw.domain.Dragable;
-
 import java.io.Serializable;
 
-public class Obstacle extends GameObject implements Serializable, Dragable
+public class Obstacle extends GameObject implements Serializable
 {
     public static final long serialVersionUID = 1L;
     private static int obstacleCount = 0;
