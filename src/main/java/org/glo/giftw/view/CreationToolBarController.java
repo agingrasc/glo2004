@@ -34,11 +34,15 @@ public class CreationToolBarController
 	void onActionNext(ActionEvent event)
 	{
 	    boolean isLastFrame = Controller.getInstance().isLastFrame();
-	    if (!isLastFrame)
+	    if (isLastFrame)
+		{
+			Frame frame = Controller.getInstance().createNewFrame();
+		}
+		else
 		{
 			Frame frame = Controller.getInstance().nextFrame();
-			//FIXME: appel au controlleur de creation
 		}
+		//FIXME: appel au controlleur de creation
 	}
 
 	@FXML
