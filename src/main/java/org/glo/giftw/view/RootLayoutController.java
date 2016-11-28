@@ -1,13 +1,13 @@
 package org.glo.giftw.view;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+
+import java.io.IOException;
 
 public class RootLayoutController
 {
@@ -103,6 +103,7 @@ public class RootLayoutController
 		borderPane.setCenter(getMediaContentController().getRootStackPane());
 		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
 		borderPane.setRight(null);
+		getMediaContentController().displayNewFrame();
 	}
 
 	public void imageByImage() throws IOException

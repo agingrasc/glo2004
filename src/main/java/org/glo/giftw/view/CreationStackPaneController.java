@@ -1,26 +1,18 @@
 package org.glo.giftw.view;
 
-import java.io.File;
-
-import org.glo.giftw.domain.Controller;
-
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.*;
+import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
+import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.util.Vector;
+
+import java.io.File;
+import java.io.IOException;
 
 public class CreationStackPaneController
 {
@@ -35,39 +27,21 @@ public class CreationStackPaneController
 	
 	private Pane currentPane;
 	
+	private double zoomFactor = 1;
+	
 	@FXML
     private ScrollPane scrollPane;
 
+	private Vector ratioPixelToUnit;
 
 	@FXML
-	void onDragOver(DragEvent event)
+	void onMouseMoved(MouseEvent event) throws IOException
 	{
-		if (event.getDragboard().hasImage())
-		{
-			event.acceptTransferModes(TransferMode.COPY);
-		}
-
-		event.consume();
+	    BottomToolBarController bottomToolBarController = RootLayoutController.getInstance().getBottomToolBarController();
+	    Vector adjCoord = new Vector(event.getX(), event.getY());
+        bottomToolBarController.updateCoordinate(adjCoord, this.ratioPixelToUnit);
 	}
 
-	@FXML
-	void onDragDropped(DragEvent event)
-	{
-		Dragboard db = event.getDragboard();
-		boolean success = false;
-		if (db.hasImage())
-		{
-			ImageView imageView = new ImageView(db.getImage());
-			imageView.setX(event.getX());
-			imageView.setY(event.getY());
-			currentPane.getChildren().add(imageView);
-			success = true;
-		}
-		event.setDropCompleted(success);
-
-		event.consume();
-	}
-	
 	public void displayNewFrame()
 	{
 		Controller.getInstance().createNewFrame();
@@ -76,19 +50,65 @@ public class CreationStackPaneController
 		BackgroundSize bgSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
 		stackPane.setBackground(new Background(new BackgroundImage(sportFieldImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,bgSize)));
 		stackPane.setPrefSize(scrollPane.getWidth(),scrollPane.getHeight());
-		stackPane.getChildren().add(new Label("LABEL"));
+
+		//FIXME: trouver dynamiquement la taille restreignante
+		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
+		double adjustedHeight = stackPane.getPrefHeight();
+		double imgHeight = sportFieldImage.getHeight();
+		double ratio = adjustedHeight/imgHeight;
+		double adjustedWidth = sportFieldImage.getWidth() * ratio;
+		this.ratioPixelToUnit = new Vector(adjustedWidth/fieldDimensions.getX(), adjustedHeight/fieldDimensions.getY());
+
+		createCurrentGroup();
+	}
+	
+	private void createCurrentGroup()
+	{
+		currentPane = new Pane();
+		currentPane.setBackground(Background.EMPTY);
+		stackPane.getChildren().add(currentPane);
+		currentPane.prefWidthProperty().bind(stackPane.widthProperty());
+		currentPane.prefHeightProperty().bind(stackPane.heightProperty());
+		
+		currentPane.setOnDragOver((DragEvent event) -> {
+			System.out.println("hey2");
+			if (event.getDragboard().hasImage())
+			{
+				event.acceptTransferModes(TransferMode.COPY);
+			}
+
+			event.consume();
+		});
+		
+		currentPane.setOnDragDropped((DragEvent event) -> {
+			Dragboard db = event.getDragboard();
+			boolean success = false;
+			if (db.hasImage())
+			{
+				ImageView imageView = new ImageView(db.getImage());
+				imageView.setX(event.getX());
+				imageView.setY(event.getY());
+				currentPane.getChildren().add(imageView);
+				success = true;
+			}
+			event.setDropCompleted(success);
+
+			event.consume();
+		});
 	}
 	
 	public void zoomIn()
 	{
 		Scale scaleTransform = new Scale(1.25, 1.25, 0, 0);
 		subGroup.getTransforms().add(scaleTransform);
+		zoomFactor *= 1.25;
 	}
 	
 	public void zoomOut()
 	{
 		Scale scaleTransform = new Scale(0.75, 0.75, 0, 0);
 		subGroup.getTransforms().add(scaleTransform);
+		zoomFactor *= 0.75;
 	}
 	
 	@FXML

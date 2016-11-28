@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
 
+import java.io.IOException;
+
 public class MediaToolBarController
 {
 	@FXML
@@ -14,11 +16,31 @@ public class MediaToolBarController
 	{
 		System.out.println("onActionPause");
 	}
+	
+	@FXML
+	void onActionStop(ActionEvent event)
+	{
+		try
+		{
+			RootLayoutController.getInstance().getMediaContentController().stop();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	void onActionPlay(ActionEvent event)
 	{
-		System.out.println("onActionPlay");
+		try
+		{
+			RootLayoutController.getInstance().getMediaContentController().start();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML 

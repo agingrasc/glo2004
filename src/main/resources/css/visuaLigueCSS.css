@@ -14,10 +14,6 @@
   -fx-alignment: CENTER-LEFT;
 }
 
-.table-cell {
-    -fx-font-size: 24.0px;
-}
-
 .tree-table-cell{
     -fx-font-size: 24.0px;
 }
