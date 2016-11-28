@@ -26,7 +26,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -242,7 +241,7 @@ public class ItemsAccordionController
 	                File imageFile = new File(selected.getImagePath());
 	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
 	                db.setDragView(image);
-	                content.put(new DataFormat("Obstacle"), selected);
+	                content.putString(selected.getName());
 	                db.setContent(content);
 	                event.consume(); 
 	            }
@@ -259,9 +258,9 @@ public class ItemsAccordionController
 	                Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
 	                ClipboardContent content = new ClipboardContent();
 	                File imageFile = new File(selected.getImagePath());
-	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
+	                Image image = new Image(imageFile.toURI().toString(), 16, 16, false, false);
 	                db.setDragView(image);
-	                content.put(new DataFormat("Projectile"), selected);
+	                content.putString(selected.getName());
 	                db.setContent(content);
 	                event.consume(); 
 	            }
@@ -283,7 +282,7 @@ public class ItemsAccordionController
                 	gc.fillOval(0, 0, 32, 32);
                 	WritableImage snapshot = canvas.snapshot(new SnapshotParameters(), null);
 	                db.setDragView(snapshot);
-	                content.put(new DataFormat("Team"), selected);
+	                content.putString(selected.getName());
 	                db.setContent(content);
 	                event.consume(); 
 	            }
@@ -300,7 +299,7 @@ public class ItemsAccordionController
 	public void updateTeamsTable()
 	{
 		teams.clear();
-		System.out.println(Controller.getInstance().getTeams());
+		//TODO teams n'enregistrent pas
 		teams.addAll(Controller.getInstance().getTeams());
 	}
 	
