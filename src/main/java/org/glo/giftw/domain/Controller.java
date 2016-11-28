@@ -324,6 +324,14 @@ public class Controller
                 {
                     return t;
                 }
+                List<Player> players = t.getPlayers();
+                for(Player p : players)
+                {
+                    if(p.getName() == name)
+                    {
+                        return p;
+                    }
+                }
             }
             return null;
         } 
