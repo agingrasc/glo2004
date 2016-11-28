@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.Dragable;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
@@ -289,5 +290,33 @@ public class Controller
     {
         this.currentStrategy.changeCurrentFrame(delta);
         return this.currentStrategy.getCurrentFrame();
+    }
+    
+    public Dragable getDraggedObject(String name)
+    {
+        if(this.getProjectile().getName() == name)
+        {
+            return this.getProjectile();
+        }
+        else
+        {
+            Collection<Obstacle> obstacles = this.getObstacles();
+            for(Obstacle o : obstacles)
+            {
+                if(o.getName() == name)
+                {
+                    return o;
+                }
+            }
+            Collection<Team> teams = this.getTeams();
+            for(Team t : teams)
+            {
+                if(t.getName() == name)
+                {
+                    return t;
+                }
+            }
+            return null;
+        } 
     }
 }

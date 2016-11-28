@@ -1,6 +1,7 @@
 package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.exceptions.MaxNumberException;
+import org.glo.giftw.domain.Dragable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Team implements Serializable
+public class Team implements Serializable, Dragable
 {
     public final static long serialVersionUID = 0L;
 
@@ -35,7 +36,7 @@ public class Team implements Serializable
     
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     public void setName(String name)
@@ -45,7 +46,7 @@ public class Team implements Serializable
 
     public String getColour()
     {
-        return colour;
+        return this.colour;
     }
 
     public void setColour(String colour)
