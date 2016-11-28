@@ -1,10 +1,12 @@
 package org.glo.giftw.view;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
+import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.strategy.Frame;
+
+import java.io.IOException;
 
 public class CreationToolBarController
 {
@@ -20,13 +22,23 @@ public class CreationToolBarController
 	@FXML
 	void onActionPrevious(ActionEvent event)
 	{
-		System.out.println("onActionPrevious");
+	    boolean isFirstFrame = Controller.getInstance().isFirstFrame();
+	    if (!isFirstFrame)
+		{
+			Frame frame = Controller.getInstance().previousFrame();
+			//appel au controlleur de creation
+		}
 	}
 
 	@FXML
 	void onActionNext(ActionEvent event)
 	{
-		System.out.println("onActionNext");
+	    boolean isLastFrame = Controller.getInstance().isLastFrame();
+	    if (!isLastFrame)
+		{
+			Frame frame = Controller.getInstance().nextFrame();
+			//appel au controlleur de creation
+		}
 	}
 
 	@FXML

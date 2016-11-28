@@ -29,6 +29,11 @@ public class Controller
         return currentStrategy.isLastFrame();
     }
 
+    public boolean isFirstFrame()
+    {
+        return currentStrategy.isFirstFrame();
+    }
+
     public void goToBeginning()
     {
         currentStrategy.goToBeginning();
