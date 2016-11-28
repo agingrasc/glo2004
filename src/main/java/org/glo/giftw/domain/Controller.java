@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.Dragable;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
@@ -23,6 +24,16 @@ public class Controller
     protected Strategy currentStrategy;
 
     private static Controller INSTANCE = null;
+
+    public void goToBeginning()
+    {
+        currentStrategy.goToBeginning();
+    }
+
+    public void goToEnd()
+    {
+        currentStrategy.goToEnd();
+    }
 
     protected Controller()
     {
@@ -257,15 +268,15 @@ public class Controller
     }
 
     /**
-     * Crée une nouvelle frame à la fin de la suite de frames.
+     * Crée une nouvelle key frame, précédée du bon nombre de subFrames, à la fin de la suite de frames.
      *
-     * @return La nouvelle frame.
+     * @return La nouvelle key frame.
      */
     public Frame createNewFrame()
     {
-        this.currentStrategy.goToEnd();
         this.currentStrategy.createNewFrame();
-        return this.currentStrategy.nextFrame();
+        this.currentStrategy.goToEnd();
+        return this.currentStrategy.getCurrentFrame();
     }
 
     /**
@@ -279,5 +290,33 @@ public class Controller
     {
         this.currentStrategy.changeCurrentFrame(delta);
         return this.currentStrategy.getCurrentFrame();
+    }
+    
+    public Dragable getDraggedObject(String name)
+    {
+        if(this.getProjectile().getName() == name)
+        {
+            return this.getProjectile();
+        }
+        else
+        {
+            Collection<Obstacle> obstacles = this.getObstacles();
+            for(Obstacle o : obstacles)
+            {
+                if(o.getName() == name)
+                {
+                    return o;
+                }
+            }
+            Collection<Team> teams = this.getTeams();
+            for(Team t : teams)
+            {
+                if(t.getName() == name)
+                {
+                    return t;
+                }
+            }
+            return null;
+        } 
     }
 }

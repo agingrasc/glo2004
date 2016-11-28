@@ -41,7 +41,7 @@ public class Sport implements Serializable, TreeViewable
     
     public double getUnitRatio()
     {
-        return field.getUnitRatio();
+        return this.field.getUnitRatio();
     }
 
     public String getName()
@@ -56,7 +56,7 @@ public class Sport implements Serializable, TreeViewable
 
     public List<String> getRoles()
     {
-        return roles;
+        return this.roles;
     }
 
     public void setRoles(List<String> roles)
@@ -76,12 +76,12 @@ public class Sport implements Serializable, TreeViewable
 
     public Field getField()
     {
-        return field;
+        return this.field;
     }
 
     public Vector getFieldDimensions()
     {
-        return field.getDimensions();
+        return this.field.getDimensions();
     }
 
     public void setField(Field field)
@@ -101,7 +101,7 @@ public class Sport implements Serializable, TreeViewable
 
     public int getMaxPlayersPerTeam()
     {
-        return maxPLayersPerTeam;
+        return this.maxPLayersPerTeam;
     }
 
     public void setMaxPLayersPerTeam(int maxPLayersPerTeam)
@@ -111,7 +111,7 @@ public class Sport implements Serializable, TreeViewable
 
     public int getMaxTeams()
     {
-        return maxTeams;
+        return this.maxTeams;
     }
 
     public void setMaxTeams(int maxTeams)
@@ -147,7 +147,7 @@ public class Sport implements Serializable, TreeViewable
 
     public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        return field.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
+        return this.field.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     @Override
