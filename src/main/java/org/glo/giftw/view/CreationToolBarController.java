@@ -26,7 +26,7 @@ public class CreationToolBarController
 	    if (!isFirstFrame)
 		{
 			Frame frame = Controller.getInstance().previousFrame();
-			//appel au controlleur de creation
+			//FIXME: appel au controlleur de creation
 		}
 	}
 
@@ -37,7 +37,7 @@ public class CreationToolBarController
 	    if (!isLastFrame)
 		{
 			Frame frame = Controller.getInstance().nextFrame();
-			//appel au controlleur de creation
+			//FIXME: appel au controlleur de creation
 		}
 	}
 
