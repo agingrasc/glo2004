@@ -1,6 +1,5 @@
 package org.glo.giftw.domain;
 
-import org.glo.giftw.domain.Dragable;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
@@ -24,6 +23,16 @@ public class Controller
     protected Strategy currentStrategy;
 
     private static Controller INSTANCE = null;
+
+    public boolean isLastFrame()
+    {
+        return currentStrategy.isLastFrame();
+    }
+
+    public boolean isFirstFrame()
+    {
+        return currentStrategy.isFirstFrame();
+    }
 
     public void goToBeginning()
     {
@@ -314,6 +323,14 @@ public class Controller
                 if(t.getName() == name)
                 {
                     return t;
+                }
+                List<Player> players = t.getPlayers();
+                for(Player p : players)
+                {
+                    if(p.getName() == name)
+                    {
+                        return p;
+                    }
                 }
             }
             return null;

@@ -167,6 +167,11 @@ public class Strategy implements Serializable, TreeViewable
         return this.currentFrameIdx == this.frames.size() - 1;
     }
 
+    public boolean isFirstFrame()
+    {
+        return this.currentFrameIdx == 0;
+    }
+
     public Frame getCurrentFrame()
     {
         return this.frames.get(this.currentFrameIdx);

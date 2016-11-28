@@ -100,7 +100,7 @@ public class RootLayoutController
 		addToolBar(getModeToolBarController().getRootToolBar());
 		addToolBar(getMediaToolBarController().getRootToolBar());
 		borderPane.setLeft(null);
-		borderPane.setCenter(getMediaContentController().getRootStackPane());
+		borderPane.setCenter(getMediaContentController().getField());
 		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
 		borderPane.setRight(null);
 		getMediaContentController().displayNewFrame();

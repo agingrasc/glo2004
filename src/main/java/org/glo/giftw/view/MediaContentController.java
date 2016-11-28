@@ -1,23 +1,32 @@
 package org.glo.giftw.view;
 
 import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Collection;
 
 public class MediaContentController extends AnimationTimer
 {
 
-    private final static long FPS = 1/30;
+    private final static long FPS = 1000 * 1000 * 1000 / 30; //en nanoseconde
+
+	@FXML
+    private Pane field;
+
+	private long lastTimeStamp;
+
+	private Vector ratioPixelToUnit;
+
     @Override
     /**
      * Main loop pour la visualisation
@@ -25,58 +34,115 @@ public class MediaContentController extends AnimationTimer
      */
     public void handle(long timestamp)
     {
-        long delta_t = timestamp - lastTimeStamp;
-        if (delta_t >= FPS)
+        long delta_t = timestamp - this.lastTimeStamp;
+        this.lastTimeStamp = timestamp;
+        boolean isLastFrame = Controller.getInstance().isLastFrame();
+
+        if (delta_t >= FPS && !isLastFrame)
         {
             //actual stuff
             System.out.println("FUBAR: " + timestamp);
+            this.field.getChildren().clear();
+
+			Frame frame = Controller.getInstance().nextFrame();
+			this.displayFrame(frame);
         }
     }
 
-    @FXML
-	private StackPane rootStackPane;
-
-	private Vector ratioPixelToUnit;
-
-	private long lastTimeStamp;
-
 	public void displayNewFrame()
 	{
-		rootStackPane.getChildren().clear();
-		rootStackPane.setAlignment(Pos.CENTER);
-		Controller.getInstance().createNewFrame();
-		File file = new File(Controller.getInstance().getSportFieldImagePath());
-		Image sportFieldImage = new Image(file.toURI().toString());
-        ImageView field = new ImageView(sportFieldImage);
-
-        field.setOnMouseMoved(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                Vector adjCoord = new Vector(event.getX(), event.getY());
-                try
-                {
-                    RootLayoutController.getInstance().getBottomToolBarController().updateCoordinate(adjCoord, ratioPixelToUnit);
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        });
-        rootStackPane.getChildren().add(field);
-
-		//FIXME: trouver dynamiquement la taille restreignante
-		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
-        double adjustedHeight = rootStackPane.getChildren().get(0).getBoundsInParent().getHeight();
-        double ratio = adjustedHeight/fieldDimensions.getY();
-        double adjustedWidth = ratio * fieldDimensions.getX();
-		this.ratioPixelToUnit = new Vector(adjustedWidth/fieldDimensions.getX(), adjustedHeight/fieldDimensions.getY());
+		field.getChildren().clear();
+		this.initWithCurrentFrame();
 	}
 
-	public StackPane getRootStackPane()
+	public void initWithCurrentFrame()
 	{
-		return rootStackPane;
+	    Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
+
+		File file = new File(Controller.getInstance().getSportFieldImagePath());
+		Image sportFieldImage = new Image(file.toURI().toString());
+
+		BackgroundPosition bgPos = BackgroundPosition.DEFAULT;
+		BackgroundImage bgImg = new BackgroundImage(sportFieldImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, bgPos, BackgroundSize.DEFAULT);
+		Background bg = new Background(bgImg);
+		this.field.setBackground(bg);
+
+		double imgWidth = sportFieldImage.getWidth();
+		double imgHeight = sportFieldImage.getHeight();
+        double actualHeight = this.field.getParent().getBoundsInParent().getHeight() - 150; //magic number venant des prefHeight
+        double ratio = actualHeight/imgHeight;
+        double actualWidth = imgWidth * ratio;
+
+        this.ratioPixelToUnit = new Vector(actualWidth/fieldDimensions.getX(), actualHeight/fieldDimensions.getY());
+		this.displayFrame(Controller.getInstance().getCurrentFrame());
+	}
+
+	public void displayFrame(Frame frame)
+	{
+		Collection<GameObject> gameObjects = frame.getGameObjects();
+		System.out.println("foo");
+		for (GameObject go: gameObjects)
+		{
+			Vector position = frame.getPosition(go);
+			float orientation = frame.getOrientation(go);
+			Vector dimension = frame.getDimensions(go);
+			if (go instanceof Player)
+            {
+                Player player = (Player) go;
+                String teamColor = "";
+                Collection<Team> teams = Controller.getInstance().getTeams();
+                for (Team t: teams)
+                {
+                    if (t.isPlayerInTeam(player))
+                    {
+                        teamColor= t.getColour();
+                    }
+                }
+
+                GridPane gp = new GridPane();
+                Circle playerImg = new Circle(dimension.getX());
+                playerImg.setFill(Color.web(teamColor));
+                gp.add(new Label(player.getName()), 0, 0);
+                gp.add(new Label(player.getRole()), 0, 1);
+                gp.add(new Circle(dimension.getX()), 0, 2);
+                gp.setPrefWidth(this.ratioPixelToUnit.getX() * dimension.getX());
+                gp.setPrefHeight(this.ratioPixelToUnit.getY() * dimension.getY());
+                gp.setLayoutX(this.ratioPixelToUnit.getX() * position.getX());
+                gp.setLayoutY(this.ratioPixelToUnit.getY() * position.getY());
+                gp.setRotate(orientation);
+                this.field.getChildren().add(gp);
+            }
+            if (go instanceof Projectile)
+            {
+                String imgPath = ((Projectile) go).getImagePath();
+                File file = new File(imgPath);
+                Image projImg = new Image(file.toURI().toString());
+                ImageView iv = new ImageView(projImg);
+                iv.setFitWidth(this.ratioPixelToUnit.getX() * dimension.getX());
+                iv.setFitHeight(this.ratioPixelToUnit.getY() * dimension.getY());
+                iv.setLayoutX(this.ratioPixelToUnit.getX() * position.getX());
+                iv.setLayoutY(this.ratioPixelToUnit.getY() * position.getY());
+                iv.setRotate(orientation);
+                this.field.getChildren().add(iv);
+            }
+            if (go instanceof Obstacle)
+            {
+                String imgPath = ((Obstacle) go).getImagePath();
+                File file = new File(imgPath);
+                Image obsImg = new Image(file.toURI().toString());
+                ImageView iv = new ImageView(obsImg);
+                iv.setFitWidth(this.ratioPixelToUnit.getX() * dimension.getX());
+                iv.setFitHeight(this.ratioPixelToUnit.getY() * dimension.getY());
+                iv.setLayoutX(this.ratioPixelToUnit.getX() * position.getX());
+                iv.setLayoutY(this.ratioPixelToUnit.getY() * position.getY());
+                iv.setRotate(orientation);
+                this.field.getChildren().add(iv);
+            }
+		}
+	}
+
+	public Pane getField()
+	{
+		return this.field;
 	}
 }
