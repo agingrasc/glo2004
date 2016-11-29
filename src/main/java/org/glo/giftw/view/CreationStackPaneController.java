@@ -102,13 +102,21 @@ public class CreationStackPaneController
 		currentPane.setOnDragDropped((DragEvent event) -> {
 			Dragboard db = event.getDragboard();
 			boolean success = false;
-			if (db.hasString() && (event.getGestureSource() instanceof TableView<?>))
+			if (db.hasString())
 			{
 				Dragable item = Controller.getInstance().getDraggedObject(db.getString());
 				Vector coord = Controller.getInstance().getFieldCoordinate(new Vector(event.getX(),event.getY()), ratioPixelToUnit);
 				if(item instanceof Obstacle)
 				{
-					Controller.getInstance().addObstacle(db.getString(), coord, 0, new Vector(ratioPixelToUnit.getX()/32,ratioPixelToUnit.getY()/32));
+					if(event.getGestureSource() instanceof TableView<?>)
+					{
+						
+					}
+					System.out.println(db.getString());
+					System.out.println(coord);
+					System.out.println(ratioPixelToUnit.getX()/32);
+					System.out.println(ratioPixelToUnit.getY()/32);
+					Controller.getInstance().addObstacle(db.getString(), coord, 0, new Vector(32,32));
 					File imageFile = new File(((Obstacle)item).getImagePath());
 	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
 					ImageView imageView = new ImageView(image);
@@ -116,6 +124,7 @@ public class CreationStackPaneController
 					imageView.setY(event.getY());
 					setDragDetected(imageView);
 					currentPane.getChildren().add(imageView);
+					
 				}
 				else if(item instanceof Projectile)
 				{
@@ -152,22 +161,6 @@ public class CreationStackPaneController
 				}
 				success = true;
 			}
-			else if(db.hasString())
-			{
-				Dragable item = Controller.getInstance().getDraggedObject(db.getString());
-				if(item instanceof Obstacle)
-				{
-					
-				}
-				else if(item instanceof Projectile)
-				{
-					
-				}
-				else if(item instanceof Player)
-				{
-					
-				}
-			}
 			event.setDropCompleted(success);
 
 			event.consume();
@@ -180,13 +173,15 @@ public class CreationStackPaneController
 	        @Override
 	        public void handle(MouseEvent event) {
 	            // drag was detected, start drag-and-drop gesture
-	        	
+	        	System.out.println(event.getX()/ratioPixelToUnit.getX());
+	        	System.out.println(event.getY()/ratioPixelToUnit.getY());
 	            GameObject selected = Controller.getInstance().getGameObjectByCoordinate(new Vector(event.getX(),event.getY()), ratioPixelToUnit);
+	            System.out.println(selected);
 	            if(selected != null)
 	            {	
 	            	Dragboard db = currentPane.startDragAndDrop(TransferMode.MOVE);
                 	ClipboardContent content = new ClipboardContent();
-                	Image image;
+                	Image image = null;
 	            	if(selected instanceof Obstacle)
 	            	{
 	            		File imageFile = new File(((Obstacle) selected).getImagePath());
@@ -215,17 +210,17 @@ public class CreationStackPaneController
 		                	gc.fillOval(0, 0, x, y);
 		                	WritableImage writableImage = playerDisplay.snapshot(new SnapshotParameters(), null);
 		                	image = writableImage;
-		                	db.setDragView(image);
-		 	                content.putString(selected.getName());
-		 	                db.setContent(content);
-		 	                event.consume(); 
+		                	
 						} catch (IOException e)
 						{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 	            	}
-	            		
+	            	db.setDragView(image);
+ 	                content.putString(String.valueOf(selected.getId()));
+ 	                db.setContent(content);
+ 	                event.consume(); 
 	               
 	            }
 	        }
