@@ -4,15 +4,11 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" onScroll="#onScroll" pannable="true" stylesheets="@../css/visuaLigueCSS.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationStackPaneController">
+<ScrollPane fx:id="scrollPane" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" pannable="true" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.CreationStackPaneController">
    <content>
       <Group fx:id="mainGroup">
          <children>
-            <Group fx:id="subGroup">
-               <children>
-                  <StackPane fx:id="stackPane" onMouseMoved="#onMouseMoved" prefWidth="800.0" prefHeight="600.0" />
-               </children>
-            </Group>
+            <StackPane fx:id="stackPane" onMouseMoved="#onMouseMoved" />
          </children>
       </Group>
    </content>

@@ -13,7 +13,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Accordion;
@@ -23,7 +22,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -233,7 +231,7 @@ public class ItemsAccordionController
 	public void updateTeamsTable()
 	{
 		teams.clear();
-		System.out.println(Controller.getInstance().getTeams());
+		//TODO les equipes ne sont pas sauvegardees
 		teams.addAll(Controller.getInstance().getTeams());
 	}
 	

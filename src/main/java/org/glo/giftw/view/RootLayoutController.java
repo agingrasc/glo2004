@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
@@ -118,7 +119,7 @@ public class RootLayoutController
 		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
 		borderPane.applyCss();
 		borderPane.layout();
-		getCreationStackPaneController().displayNewFrame();
+		getCreationStackPaneController().init();
 	}
 
 	public void realTime() throws IOException
@@ -129,7 +130,6 @@ public class RootLayoutController
 		addToolBar(getCreationToolBarController().getRootToolBar());
 		borderPane.setLeft(getItemsAccordionController().getRootAccordion());
 		borderPane.setCenter(getCreationStackPaneController().getScrollPane());
-		getCreationStackPaneController().displayNewFrame();
 		borderPane.setBottom(getBottomToolBarController().getRootToolBar());
 		borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
 	}
