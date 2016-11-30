@@ -44,10 +44,11 @@ public class CreationStackPaneController
 	@FXML
 	private Group mainGroup;
 	
-	@FXML
-	private Group subGroup;
-	
 	private Pane currentPane;
+	
+	private double zoomFactor = 1;
+	
+	boolean ctrlPressed = false;
 	
 	@FXML
     private ScrollPane scrollPane;
@@ -62,15 +63,43 @@ public class CreationStackPaneController
         bottomToolBarController.updateCoordinate(adjCoord, this.ratioPixelToUnit);
 	}
 
-	public void displayNewFrame()
+	public void init()
 	{
-		Controller.getInstance().createNewFrame();
+		 scrollPane.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
+		        @Override
+		        public void handle(ScrollEvent event) 
+		        {
+		        	if(ctrlPressed == true)
+		    		{
+		    			System.out.println("Scrolling");
+		    			if (event.getDeltaY() == 0) 
+		    			{
+		    				return;
+		    			}
+		    			
+		    			if(event.getDeltaY() < 0)
+		    			{
+		    				zoomOut();
+		    			}
+		    			else
+		    			{
+		    				zoomIn();
+		    			}
+		    		}
+		        	event.consume();
+		        }
+		    });
+		
 		File file = new File(Controller.getInstance().getSportFieldImagePath());
 		Image sportFieldImage = new Image(file.toURI().toString());
-		BackgroundSize bgSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
-		stackPane.setBackground(new Background(new BackgroundImage(sportFieldImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,bgSize)));
-		stackPane.setPrefSize(scrollPane.getWidth(),scrollPane.getHeight());
-
+		ImageView fieldBackground = new ImageView(sportFieldImage);
+		fieldBackground.setPreserveRatio(true);
+		fieldBackground.setFitHeight(scrollPane.getViewportBounds().getHeight());
+		fieldBackground.setFitWidth(scrollPane.getViewportBounds().getWidth());
+		stackPane.getChildren().add(fieldBackground);
+		
+		createNewFrame();
+		
 		//FIXME: trouver dynamiquement la taille restreignante
 		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
 		double adjustedHeight = stackPane.getPrefHeight();
@@ -78,17 +107,14 @@ public class CreationStackPaneController
 		double ratio = adjustedHeight/imgHeight;
 		double adjustedWidth = sportFieldImage.getWidth() * ratio;
 		this.ratioPixelToUnit = new Vector(adjustedWidth/fieldDimensions.getX(), adjustedHeight/fieldDimensions.getY());
-
-		createCurrentGroup();
 	}
 	
-	private void createCurrentGroup()
+	private void createNewFrame()
 	{
+		Controller.getInstance().createNewFrame();
 		currentPane = new Pane();
 		currentPane.setBackground(Background.EMPTY);
 		stackPane.getChildren().add(currentPane);
-		currentPane.prefWidthProperty().bind(stackPane.widthProperty());
-		currentPane.prefHeightProperty().bind(stackPane.heightProperty());
 		
 		currentPane.setOnDragOver((DragEvent event) -> {
 			if (event.getDragboard().hasString())
@@ -230,32 +256,36 @@ public class CreationStackPaneController
 	public void zoomIn()
 	{
 		Scale scaleTransform = new Scale(1.25, 1.25, 0, 0);
-		subGroup.getTransforms().add(scaleTransform);
+		stackPane.getTransforms().add(scaleTransform);
+		zoomFactor *= 1.25;
 	}
 	
 	public void zoomOut()
 	{
 		Scale scaleTransform = new Scale(0.75, 0.75, 0, 0);
-		subGroup.getTransforms().add(scaleTransform);
+		stackPane.getTransforms().add(scaleTransform);
+		zoomFactor *= 0.75;
 	}
 	
 	@FXML
-    void onScroll(ScrollEvent event) 
+    void onKeyPressed(KeyEvent event) 
 	{
-		if (event.getDeltaY() == 0) 
+		if(event.getCode() == KeyCode.CONTROL)
 		{
-			return;
+			System.out.println("pressed");
+			ctrlPressed = true;
 		}
-		
-		if(event.getDeltaY() < 0)
+    }
+
+    @FXML
+    void onKeyReleased(KeyEvent event) 
+    {
+    	if(event.getCode() == KeyCode.CONTROL)
 		{
-			zoomIn();
+    		System.out.println("unpressed");
+			ctrlPressed = false;
 		}
-		else
-		{
-			zoomOut();
-		}
-	}
+    }
 
 	public StackPane getStackPane()
 	{
