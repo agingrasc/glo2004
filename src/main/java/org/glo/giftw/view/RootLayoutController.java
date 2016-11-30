@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 

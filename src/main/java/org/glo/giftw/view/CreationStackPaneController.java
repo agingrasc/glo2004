@@ -29,6 +29,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import org.glo.giftw.domain.util.Vector;
@@ -42,8 +43,6 @@ public class CreationStackPaneController
 	private Group mainGroup;
 	
 	private Pane currentPane;
-	
-	private double zoomFactor = 1;
 	
 	boolean ctrlPressed = false;
 	
@@ -68,7 +67,6 @@ public class CreationStackPaneController
 		        {
 		        	if(ctrlPressed == true)
 		    		{
-		    			System.out.println("Scrolling");
 		    			if (event.getDeltaY() == 0) 
 		    			{
 		    				return;
@@ -122,6 +120,7 @@ public class CreationStackPaneController
 			event.consume();
 		});
 		
+		//TODO
 		currentPane.setOnDragDropped((DragEvent event) -> {
 			Dragboard db = event.getDragboard();
 			boolean success = false;
@@ -135,10 +134,6 @@ public class CreationStackPaneController
 					{
 						
 					}
-					System.out.println(db.getString());
-					System.out.println(coord);
-					System.out.println(ratioPixelToUnit.getX()/32);
-					System.out.println(ratioPixelToUnit.getY()/32);
 					Controller.getInstance().addObstacle(db.getString(), coord, 0, new Vector(32,32));
 					File imageFile = new File(((Obstacle)item).getImagePath());
 	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
@@ -167,7 +162,7 @@ public class CreationStackPaneController
 						Controller.getInstance().addPlayer(coord, 0, new Vector(ratioPixelToUnit.getX()/32,ratioPixelToUnit.getY()/32), db.getString());
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_DISPLAY_PATH.toString()));
-						GridPane playerDisplay = loader.load();
+						VBox playerDisplay = loader.load();
 						PlayerDisplayController pdc = loader.getController();
 						Canvas canvas = pdc.getCanvas();
 	                	GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -190,6 +185,7 @@ public class CreationStackPaneController
 		});
 	}
 	
+	//TODO
 	private void setDragDetected(Node node)
 	{
 		node.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
@@ -254,14 +250,12 @@ public class CreationStackPaneController
 	{
 		Scale scaleTransform = new Scale(1.25, 1.25, 0, 0);
 		stackPane.getTransforms().add(scaleTransform);
-		zoomFactor *= 1.25;
 	}
 	
 	public void zoomOut()
 	{
-		Scale scaleTransform = new Scale(0.75, 0.75, 0, 0);
+		Scale scaleTransform = new Scale(0.8, 0.8, 0, 0);
 		stackPane.getTransforms().add(scaleTransform);
-		zoomFactor *= 0.75;
 	}
 	
 	@FXML
@@ -269,7 +263,6 @@ public class CreationStackPaneController
 	{
 		if(event.getCode() == KeyCode.CONTROL)
 		{
-			System.out.println("pressed");
 			ctrlPressed = true;
 		}
     }
@@ -279,7 +272,6 @@ public class CreationStackPaneController
     {
     	if(event.getCode() == KeyCode.CONTROL)
 		{
-    		System.out.println("unpressed");
 			ctrlPressed = false;
 		}
     }

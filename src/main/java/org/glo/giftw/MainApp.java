@@ -1,6 +1,5 @@
 package org.glo.giftw;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
