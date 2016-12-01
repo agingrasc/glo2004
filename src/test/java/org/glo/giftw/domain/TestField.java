@@ -6,9 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -16,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class TestField
 {
     private Field field;
+
     @Before
     public void setUp()
     {
@@ -23,34 +22,64 @@ public class TestField
     }
 
     @Test
-    public void testValidatePosition()
+    public void testValidatePositionValid()
     {
-        Vector p1 = new Vector(0, 0);
-        Vector p2 = new Vector(0, 6000-1);
-        Vector p3 = new Vector(9000-1, 6000-1);
-        Vector p4 = new Vector(9000-1, 0);
-        Vector p5 = new Vector(42, 113);
+        Vector pos = new Vector(500, 300);
+        assertTrue(this.field.validatePosition(pos));
+    }
 
-        Vector badP1 = new Vector(-1, 500);
-        Vector badP2 = new Vector(500, -1);
-        Vector badP3 = new Vector(-1, -1);
+    @Test
+    public void testValidatePositionValidLeftTopCorner()
+    {
+        Vector pos = new Vector(0, 0);
+        assertTrue(this.field.validatePosition(pos));
+    }
 
-        Vector badP4 = new Vector(9000, 500);
-        Vector badP5 = new Vector(500, 6000);
-        Vector badP6 = new Vector(9000, 6000);
+    @Test
+    public void testValidatePositionValidRightTopCorner()
+    {
+        Vector pos = new Vector(9000, 0);
+        assertTrue(this.field.validatePosition(pos));
+    }
 
-        assertTrue(field.validatePosition(p1));
-        assertTrue(field.validatePosition(p2));
-        assertTrue(field.validatePosition(p3));
-        assertTrue(field.validatePosition(p4));
-        assertTrue(field.validatePosition(p5));
+    @Test
+    public void testValidatePositionValidLeftBottomCorner()
+    {
+        Vector pos = new Vector(0, 6000);
+    }
 
-        assertFalse(field.validatePosition(badP1));
-        assertFalse(field.validatePosition(badP2));
-        assertFalse(field.validatePosition(badP3));
-        assertFalse(field.validatePosition(badP4));
-        assertFalse(field.validatePosition(badP5));
-        assertFalse(field.validatePosition(badP6));
+    @Test
+    public void testValidatePositionValidRightBottomCorner()
+    {
+        Vector pos = new Vector(9000, 6000);
+    }
+
+    @Test
+    public void testValidatePositionInvalidOutsideLeft()
+    {
+        Vector pos = new Vector(-1, 300);
+        assertFalse(this.field.validatePosition(pos));
+    }
+
+    @Test
+    public void testValidatePositionInvalidOutsideBottom()
+    {
+        Vector pos = new Vector(500, -1);
+        assertFalse(this.field.validatePosition(pos));
+    }
+
+    @Test
+    public void testValidatePositionInvalidOutRight()
+    {
+        Vector pos = new Vector(9001, 300);
+        assertFalse(this.field.validatePosition(pos));
+    }
+
+    @Test
+    public void testValidatePositionInvalidOutsideTop()
+    {
+        Vector pos = new Vector(500, 6001);
+        assertFalse(this.field.validatePosition(pos));
     }
 
     @Test
@@ -98,7 +127,7 @@ public class TestField
         Assert.assertTrue(expected.equals(field.getFieldCoordinate(coord, ratioPixelToUnit)));
 
     }
-    
+
     @Test
     public void testGetFieldCoordinateNormalRatio()
     {
@@ -125,7 +154,7 @@ public class TestField
         Vector expected = new Vector(1000, 1000);
         Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
     }
-    
+
     @Test
     public void testGetFieldCoordinateOutsideField()
     {
