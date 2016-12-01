@@ -82,7 +82,6 @@ public class CreationStackPaneController
 		
 		createNewFrame();
 		
-		//FIXME: trouver dynamiquement la taille restreignante
 		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
 		double adjustedWidth = stackPane.getWidth();
 		double adjustedHeight = stackPane.getHeight();
