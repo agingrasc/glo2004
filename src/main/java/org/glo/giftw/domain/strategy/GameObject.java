@@ -3,30 +3,28 @@ package org.glo.giftw.domain.strategy;
 import org.glo.giftw.domain.Dragable;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public abstract class GameObject implements Serializable, Dragable
 {
     public static final long serialVersionUID = 1L;
-    private static Integer objectCount = 0;
 
     protected String name;
     protected boolean collidable;
-    protected Integer id;
+    protected String id;
 
     public GameObject()
     {
         this.name = "";
         this.collidable = true;
-        GameObject.objectCount++;
-        this.id = GameObject.objectCount;
+        this.id = UUID.randomUUID().toString();
     }
 
     public GameObject(GameObject gameObject)
     {
         this.name = gameObject.name;
         this.collidable = gameObject.collidable;
-        GameObject.objectCount++;
-        this.id = GameObject.objectCount;
+        this.id = UUID.randomUUID().toString();
     }
 
     public abstract GameObject copy();
@@ -51,21 +49,13 @@ public abstract class GameObject implements Serializable, Dragable
         this.collidable = isCollidable;
     }
 
-    public int getId()
+    public String getId()
     {
         return this.id;
     }
 
-    public void setId(int id)
+    public void setId(String id)
     {
         this.id = id;
-    }
-
-    public static void setObjectCount(Integer count)
-    {
-        if (GameObject.objectCount < count)
-        {
-            GameObject.objectCount = count;
-        }
     }
 }

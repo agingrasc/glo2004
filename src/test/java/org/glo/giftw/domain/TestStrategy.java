@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.*;
@@ -56,11 +57,11 @@ public class TestStrategy
     }
 
     @Test
-    public void testPlaceGameObject()
+    public void testPlaceGameObject() throws GameObjectNotFound
     {
         strat.createNewFrame();
         strat.goToEnd();
-        strat.placeGameObject(joueur, new Vector(550, 1445), 15, new Vector(80, 130));
+        strat.placeGameObject(joueur.getId(), new Vector(550, 1445), 15, new Vector(80, 130));
         for (int i = 1; i < 16; i++)
         {
             Frame frame = strat.getFrame(i);

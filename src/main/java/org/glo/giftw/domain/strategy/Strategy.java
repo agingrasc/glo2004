@@ -1,6 +1,7 @@
 package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.TreeViewable;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.util.Vector;
@@ -311,6 +312,7 @@ public class Strategy implements Serializable, TreeViewable
                                 String team) throws TeamNotFound, MaxNumberException
     {
         Player player = new Player();
+        this.gameObjects.add(player);
         if (team == null)
         {
             if (this.teams.get("default") == null)
@@ -326,16 +328,19 @@ public class Strategy implements Serializable, TreeViewable
     public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
     {
         Projectile projectile = new Projectile(this.sport.getProjectile());
+        this.gameObjects.add(projectile);
         return this.addGameObject(projectile, position, orientation, dimensions);
     }
 
     public GameObject addObstacle(Obstacle obstacle, Vector position, float orientation, Vector dimensions)
     {
+        this.gameObjects.add(obstacle);
         return this.addGameObject(obstacle, position, orientation, dimensions);
     }
 
-    public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
+    public void placeGameObject(String gameObjectUuid, Vector position, float orientation, Vector dimensions) throws GameObjectNotFound
     {
+        GameObject gameObject = this.getGameObjectByUUID(gameObjectUuid);
         this.getCurrentFrame().placeGameObject(gameObject, position, orientation, dimensions);
         if (this.currentFrameIdx != 0)
         {
@@ -375,6 +380,18 @@ public class Strategy implements Serializable, TreeViewable
     public GameObject getGameObjectByCoordinate(Vector coordinate)
     {
         return this.getCurrentFrame().getGameObjectByCoordinate(coordinate);
+    }
+
+    public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
+    {
+        for (GameObject gameObject: this.gameObjects)
+        {
+            if (gameObject.getId().equals(uuid))
+            {
+                return gameObject;
+            }
+        }
+        throw new GameObjectNotFound(String.format("Le GameObject avec le uuid %s n'a pas ete trouve.", uuid));
     }
 
     public Vector getFieldDimensions()

@@ -1,6 +1,7 @@
 package org.glo.giftw.controller;
 
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.Field;
@@ -38,24 +39,27 @@ public class TestController
     }
 
     @Test
-    public void testAddPlayerDefaultTeam() throws TeamNotFound, MaxNumberException
+    public void testAddPlayerDefaultTeam() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
-        Player player = (Player) this.controller.addPlayer(new Vector(), 0f, new Vector(), null);
+        String playerUuid = this.controller.addPlayer(new Vector(), 0f, new Vector(), null);
+        Player player = (Player) this.controller.getGameObjectByUUID(playerUuid);
         Assert.assertEquals("default", this.controller.getPlayerTeam(player));
     }
 
     @Test(expected = TeamNotFound.class)
-    public void testAddPlayerNewTeamNotFound() throws TeamNotFound, MaxNumberException
+    public void testAddPlayerNewTeamNotFound() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
-        Player player = (Player) this.controller.addPlayer(new Vector(), 0f, new Vector(), "BlU");
+        String playerUuid = this.controller.addPlayer(new Vector(), 0f, new Vector(), "BlU");
+        Player player = (Player) this.controller.getGameObjectByUUID(playerUuid);
         Assert.fail("Une exception TeamNotFound devrait etre lance");
     }
 
     @Test
-    public void testAddPlayerNewTeam() throws TeamNotFound, MaxNumberException
+    public void testAddPlayerNewTeam() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
         this.controller.addTeam("BLU", "0x0000FF");
-        Player player = (Player) this.controller.addPlayer(new Vector(), 0f, new Vector(), "BLU");
+        String playerUuid = this.controller.addPlayer(new Vector(), 0f, new Vector(), "BLU");
+        Player player = (Player) this.controller.getGameObjectByUUID(playerUuid);
         Assert.assertEquals("BLU", this.controller.getPlayerTeam(player));
     }
 

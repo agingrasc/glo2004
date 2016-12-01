@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
@@ -16,13 +17,29 @@ import java.util.List;
 public class Controller
 {
     public static final double COORDINATE_CONVERSION_RATIO = 1.0; //mm par pixel
+    private static Controller INSTANCE = null;
+    protected Strategy currentStrategy;
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
     private StrategyPool strategyPool;
 
-    protected Strategy currentStrategy;
+    protected Controller()
+    {
+        super();
+        this.sportPool = new SportPool();
+        this.obstaclePool = new ObstaclePool();
+        this.strategyPool = new StrategyPool();
+        this.currentStrategy = null;
+    }
 
-    private static Controller INSTANCE = null;
+    public static Controller getInstance()
+    {
+        if (Controller.INSTANCE == null)
+        {
+            Controller.INSTANCE = new Controller();
+        }
+        return Controller.INSTANCE;
+    }
 
     public boolean isLastFrame()
     {
@@ -42,24 +59,6 @@ public class Controller
     public void goToEnd()
     {
         currentStrategy.goToEnd();
-    }
-
-    protected Controller()
-    {
-        super();
-        this.sportPool = new SportPool();
-        this.obstaclePool = new ObstaclePool();
-        this.strategyPool = new StrategyPool();
-        this.currentStrategy = null;
-    }
-
-    public static Controller getInstance()
-    {
-        if (Controller.INSTANCE == null)
-        {
-            Controller.INSTANCE = new Controller();
-        }
-        return Controller.INSTANCE;
     }
 
     /**
@@ -116,10 +115,10 @@ public class Controller
      * @param dimensions  Les dimensions initiales du joueur.
      * @return L'id du joueur nouvellement créé.
      */
-    public GameObject addPlayer(Vector position, float orientation, Vector dimensions,
-                                String team) throws TeamNotFound, MaxNumberException
+    public String addPlayer(Vector position, float orientation, Vector dimensions,
+                            String team) throws TeamNotFound, MaxNumberException
     {
-        return this.currentStrategy.addPlayer(position, orientation, dimensions, team);
+        return this.currentStrategy.addPlayer(position, orientation, dimensions, team).getId();
     }
 
     /**
@@ -130,10 +129,10 @@ public class Controller
      * @param dimensions  Les dimensions initiales de l'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public GameObject addObstacle(String name, Vector position, float orientation, Vector dimensions)
+    public String addObstacle(String name, Vector position, float orientation, Vector dimensions)
     {
         Obstacle obstacle = this.obstaclePool.create(name);
-        return this.currentStrategy.addObstacle(obstacle, position, orientation, dimensions);
+        return this.currentStrategy.addObstacle(obstacle, position, orientation, dimensions).getId();
     }
 
     /**
@@ -144,19 +143,14 @@ public class Controller
      * @param dimensions  Les dimensions initiales du projectile.
      * @return L'id du projectile nouvellement créé.
      */
-    public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
+    public String addProjectile(Vector position, float orientation, Vector dimensions)
     {
-        return this.currentStrategy.addProjectile(position, orientation, dimensions);
+        return this.currentStrategy.addProjectile(position, orientation, dimensions).getId();
     }
 
     public void addTeam(String teamName, String colour) throws MaxNumberException
     {
         this.currentStrategy.addTeam(teamName, colour);
-    }
-
-    public Collection<Team> getTeams()
-    {
-        return this.currentStrategy.getTeams();
     }
 
     public String getTeamColour(String teamName)
@@ -175,9 +169,20 @@ public class Controller
         return currentStrategy.getGameObjectByCoordinate(coordinate);
     }
 
-    public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
     {
-        this.currentStrategy.placeGameObject(gameObject, position, orientation, dimensions);
+        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
+    }
+
+    public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
+    {
+        return this.currentStrategy.getGameObjectByUUID(uuid);
+    }
+
+    public void placeGameObject(String gameObjectUuid, Vector position, float orientation,
+                                Vector dimensions) throws GameObjectNotFound
+    {
+        this.currentStrategy.placeGameObject(gameObjectUuid, position, orientation, dimensions);
     }
 
     /**
@@ -193,16 +198,6 @@ public class Controller
     public String getSportFieldImagePath()
     {
         return this.currentStrategy.getFieldImagePath();
-    }
-
-    public Projectile getProjectile()
-    {
-        return this.currentStrategy.getSport().getProjectile();
-    }
-
-    public Collection<Obstacle> getObstacles()
-    {
-        return this.obstaclePool.getAllObstacles();
     }
 
     public Collection<Sport> getSports()
@@ -239,11 +234,6 @@ public class Controller
     public Vector getFieldDimensions()
     {
         return currentStrategy.getFieldDimensions();
-    }
-
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
-    {
-        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
     }
 
     /**
@@ -335,6 +325,21 @@ public class Controller
             }
             return null;
         }
+    }
+
+    public Collection<Team> getTeams()
+    {
+        return this.currentStrategy.getTeams();
+    }
+
+    public Projectile getProjectile()
+    {
+        return this.currentStrategy.getSport().getProjectile();
+    }
+
+    public Collection<Obstacle> getObstacles()
+    {
+        return this.obstaclePool.getAllObstacles();
     }
 
     public void saveStrategies()
