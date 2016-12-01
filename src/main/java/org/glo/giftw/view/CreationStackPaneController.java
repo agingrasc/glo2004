@@ -50,7 +50,7 @@ public class CreationStackPaneController
     {
         addEventFilter();
         setFieldAsBackground();
-        computePixelToUnitRatio();
+        computeAndSetPixelToUnitRatio();
         createNewFrame();
     }
 
@@ -93,7 +93,7 @@ public class CreationStackPaneController
         this.stackPane.getChildren().add(fieldBackground);
     }
 
-    private void computePixelToUnitRatio()
+    private void computeAndSetPixelToUnitRatio()
     {
         Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
         double adjustedWidth = stackPane.getWidth();
