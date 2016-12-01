@@ -48,6 +48,14 @@ public class CreationStackPaneController
 
     public void init()
     {
+        addEventFilter();
+        setFieldAsBackground();
+        computePixelToUnitRatio();
+        createNewFrame();
+    }
+
+    private void addEventFilter()
+    {
         scrollPane.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>()
         {
             @Override
@@ -72,17 +80,21 @@ public class CreationStackPaneController
                 event.consume();
             }
         });
+    }
 
+    private void setFieldAsBackground()
+    {
         File file = new File(Controller.getInstance().getSportFieldImagePath());
         Image sportFieldImage = new Image(file.toURI().toString());
         ImageView fieldBackground = new ImageView(sportFieldImage);
         fieldBackground.setPreserveRatio(true);
-        fieldBackground.setFitHeight(scrollPane.getViewportBounds().getHeight());
-        fieldBackground.setFitWidth(scrollPane.getViewportBounds().getWidth());
-        stackPane.getChildren().add(fieldBackground);
+        fieldBackground.setFitHeight(this.scrollPane.getViewportBounds().getHeight());
+        fieldBackground.setFitWidth(this.scrollPane.getViewportBounds().getWidth());
+        this.stackPane.getChildren().add(fieldBackground);
+    }
 
-        createNewFrame();
-
+    private void computePixelToUnitRatio()
+    {
         Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
         double adjustedWidth = stackPane.getWidth();
         double adjustedHeight = stackPane.getHeight();
