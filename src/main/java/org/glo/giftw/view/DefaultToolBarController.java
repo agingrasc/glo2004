@@ -3,6 +3,7 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
+import org.glo.giftw.domain.Controller;
 
 import java.io.IOException;
 
@@ -50,7 +51,7 @@ public class DefaultToolBarController
     @FXML
     void onActionSave(ActionEvent event)
     {
-        System.out.println("onActionSave");
+        Controller.getInstance().saveStrategies();
     }
 
     public ToolBar getRootToolBar()

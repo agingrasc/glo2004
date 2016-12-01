@@ -336,4 +336,9 @@ public class Controller
             return null;
         }
     }
+
+    public void saveStrategies()
+    {
+        this.strategyPool.save();
+    }
 }

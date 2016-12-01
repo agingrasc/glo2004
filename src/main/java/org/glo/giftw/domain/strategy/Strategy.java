@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Strategy implements Serializable, TreeViewable
 {
-    public static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 2L;
     public static final String STRATEGY_PATH = "data/strategies";
     private static int framePerSecond = 30;
     private static int keyFramePerSecond = 2;
@@ -25,7 +25,7 @@ public class Strategy implements Serializable, TreeViewable
     private Sport sport;
     private int currentFrameIdx;
     private HashMap<String, Team> teams; //Associe chaque équipe impliquée dans une strategie avec son nom
-    private ArrayList<GameObject> gameObjects;        //Liste contenant les instances des gameObjects de la stratégie
+    private ArrayList<GameObject> gameObjects; //Liste contenant les instances des gameObjects de la stratégie
     private ArrayList<Frame> frames;
     private boolean checkMaxNumberPlayer;
     private boolean checkMaxNumberTeam;

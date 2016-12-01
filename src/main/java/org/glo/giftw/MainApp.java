@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.view.FXMLPaths;
 import org.glo.giftw.view.RootLayoutController;
 
@@ -24,6 +25,14 @@ public class MainApp extends Application
 
         initRootLayout();
         RootLayoutController.getInstance().openStrategy();
+    }
+
+    @Override
+    public void stop() throws Exception
+    {
+        System.out.println("Sauvegarde automatique de toutes les stratégies.");
+        Controller.getInstance().saveStrategies();
+        super.stop();
     }
 
     public void initRootLayout()

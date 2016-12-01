@@ -2,12 +2,16 @@ package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.util.Vector;
 
+import java.io.Serializable;
+
 /**
  * Classe conteneur regroupant la position, l'orientation et les dimensions d'un GameObject.
  * Cette classe est utilisée pour stocker l'état des GameObjects dans le hashmap de la classe Frame.
  */
-public class GameObjectState
+public class GameObjectState implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     private Vector position;
     private float orientation;
     private Vector dimensions;
