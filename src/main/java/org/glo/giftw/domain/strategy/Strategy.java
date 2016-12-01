@@ -91,7 +91,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         return this.frames.get(frameId);
     }
-    
+
     public Collection<Team> getTeams()
     {
         return this.teams.values();
@@ -284,12 +284,12 @@ public class Strategy implements Serializable, TreeViewable
         this.addTeamPlayer(newTeamName, player);
         this.removeTeamPlayer(oldTeamName, player);
     }
-    
+
     public String getTeamColour(String teamName)
     {
         return this.teams.get(teamName).getColour();
     }
-    
+
     public void setTeamColour(String teamName, String colour)
     {
         this.teams.get(teamName).setColour(colour);

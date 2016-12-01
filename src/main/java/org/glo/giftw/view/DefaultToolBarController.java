@@ -1,60 +1,60 @@
 package org.glo.giftw.view;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
 
+import java.io.IOException;
+
 public class DefaultToolBarController
-{	
-	@FXML 
-	private ToolBar rootToolBar;
-	
-	@FXML
-	void onActionNewObstacle(ActionEvent event) throws IOException
-	{
-		RootLayoutController.getInstance().newObstacle();
-	}
+{
+    @FXML
+    private ToolBar rootToolBar;
 
-	@FXML
-	void onActionNewSport(ActionEvent event) throws IOException
-	{
-		RootLayoutController.getInstance().newSport();
-	}
+    @FXML
+    void onActionNewObstacle(ActionEvent event) throws IOException
+    {
+        RootLayoutController.getInstance().newObstacle();
+    }
 
-	@FXML
-	void onActionNewStrategy(ActionEvent event) throws IOException
-	{
-		RootLayoutController.getInstance().newStrategy();
-	}
+    @FXML
+    void onActionNewSport(ActionEvent event) throws IOException
+    {
+        RootLayoutController.getInstance().newSport();
+    }
 
-	@FXML
-	void onActionOpenObstacle(ActionEvent event) throws IOException
-	{
-		RootLayoutController.getInstance().openObstacle();
-	}
+    @FXML
+    void onActionNewStrategy(ActionEvent event) throws IOException
+    {
+        RootLayoutController.getInstance().newStrategy();
+    }
 
-	@FXML
-	void onActionOpenSport(ActionEvent event) throws IOException
-	{
-		RootLayoutController.getInstance().openStrategy();
-	}
+    @FXML
+    void onActionOpenObstacle(ActionEvent event) throws IOException
+    {
+        RootLayoutController.getInstance().openObstacle();
+    }
 
-	@FXML
-	void onActionOpenStrategy(ActionEvent event) throws IOException
-	{
-		RootLayoutController.getInstance().openStrategy();
-	}
+    @FXML
+    void onActionOpenSport(ActionEvent event) throws IOException
+    {
+        RootLayoutController.getInstance().openStrategy();
+    }
 
-	@FXML
-	void onActionSave(ActionEvent event)
-	{
-		System.out.println("onActionSave");
-	}
+    @FXML
+    void onActionOpenStrategy(ActionEvent event) throws IOException
+    {
+        RootLayoutController.getInstance().openStrategy();
+    }
 
-	public ToolBar getRootToolBar()
-	{
-		return rootToolBar;
-	}
+    @FXML
+    void onActionSave(ActionEvent event)
+    {
+        System.out.println("onActionSave");
+    }
+
+    public ToolBar getRootToolBar()
+    {
+        return rootToolBar;
+    }
 }

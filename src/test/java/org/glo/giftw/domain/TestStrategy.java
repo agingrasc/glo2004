@@ -1,18 +1,14 @@
 package org.glo.giftw.domain;
 
-import java.util.ArrayList;
-
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
-import org.glo.giftw.domain.strategy.Frame;
-import org.glo.giftw.domain.strategy.Player;
-import org.glo.giftw.domain.strategy.Strategy;
-import org.glo.giftw.domain.strategy.Field;
-import org.glo.giftw.domain.strategy.Sport;
+import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class TestStrategy
 {
@@ -21,7 +17,7 @@ public class TestStrategy
     Player joueur;
     Sport hockey;
     Strategy strat;
-    
+
     @Before
     public void setUp()
     {
@@ -29,18 +25,18 @@ public class TestStrategy
         roles.add("attaquant");
         roles.add("defenseur");
         roles.add("gardien");
-        
+
         patinoire = new Field();
         hockey = new Sport("hockey", roles, patinoire, "puck", "", 6, 2);
         strat = new Strategy("test", hockey, true, true);
         try
         {
-            joueur = (Player)strat.addPlayer(new Vector(400, 1295), 0, new Vector(50, 100), null);
-        } 
+            joueur = (Player) strat.addPlayer(new Vector(400, 1295), 0, new Vector(50, 100), null);
+        }
         catch (TeamNotFound e)
         {
             e.printStackTrace();
-        } 
+        }
         catch (MaxNumberException e)
         {
             e.printStackTrace();
@@ -49,7 +45,7 @@ public class TestStrategy
         joueur.setJerseyNumber(31);
         joueur.setRole("gardien");
     }
-    
+
     @Test
     public void testCreateFrame()
     {
@@ -58,19 +54,19 @@ public class TestStrategy
         int newFrameCount = strat.getFrames().size();
         Assert.assertTrue(newFrameCount == initialFrameCount + 15);
     }
-    
+
     @Test
     public void testPlaceGameObject()
     {
         strat.createNewFrame();
         strat.goToEnd();
         strat.placeGameObject(joueur, new Vector(550, 1445), 15, new Vector(80, 130));
-        for(int i = 1; i < 16; i++)
+        for (int i = 1; i < 16; i++)
         {
             Frame frame = strat.getFrame(i);
-            Assert.assertTrue(frame.getPosition(joueur).equals(new Vector(400 + 10*i, 1295 + 10*i)));
+            Assert.assertTrue(frame.getPosition(joueur).equals(new Vector(400 + 10 * i, 1295 + 10 * i)));
             Assert.assertEquals(i, frame.getOrientation(joueur), 0.1);
-            Assert.assertTrue(frame.getDimensions(joueur).equals(new Vector(50 + 2*i, 100 + 2*i)));
+            Assert.assertTrue(frame.getDimensions(joueur).equals(new Vector(50 + 2 * i, 100 + 2 * i)));
         }
     }
 }

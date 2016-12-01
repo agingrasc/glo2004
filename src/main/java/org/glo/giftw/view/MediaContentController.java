@@ -20,12 +20,12 @@ public class MediaContentController extends AnimationTimer
 
     private final static long FPS = 1000 * 1000 * 1000 / 30; //en nanoseconde
 
-	@FXML
+    @FXML
     private Pane field;
 
-	private long lastTimeStamp;
+    private long lastTimeStamp;
 
-	private Vector ratioPixelToUnit;
+    private Vector ratioPixelToUnit;
 
     @Override
     /**
@@ -44,58 +44,59 @@ public class MediaContentController extends AnimationTimer
             System.out.println("FUBAR: " + timestamp);
             this.field.getChildren().clear();
 
-			Frame frame = Controller.getInstance().nextFrame();
-			this.displayFrame(frame);
+            Frame frame = Controller.getInstance().nextFrame();
+            this.displayFrame(frame);
         }
     }
 
-	public void displayNewFrame()
-	{
-		field.getChildren().clear();
-		this.initWithCurrentFrame();
-	}
+    public void displayNewFrame()
+    {
+        field.getChildren().clear();
+        this.initWithCurrentFrame();
+    }
 
-	public void initWithCurrentFrame()
-	{
-	    Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
+    public void initWithCurrentFrame()
+    {
+        Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
 
-		File file = new File(Controller.getInstance().getSportFieldImagePath());
-		Image sportFieldImage = new Image(file.toURI().toString());
+        File file = new File(Controller.getInstance().getSportFieldImagePath());
+        Image sportFieldImage = new Image(file.toURI().toString());
 
-		BackgroundPosition bgPos = BackgroundPosition.DEFAULT;
-		BackgroundImage bgImg = new BackgroundImage(sportFieldImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, bgPos, BackgroundSize.DEFAULT);
-		Background bg = new Background(bgImg);
-		this.field.setBackground(bg);
+        BackgroundPosition bgPos = BackgroundPosition.DEFAULT;
+        BackgroundImage bgImg = new BackgroundImage(sportFieldImage, BackgroundRepeat.NO_REPEAT,
+                                                    BackgroundRepeat.NO_REPEAT, bgPos, BackgroundSize.DEFAULT);
+        Background bg = new Background(bgImg);
+        this.field.setBackground(bg);
 
-		double imgWidth = sportFieldImage.getWidth();
-		double imgHeight = sportFieldImage.getHeight();
+        double imgWidth = sportFieldImage.getWidth();
+        double imgHeight = sportFieldImage.getHeight();
         double actualHeight = this.field.getParent().getBoundsInParent().getHeight() - 150; //magic number venant des prefHeight
-        double ratio = actualHeight/imgHeight;
+        double ratio = actualHeight / imgHeight;
         double actualWidth = imgWidth * ratio;
 
-        this.ratioPixelToUnit = new Vector(actualWidth/fieldDimensions.getX(), actualHeight/fieldDimensions.getY());
-		this.displayFrame(Controller.getInstance().getCurrentFrame());
-	}
+        this.ratioPixelToUnit = new Vector(actualWidth / fieldDimensions.getX(), actualHeight / fieldDimensions.getY());
+        this.displayFrame(Controller.getInstance().getCurrentFrame());
+    }
 
-	public void displayFrame(Frame frame)
-	{
-		Collection<GameObject> gameObjects = frame.getGameObjects();
-		System.out.println("foo");
-		for (GameObject go: gameObjects)
-		{
-			Vector position = frame.getPosition(go);
-			float orientation = frame.getOrientation(go);
-			Vector dimension = frame.getDimensions(go);
-			if (go instanceof Player)
+    public void displayFrame(Frame frame)
+    {
+        Collection<GameObject> gameObjects = frame.getGameObjects();
+        System.out.println("foo");
+        for (GameObject go : gameObjects)
+        {
+            Vector position = frame.getPosition(go);
+            float orientation = frame.getOrientation(go);
+            Vector dimension = frame.getDimensions(go);
+            if (go instanceof Player)
             {
                 Player player = (Player) go;
                 String teamColor = "";
                 Collection<Team> teams = Controller.getInstance().getTeams();
-                for (Team t: teams)
+                for (Team t : teams)
                 {
                     if (t.isPlayerInTeam(player))
                     {
-                        teamColor= t.getColour();
+                        teamColor = t.getColour();
                     }
                 }
 
@@ -138,11 +139,11 @@ public class MediaContentController extends AnimationTimer
                 iv.setRotate(orientation);
                 this.field.getChildren().add(iv);
             }
-		}
-	}
+        }
+    }
 
-	public Pane getField()
-	{
-		return this.field;
-	}
+    public Pane getField()
+    {
+        return this.field;
+    }
 }

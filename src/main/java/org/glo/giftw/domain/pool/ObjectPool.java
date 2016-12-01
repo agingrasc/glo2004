@@ -1,12 +1,6 @@
 package org.glo.giftw.domain.pool;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Classe mère de tous les types de Pools
@@ -14,24 +8,25 @@ import java.io.Serializable;
 public abstract class ObjectPool implements Serializable
 {
     public static final long serialVersionUID = 1L;
-    
+
     protected boolean persistent;
-    
+
     public ObjectPool()
     {
         this(true);
     }
-    
+
     public ObjectPool(boolean persistent)
     {
         this.persistent = persistent;
     }
-    
+
     protected abstract void copy(ObjectPool op);
-    
+
     protected void loadObjectPool(String poolPath)
     {
-        try (FileInputStream fileIn = new FileInputStream(poolPath); ObjectInputStream in = new ObjectInputStream(fileIn))
+        try (FileInputStream fileIn = new FileInputStream(poolPath);
+             ObjectInputStream in = new ObjectInputStream(fileIn))
         {
             ObjectPool tmp = (ObjectPool) in.readObject();
             this.copy(tmp);
@@ -42,7 +37,8 @@ public abstract class ObjectPool implements Serializable
         }
         catch (IOException e)
         {
-            System.out.println(String.format("Il n'y a pas de fichier existant au path: %s, aucun chargement.", poolPath));
+            System.out.println(
+                    String.format("Il n'y a pas de fichier existant au path: %s, aucun chargement.", poolPath));
         }
     }
 
@@ -62,7 +58,8 @@ public abstract class ObjectPool implements Serializable
             e.printStackTrace();
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream(poolPath); ObjectOutputStream out = new ObjectOutputStream(fileOut))
+        try (FileOutputStream fileOut = new FileOutputStream(poolPath);
+             ObjectOutputStream out = new ObjectOutputStream(fileOut))
         {
             out.writeObject(this);
         }

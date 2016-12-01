@@ -8,21 +8,21 @@ import org.glo.giftw.domain.util.Vector;
 
 public class BottomToolBarController
 {
-	@FXML
-	private ToolBar rootToolBar;
+    @FXML
+    private ToolBar rootToolBar;
 
-	@FXML
+    @FXML
     private Label xCoord;
 
-	@FXML
+    @FXML
     private Label yCoord;
 
-	public ToolBar getRootToolBar()
-	{
-		return rootToolBar;
-	}
+    public ToolBar getRootToolBar()
+    {
+        return rootToolBar;
+    }
 
-	public BottomToolBarController getController()
+    public BottomToolBarController getController()
     {
         return this;
     }

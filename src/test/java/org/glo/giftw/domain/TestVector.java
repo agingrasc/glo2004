@@ -60,13 +60,13 @@ public class TestVector
         assertEquals(nVec.direction(), 0, EPSILON);
         assertFalse(nVec.direction() == 42);
 
-        assertEquals(upVec.direction(), Math.PI/2, EPSILON);
-        assertEquals(downVec.direction(), -Math.PI/2, EPSILON);
+        assertEquals(upVec.direction(), Math.PI / 2, EPSILON);
+        assertEquals(downVec.direction(), -Math.PI / 2, EPSILON);
         assertEquals(rightVec.direction(), 0, EPSILON);
         assertEquals(leftVec.direction(), Math.PI, EPSILON);
 
         Vector testVec = new Vector(1, 1);
-        assertEquals(testVec.direction(), Math.PI/4, EPSILON);
+        assertEquals(testVec.direction(), Math.PI / 4, EPSILON);
         testVec = new Vector(3, 4);
         assertEquals(testVec.direction(), 0.9273, EPSILON);
     }
@@ -74,7 +74,7 @@ public class TestVector
     @Test
     public void testNormalized()
     {
-        Vector testVec = new Vector(Math.sqrt(2)/2, Math.sqrt(2)/2);
+        Vector testVec = new Vector(Math.sqrt(2) / 2, Math.sqrt(2) / 2);
         assertTrue(testVec.equals(testVec.normalized()));
 
         testVec = new Vector(1, 1);

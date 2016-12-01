@@ -23,7 +23,7 @@ public class NewSportController
 
     @FXML
     private TextField sportName;
-    
+
     @FXML
     private TextField addRole;
 
@@ -52,7 +52,7 @@ public class NewSportController
     private Spinner<Double> fieldWidth;
 
     private File fieldImageFile;
-    
+
     private File projectileImageFile;
 
     @FXML
@@ -131,30 +131,30 @@ public class NewSportController
         if (imageToOpen != null)
         {
             /*if ( (double)fieldLength.getValue() > 0 && (double)fieldWidth.getValue() > 0) {
-				fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
+                fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
 				fieldImage.setFitWidth((double)fieldLength.getValue() * 100);
 			}*/
             imageView.setImage(new Image(imageToOpen.toURI().toString()));
         }
     }
-    
+
     @FXML
-    void onKeyPressed(KeyEvent event) 
+    void onKeyPressed(KeyEvent event)
     {
-    	if(event.getCode().equals(KeyCode.DELETE))
-    	{
-    		if(roles.getValue() != null)
-    		{
-    			roles.getItems().remove(roles.getValue());
-    		}
-    	}
+        if (event.getCode().equals(KeyCode.DELETE))
+        {
+            if (roles.getValue() != null)
+            {
+                roles.getItems().remove(roles.getValue());
+            }
+        }
     }
-    
+
     @FXML
     void onActionAddRole(ActionEvent event)
     {
-    	roles.getItems().add(addRole.getText());
-    	addRole.setText(null);
+        roles.getItems().add(addRole.getText());
+        addRole.setText(null);
     }
 
     public void showDialog() throws IOException
@@ -174,7 +174,7 @@ public class NewSportController
             String projPath = projectileImageFile.getPath();
             Integer maxNumberOfPlayer = Integer.parseInt(maxPlayers.getText());
             Integer maxNumberOfTeams = Integer.parseInt(maxTeams.getText());
-            
+
             Controller.getInstance().createSport(name, lroles, flength, fwidth, sportImgPath, projName, projPath,
                                                  maxNumberOfPlayer, maxNumberOfTeams);
 

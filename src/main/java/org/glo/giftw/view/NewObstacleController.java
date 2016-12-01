@@ -48,7 +48,8 @@ public class NewObstacleController
 
         if (result.isPresent() && result.get() == ButtonType.FINISH)
         {
-            Controller.getInstance().createObstacle(obstacleName.getText(), isCollision.isSelected(), imageToOpen.getPath());
+            Controller.getInstance().createObstacle(obstacleName.getText(), isCollision.isSelected(),
+                                                    imageToOpen.getPath());
             RootLayoutController.getInstance().getOpenObstacleController().updateTable();
         }
     }

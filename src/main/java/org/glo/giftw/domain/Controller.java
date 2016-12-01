@@ -153,17 +153,17 @@ public class Controller
     {
         this.currentStrategy.addTeam(teamName, colour);
     }
-    
+
     public Collection<Team> getTeams()
     {
         return this.currentStrategy.getTeams();
     }
-    
+
     public String getTeamColour(String teamName)
     {
         return this.currentStrategy.getTeamColour(teamName);
     }
-    
+
     public void setTeamColour(String teamName, String colour)
     {
         this.currentStrategy.setTeamColour(teamName, colour);
@@ -194,7 +194,7 @@ public class Controller
     {
         return this.currentStrategy.getFieldImagePath();
     }
-    
+
     public Projectile getProjectile()
     {
         return this.currentStrategy.getSport().getProjectile();
@@ -300,40 +300,40 @@ public class Controller
         this.currentStrategy.changeCurrentFrame(delta);
         return this.currentStrategy.getCurrentFrame();
     }
-    
+
     public Dragable getDraggedObject(String name)
     {
-        if(this.getProjectile().getName() == name)
+        if (this.getProjectile().getName() == name)
         {
             return this.getProjectile();
         }
         else
         {
             Collection<Obstacle> obstacles = this.getObstacles();
-            for(Obstacle o : obstacles)
+            for (Obstacle o : obstacles)
             {
-                if(o.getName() == name)
+                if (o.getName() == name)
                 {
                     return o;
                 }
             }
             Collection<Team> teams = this.getTeams();
-            for(Team t : teams)
+            for (Team t : teams)
             {
-                if(t.getName() == name)
+                if (t.getName() == name)
                 {
                     return t;
                 }
                 List<Player> players = t.getPlayers();
-                for(Player p : players)
+                for (Player p : players)
                 {
-                    if(p.getName() == name)
+                    if (p.getName() == name)
                     {
                         return p;
                     }
                 }
             }
             return null;
-        } 
+        }
     }
 }

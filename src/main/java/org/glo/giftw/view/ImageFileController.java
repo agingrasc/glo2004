@@ -15,15 +15,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class ImageFileController {
+public class ImageFileController
+{
     private FileChooser imageChooser;
 
-    ImageFileController() {
+    ImageFileController()
+    {
         imageChooser = null;
         initDialog();
     }
 
-    private void initDialog() {
+    private void initDialog()
+    {
         imageChooser = new FileChooser();
         imageChooser.setTitle("Sélectionner une image d'obstacle");
         imageChooser.getExtensionFilters().addAll(
@@ -40,28 +43,36 @@ public class ImageFileController {
         );
     }
 
-    File startOpenFileDialog(Window parentWindow) {
+    File startOpenFileDialog(Window parentWindow)
+    {
         File selectedImage = imageChooser.showOpenDialog(parentWindow);
         return selectedImage;
     }
 
-    private String getFileFormat(File imageFile) {
+    private String getFileFormat(File imageFile)
+    {
         String imageFileAsString = imageFile.getName();
         int dotIndex = imageFileAsString.lastIndexOf(".");
-        return imageFileAsString.substring(dotIndex+1);
+        return imageFileAsString.substring(dotIndex + 1);
     }
 
-    File startSaveFileDialog(Window parentWindow, Image content) {
+    File startSaveFileDialog(Window parentWindow, Image content)
+    {
         File selectedImagePath = null;
-        try {
+        try
+        {
             selectedImagePath = imageChooser.showSaveDialog(parentWindow);
-            if (selectedImagePath != null) {
+            if (selectedImagePath != null)
+            {
                 List<String> fileType = imageChooser.getSelectedExtensionFilter().getExtensions();
                 BufferedImage bImage = SwingFXUtils.fromFXImage(content, null);
                 String format = getFileFormat(selectedImagePath);
                 ImageIO.write(bImage, format, selectedImagePath);
             }
-        } catch (IOException ex){}
+        }
+        catch (IOException ex)
+        {
+        }
         return selectedImagePath;
     }
 }

@@ -10,9 +10,9 @@ public class Obstacle extends GameObject implements Serializable
 
     public Obstacle()
     {
-        this("", true, "");        
+        this("", true, "");
     }
-    
+
     public Obstacle(String name, boolean isCollidable, String imagePath)
     {
         super();
@@ -28,7 +28,7 @@ public class Obstacle extends GameObject implements Serializable
         this.imagePath = obs.imagePath;
         Obstacle.obstacleCount++;
     }
-    
+
     public String getImagePath()
     {
         return imagePath;
@@ -48,7 +48,7 @@ public class Obstacle extends GameObject implements Serializable
     {
         return Obstacle.obstacleCount;
     }
-    
+
     @Override
     public String toString()
     {

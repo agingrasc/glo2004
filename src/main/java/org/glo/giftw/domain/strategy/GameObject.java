@@ -28,7 +28,7 @@ public abstract class GameObject implements Serializable, Dragable
         GameObject.objectCount++;
         this.id = GameObject.objectCount;
     }
-    
+
     public abstract GameObject copy();
 
     public String getName()
@@ -40,7 +40,7 @@ public abstract class GameObject implements Serializable, Dragable
     {
         this.name = name;
     }
-    
+
     public boolean isCollidable()
     {
         return this.collidable;
@@ -50,7 +50,7 @@ public abstract class GameObject implements Serializable, Dragable
     {
         this.collidable = isCollidable;
     }
-    
+
     public int getId()
     {
         return this.id;

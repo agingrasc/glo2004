@@ -32,7 +32,7 @@ public class Field implements Serializable
     {
         this.dimensions = dimensions;
     }
-    
+
     public double getUnitRatio()
     {
         return Field.unitRatio;

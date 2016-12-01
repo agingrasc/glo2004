@@ -10,69 +10,69 @@ import java.io.IOException;
 
 public class CreationToolBarController
 {
-	@FXML
-	private ToolBar rootToolBar;
-	
-	@FXML
-	void onActionDelete(ActionEvent event)
-	{
-		System.out.println("onActionDelete");
-	}
+    @FXML
+    private ToolBar rootToolBar;
 
-	@FXML
-	void onActionPrevious(ActionEvent event)
-	{
-	    boolean isFirstFrame = Controller.getInstance().isFirstFrame();
-	    if (!isFirstFrame)
-		{
-			Frame frame = Controller.getInstance().previousFrame();
-			//FIXME: appel au controlleur de creation
-		}
-	}
+    @FXML
+    void onActionDelete(ActionEvent event)
+    {
+        System.out.println("onActionDelete");
+    }
 
-	@FXML
-	void onActionNext(ActionEvent event)
-	{
-	    boolean isLastFrame = Controller.getInstance().isLastFrame();
-	    if (isLastFrame)
-		{
-			Frame frame = Controller.getInstance().createNewFrame();
-		}
-		else
-		{
-			Frame frame = Controller.getInstance().nextFrame();
-		}
-		//FIXME: appel au controlleur de creation
-	}
+    @FXML
+    void onActionPrevious(ActionEvent event)
+    {
+        boolean isFirstFrame = Controller.getInstance().isFirstFrame();
+        if (!isFirstFrame)
+        {
+            Frame frame = Controller.getInstance().previousFrame();
+            //FIXME: appel au controlleur de creation
+        }
+    }
 
-	@FXML
-	void onActionRedo(ActionEvent event)
-	{
-		System.out.println("onActionRedo");
-	}
+    @FXML
+    void onActionNext(ActionEvent event)
+    {
+        boolean isLastFrame = Controller.getInstance().isLastFrame();
+        if (isLastFrame)
+        {
+            Frame frame = Controller.getInstance().createNewFrame();
+        }
+        else
+        {
+            Frame frame = Controller.getInstance().nextFrame();
+        }
+        //FIXME: appel au controlleur de creation
+    }
 
-	@FXML
-	void onActionUndo(ActionEvent event)
-	{
-		System.out.println("onActionUndo");
-	}
+    @FXML
+    void onActionRedo(ActionEvent event)
+    {
+        System.out.println("onActionRedo");
+    }
 
-	@FXML
-	void onActionZoomIn(ActionEvent event) throws IOException
-	{
-		System.out.println("onActionZoomIn");
-		RootLayoutController.getInstance().getCreationStackPaneController().zoomIn();
-	}
+    @FXML
+    void onActionUndo(ActionEvent event)
+    {
+        System.out.println("onActionUndo");
+    }
 
-	@FXML
-	void onActionZoomOut(ActionEvent event) throws IOException
-	{
-		System.out.println("onActionZoomOut");
-		RootLayoutController.getInstance().getCreationStackPaneController().zoomOut();
-	}
+    @FXML
+    void onActionZoomIn(ActionEvent event) throws IOException
+    {
+        System.out.println("onActionZoomIn");
+        RootLayoutController.getInstance().getCreationStackPaneController().zoomIn();
+    }
 
-	public ToolBar getRootToolBar()
-	{
-		return rootToolBar;
-	}
+    @FXML
+    void onActionZoomOut(ActionEvent event) throws IOException
+    {
+        System.out.println("onActionZoomOut");
+        RootLayoutController.getInstance().getCreationStackPaneController().zoomOut();
+    }
+
+    public ToolBar getRootToolBar()
+    {
+        return rootToolBar;
+    }
 }

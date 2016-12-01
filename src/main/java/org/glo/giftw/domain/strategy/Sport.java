@@ -3,9 +3,9 @@ package org.glo.giftw.domain.strategy;
 import org.glo.giftw.domain.TreeViewable;
 import org.glo.giftw.domain.util.Vector;
 
-import java.io.*;
-import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Sport implements Serializable, TreeViewable
 {
@@ -38,7 +38,7 @@ public class Sport implements Serializable, TreeViewable
         this.maxPLayersPerTeam = maxPlayersPerTeam;
         this.maxTeams = maxTeams;
     }
-    
+
     public double getUnitRatio()
     {
         return this.field.getUnitRatio();
@@ -88,7 +88,7 @@ public class Sport implements Serializable, TreeViewable
     {
         this.field = field;
     }
-    
+
     public Projectile getProjectile()
     {
         return this.projectile;

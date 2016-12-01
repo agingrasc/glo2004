@@ -1,7 +1,5 @@
 package org.glo.giftw.domain.util;
 
-import org.glo.giftw.domain.util.Vector;
-
 public class VectorFactory
 {
     public static Vector up()

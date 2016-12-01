@@ -32,7 +32,7 @@ public class Projectile extends GameObject implements Serializable
         this.speed = proj.speed;
         Projectile.projectileCount++;
     }
-    
+
     public GameObject copy()
     {
         return new Projectile(this);
@@ -77,7 +77,7 @@ public class Projectile extends GameObject implements Serializable
     {
         return Projectile.projectileCount;
     }
-    
+
     @Override
     public String toString()
     {

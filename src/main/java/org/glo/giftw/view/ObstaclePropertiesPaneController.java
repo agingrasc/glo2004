@@ -6,17 +6,17 @@ import javafx.scene.control.Accordion;
 
 public class ObstaclePropertiesPaneController
 {
-	@FXML
-	private Accordion rootAccordion;
-	
-	public Accordion getRootAccordion()
-	{
-		return rootAccordion;
-	}
-	
-	@FXML
-	void onActionConfigure(ActionEvent event)
-	{
-		System.out.println("onActionConfigure");
-	}
+    @FXML
+    private Accordion rootAccordion;
+
+    public Accordion getRootAccordion()
+    {
+        return rootAccordion;
+    }
+
+    @FXML
+    void onActionConfigure(ActionEvent event)
+    {
+        System.out.println("onActionConfigure");
+    }
 }

@@ -14,6 +14,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
+
 import java.io.File;
 
 public class FieldEditorController
@@ -52,16 +53,28 @@ public class FieldEditorController
     @FXML
     private RadioButton fieldLine;
 
-    public File getDrawnFieldFilePath() { return fieldSelectedFilePath; }
+    public File getDrawnFieldFilePath()
+    {
+        return fieldSelectedFilePath;
+    }
 
-    public double getLength() { return (double)fieldLength.getValue(); }
-    public double getWidth() { return (double)fieldWidth.getValue(); }
+    public double getLength()
+    {
+        return (double) fieldLength.getValue();
+    }
 
-    public void initSpinners(double initialLength, double initialWidth) {
+    public double getWidth()
+    {
+        return (double) fieldWidth.getValue();
+    }
+
+    public void initSpinners(double initialLength, double initialWidth)
+    {
         double fieldInitialLength;
         double fieldInitialWidth;
 
-        if (initialLength > 0 && initialWidth > 0) {
+        if (initialLength > 0 && initialWidth > 0)
+        {
             fieldInitialLength = initialLength;
             fieldInitialWidth = initialWidth;
         }
@@ -90,19 +103,21 @@ public class FieldEditorController
         fieldSize.getItems().addAll("m2", "pi2");
         fieldSize.setValue("m2");
 
-        fieldSize.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+        fieldSize.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+        {
             @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1)
+            {
                 System.out.println("selection changed!");
-                if(fieldSize.getSelectionModel().isSelected(1)) //pi carré
+                if (fieldSize.getSelectionModel().isSelected(1)) //pi carré
                 {
-                    fieldLength.getValueFactory().setValue((fieldDraw.getWidth()/100)*3.28);
-                    fieldWidth.getValueFactory().setValue((fieldDraw.getHeight()/100)*3.28);
+                    fieldLength.getValueFactory().setValue((fieldDraw.getWidth() / 100) * 3.28);
+                    fieldWidth.getValueFactory().setValue((fieldDraw.getHeight() / 100) * 3.28);
                 }
-                else if(fieldSize.getSelectionModel().isSelected(0)) // mètre carré
+                else if (fieldSize.getSelectionModel().isSelected(0)) // mètre carré
                 {
-                    fieldLength.getValueFactory().setValue((fieldDraw.getWidth()/100));
-                    fieldWidth.getValueFactory().setValue((fieldDraw.getHeight()/100));
+                    fieldLength.getValueFactory().setValue((fieldDraw.getWidth() / 100));
+                    fieldWidth.getValueFactory().setValue((fieldDraw.getHeight() / 100));
                 }
             }
         });
@@ -121,7 +136,8 @@ public class FieldEditorController
     }
 
     @FXML
-    public void initialize() {
+    public void initialize()
+    {
         System.out.println("initializeFieldEditor");
         startDragPosition = new double[2];
         initCanvas();
@@ -133,8 +149,8 @@ public class FieldEditorController
     public void onSave()
     {
         //format canvas as image
-        WritableImage currentField = new WritableImage((int)fieldDraw.getWidth(),
-                                                       (int)fieldDraw.getHeight());
+        WritableImage currentField = new WritableImage((int) fieldDraw.getWidth(),
+                                                       (int) fieldDraw.getHeight());
 
         fieldDraw.snapshot(null, currentField);
 
@@ -156,9 +172,10 @@ public class FieldEditorController
     public void onSizeChanged()
     {
         System.out.println("onSizeChanged");
-        fieldDraw.setHeight((double)fieldWidth.getValue());
-        fieldDraw.setWidth((double)fieldLength.getValue());
+        fieldDraw.setHeight((double) fieldWidth.getValue());
+        fieldDraw.setWidth((double) fieldLength.getValue());
     }
+
     @FXML
     void onFillColor()
     {
@@ -172,7 +189,7 @@ public class FieldEditorController
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
 
-        if(fieldPencil.isSelected())
+        if (fieldPencil.isSelected())
         {
             gc.setFill(fieldColor.getValue());
             gc.fillRect(me.getX(), me.getY(), 3, 3);
@@ -183,12 +200,12 @@ public class FieldEditorController
     void onInitShape(MouseEvent me)
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        if(fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
+        if (fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
         {
             startDragPosition[0] = me.getX();
             startDragPosition[1] = me.getY();
         }
-        else if(fieldPencil.isSelected())
+        else if (fieldPencil.isSelected())
         {
             gc.setFill(fieldColor.getValue());
             gc.fillRect(me.getX(), me.getY(), 3, 3);
@@ -206,7 +223,7 @@ public class FieldEditorController
     {
         GraphicsContext gc = fieldDraw.getGraphicsContext2D();
         gc.setStroke(fieldColor.getValue());
-        if(fieldCircle.isSelected())
+        if (fieldCircle.isSelected())
         {
             gc.strokeOval(
                     startDragPosition[0],
@@ -216,7 +233,7 @@ public class FieldEditorController
             );
 
         }
-        else if(fieldSquare.isSelected())
+        else if (fieldSquare.isSelected())
         {
             gc.strokeRect(
                     startDragPosition[0],
@@ -225,7 +242,7 @@ public class FieldEditorController
                     (me.getY() - startDragPosition[1])
             );
         }
-        else if(fieldLine.isSelected())
+        else if (fieldLine.isSelected())
         {
             gc.strokeLine(startDragPosition[0], startDragPosition[1], me.getX(), me.getY());
         }

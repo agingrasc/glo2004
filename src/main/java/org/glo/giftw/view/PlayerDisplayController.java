@@ -6,11 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class PlayerDisplayController
-{	
-	@FXML
-	private VBox vbox;
-	
-	 @FXML
+{
+    @FXML
+    private VBox vbox;
+
+    @FXML
     private Canvas canvas;
 
     @FXML
@@ -19,23 +19,23 @@ public class PlayerDisplayController
     @FXML
     private Label roleLabel;
 
-	public Canvas getCanvas()
-	{
-		return canvas;
-	}
+    public Canvas getCanvas()
+    {
+        return canvas;
+    }
 
-	public Label getNameLabel()
-	{
-		return nameLabel;
-	}
+    public Label getNameLabel()
+    {
+        return nameLabel;
+    }
 
-	public Label getRoleLabel()
-	{
-		return roleLabel;
-	}
+    public Label getRoleLabel()
+    {
+        return roleLabel;
+    }
 
-	public VBox getVbox()
-	{
-		return vbox;
-	}
+    public VBox getVbox()
+    {
+        return vbox;
+    }
 }
