@@ -66,8 +66,8 @@ public class Field implements Serializable
     public boolean validatePosition(Vector position)
     {
         return position.getX() >= 0 && position.getY() >= 0 &&
-                this.dimensions.getX() - 1 >= position.getX() &&
-                this.dimensions.getY() - 1 >= position.getY();
+                this.dimensions.getX() >= position.getX() &&
+                this.dimensions.getY() >= position.getY();
     }
 
     @Override

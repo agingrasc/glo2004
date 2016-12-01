@@ -1,21 +1,8 @@
 package org.glo.giftw.view;
 
-import java.io.File;
-import java.io.IOException;
-
-import javafx.scene.input.*;
-import org.glo.giftw.domain.Controller;
-import org.glo.giftw.domain.Dragable;
-import org.glo.giftw.domain.strategy.GameObject;
-import org.glo.giftw.domain.strategy.Obstacle;
-import org.glo.giftw.domain.strategy.Player;
-import org.glo.giftw.domain.strategy.Projectile;
-import org.glo.giftw.domain.strategy.Team;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -25,22 +12,22 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
+import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.Dragable;
+import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
+
+import java.io.File;
+import java.io.IOException;
 
 public class CreationStackPaneController
 {
 	@FXML
 	private StackPane stackPane;
-	
-	@FXML
-	private Group mainGroup;
 	
 	private Pane currentPane;
 	
@@ -97,10 +84,8 @@ public class CreationStackPaneController
 		
 		//FIXME: trouver dynamiquement la taille restreignante
 		Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
-		double adjustedHeight = stackPane.getPrefHeight();
-		double imgHeight = sportFieldImage.getHeight();
-		double ratio = adjustedHeight/imgHeight;
-		double adjustedWidth = sportFieldImage.getWidth() * ratio;
+		double adjustedWidth = stackPane.getWidth();
+		double adjustedHeight = stackPane.getHeight();
 		this.ratioPixelToUnit = new Vector(adjustedWidth/fieldDimensions.getX(), adjustedHeight/fieldDimensions.getY());
 	}
 	
