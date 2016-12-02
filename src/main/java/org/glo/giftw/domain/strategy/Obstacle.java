@@ -1,8 +1,10 @@
 package org.glo.giftw.domain.strategy;
 
+import org.glo.giftw.domain.util.Viewable;
+
 import java.io.Serializable;
 
-public class Obstacle extends GameObject implements Serializable
+public class Obstacle extends GameObject implements Serializable, Viewable
 {
     public static final long serialVersionUID = 1L;
     private static int obstacleCount = 0;

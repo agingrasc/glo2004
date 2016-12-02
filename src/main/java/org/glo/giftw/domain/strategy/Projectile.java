@@ -1,10 +1,11 @@
 package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.util.Vector;
+import org.glo.giftw.domain.util.Viewable;
 
 import java.io.Serializable;
 
-public class Projectile extends GameObject implements Serializable
+public class Projectile extends GameObject implements Serializable, Viewable
 {
     public static final long serialVersionUID = 1L;
     private static int projectileCount = 0;
