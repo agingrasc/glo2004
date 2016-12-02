@@ -33,8 +33,8 @@ public class BottomToolBarController
 
         if (fieldCoordinate != null)
         {
-            String xText = String.format("X: %f", fieldCoordinate.getX());
-            String yText = String.format("Y: %f", fieldCoordinate.getY());
+            String xText = String.format("X: %.2f", fieldCoordinate.getX());
+            String yText = String.format("Y: %.2f", fieldCoordinate.getY());
             this.xCoord.setText(xText);
             this.yCoord.setText(yText);
         }
