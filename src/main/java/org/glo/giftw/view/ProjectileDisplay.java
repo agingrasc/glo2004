@@ -5,7 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ProjectileDisplay extends ImageView
+public class ProjectileDisplay extends ImageView implements ViewableGameObject
 {	
 	public ProjectileDisplay(String path, double xPos, double yPos)
 	{

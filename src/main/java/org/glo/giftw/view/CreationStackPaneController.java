@@ -91,81 +91,11 @@ public class CreationStackPaneController
 	private void createNewFrame()
 	{
 		Controller.getInstance().createNewFrame();
-		currentPane = new Pane();
-		currentPane.setBackground(Background.EMPTY);
+		FrameView currentPane = new FrameView();
 		stackPane.getChildren().add(currentPane);
-		
-		currentPane.setOnDragOver((DragEvent event) -> {
-			if (event.getDragboard().hasString())
-			{
-				event.acceptTransferModes(TransferMode.ANY);//different pour autre cas? 
-			}
-
-			event.consume();
-		});
-		
-		//TODO
-		currentPane.setOnDragDropped((DragEvent event) -> {
-			Dragboard db = event.getDragboard();
-			boolean success = false;
-			if (db.hasString())
-			{
-				Dragable item = Controller.getInstance().getDraggedObject(db.getString());
-				Vector coord = Controller.getInstance().getFieldCoordinate(new Vector(event.getX(),event.getY()), ratioPixelToUnit);
-				if(item instanceof Obstacle)
-				{
-					if(event.getGestureSource() instanceof TableView<?>)
-					{
-						
-					}
-					Controller.getInstance().addObstacle(db.getString(), coord, 0, new Vector(32,32));
-					File imageFile = new File(((Obstacle)item).getImagePath());
-	                Image image = new Image(imageFile.toURI().toString(), 32, 32, false, false);
-					ImageView imageView = new ImageView(image);
-					imageView.setX(event.getX());
-					imageView.setY(event.getY());
-					setDragDetected(imageView);
-					currentPane.getChildren().add(imageView);
-					
-				}
-				else if(item instanceof Projectile)
-				{
-					Controller.getInstance().addProjectile(coord, 0, new Vector(ratioPixelToUnit.getX()/16,ratioPixelToUnit.getY()/16));
-					ProjectileDisplay obsDisp = new ProjectileDisplay(((Projectile) item).getImagePath(),event.getX(), event.getY());
-					//setDragDetected(imageView);
-					//currentPane.getChildren().add(imageView);
-				}
-				else if(item instanceof Team)
-				{
-					try
-					{
-						Controller.getInstance().addPlayer(coord, 0, new Vector(ratioPixelToUnit.getX()/32,ratioPixelToUnit.getY()/32), db.getString());
-						FXMLLoader loader = new FXMLLoader();
-						loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_DISPLAY_PATH.toString()));
-						VBox playerDisplay = loader.load();
-						PlayerDisplayController pdc = loader.getController();
-						Canvas canvas = pdc.getCanvas();
-	                	GraphicsContext gc = canvas.getGraphicsContext2D();
-	                	gc.setFill(Color.web(((Team) item).getColour()));
-	                	gc.fillOval(0, 0, 32, 32);
-						playerDisplay.relocate(event.getX(), event.getY());
-						setDragDetected(playerDisplay);
-						currentPane.getChildren().add(playerDisplay);
-					} catch (Exception e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				success = true;
-			}
-			event.setDropCompleted(success);
-
-			event.consume();
-		});
 	}
 	
-	//TODO
+	//TODO a deplacer dans les classes de ViewableGameObject
 	private void setDragDetected(Node node)
 	{
 		node.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
@@ -220,7 +150,6 @@ public class CreationStackPaneController
  	                content.putString(String.valueOf(selected.getId()));
  	                db.setContent(content);
  	                event.consume(); 
-	               
 	            }
 	        }
 	    });

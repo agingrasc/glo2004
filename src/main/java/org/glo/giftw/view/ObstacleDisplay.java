@@ -5,7 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ObstacleDisplay extends ImageView
+public class ObstacleDisplay extends ImageView implements ViewableGameObject
 {
 	public ObstacleDisplay(String path, double xPos, double yPos)
 	{

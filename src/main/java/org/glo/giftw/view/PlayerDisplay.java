@@ -10,7 +10,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class PlayerDisplay extends VBox
+public class PlayerDisplay extends VBox implements ViewableGameObject
 {
 	private Label name;
 	private Label role;
@@ -28,6 +28,7 @@ public class PlayerDisplay extends VBox
     	this.getChildren().add(name);
     	this.getChildren().add(role);
     	this.getChildren().add(canvas);
+    	this.relocate(xPos, yPos);
 	}
 	
 	public void setName(String name)
@@ -45,7 +46,7 @@ public class PlayerDisplay extends VBox
 		this.canvas.getGraphicsContext2D().setFill(Color.web(color));
 	}
 	
-	public Image getImage()
+	public Image getSnapshot()
 	{
 		new Scene(this);//Pas le choix pour snapshot
     	SnapshotParameters parameters = new SnapshotParameters();
@@ -76,5 +77,15 @@ public class PlayerDisplay extends VBox
 		{
 			role.setVisible(false);
 		}
+	}
+	
+	public void setPosition(double xPos, double yPos)
+	{
+		this.relocate(xPos, yPos);
+	}
+	
+	public Canvas getCanvas()
+	{
+		return this.canvas;
 	}
 }

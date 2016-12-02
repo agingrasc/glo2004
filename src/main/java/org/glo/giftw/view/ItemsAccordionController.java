@@ -1,6 +1,5 @@
 package org.glo.giftw.view;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.glo.giftw.domain.Controller;
@@ -14,20 +13,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class ItemsAccordionController
@@ -89,8 +83,8 @@ public class ItemsAccordionController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {
-				                	PlayerDisplay playerDisp = new PlayerDisplay(item, 0, 0);
-					                setGraphic(playerDisp);
+				                	ObstacleDisplay obsDisp = new ObstacleDisplay(item, 0, 0);
+					                setGraphic(obsDisp);
 				                }
 				                else
 				                {
@@ -137,11 +131,8 @@ public class ItemsAccordionController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {          
-				                	final Canvas canvas = new Canvas(32, 32);
-				                	GraphicsContext gc = canvas.getGraphicsContext2D();
-				                	gc.setFill(Color.web(item));
-				                	gc.fillOval(0, 0, 32, 32);
-					                setGraphic(canvas);
+				                	PlayerDisplay playerDisp = new PlayerDisplay(item, 0, 0);
+					                setGraphic(playerDisp.getCanvas());
 				                }
 				                else
 				                {
@@ -188,11 +179,8 @@ public class ItemsAccordionController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {
-				                	File file = new File(item);
-					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
-					                imageView.setFitWidth(32);
-					                imageView.setFitHeight(32);
-					                setGraphic(imageView);
+				                	ProjectileDisplay projDisp = new ProjectileDisplay(item, 0, 0);
+					                setGraphic(projDisp);
 				                }
 				                else
 				                {
@@ -224,10 +212,11 @@ public class ItemsAccordionController
 		
 		updateAllTables();
 		
-		obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
+		obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>() 
+		{
 	        @Override
-	        public void handle(MouseEvent event) {
-	            // drag was detected, start drag-and-drop gesture
+	        public void handle(MouseEvent event) 
+	        {
 	            Obstacle selected = obstaclesTableView.getSelectionModel().getSelectedItem();
 	            if(selected != null)
 	            {
@@ -242,10 +231,11 @@ public class ItemsAccordionController
 	        }
 	    });
 		
-		projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
+		projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>() 
+		{
 	        @Override
-	        public void handle(MouseEvent event) {
-	            // drag was detected, start drag-and-drop gesture
+	        public void handle(MouseEvent event) 
+	        {
 	            Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
 	            if(selected != null)
 	            {
@@ -260,17 +250,18 @@ public class ItemsAccordionController
 	        }
 	    });
 		
-		teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>() { //drag
+		teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>() 
+		{ 
 	        @Override
-	        public void handle(MouseEvent event) {
-	            // drag was detected, start drag-and-drop gesture
+	        public void handle(MouseEvent event) 
+	        {
 	            Team selected = teamsTableView.getSelectionModel().getSelectedItem();
 	            if(selected != null)
 	            {
 	                Dragboard db = teamsTableView.startDragAndDrop(TransferMode.ANY);
 	                ClipboardContent content = new ClipboardContent();
 	                PlayerDisplay playerDisp = new PlayerDisplay(selected.getColour(), 0, 0);
-	                db.setDragView(playerDisp.getImage());
+	                db.setDragView(playerDisp.getSnapshot());
 	                content.putString(selected.getName());
 	                db.setContent(content);
 	                event.consume(); 
