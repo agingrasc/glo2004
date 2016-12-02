@@ -29,7 +29,7 @@ public class BottomToolBarController
 
     public void updateCoordinate(Vector mouseCoordinate, Vector ratioPixelToUnit)
     {
-        Vector fieldCoordinate = Controller.getInstance().getFieldCoordinate(mouseCoordinate, ratioPixelToUnit);
+        Vector fieldCoordinate = Controller.getInstance().getFieldCoordinate(mouseCoordinate);
 
         if (fieldCoordinate != null)
         {

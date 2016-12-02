@@ -163,15 +163,20 @@ public class Controller
         this.currentStrategy.setTeamColour(teamName, colour);
     }
 
-    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, Vector ratioPixelToUnit)
+    public void setPixelToUnitRatio(Vector ratio)
     {
-        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate, ratioPixelToUnit);
+        this.currentStrategy.setPixelToUnitRatio(ratio);
+    }
+
+    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate)
+    {
+        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate);
         return currentStrategy.getGameObjectByCoordinate(coordinate);
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate)
     {
-        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
+        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate);
     }
 
     public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound

@@ -130,9 +130,9 @@ public class Strategy implements Serializable, TreeViewable
     }
 
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate)
     {
-        return this.sport.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
+        return this.sport.getFieldCoordinate(adjustedCoordinate);
     }
 
     //Logique des frames
@@ -294,6 +294,11 @@ public class Strategy implements Serializable, TreeViewable
     public void setTeamColour(String teamName, String colour)
     {
         this.teams.get(teamName).setColour(colour);
+    }
+
+    public void setPixelToUnitRatio(Vector ratio)
+    {
+        this.sport.setPixelToUnitRatio(ratio);
     }
 
 

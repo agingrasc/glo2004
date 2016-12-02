@@ -8,6 +8,7 @@ public class Field implements Serializable
 {
     public static final long serialVersionUID = 1L;
     private static double unitRatio = 100;  //nombre d'unités par mètre
+    private Vector pixeltoUnitRatio;
 
     private Vector dimensions;
     private String imagePath;
@@ -21,6 +22,7 @@ public class Field implements Serializable
     {
         this.dimensions = dimensions;
         this.imagePath = fieldImagePath;
+        this.pixeltoUnitRatio = new Vector();
     }
 
     public Vector getDimensions()
@@ -48,10 +50,15 @@ public class Field implements Serializable
         this.imagePath = imagePath;
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
+    public void setPixelToUnitRatio(Vector ratio)
     {
-        assert ratioPixelToUnit.getX() > 0 && ratioPixelToUnit.getY() > 0;
-        Vector zoomAdjustedCoordinate = adjustedCoordinate.div(ratioPixelToUnit);
+        this.pixeltoUnitRatio = ratio;
+    }
+
+    public Vector getFieldCoordinate(Vector adjustedCoordinate)
+    {
+        assert this.pixeltoUnitRatio.getX() > 0 && this.pixeltoUnitRatio.getY() > 0;
+        Vector zoomAdjustedCoordinate = adjustedCoordinate.div(this.pixeltoUnitRatio);
         if (this.validatePosition(zoomAdjustedCoordinate))
         {
             return zoomAdjustedCoordinate;

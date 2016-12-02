@@ -100,6 +100,7 @@ public class CreationStackPaneController
         double adjustedHeight = stackPane.getHeight();
         this.ratioPixelToUnit = new Vector(adjustedWidth / fieldDimensions.getX(),
                                            adjustedHeight / fieldDimensions.getY());
+        Controller.getInstance().setPixelToUnitRatio(this.ratioPixelToUnit);
     }
 
     private void createNewFrame()
@@ -128,7 +129,7 @@ public class CreationStackPaneController
                                          {
                                              Dragable item = Controller.getInstance().getDraggedObject(db.getString());
                                              Vector coord = Controller.getInstance().getFieldCoordinate(
-                                                     new Vector(event.getX(), event.getY()), ratioPixelToUnit);
+                                                     new Vector(event.getX(), event.getY()));
                                              if (item instanceof Obstacle)
                                              {
                                                  if (event.getGestureSource() instanceof TableView<?>)
@@ -206,7 +207,7 @@ public class CreationStackPaneController
                 System.out.println(event.getX() / ratioPixelToUnit.getX());
                 System.out.println(event.getY() / ratioPixelToUnit.getY());
                 GameObject selected = Controller.getInstance().getGameObjectByCoordinate(
-                        new Vector(event.getX(), event.getY()), ratioPixelToUnit);
+                        new Vector(event.getX(), event.getY()));
                 System.out.println(selected);
                 if (selected != null)
                 {
