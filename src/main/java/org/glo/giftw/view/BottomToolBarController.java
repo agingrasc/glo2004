@@ -38,10 +38,5 @@ public class BottomToolBarController
             this.xCoord.setText(xText);
             this.yCoord.setText(yText);
         }
-        else
-        {
-            this.xCoord.setText("N/A");
-            this.yCoord.setText("N/A");
-        }
     }
 }
