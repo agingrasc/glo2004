@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2016-08-28" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.8.1" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2016-10-25" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.8.1" locale="en_US">
     <description/>
-    <view zooming-state="default:6" id="gantt-chart">
+    <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="Name" width="199" order="0"/>
         <field id="tpd4" name="Begin date" width="75" order="1"/>
         <field id="tpd5" name="End date" width="75" order="2"/>
@@ -14,7 +14,7 @@
         <day-types>
             <day-type id="0"/>
             <day-type id="1"/>
-            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <default-week id="1" name="default" sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
             <only-show-weekends value="false"/>
             <overriden-day-types/>
             <days/>
@@ -37,48 +37,58 @@
         <task id="3" name="Écrire les cas d'utilisations" color="#8cb6ce" meeting="false" start="2016-09-21" duration="6" complete="0" expand="true">
             <depend id="4" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="4" name="Faire le diagramme des cas d'utilisations" color="#8cb6ce" meeting="false" start="2016-09-29" duration="2" complete="0" expand="true"/>
+        <task id="4" name="Faire le diagramme des cas d'utilisations" color="#8cb6ce" meeting="false" start="2016-09-27" duration="2" complete="0" expand="true"/>
         <task id="5" name="Faire le diagramme conceptuel" color="#8cb6ce" meeting="false" start="2016-09-28" duration="3" complete="0" expand="true"/>
         <task id="6" name="Faire les fils de fer de l'application" color="#8cb6ce" meeting="false" start="2016-09-28" duration="3" complete="0" expand="true">
             <depend id="27" type="2" difference="0" hardness="Strong"/>
         </task>
         <task id="10" name="Rédiger Vision" color="#8cb6ce" meeting="false" start="2016-09-28" duration="3" complete="0" expand="true"/>
         <task id="22" name="Livrable 1" color="#8cb6ce" meeting="true" start="2016-10-03" duration="0" complete="0" expand="true"/>
-        <task id="27" name="Programmer interface" color="#8cb6ce" meeting="false" start="2016-10-03" duration="13" complete="0" expand="true">
-            <depend id="48" type="2" difference="0" hardness="Strong"/>
-        </task>
+        <task id="27" name="Programmer interface" color="#8cb6ce" meeting="false" start="2016-10-01" duration="13" complete="0" expand="true"/>
         <task id="24" name="Protoype Image par Image" color="#8cb6ce" meeting="false" start="2016-10-03" duration="3" complete="0" expand="true">
             <depend id="36" type="2" difference="0" hardness="Strong"/>
-            <depend id="60" type="2" difference="0" hardness="Strong"/>
-        </task>
-        <task id="60" name="Prototype Temps Réel" color="#8cb6ce" meeting="false" start="2016-10-06" duration="10" complete="0" expand="true">
-            <depend id="39" type="2" difference="0" hardness="Strong"/>
         </task>
         <task id="39" name="Raffiner cas utilisations" color="#8cb6ce" meeting="false" start="2016-10-20" duration="8" complete="0" expand="true"/>
         <task id="36" name="Définir modèle" color="#8cb6ce" meeting="false" start="2016-10-06" duration="5" complete="0" expand="true">
             <depend id="41" type="2" difference="0" hardness="Strong"/>
             <depend id="44" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="41" name="Prototype Visualisation" color="#8cb6ce" meeting="false" start="2016-10-13" duration="5" complete="0" expand="true"/>
-        <task id="44" name="Écrire contrôleur" color="#8cb6ce" meeting="false" start="2016-10-13" duration="5" complete="0" expand="true">
-            <depend id="48" type="2" difference="0" hardness="Strong"/>
-        </task>
-        <task id="48" name="Intégrer interface et contrôleur" color="#8cb6ce" meeting="false" start="2016-10-20" duration="6" complete="0" expand="true"/>
+        <task id="41" name="Prototype Visualisation" color="#8cb6ce" meeting="false" start="2016-10-11" duration="5" complete="0" expand="true"/>
+        <task id="44" name="Écrire contrôleur" color="#8cb6ce" meeting="false" start="2016-10-11" duration="5" complete="0" expand="true"/>
         <task id="55" name="Écrire modèle" color="#8cb6ce" meeting="false" start="2016-10-20" duration="12" complete="0" expand="true"/>
+        <task id="86" name="Finaliser Diagramme de Classes" color="#8cb6ce" meeting="false" start="2016-10-31" duration="5" complete="0" expand="true"/>
+        <task id="88" name="Finaliser Diagramme de séquence de conception" color="#8cb6ce" meeting="false" start="2016-11-01" duration="4" complete="0" expand="true"/>
+        <task id="90" name="Valider les interfaces statiques" color="#8cb6ce" meeting="false" start="2016-11-04" duration="3" complete="0" expand="true"/>
         <task id="30" name="Livrable 2" color="#8cb6ce" meeting="true" start="2016-11-07" duration="0" complete="0" expand="true"/>
-        <task id="84" name="Nettoyage de code" color="#8cb6ce" meeting="false" start="2016-11-04" duration="6" complete="0" expand="true"/>
-        <task id="73" name="Raffiner interface" color="#8cb6ce" meeting="false" start="2016-11-07" duration="9" complete="0" expand="true"/>
-        <task id="66" name="Intégrer modèle" color="#8cb6ce" meeting="false" start="2016-11-14" duration="5" complete="0" expand="true">
-            <depend id="68" type="2" difference="0" hardness="Strong"/>
+        <task id="85" name="Intégrer interface et contrôleur" color="#8cb6ce" meeting="false" start="2016-11-09" duration="7" complete="0" expand="true">
+            <depend id="84" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="68" name="Raffiner modèle" color="#8cb6ce" meeting="false" start="2016-11-21" duration="5" complete="0" expand="true"/>
-        <task id="70" name="Prototyper Exportation Image" color="#8cb6ce" meeting="false" start="2016-11-09" duration="12" complete="0" expand="true">
+        <task id="84" name="Nettoyage de code" color="#8cb6ce" meeting="false" start="2016-11-16" duration="2" complete="0" expand="true"/>
+        <task id="93" name="Valider créer type de sport" color="#8cb6ce" meeting="false" start="2016-11-15" duration="4" complete="0" expand="true"/>
+        <task id="110" name="Valider créer catégories" color="#8cb6ce" meeting="false" start="2016-11-15" duration="4" complete="0" expand="true"/>
+        <task id="112" name="Valider Édition Image par Image" color="#8cb6ce" meeting="false" start="2016-11-15" duration="4" complete="0" expand="true"/>
+        <task id="114" name="Valider Visualisation" color="#8cb6ce" meeting="false" start="2016-11-15" duration="4" complete="0" expand="true">
+            <depend id="73" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="73" name="Raffiner interface" color="#8cb6ce" meeting="false" start="2016-11-19" duration="4" complete="0" expand="true"/>
+        <task id="60" name="Prototype Temps Réel" color="#8cb6ce" meeting="false" start="2016-11-22" duration="4" complete="0" expand="true">
+            <depend id="185" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="185" name="Intégrer Temps Réel" color="#8cb6ce" meeting="false" start="2016-11-26" duration="2" complete="0" expand="true"/>
+        <task id="70" name="Prototyper Exportation Image" color="#8cb6ce" meeting="false" start="2016-11-25" duration="5" complete="0" expand="true">
             <depend id="72" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="72" name="Intégrer exportation" color="#8cb6ce" meeting="false" start="2016-11-25" duration="2" complete="0" expand="true"/>
-        <task id="32" name="Livrable 3" color="#8cb6ce" meeting="true" start="2016-11-28" duration="0" complete="0" expand="true"/>
-        <task id="81" name="Ajout fonctionnalités supplémentaires" color="#8cb6ce" meeting="false" start="2016-11-29" duration="7" complete="0" expand="true"/>
-        <task id="79" name="Test d'acceptation" color="#8cb6ce" meeting="false" start="2016-12-07" duration="7" complete="0" expand="true"/>
+        <task id="72" name="Intégrer exportation" color="#8cb6ce" meeting="false" start="2016-11-30" duration="2" complete="0" expand="true"/>
+        <task id="32" name="Livrable 3" color="#8cb6ce" meeting="true" start="2016-11-27" duration="0" complete="0" expand="true"/>
+        <task id="168" name="Valider Édition Temps Réel" color="#8cb6ce" meeting="false" start="2016-11-28" duration="5" complete="0" expand="true"/>
+        <task id="170" name="Valider Édition Terrain" color="#8cb6ce" meeting="false" start="2016-11-28" duration="5" complete="0" expand="true">
+            <depend id="172" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="172" name="Nettoyage Code" color="#8cb6ce" meeting="false" start="2016-12-03" duration="4" complete="0" expand="true"/>
+        <task id="81" name="Ajout fonctionnalités supplémentaires" color="#8cb6ce" meeting="false" start="2016-12-11" duration="3" complete="0" expand="true">
+            <depend id="79" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="79" name="Test d'acceptation" color="#8cb6ce" meeting="false" start="2016-12-14" duration="5" complete="0" expand="true"/>
         <task id="33" name="Livrable Final" color="#8cb6ce" meeting="true" start="2016-12-19" duration="0" complete="0" expand="true"/>
     </tasks>
     <resources>
@@ -95,21 +105,24 @@
         <allocation task-id="60" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="41" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="84" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
-        <allocation task-id="66" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
-        <allocation task-id="68" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="81" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="79" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="172" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="168" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="3" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="4" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="6" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="27" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="36" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
-        <allocation task-id="48" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="84" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="73" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="72" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="81" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="79" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="85" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="172" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="168" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="185" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="3" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="4" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="5" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
@@ -122,16 +135,19 @@
         <allocation task-id="70" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="81" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="79" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="172" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="168" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="3" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="10" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="27" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="39" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="44" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
-        <allocation task-id="48" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="84" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="68" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="81" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="79" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="85" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="172" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="170" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
     </allocations>
     <vacations/>
     <previous/>

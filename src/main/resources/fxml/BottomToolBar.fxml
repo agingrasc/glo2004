@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<ToolBar fx:id="rootToolBar" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60"
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.BottomToolBarController">
+    <items>
+        <Label minWidth="75.0" text="X : 0m" fx:id="xCoord"/>
+        <Label fx:id="yCoord" minWidth="75.0" text="Y : 0m"/>
+    </items>
+</ToolBar>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<DialogPane fx:id="rootDialogPane" expanded="true" headerText="Veuillez configurer le sport:"
+            stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.NewSportController">
+    <buttonTypes>
+        <ButtonType fx:constant="CANCEL"/>
+        <ButtonType fx:constant="FINISH"/>
+    </buttonTypes>
+    <content>
+        <ScrollPane prefViewportHeight="300.0" prefViewportWidth="318.0">
+            <content>
+                <GridPane onKeyPressed="#onKeyPressed">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="150.0"/>
+                        <ColumnConstraints fillWidth="false" halignment="CENTER"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="40.0"/>
+                        <RowConstraints minHeight="20.0"/>
+                        <RowConstraints fillHeight="false" minHeight="40.0"/>
+                        <RowConstraints fillHeight="false" minHeight="40.0"/>
+                        <RowConstraints fillHeight="false" minHeight="40.0"/>
+                        <RowConstraints fillHeight="false"/>
+                        <RowConstraints minHeight="150.0" prefHeight="150.0"/>
+                        <RowConstraints fillHeight="false" minHeight="20.0"/>
+                        <RowConstraints minHeight="40.0"/>
+                        <RowConstraints minHeight="40.0"/>
+                        <RowConstraints minHeight="40.0"/>
+                        <RowConstraints minHeight="20.0"/>
+                        <RowConstraints minHeight="40.0" prefHeight="30.0"/>
+                        <RowConstraints minHeight="40.0" prefHeight="30.0"/>
+                        <RowConstraints minHeight="40.0" prefHeight="30.0"/>
+                        <RowConstraints minHeight="20.0"/>
+                        <RowConstraints minHeight="40.0"/>
+                        <RowConstraints minHeight="40.0"/>
+                        <RowConstraints minHeight="40.0"/>
+                        <RowConstraints/>
+                    </rowConstraints>
+                    <children>
+                        <Label text="Nom:"/>
+                        <Label text="Terrain" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"
+                               GridPane.rowIndex="2"/>
+                        <TextField fx:id="sportName" GridPane.columnIndex="1"/>
+                        <HBox alignment="CENTER" stylesheets="@../css/visuaLigueCSS.css" GridPane.columnIndex="1"
+                              GridPane.rowIndex="5">
+                            <children>
+                                <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false"
+                                        onAction="#onActionDraw" text="Dessiner">
+                                    <graphic>
+                                        <ImageView pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/edit.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" layoutX="189.0" layoutY="10.0" minHeight="64.0"
+                                        minWidth="64.0" mnemonicParsing="false" onAction="#onActionBrowseField"
+                                        text="Ouvrir">
+                                    <graphic>
+                                        <ImageView pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/open-folder-outline.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </GridPane.margin>
+                        </HBox>
+                        <Label text="Rôles:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"
+                               GridPane.rowIndex="8"/>
+                        <Label text="Max joueurs:" GridPane.rowIndex="13"/>
+                        <Label text="Nbr. d'équipes:" GridPane.rowIndex="14" GridPane.valignment="CENTER">
+                            <GridPane.margin>
+                                <Insets right="10.0"/>
+                            </GridPane.margin>
+                        </Label>
+                        <Label text="Projectile:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"
+                               GridPane.rowIndex="16"/>
+                        <Label text="Longueur(m):" GridPane.rowIndex="3"/>
+                        <Label text="Largeur(m):" GridPane.rowIndex="4"/>
+                        <Spinner fx:id="fieldLength" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <Spinner fx:id="fieldWidth" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1"/>
+                        <Label text="Ajouter: &#10;(Touche entrée)" GridPane.rowIndex="9"/>
+                        <ComboBox fx:id="roles" prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                        <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="11"/>
+                        <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="7"/>
+                        <Label text="Équipe" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"
+                               GridPane.rowIndex="12"/>
+                        <TextField fx:id="maxPlayers" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+                        <TextField fx:id="maxTeams" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
+                        <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="15"/>
+                        <Label text="Nom:" GridPane.rowIndex="17"/>
+                        <TextField fx:id="projectileName" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
+                        <Button contentDisplay="TOP" minHeight="64.0" minWidth="64.0" mnemonicParsing="false"
+                                onAction="#onActionBrowseProjectile" text="Ouvrir" GridPane.columnIndex="1"
+                                GridPane.halignment="CENTER" GridPane.rowIndex="18">
+                            <graphic>
+                                <ImageView pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/open-folder-outline.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <Label text="Image:" GridPane.rowIndex="18"/>
+                        <Label text="Image:" GridPane.rowIndex="5"/>
+                        <ImageView fx:id="fieldImage" fitHeight="150.0" fitWidth="318.0" pickOnBounds="true"
+                                   preserveRatio="true" GridPane.columnSpan="2" GridPane.rowIndex="6"/>
+                        <ImageView fx:id="fieldProjectile" fitHeight="50.0" fitWidth="50.0" pickOnBounds="false"
+                                   preserveRatio="true" translateX="100.0" GridPane.columnSpan="2"
+                                   GridPane.rowIndex="18"/>
+                        <TextField fx:id="addRole" onAction="#onActionAddRole" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="9"/>
+                        <Label text="Supprimer:&#10;(Touche suppr)" GridPane.rowIndex="10"/>
+                    </children>
+                </GridPane>
+            </content>
+        </ScrollPane>
+    </content>
+</DialogPane>

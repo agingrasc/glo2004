@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.StackPane?>
+<ScrollPane fx:id="scrollPane" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" pannable="true"
+            xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.glo.giftw.view.CreationStackPaneController">
+    <content>
+        <Group fx:id="mainGroup">
+            <children>
+                <StackPane fx:id="stackPane" onMouseMoved="#onMouseMoved"/>
+            </children>
+        </Group>
+    </content>
+</ScrollPane>

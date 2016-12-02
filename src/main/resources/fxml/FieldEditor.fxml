@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<DialogPane fx:id="fieldEditorDialog" expanded="true" headerText="Éditer le terrain:" prefHeight="450.0"
+            prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
+    <content>
+        <Pane fx:id="fieldEditorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" prefHeight="400.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="Édition de Terrain">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" onMouseDragged="#onDraw"
+                        onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="600.0"/>
+                <ChoiceBox fx:id="fieldSize" layoutX="555.0" layoutY="19.0" prefHeight="26.0" prefWidth="70.0"/>
+                <Label layoutX="432.0" layoutY="17.0" text="x">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+                <Spinner fx:id="fieldLength" layoutX="325.0" layoutY="19.0" onInputMethodTextChanged="#onSizeChanged"
+                         prefHeight="26.0" prefWidth="97.0"/>
+                <Spinner fx:id="fieldWidth" layoutX="455.0" layoutY="19.0" onInputMethodTextChanged="#onSizeChanged"
+                         prefHeight="26.0" prefWidth="88.0"/>
+                <Button fx:id="saveButton" layoutX="555.0" layoutY="373.0" mnemonicParsing="false" onAction="#onSave"
+                        text="Sauvegarder"/>
+                <ColorPicker fx:id="fieldColor" editable="true" layoutX="80.0" layoutY="373.0" prefHeight="26.0"
+                             prefWidth="127.0" promptText="Fond du terrain"/>
+                <Label layoutX="14.0" layoutY="378.0" text="Couleur:"/>
+                <Button layoutX="229.0" layoutY="369.0" mnemonicParsing="false" onAction="#onFillColor"
+                        prefHeight="28.0" prefWidth="36.0">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/bucket.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <RadioButton fx:id="fieldPencil" layoutX="301.0" layoutY="374.0" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/edit.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </RadioButton>
+                <RadioButton fx:id="fieldCircle" layoutX="365.0" layoutY="374.0" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/circle.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </RadioButton>
+                <RadioButton fx:id="fieldSquare" layoutX="431.0" layoutY="374.0" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/square.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </RadioButton>
+                <RadioButton fx:id="fieldLine" layoutX="495.0" layoutY="374.0" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/line.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </RadioButton>
+                <Button fx:id="undoButton" layoutX="176.0" layoutY="19.0" mnemonicParsing="false" onAction="#onUndo"
+                        text="Undo"/>
+            </children>
+        </Pane>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:constant="CANCEL"/>
+        <ButtonType fx:constant="FINISH"/>
+    </buttonTypes>
+</DialogPane>

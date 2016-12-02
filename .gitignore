@@ -2,6 +2,7 @@
 *.class
 *.jar
 build/
+data/
 
 #artefact gradle
 *.bin
@@ -23,6 +24,7 @@ gradlew.bat
 #artefact vim
 *.sw*
 tags
+*.cs_files
 
 #artefact divers
 *.zip
@@ -49,3 +51,4 @@ bin/
 *.vpp.bak*
 *.vux*
 *.lck
+*.vpppath

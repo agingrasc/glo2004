@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<Accordion fx:id="rootAccordion" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.ItemsAccordionController">
+    <panes>
+        <TitledPane animated="false" text="Équipes">
+            <content>
+                <TableView fx:id="teamsTableView" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                        <TableColumn fx:id="teamImageColumn" prefWidth="75.0" text="Aperçu"/>
+                        <TableColumn fx:id="teamNameColumn" prefWidth="75.0" text="Nom"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </content>
+        </TitledPane>
+        <TitledPane animated="false" text="Obstacles">
+            <content>
+                <TableView fx:id="obstaclesTableView" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                        <TableColumn fx:id="obstacleImageColumn" prefWidth="75.0" text="Aperçu"/>
+                        <TableColumn fx:id="obstacleNameColumn" prefWidth="75.0" text="Nom"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </content>
+        </TitledPane>
+        <TitledPane animated="false" text="Projectiles">
+            <content>
+                <TableView fx:id="projectilesTableView" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                        <TableColumn fx:id="projectileImageColumn" prefWidth="75.0" text="Aperçu"/>
+                        <TableColumn fx:id="projectileNameColumn" prefWidth="75.0" text="Nom"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </content>
+        </TitledPane>
+    </panes>
+</Accordion>

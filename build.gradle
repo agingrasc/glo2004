@@ -23,7 +23,7 @@ dependencies {
 jar {
     from configurations.runtime
     manifest {
-        attributes ('Main-Class': 'org.gimm.glooo.Hello',
+        attributes ('Main-Class': 'org.glo.giftw.MainApp',
                    )
     }
 }
@@ -31,5 +31,11 @@ jar {
 task run(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 
-    main = 'org.gimm.glooo.Hello'
+    main = 'org.glo.giftw.MainApp'
+}
+
+task runDomain(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    main = 'org.glo.giftw.DomainMain'
 }
