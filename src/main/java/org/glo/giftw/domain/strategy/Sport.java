@@ -59,6 +59,11 @@ public class Sport implements Serializable, TreeViewable
         return this.roles;
     }
 
+    public void setPixelToUnitRatio(Vector ratio)
+    {
+        this.field.setPixelToUnitRatio(ratio);
+    }
+
     public void setRoles(List<String> roles)
     {
         this.roles = roles;
@@ -145,9 +150,9 @@ public class Sport implements Serializable, TreeViewable
         return this.name;
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
+    public Vector getFieldCoordinate(Vector adjustedCoordinate)
     {
-        return this.field.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
+        return this.field.getFieldCoordinate(adjustedCoordinate);
     }
 
     @Override
