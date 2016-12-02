@@ -131,13 +131,9 @@ public class CreationStackPaneController
 				else if(item instanceof Projectile)
 				{
 					Controller.getInstance().addProjectile(coord, 0, new Vector(ratioPixelToUnit.getX()/16,ratioPixelToUnit.getY()/16));
-					File imageFile = new File(((Projectile)item).getImagePath());
-	                Image image = new Image(imageFile.toURI().toString(), 16, 16, false, false);
-					ImageView imageView = new ImageView(image);
-					imageView.setX(event.getX());
-					imageView.setY(event.getY());
-					setDragDetected(imageView);
-					currentPane.getChildren().add(imageView);
+					ProjectileDisplay obsDisp = new ProjectileDisplay(((Projectile) item).getImagePath(),event.getX(), event.getY());
+					//setDragDetected(imageView);
+					//currentPane.getChildren().add(imageView);
 				}
 				else if(item instanceof Team)
 				{

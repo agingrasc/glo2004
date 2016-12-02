@@ -14,9 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Accordion;
@@ -26,12 +23,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -94,11 +89,8 @@ public class ItemsAccordionController
 			                	super.updateItem(item, empty);
 				                if (item != null && !empty)
 				                {
-				                	File file = new File(item);
-					                ImageView imageView = new ImageView(new Image(file.toURI().toString()));
-					                imageView.setFitWidth(32);
-					                imageView.setFitHeight(32);
-					                setGraphic(imageView);
+				                	PlayerDisplay playerDisp = new PlayerDisplay(item, 0, 0);
+					                setGraphic(playerDisp);
 				                }
 				                else
 				                {
@@ -241,9 +233,8 @@ public class ItemsAccordionController
 	            {
 	                Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
 	                ClipboardContent content = new ClipboardContent();
-	                File imageFile = new File(selected.getImagePath());
-	                Image image = new Image(imageFile.toURI().toString(), 32, 32, true, false);
-	                db.setDragView(image);
+	                ObstacleDisplay obsDisp = new ObstacleDisplay(selected.getImagePath(), 0, 0);
+	                db.setDragView(obsDisp.getImage());
 	                content.putString(selected.getName());
 	                db.setContent(content);
 	                event.consume(); 
@@ -256,13 +247,12 @@ public class ItemsAccordionController
 	        public void handle(MouseEvent event) {
 	            // drag was detected, start drag-and-drop gesture
 	            Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
-	            if(selected !=null)
+	            if(selected != null)
 	            {
 	                Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
 	                ClipboardContent content = new ClipboardContent();
-	                File imageFile = new File(selected.getImagePath());
-	                Image image = new Image(imageFile.toURI().toString(), 16, 16, false, false);
-	                db.setDragView(image);
+	                ProjectileDisplay projDisp = new ProjectileDisplay(selected.getImagePath(), 0, 0);
+	                db.setDragView(projDisp.getImage());
 	                content.putString(selected.getName());
 	                db.setContent(content);
 	                event.consume(); 
@@ -279,29 +269,8 @@ public class ItemsAccordionController
 	            {
 	                Dragboard db = teamsTableView.startDragAndDrop(TransferMode.ANY);
 	                ClipboardContent content = new ClipboardContent();
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_DISPLAY_PATH.toString()));
-					VBox playerDisplay = null;
-					try
-					{
-						playerDisplay = loader.load();
-					} catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					PlayerDisplayController pdc = loader.getController();
-					Canvas canvas = pdc.getCanvas();
-                	GraphicsContext gc = canvas.getGraphicsContext2D();
-                	gc.setFill(Color.web(selected.getColour()));
-                	gc.fillOval(0, 0, 32, 32);
-                	Scene scene = new Scene(playerDisplay);
-                	System.out.println(scene.getFill());
-                	SnapshotParameters parameters = new SnapshotParameters();
-                	parameters.setFill(Color.TRANSPARENT);
-                	playerDisplay.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
-                	WritableImage snapshot = playerDisplay.snapshot(parameters, null);
-	                db.setDragView(snapshot);
+	                PlayerDisplay playerDisp = new PlayerDisplay(selected.getColour(), 0, 0);
+	                db.setDragView(playerDisp.getImage());
 	                content.putString(selected.getName());
 	                db.setContent(content);
 	                event.consume(); 
