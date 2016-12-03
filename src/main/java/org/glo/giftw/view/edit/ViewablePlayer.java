@@ -1,34 +1,33 @@
 package org.glo.giftw.view.edit;
 
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Player;
-import org.glo.giftw.domain.util.Vector;
 
 /**
  *
  */
 public class ViewablePlayer extends ViewableGameObject
 {
-    private VBox node;
+    private boolean isDisplayName;
+    private boolean isDisplayRole;
 
     public ViewablePlayer(String uuid)
     {
-        super(uuid);
+        super();
+        this.uuid = uuid;
         this.node = new VBox();
-        this.display(new Vector());
+        //FIXME: passer correctement ces champs à la création
+        this.isDisplayName = false;
+        this.isDisplayRole = false;
+        this.constructNode();
     }
 
     private Player getPlayer()
@@ -57,7 +56,8 @@ public class ViewablePlayer extends ViewableGameObject
         return Color.web(teamColor);
     }
 
-    private Node constructNode(boolean displayName, boolean displayRole)
+    @Override
+    protected Node constructNode()
     {
         Player player = getPlayer();
         Circle playerImg = getPlayerImg(player);
@@ -66,10 +66,10 @@ public class ViewablePlayer extends ViewableGameObject
 
         VBox node = new VBox();
 
-        name.setVisible(displayName);
+        name.setVisible(isDisplayName);
         node.getChildren().add(name);
 
-        role.setVisible(displayRole);
+        role.setVisible(isDisplayRole);
         node.getChildren().add(role);
 
         node.getChildren().add(playerImg);
@@ -86,7 +86,7 @@ public class ViewablePlayer extends ViewableGameObject
 
     private Image getSnapshot()
     {
-        new Scene(this.node);
+        //new Scene((VBox) this.node);
         SnapshotParameters parameters = new SnapshotParameters();
         parameters.setFill(Color.TRANSPARENT);
         WritableImage snapshot = this.node.snapshot(parameters, null);
@@ -95,11 +95,12 @@ public class ViewablePlayer extends ViewableGameObject
 
     public void setShowName(boolean show)
     {
-        this.node.getChildren().get(0).setVisible(show);
+        //FIXME: devrait pouvoir se fixe avec de l'heritage
+        ((VBox) this.node).getChildren().get(0).setVisible(show);
     }
 
     public void setShowRole(boolean show)
     {
-        this.node.getChildren().get(1).setVisible(show);
+        ((VBox) this.node).getChildren().get(1).setVisible(show);
     }
 }

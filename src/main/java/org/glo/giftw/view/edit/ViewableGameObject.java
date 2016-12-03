@@ -21,6 +21,14 @@ public class ViewableGameObject
     protected Node node;
     protected String uuid;
 
+    protected ViewableGameObject()
+    {
+        //FIXME: code smell
+        this.ctlInst = Controller.getInstance();
+        this.node = null;
+        this.uuid = null;
+    }
+
     public ViewableGameObject(String uuid)
     {
         this.uuid = uuid;
@@ -28,7 +36,7 @@ public class ViewableGameObject
         this.constructNode();
     }
 
-    public Node constructNode()
+    protected Node constructNode()
     {
         Viewable gameObject;
         try

@@ -304,42 +304,6 @@ public class Controller
         return this.currentStrategy.getCurrentFrame();
     }
 
-    public Dragable getDraggedObject(String name)
-    {
-        if (this.getProjectile().getName() == name)
-        {
-            return this.getProjectile();
-        }
-        else
-        {
-            Collection<Obstacle> obstacles = this.getObstacles();
-            for (Obstacle o : obstacles)
-            {
-                if (o.getName() == name)
-                {
-                    return o;
-                }
-            }
-            Collection<Team> teams = this.getTeams();
-            for (Team t : teams)
-            {
-                if (t.getName() == name)
-                {
-                    return t;
-                }
-                List<Player> players = t.getPlayers();
-                for (Player p : players)
-                {
-                    if (p.getName() == name)
-                    {
-                        return p;
-                    }
-                }
-            }
-            return null;
-        }
-    }
-
     public Collection<Team> getTeams()
     {
         return this.currentStrategy.getTeams();

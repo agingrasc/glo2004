@@ -91,7 +91,7 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    Image img = new Image(getClass().getResourceAsStream(item));
+                                    Image img = new Image(String.format("file:%s", item), 20, 20, true, true);
                                     ImageView imgView = new ImageView(img);
                                     setGraphic(imgView);
                                 }
@@ -223,6 +223,7 @@ public class ItemsAccordionController
 
         updateAllTables();
 
+        //FIXME: extraire drag pour obstacle
         obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
         {
             @Override
@@ -255,6 +256,7 @@ public class ItemsAccordionController
             }
         });
 
+        //FIXME: extraire drag pour projectile
         projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
         {
             @Override
@@ -284,6 +286,7 @@ public class ItemsAccordionController
             }
         });
 
+        //FIXME: extraire drag pour joueur
         teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>()
         {
             @Override
@@ -300,6 +303,14 @@ public class ItemsAccordionController
                         uuid = Controller.getInstance().addPlayer(new Vector(), 0, new Vector(),
                                                                          selected.getName());
                         ViewablePlayer viewablePlayer = new ViewablePlayer(uuid);
+                        try
+                        {
+                            RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(uuid, viewablePlayer, new Vector());
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
                         db.setDragView(viewablePlayer.getImage());
                         content.putString(uuid);
                         db.setContent(content);
