@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class PlayerDisplay extends VBox implements ViewableGameObject
+public class PlayerDisplay extends VBox
 {
 	private Label name;
 	private Label role;

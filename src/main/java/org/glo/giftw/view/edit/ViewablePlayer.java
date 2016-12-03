@@ -1,44 +1,30 @@
 package org.glo.giftw.view.edit;
 
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.util.Vector;
 
 /**
  *
  */
 public class ViewablePlayer extends ViewableGameObject
 {
-    private GridPane node;
-    private boolean isDisplayName;
-    private boolean isDisplayRole;
+    private VBox node;
 
     public ViewablePlayer(String uuid)
     {
         super(uuid);
-        this.node = new GridPane();
-        this.display(0, 0);
-        this.isDisplayName = false;
-        this.isDisplayRole = false;
-    }
-
-    @Override
-    public Node display(float xPos, float yPos)
-    {
-        Player player = getPlayer();
-
-        Circle playerImg = getPlayerImg(player);
-        Label name = new Label(player.getName());
-        Label role = new Label(player.getRole());
-
-        this.node = constructGridPane(name, role, playerImg);
-        this.node.relocate(xPos, yPos);
-
-        return this.node;
+        this.node = new VBox();
+        this.display(new Vector());
     }
 
     private Player getPlayer()
@@ -67,22 +53,48 @@ public class ViewablePlayer extends ViewableGameObject
         return Color.web(teamColor);
     }
 
-    private GridPane constructGridPane(Label name, Label role, Circle playerImg)
+    private Node constructNode(boolean displayName, boolean displayRole)
     {
-        GridPane node = new GridPane();
-        int rowIdx = 0;
-        if (this.isDisplayName)
-        {
-            node.add(name, 0, rowIdx);
-            rowIdx++;
-        }
+        Player player = getPlayer();
+        Circle playerImg = getPlayerImg(player);
+        Label name = new Label(player.getName());
+        Label role = new Label(player.getRole());
 
-        if (this.isDisplayRole)
-        {
-            node.add(role, 0, rowIdx);
-            rowIdx++;
-        }
-        node.add(playerImg, 0, rowIdx);
+        VBox node = new VBox();
+
+        name.setVisible(displayName);
+        node.getChildren().add(name);
+
+        role.setVisible(displayRole);
+        node.getChildren().add(role);
+
+        node.getChildren().add(playerImg);
+
         return node;
+    }
+
+    @Override
+    public Image getImage()
+    {
+        return this.getSnapshot();
+    }
+
+    private Image getSnapshot()
+    {
+        new Scene(this.node);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        WritableImage snapshot = this.node.snapshot(parameters, null);
+        return snapshot;
+    }
+
+    public void setShowName(boolean show)
+    {
+        this.node.getChildren().get(0).setVisible(show);
+    }
+
+    public void setShowRole(boolean show)
+    {
+        this.node.getChildren().get(1).setVisible(show);
     }
 }

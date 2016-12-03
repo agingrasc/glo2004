@@ -168,10 +168,18 @@ public class Controller
         this.currentStrategy.setPixelToUnitRatio(ratio);
     }
 
-    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate)
+    public String getGameObjectByCoordinate(Vector adjustedMouseCoordinate) throws GameObjectNotFound
     {
         Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate);
-        return currentStrategy.getGameObjectByCoordinate(coordinate);
+        GameObject gameObject = currentStrategy.getGameObjectByCoordinate(coordinate);
+        if (gameObject == null)
+        {
+            throw new GameObjectNotFound("Aucun gameObject au coordonnee: " + adjustedMouseCoordinate.toString());
+        }
+        else
+        {
+            return gameObject.getId();
+        }
     }
 
     public Vector getFieldCoordinate(Vector adjustedCoordinate)
