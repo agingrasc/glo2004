@@ -27,7 +27,7 @@ public class ViewablePlayer extends ViewableGameObject
         //FIXME: passer correctement ces champs à la création
         this.isDisplayName = false;
         this.isDisplayRole = false;
-        this.constructNode();
+        this.node = this.constructNode();
     }
 
     private Player getPlayer()
