@@ -8,17 +8,20 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import org.glo.giftw.domain.Controller;
-import org.glo.giftw.domain.Dragable;
-import org.glo.giftw.domain.strategy.*;
+import org.glo.giftw.domain.strategy.GameObject;
+import org.glo.giftw.domain.strategy.Obstacle;
+import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.util.Vector;
 
 import java.io.File;
@@ -106,93 +109,8 @@ public class CreationStackPaneController
     private void createNewFrame()
     {
         Controller.getInstance().createNewFrame();
-        currentPane = new Pane();
-        currentPane.setBackground(Background.EMPTY);
+        FrameView currentPane = new FrameView();
         stackPane.getChildren().add(currentPane);
-
-        currentPane.setOnDragOver((DragEvent event) ->
-                                  {
-                                      if (event.getDragboard().hasString())
-                                      {
-                                          event.acceptTransferModes(TransferMode.ANY);//different pour autre cas?
-                                      }
-
-                                      event.consume();
-                                  });
-
-        //TODO
-        currentPane.setOnDragDropped((DragEvent event) ->
-                                     {
-                                         Dragboard db = event.getDragboard();
-                                         boolean success = false;
-                                         if (db.hasString())
-                                         {
-                                             Dragable item = Controller.getInstance().getDraggedObject(db.getString());
-                                             Vector coord = Controller.getInstance().getFieldCoordinate(
-                                                     new Vector(event.getX(), event.getY()));
-                                             if (item instanceof Obstacle)
-                                             {
-                                                 if (event.getGestureSource() instanceof TableView<?>)
-                                                 {
-
-                                                 }
-                                                 Controller.getInstance().addObstacle(db.getString(), coord, 0,
-                                                                                      new Vector(32, 32));
-                                                 File imageFile = new File(((Obstacle) item).getImagePath());
-                                                 Image image = new Image(imageFile.toURI().toString(), 32, 32, false,
-                                                                         false);
-                                                 ImageView imageView = new ImageView(image);
-                                                 imageView.setX(event.getX());
-                                                 imageView.setY(event.getY());
-                                                 setDragDetected(imageView);
-                                                 currentPane.getChildren().add(imageView);
-
-                                             }
-                                             else if (item instanceof Projectile)
-                                             {
-                                                 Controller.getInstance().addProjectile(coord, 0, new Vector(
-                                                         ratioPixelToUnit.getX() / 16, ratioPixelToUnit.getY() / 16));
-                                                 File imageFile = new File(((Projectile) item).getImagePath());
-                                                 Image image = new Image(imageFile.toURI().toString(), 16, 16, false,
-                                                                         false);
-                                                 ImageView imageView = new ImageView(image);
-                                                 imageView.setX(event.getX());
-                                                 imageView.setY(event.getY());
-                                                 setDragDetected(imageView);
-                                                 currentPane.getChildren().add(imageView);
-                                             }
-                                             else if (item instanceof Team)
-                                             {
-                                                 try
-                                                 {
-                                                     Controller.getInstance().addPlayer(coord, 0, new Vector(
-                                                             ratioPixelToUnit.getX() / 32,
-                                                             ratioPixelToUnit.getY() / 32), db.getString());
-                                                     FXMLLoader loader = new FXMLLoader();
-                                                     loader.setLocation(getClass().getResource(
-                                                             FXMLPaths.PLAYER_DISPLAY_PATH.toString()));
-                                                     VBox playerDisplay = loader.load();
-                                                     PlayerDisplayController pdc = loader.getController();
-                                                     Canvas canvas = pdc.getCanvas();
-                                                     GraphicsContext gc = canvas.getGraphicsContext2D();
-                                                     gc.setFill(Color.web(((Team) item).getColour()));
-                                                     gc.fillOval(0, 0, 32, 32);
-                                                     playerDisplay.relocate(event.getX(), event.getY());
-                                                     setDragDetected(playerDisplay);
-                                                     currentPane.getChildren().add(playerDisplay);
-                                                 }
-                                                 catch (Exception e)
-                                                 {
-                                                     // TODO Auto-generated catch block
-                                                     e.printStackTrace();
-                                                 }
-                                             }
-                                             success = true;
-                                         }
-                                         event.setDropCompleted(success);
-
-                                         event.consume();
-                                     });
     }
 
     //TODO
@@ -204,8 +122,6 @@ public class CreationStackPaneController
             public void handle(MouseEvent event)
             {
                 // drag was detected, start drag-and-drop gesture
-                System.out.println(event.getX() / ratioPixelToUnit.getX());
-                System.out.println(event.getY() / ratioPixelToUnit.getY());
                 GameObject selected = Controller.getInstance().getGameObjectByCoordinate(
                         new Vector(event.getX(), event.getY()));
                 System.out.println(selected);
@@ -290,15 +206,5 @@ public class CreationStackPaneController
         {
             ctrlPressed = false;
         }
-    }
-
-    public StackPane getStackPane()
-    {
-        return stackPane;
-    }
-
-    public ScrollPane getScrollPane()
-    {
-        return scrollPane;
     }
 }
