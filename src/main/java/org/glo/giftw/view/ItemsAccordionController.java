@@ -72,7 +72,7 @@ public class ItemsAccordionController
 
 
     @FXML
-    private void initialize() throws IOException
+    public void initialize() throws IOException
     {
         obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
         obstaclesTableView.setItems(obstacles);

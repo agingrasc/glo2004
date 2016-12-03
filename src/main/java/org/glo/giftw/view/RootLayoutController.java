@@ -367,6 +367,7 @@ public class RootLayoutController
             loader.load();
             this.itemsAccordionController = loader.getController();
         }
+        this.itemsAccordionController.initialize();
         return itemsAccordionController;
     }
 

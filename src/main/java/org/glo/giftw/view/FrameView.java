@@ -46,7 +46,6 @@ public class FrameView extends Pane
             ViewableGameObject viewableGameObject = this.getViewableGameObject(uuid);
             try
             {
-                System.out.println("Coordinate: " + coordinate.toString());
                 RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(uuid, viewableGameObject, coordinate);
             }
             catch (IOException e)
