@@ -46,7 +46,8 @@ public class ViewablePlayer extends ViewableGameObject
     private Circle getPlayerImg(Player player)
     {
         Color teamColor = getTeamColor(player);
-        return new Circle(30, teamColor);
+        //FIXME: dynamique
+        return new Circle(32, teamColor);
     }
 
     private Color getTeamColor(Player player)
