@@ -46,6 +46,7 @@ public class FrameView extends Pane
             ViewableGameObject viewableGameObject = this.getViewableGameObject(uuid);
             try
             {
+                System.out.println("Coordinate: " + coordinate.toString());
                 RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(uuid, viewableGameObject, coordinate);
             }
             catch (IOException e)
@@ -63,7 +64,14 @@ public class FrameView extends Pane
     {
         Node node = viewableGameObject.display(coordinate);
         this.viewableGameObjects.put(uuid, viewableGameObject);
-        this.getChildren().add(node);
+        try
+        {
+            this.getChildren().add(node);
+        }
+        catch (Exception e)
+        {
+            //FIXME: duplicate children, mauvaise architecture
+        }
     }
 
     public ViewableGameObject getViewableGameObject(String uuid)

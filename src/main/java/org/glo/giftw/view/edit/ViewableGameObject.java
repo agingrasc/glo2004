@@ -3,6 +3,10 @@ package org.glo.giftw.view.edit;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.util.Vector;
@@ -21,6 +25,7 @@ public class ViewableGameObject
     {
         this.uuid = uuid;
         this.ctlInst = Controller.getInstance();
+        this.constructNode();
     }
 
     public Node constructNode()
@@ -37,8 +42,9 @@ public class ViewableGameObject
         }
 
         String imgPath = gameObject.getImagePath();
-        Image img = new Image(this.getClass().getResourceAsStream(imgPath));
+        Image img = this.getImage();
         this.node = new ImageView(img);
+        this.node.setOnDragDetected(this::onNodeDragDetected);
         return this.node;
     }
 
@@ -60,6 +66,19 @@ public class ViewableGameObject
             gameObjectNotFound.printStackTrace();
             return null;
         }
-        return new Image(this.getClass().getResourceAsStream(imgPath));
+        //FIXME: dynamique
+        return new Image(String.format("file:%s", imgPath), 20, 0, true, true);
     }
+
+    protected void onNodeDragDetected(MouseEvent event)
+    {
+        Dragboard db = this.node.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent content = new ClipboardContent();
+        db.setDragView(this.getImage());
+        content.putString(this.uuid);
+        db.setContent(content);
+        event.consume();
+
+    }
+
 }

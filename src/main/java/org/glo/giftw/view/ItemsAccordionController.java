@@ -188,7 +188,8 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    Image img = new Image(String.format("file:%s", item), 80, 80, true, true);
+                                    //FIXME: meilleur constante, extraire
+                                    Image img = new Image(String.format("file:%s", item), 16, 0, true, true);
                                     ImageView imgView = new ImageView(img);
                                     setGraphic(imgView);
                                 }
@@ -267,6 +268,14 @@ public class ItemsAccordionController
                     //FIXME: dimension
                     String uuid = Controller.getInstance().addProjectile(new Vector(), 0, new Vector());
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    try
+                    {
+                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(uuid, viewableGameObject, new Vector());
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
                     db.setDragView(viewableGameObject.getImage());
                     content.putString(uuid);
                     db.setContent(content);

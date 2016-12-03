@@ -6,6 +6,10 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -70,6 +74,7 @@ public class ViewablePlayer extends ViewableGameObject
 
         node.getChildren().add(playerImg);
 
+        node.setOnDragDetected(this::onNodeDragDetected);
         return node;
     }
 
