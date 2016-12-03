@@ -188,7 +188,7 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    Image img = new Image(getClass().getResourceAsStream(item));
+                                    Image img = new Image(String.format("file:%s", item), 80, 80, true, true);
                                     ImageView imgView = new ImageView(img);
                                     setGraphic(imgView);
                                 }
