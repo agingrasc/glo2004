@@ -167,4 +167,9 @@ public class CreationStackPaneController
     {
         return this.currentPane;
     }
+
+    public ScrollPane getScrollPane()
+    {
+        return this.scrollPane;
+    }
 }

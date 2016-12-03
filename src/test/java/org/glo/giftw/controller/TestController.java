@@ -21,7 +21,6 @@ public class TestController
     {
         public ControllerStub(Strategy strategy)
         {
-            super();
             this.currentStrategy = strategy;
         }
     }

@@ -17,7 +17,7 @@ public class ViewableGameObject
     protected Node node;
     protected String uuid;
 
-    protected ViewableGameObject(String uuid)
+    public ViewableGameObject(String uuid)
     {
         this.uuid = uuid;
         this.ctlInst = Controller.getInstance();
@@ -48,9 +48,18 @@ public class ViewableGameObject
         return this.node;
     }
 
-    public Image getImage() throws GameObjectNotFound
+    public Image getImage()
     {
-        String imgPath = ((Viewable) this.ctlInst.getGameObjectByUUID(this.uuid)).getImagePath();
+        String imgPath = null;
+        try
+        {
+            imgPath = ((Viewable) this.ctlInst.getGameObjectByUUID(this.uuid)).getImagePath();
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+            return null;
+        }
         return new Image(this.getClass().getResourceAsStream(imgPath));
     }
 }
