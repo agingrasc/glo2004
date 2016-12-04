@@ -69,6 +69,12 @@ public class ItemsAccordionController
     private ObservableList<Team> teams;
 
     private ObservableList<Projectile> projectiles;
+    
+    public static final int PLAYER_RADIUS = 16;
+    
+    public static final int OBSTACLE_SIZE = 32;
+    
+    public static final int PROJECTILE_SIZE = 16;
 
 
     @FXML
@@ -91,7 +97,7 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    Image img = new Image(String.format("file:%s", item), 20, 20, true, true);
+                                    Image img = new Image(String.format("file:%s", item), OBSTACLE_SIZE, OBSTACLE_SIZE, true, true);
                                     ImageView imgView = new ImageView(img);
                                     setGraphic(imgView);
                                 }
@@ -140,7 +146,7 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    Circle circle = new Circle(32, Color.web(item));
+                                    Circle circle = new Circle(PLAYER_RADIUS, Color.web(item));
                                     setGraphic(circle);
                                 }
                                 else
@@ -188,8 +194,7 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    //FIXME: meilleur constante, extraire
-                                    Image img = new Image(String.format("file:%s", item), 16, 0, true, true);
+                                    Image img = new Image(String.format("file:%s", item), PROJECTILE_SIZE, PROJECTILE_SIZE, true, true);
                                     ImageView imgView = new ImageView(img);
                                     setGraphic(imgView);
                                 }
@@ -238,16 +243,6 @@ public class ItemsAccordionController
                     String uuid = Controller.getInstance().addObstacle(selected.getName(), new Vector(), 0,
                                                                        new Vector());
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
-                    try
-                    {
-                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(
-                                uuid, viewableGameObject, new Vector());
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-
                     db.setDragView(viewableGameObject.getImage());
                     content.putString(uuid);
                     db.setContent(content);
@@ -270,14 +265,6 @@ public class ItemsAccordionController
                     //FIXME: dimension
                     String uuid = Controller.getInstance().addProjectile(new Vector(), 0, new Vector());
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
-                    try
-                    {
-                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(uuid, viewableGameObject, new Vector());
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
                     db.setDragView(viewableGameObject.getImage());
                     content.putString(uuid);
                     db.setContent(content);
@@ -303,14 +290,6 @@ public class ItemsAccordionController
                         uuid = Controller.getInstance().addPlayer(new Vector(), 0, new Vector(),
                                                                          selected.getName());
                         ViewablePlayer viewablePlayer = new ViewablePlayer(uuid);
-                        try
-                        {
-                            RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(uuid, viewablePlayer, new Vector());
-                        }
-                        catch (IOException e)
-                        {
-                            e.printStackTrace();
-                        }
                         db.setDragView(viewablePlayer.getImage());
                         content.putString(uuid);
                         db.setContent(content);

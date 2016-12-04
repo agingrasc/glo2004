@@ -51,6 +51,7 @@ public class NewObstacleController
             Controller.getInstance().createObstacle(obstacleName.getText(), isCollision.isSelected(),
                                                     imageToOpen.getPath());
             RootLayoutController.getInstance().getOpenObstacleController().updateTable();
+            RootLayoutController.getInstance().getItemsAccordionController().updateObstaclesTable();
         }
     }
 }

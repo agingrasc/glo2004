@@ -179,6 +179,7 @@ public class NewSportController
                                                  maxNumberOfPlayer, maxNumberOfTeams);
 
             RootLayoutController.getInstance().getOpenStrategyController().updateTree();
+            RootLayoutController.getInstance().getItemsAccordionController().updateProjectilesTable();
         }
     }
 }
