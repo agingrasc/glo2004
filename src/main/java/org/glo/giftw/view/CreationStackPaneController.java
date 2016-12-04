@@ -11,10 +11,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
+import org.glo.giftw.domain.strategy.Frame;
+import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 public class CreationStackPaneController
 {
@@ -22,7 +25,7 @@ public class CreationStackPaneController
     private StackPane stackPane;
     @FXML
     private ScrollPane scrollPane;
-
+    private FrameView previousPane;
     private FrameView currentPane;
     private boolean ctrlPressed = false;
     private Vector ratioPixelToUnit;
@@ -92,11 +95,21 @@ public class CreationStackPaneController
         Controller.getInstance().setPixelToUnitRatio(this.ratioPixelToUnit);
     }
 
-    private void createNewFrame()
+    public void createNewFrame()
     {
-        Controller.getInstance().createNewFrame();
         this.currentPane = new FrameView();
         stackPane.getChildren().add(currentPane);
+    }
+    
+    public void displayStrategy()
+    {
+    	Frame currentFrame = Controller.getInstance().getCurrentFrame();
+    	Set<GameObject> gameObjectSet = currentFrame.getGameObjects();
+    	for(GameObject gameObject : gameObjectSet)
+    	{
+    		currentPane.getChildren().clear();
+    		currentPane.getChildren().add(e);
+    	}
     }
 
     //TODO

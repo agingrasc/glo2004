@@ -31,7 +31,7 @@ public class CreationToolBarController
     }
 
     @FXML
-    void onActionNext(ActionEvent event)
+    void onActionNext(ActionEvent event) throws IOException
     {
         boolean isLastFrame = Controller.getInstance().isLastFrame();
         if (isLastFrame)
