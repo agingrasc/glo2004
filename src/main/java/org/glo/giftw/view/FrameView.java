@@ -9,7 +9,6 @@ import javafx.scene.layout.Pane;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class FrameView extends Pane
@@ -44,25 +43,23 @@ public class FrameView extends Pane
             Vector coordinate = new Vector(event.getX(), event.getY());
 
             ViewableGameObject viewableGameObject = this.getViewableGameObject(uuid);
-            try
-            {
-                RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableGameObject(uuid, viewableGameObject, coordinate);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            this.placeViewableInPane(viewableGameObject, coordinate);
             success = true;
         }
         event.setDropCompleted(success);
 
         event.consume();
     }
+    
+    public void addViewableToHashMap(String uuid, ViewableGameObject viewableGameObject)
+    {
+    	this.viewableGameObjects.put(uuid, viewableGameObject);
+    }
 
-    public void addViewableGameObject(String uuid, ViewableGameObject viewableGameObject, Vector coordinate)
+    public void placeViewableInPane(ViewableGameObject viewableGameObject, Vector coordinate)
     {
         Node node = viewableGameObject.display(coordinate);
-        this.viewableGameObjects.put(uuid, viewableGameObject);
+       
         try
         {
             this.getChildren().add(node);

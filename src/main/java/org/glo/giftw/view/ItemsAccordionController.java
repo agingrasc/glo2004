@@ -79,8 +79,127 @@ public class ItemsAccordionController
 
     @FXML
     public void initialize() throws IOException
+    {	
+    	initObstacleTable();
+        initTeamTable();
+        initProjectileTable();
+
+        updateAllTables();
+        
+        initObstacleDrag();
+        initTeamDrag();
+        initProjectileDrag();
+    }
+    
+    private void initObstacleDrag()
     {
-        obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
+    	obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Obstacle selected = obstaclesTableView.getSelectionModel().getSelectedItem();
+                if (selected != null)
+                {
+                    Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    //FIXME: dimension
+                    String uuid = Controller.getInstance().addObstacle(selected.getName(), new Vector(), 0,
+                                                                       new Vector());
+                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    try
+					{
+						RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewableGameObject);
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    db.setDragView(viewableGameObject.getImage());
+                    content.putString(uuid);
+                    db.setContent(content);
+                    event.consume();
+                }
+            }
+        });
+    }
+    
+    private void initTeamDrag()
+    {
+    	teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Team selected = teamsTableView.getSelectionModel().getSelectedItem();
+                if (selected != null)
+                {
+                    Dragboard db = teamsTableView.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    String uuid;
+                    try
+                    {
+                        uuid = Controller.getInstance().addPlayer(new Vector(), 0, new Vector(),
+                                                                         selected.getName());
+                        ViewablePlayer viewablePlayer = new ViewablePlayer(uuid);
+                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewablePlayer);
+                        db.setDragView(viewablePlayer.getImage());
+                        content.putString(uuid);
+                        db.setContent(content);
+                        event.consume();
+                    }
+                    catch (MaxNumberException err)
+                    {
+                        //FIXME: afficher un pop-up pour indiquer que le nombre max de joueur a ete place
+                    }
+                    catch (TeamNotFound err)
+                    {
+                        err.printStackTrace();
+                    } catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
+            }
+        });
+    }
+    
+    private void initProjectileDrag()
+    {
+    	 projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+         {
+             @Override
+             public void handle(MouseEvent event)
+             {
+                 Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
+                 if (selected != null)
+                 {
+                     Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
+                     ClipboardContent content = new ClipboardContent();
+                     //FIXME: dimension
+                     String uuid = Controller.getInstance().addProjectile(new Vector(), 0, new Vector());
+                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                     try
+					{
+						RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewableGameObject);
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                     db.setDragView(viewableGameObject.getImage());
+                     content.putString(uuid);
+                     db.setContent(content);
+                     event.consume();
+                 }
+             }
+         });
+    }
+    
+    private void initObstacleTable()
+    {
+    	obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
         obstaclesTableView.setItems(obstacles);
         obstacleImageColumn.setCellFactory(
                 new Callback<TableColumn<Obstacle, String>, TableCell<Obstacle, String>>()
@@ -128,8 +247,11 @@ public class ItemsAccordionController
                         return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                     }
                 });
-
-        teams = FXCollections.observableArrayList(Controller.getInstance().getTeams());
+    }
+    
+    private void initTeamTable()
+    {
+    	teams = FXCollections.observableArrayList(Controller.getInstance().getTeams());
         teamsTableView.setItems(teams);
         teamImageColumn.setCellFactory(
                 new Callback<TableColumn<Team, String>, TableCell<Team, String>>()
@@ -176,8 +298,11 @@ public class ItemsAccordionController
                         return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                     }
                 });
-
-        projectiles = FXCollections.observableArrayList(Controller.getInstance().getProjectile());
+    }
+    
+    private void initProjectileTable()
+    {
+    	projectiles = FXCollections.observableArrayList(Controller.getInstance().getProjectile());
         projectilesTableView.setItems(projectiles);
         projectileImageColumn.setCellFactory(
                 new Callback<TableColumn<Projectile, String>, TableCell<Projectile, String>>()
@@ -225,87 +350,6 @@ public class ItemsAccordionController
                         return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                     }
                 });
-
-        updateAllTables();
-
-        //FIXME: extraire drag pour obstacle
-        obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                Obstacle selected = obstaclesTableView.getSelectionModel().getSelectedItem();
-                if (selected != null)
-                {
-                    Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
-                    ClipboardContent content = new ClipboardContent();
-                    //FIXME: dimension
-                    String uuid = Controller.getInstance().addObstacle(selected.getName(), new Vector(), 0,
-                                                                       new Vector());
-                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
-                    db.setDragView(viewableGameObject.getImage());
-                    content.putString(uuid);
-                    db.setContent(content);
-                    event.consume();
-                }
-            }
-        });
-
-        //FIXME: extraire drag pour projectile
-        projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
-                if (selected != null)
-                {
-                    Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
-                    ClipboardContent content = new ClipboardContent();
-                    //FIXME: dimension
-                    String uuid = Controller.getInstance().addProjectile(new Vector(), 0, new Vector());
-                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
-                    db.setDragView(viewableGameObject.getImage());
-                    content.putString(uuid);
-                    db.setContent(content);
-                    event.consume();
-                }
-            }
-        });
-
-        //FIXME: extraire drag pour joueur
-        teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                Team selected = teamsTableView.getSelectionModel().getSelectedItem();
-                if (selected != null)
-                {
-                    Dragboard db = teamsTableView.startDragAndDrop(TransferMode.ANY);
-                    ClipboardContent content = new ClipboardContent();
-                    String uuid;
-                    try
-                    {
-                        uuid = Controller.getInstance().addPlayer(new Vector(), 0, new Vector(),
-                                                                         selected.getName());
-                        ViewablePlayer viewablePlayer = new ViewablePlayer(uuid);
-                        db.setDragView(viewablePlayer.getImage());
-                        content.putString(uuid);
-                        db.setContent(content);
-                        event.consume();
-                    }
-                    catch (MaxNumberException err)
-                    {
-                        //FIXME: afficher un pop-up pour indiquer que le nombre max de joueur a ete place
-                    }
-                    catch (TeamNotFound err)
-                    {
-                        err.printStackTrace();
-                    }
-                }
-            }
-        });
     }
 
     public void updateObstaclesTable()

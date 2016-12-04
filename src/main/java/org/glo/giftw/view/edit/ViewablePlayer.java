@@ -1,6 +1,7 @@
 package org.glo.giftw.view.edit;
 
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -47,7 +48,7 @@ public class ViewablePlayer extends ViewableGameObject
     {
         Color teamColor = getTeamColor(player);
         //FIXME: dynamique
-        return new Circle(32, teamColor);
+        return new Circle(16, teamColor);
     }
 
     private Color getTeamColor(Player player)
@@ -66,6 +67,8 @@ public class ViewablePlayer extends ViewableGameObject
         Label role = new Label(player.getRole());
 
         VBox node = new VBox();
+        //node.setBackground(Background.EMPTY);
+        node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
 
         name.setVisible(isDisplayName);
         node.getChildren().add(name);
@@ -87,7 +90,10 @@ public class ViewablePlayer extends ViewableGameObject
 
     private Image getSnapshot()
     {
-        //new Scene((VBox) this.node);
+    	if(this.node.getParent() == null)
+    	{
+    		new Scene((VBox)this.node);//pour que le snapshot prenne en compte les labels
+    	}
         SnapshotParameters parameters = new SnapshotParameters();
         parameters.setFill(Color.TRANSPARENT);
         WritableImage snapshot = this.node.snapshot(parameters, null);

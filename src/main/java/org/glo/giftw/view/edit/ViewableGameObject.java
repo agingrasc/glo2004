@@ -38,18 +38,6 @@ public class ViewableGameObject
 
     protected Node constructNode()
     {
-        Viewable gameObject;
-        try
-        {
-            gameObject = (Viewable) this.ctlInst.getGameObjectByUUID(uuid);
-        }
-        catch (GameObjectNotFound e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-
-        String imgPath = gameObject.getImagePath();
         Image img = this.getImage();
         this.node = new ImageView(img);
         this.node.setOnDragDetected(this::onNodeDragDetected);
@@ -75,7 +63,7 @@ public class ViewableGameObject
             return null;
         }
         //FIXME: dynamique
-        return new Image(String.format("file:%s", imgPath), 20, 0, true, true);
+        return new Image(String.format("file:%s", imgPath), 16, 0, true, true);
     }
 
     protected void onNodeDragDetected(MouseEvent event)
@@ -86,7 +74,5 @@ public class ViewableGameObject
         content.putString(this.uuid);
         db.setContent(content);
         event.consume();
-
     }
-
 }
