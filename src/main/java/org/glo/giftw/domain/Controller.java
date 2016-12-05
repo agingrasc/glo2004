@@ -93,8 +93,9 @@ public class Controller
      * @param imagePath         Le chemin vers l'image associé à l'obstacle.
      * @param defaultDimensions Les dimensions standards de ce type d'obstacle.
      */
-    public void createObstacle(String name, boolean isCollidable, String imagePath, Vector defaultDimensions)
+    public void createObstacle(String name, boolean isCollidable, String imagePath, int obstacleWidth, int obstacleHeight)
     {
+    	Vector defaultDimensions = new Vector(obstacleWidth, obstacleHeight);
         this.obstaclePool.addObstacleType(name, isCollidable, imagePath, defaultDimensions);
     }
 

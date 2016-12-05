@@ -102,7 +102,6 @@ public class ItemsAccordionController
                 {
                     Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
-                    //FIXME: dimension
                     String uuid = Controller.getInstance().addObstacle(selected.getName());
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
                     try

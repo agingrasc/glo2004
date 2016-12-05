@@ -128,7 +128,7 @@ public class CreationStackPaneController
         {
             ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject);
             pane.addViewableToHashMap(gameObject.getId(), obj);
-            pane.placeViewableInPane(obj, currentFrame.getPosition(gameObject));
+            pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
         }
     }
 

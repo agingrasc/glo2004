@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
+import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.domain.util.Viewable;
 
@@ -53,17 +54,20 @@ public class ViewableGameObject
     public Image getImage()
     {
         String imgPath = null;
+        Vector dimensions = null;
         try
         {
-            imgPath = ((Viewable) this.ctlInst.getGameObjectByUUID(this.uuid)).getImagePath();
+        	GameObject gameObject = this.ctlInst.getGameObjectByUUID(this.uuid);
+            imgPath = ((Viewable)gameObject).getImagePath();
+            //TODO dimensions pixel?
+            dimensions = ctlInst.getDimensions(gameObject);
         }
         catch (GameObjectNotFound gameObjectNotFound)
         {
             gameObjectNotFound.printStackTrace();
             return null;
         }
-        //FIXME: dynamique
-        return new Image(String.format("file:%s", imgPath), 16, 0, true, true);
+        return new Image(String.format("file:%s", imgPath), dimensions.getX(), dimensions.getY(), true, true);
     }
 
     protected void onNodeDragDetected(MouseEvent event)

@@ -9,8 +9,11 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.util.Vector;
 
 /**
  *
@@ -47,8 +50,9 @@ public class ViewablePlayer extends ViewableGameObject
     private Circle getPlayerImg(Player player)
     {
         Color teamColor = getTeamColor(player);
-        //FIXME: dynamique
-        return new Circle(16, teamColor);
+        //TODO dimensions pixel?
+        Vector dimensions = Controller.getInstance().getDimensions(player);
+        return new Circle(dimensions.getX()/2, teamColor);
     }
 
     private Color getTeamColor(Player player)
