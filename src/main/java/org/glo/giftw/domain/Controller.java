@@ -108,44 +108,36 @@ public class Controller
     }
 
     /**
-     * Crée un nouveau joueur dans la stratégie et l'ajoute dans la frame courante.
+     * Crée un nouveau joueur dans la stratégie et l'ajoute à l'équipe spécifiée.
      *
-     * @param position    La position initiale du joueur.
-     * @param orientation L'orientation initiale du joueur.
-     * @param dimensions  Les dimensions initiales du joueur.
+     * @param team  L'équipe du joueur.
      * @return L'id du joueur nouvellement créé.
      */
-    public String addPlayer(Vector position, float orientation, Vector dimensions,
-                            String team) throws TeamNotFound, MaxNumberException
+    public String addPlayer(String team) throws TeamNotFound, MaxNumberException
     {
-        return this.currentStrategy.addPlayer(position, orientation, dimensions, team).getId();
+        return this.currentStrategy.addPlayer(team);
     }
 
     /**
-     * Crée un nouvel obstacle dans la stratégie et l'ajoute dans la frame courante.
+     * Crée un nouvel obstacle dans la stratégie.
      *
-     * @param position    La position initiale de l'obstacle.
-     * @param orientation L'orientation initiale de l'obstacle.
-     * @param dimensions  Les dimensions initiales de l'obstacle.
+     * @param name  Le nom du type d'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public String addObstacle(String name, Vector position, float orientation, Vector dimensions)
+    public String addObstacle(String name)
     {
         Obstacle obstacle = this.obstaclePool.create(name);
-        return this.currentStrategy.addObstacle(obstacle, position, orientation, dimensions).getId();
+        return this.currentStrategy.addObstacle(obstacle);
     }
 
     /**
-     * Crée un nouveau projectile dans la stratégie et l'ajoute dans la frame courante.
+     * Crée un nouveau projectile dans la stratégie.
      *
-     * @param position    La position initiale du projectile.
-     * @param orientation L'orientation initiale du projectile.
-     * @param dimensions  Les dimensions initiales du projectile.
      * @return L'id du projectile nouvellement créé.
      */
-    public String addProjectile(Vector position, float orientation, Vector dimensions)
+    public String addProjectile()
     {
-        return this.currentStrategy.addProjectile(position, orientation, dimensions).getId();
+        return this.currentStrategy.addProjectile();
     }
 
     public void addTeam(String teamName, String colour) throws MaxNumberException
@@ -192,6 +184,14 @@ public class Controller
         return this.currentStrategy.getGameObjectByUUID(uuid);
     }
 
+    /**
+     * Place un GameObject dans la frame courante. Si le GameObject est déjà présent, son état est mis à jour.
+     * @param gameObjectUuid Le uuid du GameObject.
+     * @param position       La position du GameObject.
+     * @param orientation    L'orientation du GameObject.
+     * @param dimensions     Les dimensions du GameObject.
+     * @throws GameObjectNotFound
+     */
     public void placeGameObject(String gameObjectUuid, Vector position, float orientation,
                                 Vector dimensions) throws GameObjectNotFound
     {

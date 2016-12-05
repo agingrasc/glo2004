@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Contient les frames et les appels necessaires pour les joueurs
@@ -306,16 +307,7 @@ public class Strategy implements Serializable, TreeViewable
     /*
      * Gestion des GameObjects
      */
-    private GameObject addGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
-    {
-        GameObjectState gameObjectState = new GameObjectState(position, orientation, dimensions);
-        this.gameObjects.add(gameObject);
-        this.getCurrentFrame().addGameObject(gameObject, gameObjectState);
-        return gameObject;
-    }
-
-    public GameObject addPlayer(Vector position, float orientation, Vector dimensions,
-                                String team) throws TeamNotFound, MaxNumberException
+    public String addPlayer(String team) throws TeamNotFound, MaxNumberException
     {
         Player player = new Player();
         if (team == null)
@@ -327,47 +319,58 @@ public class Strategy implements Serializable, TreeViewable
             team = "default";
         }
         this.addTeamPlayer(team, player);
-        return this.addGameObject(player, position, orientation, dimensions);
+        this.gameObjects.add(player);
+        return player.getId();
     }
 
-    public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
+    public String addProjectile()
     {
         Projectile projectile = new Projectile(this.sport.getProjectile());
-        return this.addGameObject(projectile, position, orientation, dimensions);
+        this.gameObjects.add(projectile);
+        return projectile.getId();
     }
 
-    public GameObject addObstacle(Obstacle obstacle, Vector position, float orientation, Vector dimensions)
+    public String addObstacle(Obstacle obstacle)
     {
         this.gameObjects.add(obstacle);
-        return this.addGameObject(obstacle, position, orientation, dimensions);
+        return obstacle.getId();
     }
 
     public void placeGameObject(String gameObjectUuid, Vector position, float orientation, Vector dimensions) throws GameObjectNotFound
     {
         GameObject gameObject = this.getGameObjectByUUID(gameObjectUuid);
-        this.getCurrentFrame().placeGameObject(gameObject, position, orientation, dimensions);
-        if (this.currentFrameIdx != 0)
+        Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
+        if (currentFrameGameObjects.contains(gameObject))
         {
-            int nbFrames = Strategy.framePerSecond / Strategy.keyFramePerSecond;
-            int previousKeyFrameId = this.currentFrameIdx - nbFrames;
-            Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
-
-            double posDeltaX = (position.getX() - previousKeyFrame.getPosition(gameObject).getX()) / nbFrames;
-            double posDeltaY = (position.getY() - previousKeyFrame.getPosition(gameObject).getY()) / nbFrames;
-            float deltaOrientation = (orientation - previousKeyFrame.getOrientation(gameObject)) / nbFrames;
-            double dimDeltaX = (dimensions.getX() - previousKeyFrame.getDimensions(gameObject).getX()) / nbFrames;
-            double dimDeltaY = (dimensions.getY() - previousKeyFrame.getDimensions(gameObject).getY()) / nbFrames;
-
-            for (int i = 1; i < nbFrames; i++)
+            this.getCurrentFrame().placeGameObject(gameObject, position, orientation, dimensions);
+            if (this.currentFrameIdx != 0)
             {
-                Frame subFrame = this.getFrame(previousKeyFrameId + i);
-                Vector p = subFrame.getPosition(gameObject);
-                float o = subFrame.getOrientation(gameObject);
-                Vector d = subFrame.getDimensions(gameObject);
-                subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
-                                         o + i * deltaOrientation,
-                                         new Vector(d.getX() + i * dimDeltaX, d.getY() + i * dimDeltaY));
+                int nbFrames = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+                int previousKeyFrameId = this.currentFrameIdx - nbFrames;
+                Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
+
+                double posDeltaX = (position.getX() - previousKeyFrame.getPosition(gameObject).getX()) / nbFrames;
+                double posDeltaY = (position.getY() - previousKeyFrame.getPosition(gameObject).getY()) / nbFrames;
+                float deltaOrientation = (orientation - previousKeyFrame.getOrientation(gameObject)) / nbFrames;
+                double dimDeltaX = (dimensions.getX() - previousKeyFrame.getDimensions(gameObject).getX()) / nbFrames;
+                double dimDeltaY = (dimensions.getY() - previousKeyFrame.getDimensions(gameObject).getY()) / nbFrames;
+
+                for (int i = 1; i < nbFrames; i++)
+                {
+                    Frame subFrame = this.getFrame(previousKeyFrameId + i);
+                    Vector p = subFrame.getPosition(gameObject);
+                    float o = subFrame.getOrientation(gameObject);
+                    Vector d = subFrame.getDimensions(gameObject);
+                    subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
+                                             o + i * deltaOrientation,
+                                             new Vector(d.getX() + i * dimDeltaX, d.getY() + i * dimDeltaY));
+                }
             }
+        }
+        else
+        {
+            GameObjectState gameObjectState = new GameObjectState(position, orientation, dimensions);
+            this.getCurrentFrame().addGameObject(gameObject, gameObjectState);
         }
     }
 

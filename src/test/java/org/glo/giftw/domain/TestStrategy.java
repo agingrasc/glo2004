@@ -32,13 +32,19 @@ public class TestStrategy
         strat = new Strategy("test", hockey, true, true);
         try
         {
-            joueur = (Player) strat.addPlayer(new Vector(400, 1295), 0, new Vector(50, 100), null);
+            String id = strat.addPlayer(null);
+            joueur = (Player) strat.getGameObjectByUUID(id);
+            strat.placeGameObject(id, new Vector(400, 1295), 0, new Vector(50, 100));
         }
         catch (TeamNotFound e)
         {
             e.printStackTrace();
         }
         catch (MaxNumberException e)
+        {
+            e.printStackTrace();
+        } 
+        catch (GameObjectNotFound e)
         {
             e.printStackTrace();
         }
