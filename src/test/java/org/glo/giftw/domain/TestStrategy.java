@@ -16,6 +16,7 @@ public class TestStrategy
     ArrayList<String> roles;
     Field patinoire;
     Player joueur;
+    Projectile projectile;
     Sport hockey;
     Strategy strat;
 
@@ -28,7 +29,8 @@ public class TestStrategy
         roles.add("gardien");
 
         patinoire = new Field();
-        hockey = new Sport("hockey", roles, patinoire, "puck", "", 6, 2);
+        projectile = new Projectile("puck", "", new Vector(8, 8));
+        hockey = new Sport("hockey", roles, patinoire, projectile, 6, 2);
         strat = new Strategy("test", hockey, true, true);
         try
         {
@@ -162,5 +164,17 @@ public class TestStrategy
         strat.getGameObjectByUUID(placedPlayerId);
         strat.getGameObjectByUUID(unPlacedPlayerId);
         Assert.fail("Une exception GameObjectNotFound devrait être lancée.");
+    }
+    
+    @Test
+    public void testAddProjectile() throws GameObjectNotFound
+    {
+        String gloriousPuckId = this.strat.addProjectile();
+        Projectile gloriousPuck = (Projectile)this.strat.getGameObjectByUUID(gloriousPuckId);
+        GameObjectState gos = new GameObjectState(new Vector(), 0, gloriousPuck.getDefaultDimensions());
+        strat.getCurrentFrame().addGameObject(gloriousPuck, gos);
+        Vector expected = new Vector(8, 8);
+        Vector actual = this.strat.getCurrentFrame().getDimensions(gloriousPuck);
+        Assert.assertTrue(actual.equals(expected));
     }
 }

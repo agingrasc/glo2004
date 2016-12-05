@@ -6,8 +6,10 @@ import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.Field;
 import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.strategy.Sport;
 import org.glo.giftw.domain.strategy.Strategy;
+import org.glo.giftw.domain.util.Vector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +32,8 @@ public class TestController
     public void setUp()
     {
         Field field = new Field();
-        Sport sport = new Sport("Hockey", Arrays.asList("Centre", "Ailier", "Defenseur", "Gardien"), field, "Puck", "",
-                                6, 2);
+        Projectile proj = new Projectile("Puck", "", new Vector(8, 8));
+        Sport sport = new Sport("Hockey", Arrays.asList("Centre", "Ailier", "Defenseur", "Gardien"), field, proj, 6, 2);
         Strategy strategy = new Strategy("test", sport, false, false);
         controller = new ControllerStub(strategy);
     }

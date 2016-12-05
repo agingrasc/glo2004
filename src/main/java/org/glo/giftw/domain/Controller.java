@@ -16,7 +16,6 @@ import java.util.List;
 
 public class Controller
 {
-    public static final double COORDINATE_CONVERSION_RATIO = 1.0; //mm par pixel
     private static Controller INSTANCE = null;
     protected Strategy currentStrategy;
     private SportPool sportPool;
@@ -66,31 +65,37 @@ public class Controller
      *
      * @param name                Le nom du sport.
      * @param roles               La liste des rôles associés au sport.
-     * @param fieldLength         La largeur du terrain (composante x).
-     * @param fieldHeight         La hauteur du terrain (composante y).
+     * @param fieldLength         La largeur du terrain en cm (composante x).
+     * @param fieldHeight         La hauteur du terrain en cm (composante y).
+     * @param fieldImagePath      Le chemin vers l'image associé au terrain.
      * @param projectileName      Le nom du projectile du sport.
      * @param projectileImagePath Le chemin vers l'image associé au projectile.
+     * @param projectileLength    La largeur du projectile en cm (composante x).
+     * @param projectileHeigth    La hauteur du projectile en cm (composante y).
      * @param maxPLayersPerTeam   Le nombre maximum de joueurs par équipe sur le terrain à un moment donné.
      * @param maxTeams            Le nombre maximum d'équipe lors d'une partie.
      */
     public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight, String fieldImagePath,
-                            String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
+                            String projectileName, String projectileImagePath, int projectileLength,
+                            int projectileHeigth, int maxPLayersPerTeam, int maxTeams)
     {
-        Vector fieldDimension = new Vector(fieldLength / COORDINATE_CONVERSION_RATIO,
-                                           fieldHeight / COORDINATE_CONVERSION_RATIO);
-        this.sportPool.addSport(name, roles, fieldDimension, fieldImagePath, projectileName,
-                                projectileImagePath, maxPLayersPerTeam, maxTeams);
+        Vector fieldDimension = new Vector(fieldLength, fieldHeight);
+        Vector projectileDefaultDimensions = new Vector(projectileLength, projectileLength);
+        this.sportPool.addSport(name, roles, fieldDimension, fieldImagePath, projectileName, projectileImagePath,
+                projectileDefaultDimensions, maxPLayersPerTeam, maxTeams);
     }
 
     /**
      * Crée un nouveau type d'obstacle et le sauvegarde dans Obstacle Pool.
      *
-     * @param name      Le nom de l'obstacle.
-     * @param imagePath Le chemin vers l'image associé à l'obstacle.
+     * @param name              Le nom de l'obstacle.
+     * @param isCollidable      Un booléen indiquant si l'obstacle génère des collisions.
+     * @param imagePath         Le chemin vers l'image associé à l'obstacle.
+     * @param defaultDimensions Les dimensions standards de ce type d'obstacle.
      */
-    public void createObstacle(String name, boolean isCollidable, String imagePath)
+    public void createObstacle(String name, boolean isCollidable, String imagePath, Vector defaultDimensions)
     {
-        this.obstaclePool.addObstacleType(name, isCollidable, imagePath);
+        this.obstaclePool.addObstacleType(name, isCollidable, imagePath, defaultDimensions);
     }
 
     /**

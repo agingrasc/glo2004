@@ -1,6 +1,7 @@
 package org.glo.giftw.domain.pool;
 
 import org.glo.giftw.domain.strategy.Field;
+import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.strategy.Sport;
 import org.glo.giftw.domain.util.Vector;
 
@@ -35,10 +36,12 @@ public class SportPool extends ObjectPool
     }
 
     public void addSport(String name, List<String> roles, Vector dimension, String fieldImagePath,
-                         String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
+                         String projectileName, String projectileImagePath, Vector projectileDefaultDimensions, 
+                         int maxPLayersPerTeam, int maxTeams)
     {
         Field field = new Field(dimension, fieldImagePath);
-        Sport sport = new Sport(name, roles, field, projectileName, projectileImagePath, maxPLayersPerTeam, maxTeams);
+        Projectile projectile = new Projectile(projectileName, projectileImagePath, projectileDefaultDimensions);
+        Sport sport = new Sport(name, roles, field, projectile, maxPLayersPerTeam, maxTeams);
         this.sports.put(sport.getName(), sport);
         if (this.persistent)
         {

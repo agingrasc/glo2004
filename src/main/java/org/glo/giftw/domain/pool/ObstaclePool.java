@@ -1,6 +1,7 @@
 package org.glo.giftw.domain.pool;
 
 import org.glo.giftw.domain.strategy.Obstacle;
+import org.glo.giftw.domain.util.Vector;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,9 +32,9 @@ public class ObstaclePool extends ObjectPool
         }
     }
 
-    public void addObstacleType(String name, boolean isCollidable, String imagePath)
+    public void addObstacleType(String name, boolean isCollidable, String imagePath, Vector defaultDimensions)
     {
-        this.obstacles.put(name, new Obstacle(name, isCollidable, imagePath));
+        this.obstacles.put(name, new Obstacle(name, isCollidable, imagePath, defaultDimensions));
         if (this.persistent)
         {
             this.saveObjectPool(obstacle_POOL_PATH);

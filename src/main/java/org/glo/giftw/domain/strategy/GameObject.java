@@ -3,6 +3,8 @@ package org.glo.giftw.domain.strategy;
 import java.io.Serializable;
 import java.util.UUID;
 
+import org.glo.giftw.domain.util.Vector;
+
 public abstract class GameObject implements Serializable
 {
     public static final long serialVersionUID = 1L;
@@ -10,12 +12,14 @@ public abstract class GameObject implements Serializable
     protected String name;
     protected boolean collidable;
     protected String id;
+    protected Vector defaultDimensions;
 
     public GameObject()
     {
         this.name = "";
         this.collidable = true;
         this.id = UUID.randomUUID().toString();
+        this.defaultDimensions = new Vector(1, 1);
     }
 
     public GameObject(GameObject gameObject)
@@ -23,6 +27,7 @@ public abstract class GameObject implements Serializable
         this.name = gameObject.name;
         this.collidable = gameObject.collidable;
         this.id = UUID.randomUUID().toString();
+        this.defaultDimensions = gameObject.defaultDimensions;
     }
 
     public abstract GameObject copy();
@@ -50,6 +55,16 @@ public abstract class GameObject implements Serializable
     public String getId()
     {
         return this.id;
+    }
+
+    public Vector getDefaultDimensions()
+    {
+        return defaultDimensions;
+    }
+
+    public void setDefaultDimensions(Vector defaultDimensions)
+    {
+        this.defaultDimensions = defaultDimensions;
     }
 
     public void setId(String id)

@@ -14,11 +14,12 @@ public class Projectile extends GameObject implements Serializable, Viewable
     private Player controller;
     private Vector speed;
 
-    public Projectile(String name, String imagePath)
+    public Projectile(String name, String imagePath, Vector defaultDimensions)
     {
         super();
         this.name = name;
         this.imagePath = imagePath;
+        this.defaultDimensions = defaultDimensions;
         this.controller = null;
         this.speed = new Vector(0, 0);
         this.collidable = false;

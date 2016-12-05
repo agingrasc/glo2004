@@ -1,5 +1,6 @@
 package org.glo.giftw.domain.strategy;
 
+import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.domain.util.Viewable;
 
 import java.io.Serializable;
@@ -12,15 +13,16 @@ public class Obstacle extends GameObject implements Serializable, Viewable
 
     public Obstacle()
     {
-        this("", true, "");
+        this("", true, "", new Vector(1, 1));
     }
 
-    public Obstacle(String name, boolean isCollidable, String imagePath)
+    public Obstacle(String name, boolean isCollidable, String imagePath, Vector defaultDimensions)
     {
         super();
         this.name = name;
         this.collidable = isCollidable;
         this.imagePath = imagePath;
+        this.defaultDimensions = defaultDimensions;
         Obstacle.obstacleCount++;
     }
 
