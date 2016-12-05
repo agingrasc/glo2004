@@ -143,4 +143,24 @@ public class TestStrategy
             Assert.assertTrue(frame.getDimensions(joueur).equals(new Vector(50 + 2 * i, 100 + 2 * i)));
         }
     }
+
+    @Test(expected = GameObjectNotFound.class)
+    public void testClearUnplacedGameObjects() throws TeamNotFound, MaxNumberException, GameObjectNotFound
+    {
+        String placedPlayerId = strat.addPlayer(null);
+        strat.placeGameObject(placedPlayerId, new Vector(), 0, new Vector());
+        String unPlacedPlayerId = strat.addPlayer(null);
+
+        //les trois appels devraient fonctionner
+        strat.getGameObjectByUUID(joueur.getId());
+        strat.getGameObjectByUUID(placedPlayerId);
+        strat.getGameObjectByUUID(unPlacedPlayerId);
+        
+        strat.clearUnplacedGameObjects();
+        
+        strat.getGameObjectByUUID(joueur.getId());
+        strat.getGameObjectByUUID(placedPlayerId);
+        strat.getGameObjectByUUID(unPlacedPlayerId);
+        Assert.fail("Une exception GameObjectNotFound devrait être lancée.");
+    }
 }

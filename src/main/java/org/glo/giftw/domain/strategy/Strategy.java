@@ -426,6 +426,19 @@ public class Strategy implements Serializable, TreeViewable
         }
     }
 
+    public void clearUnplacedGameObjects()
+    {
+        HashSet<GameObject> newGameObjectSet = new HashSet<GameObject>();
+        Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
+        for(GameObject go : this.gameObjects)
+        {
+            if(currentFrameGameObjects.contains(go))
+            {
+                newGameObjectSet.add(go);
+            }
+        }
+        this.gameObjects = newGameObjectSet;
+    }
 
     /*
      * Autre méthodes

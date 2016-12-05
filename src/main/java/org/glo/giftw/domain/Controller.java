@@ -359,4 +359,9 @@ public class Controller
     {
         this.strategyPool.save();
     }
+    
+    public void clearUnplacedGameObjects()
+    {
+        this.currentStrategy.clearUnplacedGameObjects();
+    }
 }
