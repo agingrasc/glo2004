@@ -86,6 +86,15 @@ public class Controller
     }
 
     /**
+     * Supprime un sport du sportPool, s'il est présent.
+     * @param name Le nom du sport à supprimer.
+     */
+    public void deleteSport(String name)
+    {
+        this.sportPool.deleteSport(name);
+    }
+
+    /**
      * Crée un nouveau type d'obstacle et le sauvegarde dans Obstacle Pool.
      *
      * @param name              Le nom de l'obstacle.
@@ -96,6 +105,16 @@ public class Controller
     public void createObstacle(String name, boolean isCollidable, String imagePath, Vector defaultDimensions)
     {
         this.obstaclePool.addObstacleType(name, isCollidable, imagePath, defaultDimensions);
+    }
+
+    /**
+     * Supprime un obstacle de l'obstaclePool, s'il est présent. L'obstacle n'est pas retiré des stratégies,
+     * ce qui peut occasionner des erreurs.
+     * @param name Le nom de l'obstacle à supprimer.
+     */
+    public void deleteObstacle(String name)
+    {
+        this.obstaclePool.deleteObstacle(name);
     }
 
     /**
@@ -110,6 +129,15 @@ public class Controller
         Sport strategySport = this.sportPool.getSportByName(sportName);
         this.currentStrategy = this.strategyPool.addStrategy(name, strategySport, activateMaxNumberPlayer,
                                                              activateMaxNumberTeam);
+    }
+
+    /**
+     * Supprime une strategy du strategyPool, si elle est présente.
+     * @param name Le nom de la stratégie.
+     */
+    public void deleteStrategy(String name)
+    {
+        this.strategyPool.deleteStrategy(name);
     }
 
     /**
@@ -148,6 +176,15 @@ public class Controller
     public void addTeam(String teamName, String colour) throws MaxNumberException
     {
         this.currentStrategy.addTeam(teamName, colour);
+    }
+
+    /**
+     * Supprime une équipe, si elle existe.
+     * @param teamName Le nom de l'équipe.
+     */
+    public void deleteTeam(String teamName)
+    {
+        this.currentStrategy.removeTeam(teamName);
     }
 
     public String getTeamColour(String teamName)
@@ -201,6 +238,24 @@ public class Controller
                                 Vector dimensions) throws GameObjectNotFound
     {
         this.currentStrategy.placeGameObject(gameObjectUuid, position, orientation, dimensions);
+    }
+
+    /**
+     * Retire un GameObject de la stratégie et de toutes les frames, s'il est présent.
+     * @param gameObjectUuid Le uuid du GameObject.
+     */
+    public void removeGameObject(String gameObjectUuid)
+    {
+        try
+        {
+            GameObject goToRemove = this.currentStrategy.getGameObjectByUUID(gameObjectUuid);
+            this.currentStrategy.removeGameObject(goToRemove);
+            
+        }
+        catch (GameObjectNotFound e)
+        {
+            //Le GameObject n'est pas présent dans la Frame, on ne fait rien!
+        }
     }
 
     /**
@@ -368,5 +423,10 @@ public class Controller
     public void clearUnplacedGameObjects()
     {
         this.currentStrategy.clearUnplacedGameObjects();
+    }
+    
+    public String goTo()
+    {
+        return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
 }
