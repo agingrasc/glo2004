@@ -31,6 +31,11 @@ public class Strategy implements Serializable, TreeViewable
     private boolean checkMaxNumberPlayer;
     private boolean checkMaxNumberTeam;
 
+    protected Strategy()
+    {
+
+    }
+
     public Strategy(String name, Sport sport, boolean checkMaxNumberPlayer, boolean checkMaxNumberTeam)
     {
         this.name = name;
@@ -113,6 +118,11 @@ public class Strategy implements Serializable, TreeViewable
             }
         }
         return null;
+    }
+
+    public Projectile getProjectile()
+    {
+        return this.sport.getProjectile();
     }
 
     public void setCheckMaxNumberTeam(boolean checkMaxNumberTeam)

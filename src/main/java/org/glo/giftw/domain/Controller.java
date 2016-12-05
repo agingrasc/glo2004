@@ -29,7 +29,7 @@ public class Controller
         this.sportPool = new SportPool();
         this.obstaclePool = new ObstaclePool();
         this.strategyPool = new StrategyPool();
-        this.currentStrategy = null;
+        this.currentStrategy = new NullStrategy();
     }
 
     public static Controller getInstance()
@@ -218,6 +218,18 @@ public class Controller
         return this.sportPool.getAllSports();
     }
 
+    public String getStrategyName()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getName();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public Collection<Strategy> getStrategies()
     {
         return this.strategyPool.getAllStrategies();
@@ -311,7 +323,7 @@ public class Controller
 
     public Projectile getProjectile()
     {
-        return this.currentStrategy.getSport().getProjectile();
+        return this.currentStrategy.getProjectile();
     }
 
     public Collection<Obstacle> getObstacles()
