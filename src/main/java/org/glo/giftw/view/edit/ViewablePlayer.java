@@ -90,10 +90,10 @@ public class ViewablePlayer extends ViewableGameObject
 
     private Image getSnapshot()
     {
-    	if(this.node.getParent() == null)
-    	{
-    		new Scene((VBox)this.node);//pour que le snapshot prenne en compte les labels
-    	}
+        if (this.node.getParent() == null && this.node.getScene() == null)
+        {
+            new Scene((VBox) this.node);//pour que le snapshot prenne en compte les labels
+        }
         SnapshotParameters parameters = new SnapshotParameters();
         parameters.setFill(Color.TRANSPARENT);
         WritableImage snapshot = this.node.snapshot(parameters, null);
