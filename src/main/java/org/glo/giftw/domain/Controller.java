@@ -429,4 +429,23 @@ public class Controller
     {
         return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
+    
+    public Vector getPosition(GameObject gameObject)
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        Vector positionCM = this.currentStrategy.getCurrentFrame().getPosition(gameObject);
+        return positionCM.mul(ratio);
+    }
+    
+    public float getOrientation(GameObject gameObject)
+    {
+        return this.currentStrategy.getCurrentFrame().getOrientation(gameObject);
+    }
+    
+    public Vector getDimensions(GameObject gameObject)
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        Vector dimensionsCM = this.currentStrategy.getCurrentFrame().getDimensions(gameObject);
+        return dimensionsCM.mul(ratio);
+    }
 }

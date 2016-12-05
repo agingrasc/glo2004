@@ -39,11 +39,6 @@ public class Sport implements Serializable, TreeViewable
         this.maxTeams = maxTeams;
     }
 
-    public double getUnitRatio()
-    {
-        return this.field.getUnitRatio();
-    }
-
     public String getName()
     {
         return this.name;
@@ -57,6 +52,11 @@ public class Sport implements Serializable, TreeViewable
     public List<String> getRoles()
     {
         return this.roles;
+    }
+    
+    public Vector getPixelToUnitRatio()
+    {
+        return this.field.getPixelToUnitRatio();
     }
 
     public void setPixelToUnitRatio(Vector ratio)

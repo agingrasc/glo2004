@@ -349,6 +349,11 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.teams.get(teamName).setColour(colour);
     }
+    
+    public Vector getPixelToUnitRatio()
+    {
+        return this.sport.getPixelToUnitRatio();
+    }
 
     public void setPixelToUnitRatio(Vector ratio)
     {
