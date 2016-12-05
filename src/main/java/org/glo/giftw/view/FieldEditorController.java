@@ -36,10 +36,7 @@ public class FieldEditorController
     private Canvas fieldDraw, fieldDrawPreview;
 
     @FXML
-    private Spinner<Double> fieldLength;
-
-    @FXML
-    private Spinner<Double> fieldWidth;
+    private Spinner<Double> fieldLength, fieldWidth;
 
     @FXML
     private ChoiceBox<String> fieldSize;
@@ -48,16 +45,7 @@ public class FieldEditorController
     private ColorPicker fieldColor;
 
     @FXML
-    private RadioButton fieldPencil;
-
-    @FXML
-    private RadioButton fieldCircle;
-
-    @FXML
-    private RadioButton fieldSquare;
-
-    @FXML
-    private RadioButton fieldLine;
+    private RadioButton fieldPencil, fieldCircle, fieldSquare, fieldLine;
 
     public File getDrawnFieldFilePath()
     {

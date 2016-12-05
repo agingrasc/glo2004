@@ -86,7 +86,7 @@ public class NewSportController
         dialog.setDialogPane(fieldEditorDialogPane);
         FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
 
-        fieldEditorController.initSpinners((double) fieldLength.getValue(), (double) fieldWidth.getValue());
+        fieldEditorController.initSpinners(fieldLength.getValue(), fieldWidth.getValue());
 
         dialog.showAndWait();
         fieldImageFile = fieldEditorController.getDrawnFieldFilePath();
