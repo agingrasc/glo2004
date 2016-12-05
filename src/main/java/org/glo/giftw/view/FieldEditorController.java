@@ -23,11 +23,13 @@ public class FieldEditorController
 
     private File fieldSelectedFilePath;
 
+    private GraphicsContext gcForground, gcBackground;
+
     @FXML
     private DialogPane fieldEditorDialog;
 
     @FXML
-    private Canvas fieldDraw;
+    private Canvas fieldDraw, fieldDrawPreview;
 
     @FXML
     private Spinner<Double> fieldLength;
@@ -93,9 +95,11 @@ public class FieldEditorController
 
     private void initCanvas()
     {
-        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
+        gcBackground = fieldDraw.getGraphicsContext2D();
+        gcForground = fieldDrawPreview.getGraphicsContext2D();
+
+        gcBackground.setFill(Color.WHITE);
+        gcBackground.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
     }
 
     private void initChoiceBox()
@@ -165,41 +169,44 @@ public class FieldEditorController
     public void onUndo()
     {
         System.out.println("onUndo");
-        fieldDraw.getGraphicsContext2D();
+        restorePreviousState(gcBackground);
     }
 
     @FXML
     public void onSizeChanged()
     {
         System.out.println("onSizeChanged");
-        fieldDraw.setHeight((double) fieldWidth.getValue());
-        fieldDraw.setWidth((double) fieldLength.getValue());
+        fieldDraw.setHeight(fieldWidth.getValue());
+        fieldDraw.setWidth(fieldLength.getValue());
+        fieldDrawPreview.setHeight(fieldWidth.getValue());
+        fieldDrawPreview.setWidth(fieldLength.getValue());
     }
 
     @FXML
     void onFillColor()
     {
-        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
-        gc.setFill(fieldColor.getValue());
-        gc.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
+        gcBackground.setFill(fieldColor.getValue());
+        gcBackground.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
     }
 
     @FXML
     void onDraw(MouseEvent me)
     {
-        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        //System.out.println("onDraw");
+        eraseAll(gcForground);
+        drawShape(me, gcForground);
 
         if (fieldPencil.isSelected())
         {
-            gc.setFill(fieldColor.getValue());
-            gc.fillRect(me.getX(), me.getY(), 3, 3);
+            gcBackground.setFill(fieldColor.getValue());
+            gcBackground.fillRect(me.getX(), me.getY(), 3, 3);
         }
     }
 
     @FXML
     void onInitShape(MouseEvent me)
     {
-        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        //System.out.println("onInitShape");
         if (fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
         {
             startDragPosition[0] = me.getX();
@@ -207,21 +214,41 @@ public class FieldEditorController
         }
         else if (fieldPencil.isSelected())
         {
-            gc.setFill(fieldColor.getValue());
-            gc.fillRect(me.getX(), me.getY(), 3, 3);
+            gcBackground.setFill(fieldColor.getValue());
+            gcBackground.fillRect(me.getX(), me.getY(), 3, 3);
         }
     }
 
     @FXML
     void onFinishShape(MouseEvent me)
     {
-        drawShape(me);
-        fieldDraw.getGraphicsContext2D();
+        //System.out.println("onFinishShape");
+        eraseAll(gcForground);
+        drawShape(me, gcBackground);
+        saveLastDrawnState(gcBackground);
     }
 
-    void drawShape(MouseEvent me)
+    void saveLastDrawnState(GraphicsContext gc)
     {
-        GraphicsContext gc = fieldDraw.getGraphicsContext2D();
+        System.out.println("Saving...");
+        gc.save();
+    }
+
+    void restorePreviousState(GraphicsContext gc)
+    {
+        System.out.println("restoring..");
+        gc.restore();
+    }
+
+    void eraseAll(GraphicsContext gc)
+    {
+        //System.out.println("eraseAll");
+        gc.clearRect(0 , 0, fieldDraw.getWidth(), fieldDraw.getHeight());
+    }
+
+    void drawShape(MouseEvent me, GraphicsContext gc)
+    {
+        //System.out.println("drawShape");
         gc.setStroke(fieldColor.getValue());
         if (fieldCircle.isSelected())
         {

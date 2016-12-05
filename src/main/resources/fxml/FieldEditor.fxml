@@ -17,8 +17,6 @@
                         <Font size="16.0"/>
                     </font>
                 </Label>
-                <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" onMouseDragged="#onDraw"
-                        onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="600.0"/>
                 <ChoiceBox fx:id="fieldSize" layoutX="555.0" layoutY="19.0" prefHeight="26.0" prefWidth="70.0"/>
                 <Label layoutX="432.0" layoutY="17.0" text="x">
                     <font>
@@ -82,6 +80,9 @@
                 </RadioButton>
                 <Button fx:id="undoButton" layoutX="176.0" layoutY="19.0" mnemonicParsing="false" onAction="#onUndo"
                         text="Undo"/>
+                <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" width="600.0"/>
+                <Canvas fx:id="fieldDrawPreview" height="300.0" layoutX="25.0" layoutY="64.0" onMouseDragged="#onDraw"
+                        onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="600.0"/>
             </children>
         </Pane>
     </content>
