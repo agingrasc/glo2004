@@ -554,16 +554,6 @@ public class Strategy implements Serializable, TreeViewable
         return loadedStrat;
     }
 
-    private void copy(Strategy strat)
-    {
-        this.name = strat.name;
-        this.sport = strat.sport;
-        this.currentFrameIdx = strat.currentFrameIdx;
-        this.teams = strat.teams;
-        this.gameObjects = strat.gameObjects;
-        this.frames = strat.frames;
-    }
-
     @Override
     public String getDisplayName()
     {
