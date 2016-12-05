@@ -2,7 +2,6 @@ package org.glo.giftw.view;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,10 +9,11 @@ import javafx.scene.input.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
 import org.glo.giftw.domain.Controller;
-import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Frame;
 import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
+import org.glo.giftw.view.edit.ViewableGameObject;
+import org.glo.giftw.view.edit.ViewableGameObjectBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class CreationStackPaneController
         addEventFilter();
         setFieldAsBackground();
         computeAndSetPixelToUnitRatio();
-        createNewFrame();
+        addPanes();
     }
 
     private void addEventFilter()
@@ -95,55 +95,37 @@ public class CreationStackPaneController
         Controller.getInstance().setPixelToUnitRatio(this.ratioPixelToUnit);
     }
 
-    public void createNewFrame()
+    private void addPanes()
     {
         this.currentPane = new FrameView();
+        this.previousPane = new FrameView();
+        stackPane.getChildren().add(previousPane);
         stackPane.getChildren().add(currentPane);
     }
     
     public void displayStrategy()
     {
+    	placeObjectsInPane(currentPane);
+    	if(!Controller.getInstance().isFirstFrame())
+    	{
+    		Controller.getInstance().previousFrame();
+    		placeObjectsInPane(previousPane);
+    		previousPane.getChildren().forEach(n -> n.setOpacity(0.5));
+    		Controller.getInstance().nextFrame();
+    	}
+    }
+    
+    private void placeObjectsInPane(FrameView pane)
+    {
     	Frame currentFrame = Controller.getInstance().getCurrentFrame();
     	Set<GameObject> gameObjectSet = currentFrame.getGameObjects();
     	for(GameObject gameObject : gameObjectSet)
     	{
-    		currentPane.getChildren().clear();
-    		currentPane.getChildren().add(e);
+    		ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject);
+    		pane.clearPane();
+    		pane.addViewableToHashMap(gameObject.getId(), obj);
+    		pane.placeViewableInPane(obj, currentFrame.getPosition(gameObject));
     	}
-    }
-
-    //TODO
-    private void setDragDetected(Node node)
-    {
-        node.setOnDragDetected(new EventHandler<MouseEvent>()
-        { //drag
-            @Override
-            public void handle(MouseEvent event)
-            {
-                // drag was detected, start drag-and-drop gesture
-                Vector coordinate = new Vector(event.getX(), event.getY());
-                try
-                {
-                    String uuid = Controller.getInstance().getGameObjectByCoordinate(coordinate);
-                    Image image = RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().getViewableGameObject(
-                            uuid).getImage();
-                    Dragboard db = currentPane.startDragAndDrop(TransferMode.MOVE);
-                    ClipboardContent content = new ClipboardContent();
-                    db.setDragView(image);
-                    content.putString(uuid);
-                    db.setContent(content);
-                    event.consume();
-                }
-                catch (GameObjectNotFound gameObjectNotFound)
-                {
-                    return;
-                }
-                catch (IOException ioException)
-                {
-                    return;
-                }
-            }
-        });
     }
 
     public void zoomIn()

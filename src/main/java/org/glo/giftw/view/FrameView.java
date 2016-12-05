@@ -6,9 +6,13 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
+
+import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class FrameView extends Pane
@@ -41,9 +45,25 @@ public class FrameView extends Pane
         {
             String uuid = db.getString();
             Vector coordinate = new Vector(event.getX(), event.getY());
-
             ViewableGameObject viewableGameObject = this.getViewableGameObject(uuid);
-            this.placeViewableInPane(viewableGameObject, coordinate);
+            Vector dimensions = new Vector(viewableGameObject.getImage().getWidth(), viewableGameObject.getImage().getHeight());
+            try
+			{
+				Controller.getInstance().placeGameObject(uuid, coordinate, 0, dimensions);
+			} catch (GameObjectNotFound e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try
+			{
+				RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+           
             success = true;
         }
         event.setDropCompleted(success);
@@ -68,6 +88,12 @@ public class FrameView extends Pane
         {
             //FIXME: duplicate children, mauvaise architecture
         }
+    }
+    
+    public void clearPane()
+    {
+    	viewableGameObjects.clear();
+    	this.getChildren().clear();
     }
 
     public ViewableGameObject getViewableGameObject(String uuid)
