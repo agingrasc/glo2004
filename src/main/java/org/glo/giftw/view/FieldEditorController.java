@@ -289,24 +289,36 @@ public class FieldEditorController
     {
         //System.out.println("drawShape");
         gc.setStroke(fieldColor.getValue());
+
+        // Choisir le point initial et la distance
+        double x, y, distX, distY;
+        if(me.getX() > startDragPosition[0]) {
+            x = startDragPosition[0];
+            distX = me.getX() - startDragPosition[0];
+        }
+        else
+        {
+            x = me.getX();
+            distX = startDragPosition[0] - me.getX();
+        }
+
+        if(me.getY() > startDragPosition[1]) {
+            y = startDragPosition[1];
+            distY = me.getY() - startDragPosition[1];
+        }
+        else
+        {
+            y = me.getY();
+            distY = startDragPosition[1] - me.getY();
+        }
+
         if (fieldCircle.isSelected())
         {
-            gc.strokeOval(
-                    startDragPosition[0],
-                    startDragPosition[1],
-                    (me.getX() - startDragPosition[0]),
-                    (me.getY() - startDragPosition[1])
-            );
-
+            gc.strokeOval( x, y, distX, distY );
         }
         else if (fieldSquare.isSelected())
         {
-            gc.strokeRect(
-                    startDragPosition[0],
-                    startDragPosition[1],
-                    (me.getX() - startDragPosition[0]),
-                    (me.getY() - startDragPosition[1])
-            );
+            gc.strokeRect( x, y, distX, distY );
         }
         else if (fieldLine.isSelected())
         {
