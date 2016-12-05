@@ -5,7 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
 import org.glo.giftw.domain.Controller;
@@ -44,6 +47,7 @@ public class CreationStackPaneController
         setFieldAsBackground();
         computeAndSetPixelToUnitRatio();
         addPanes();
+        displayStrategy();
     }
 
     private void addEventFilter()
@@ -102,30 +106,30 @@ public class CreationStackPaneController
         stackPane.getChildren().add(previousPane);
         stackPane.getChildren().add(currentPane);
     }
-    
+
     public void displayStrategy()
     {
-    	placeObjectsInPane(currentPane);
-    	if(!Controller.getInstance().isFirstFrame())
-    	{
-    		Controller.getInstance().previousFrame();
-    		placeObjectsInPane(previousPane);
-    		previousPane.getChildren().forEach(n -> n.setOpacity(0.5));
-    		Controller.getInstance().nextFrame();
-    	}
+        placeObjectsInPane(currentPane);
+        if (!Controller.getInstance().isFirstFrame())
+        {
+            Controller.getInstance().previousFrame();
+            placeObjectsInPane(previousPane);
+            previousPane.getChildren().forEach(n -> n.setOpacity(0.5));
+            Controller.getInstance().nextFrame();
+        }
     }
-    
+
     private void placeObjectsInPane(FrameView pane)
     {
-    	Frame currentFrame = Controller.getInstance().getCurrentFrame();
-    	Set<GameObject> gameObjectSet = currentFrame.getGameObjects();
-    	for(GameObject gameObject : gameObjectSet)
-    	{
-    		ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject);
-    		pane.clearPane();
-    		pane.addViewableToHashMap(gameObject.getId(), obj);
-    		pane.placeViewableInPane(obj, currentFrame.getPosition(gameObject));
-    	}
+        Frame currentFrame = Controller.getInstance().getCurrentFrame();
+        Set<GameObject> gameObjectSet = currentFrame.getGameObjects();
+        pane.clearPane();
+        for (GameObject gameObject : gameObjectSet)
+        {
+            ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject);
+            pane.addViewableToHashMap(gameObject.getId(), obj);
+            pane.placeViewableInPane(obj, currentFrame.getPosition(gameObject));
+        }
     }
 
     public void zoomIn()
