@@ -94,6 +94,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <Button fx:id="newButton" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#onNew" text="Nouveau" />
             </children>
         </Pane>
     </content>

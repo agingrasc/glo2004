@@ -6,17 +6,21 @@ package org.glo.giftw.view;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
 
 import java.io.File;
+import java.util.EventListener;
 import java.util.Stack;
 
 public class FieldEditorController
@@ -57,9 +61,17 @@ public class FieldEditorController
         return (double) fieldLength.getValue();
     }
 
-    public double getWidth()
+    public double getWidth() { return (double) fieldWidth.getValue(); }
+
+    public void saveImage()
     {
-        return (double) fieldWidth.getValue();
+        //format canvas as image
+        Image currentField = states.lastElement();
+
+        Window parentWindow = fieldEditorDialog.getScene().getWindow();
+        ImageFileController saveFileDialog = new ImageFileController();
+
+        fieldSelectedFilePath = saveFileDialog.startSaveFileDialog(parentWindow, currentField);
     }
 
     public void initImage(Image image, File imageFilePath)
@@ -141,6 +153,20 @@ public class FieldEditorController
         fieldPencil.setSelected(true);
     }
 
+    public void initKeyEvent()
+    {
+        final EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if(keyEvent.getCode() == KeyCode.S && keyEvent.isControlDown())
+                {
+                    saveImage();
+                }
+            }
+        };
+
+    }
+
     @FXML
     public void initialize()
     {
@@ -149,19 +175,21 @@ public class FieldEditorController
         initCanvas();
         initChoiceBox();
         initRadioButtons();
+        initKeyEvent();
+    }
+
+    @FXML
+    public void onNew()
+    {
+        eraseAll(gcBackground);
+        gcBackground.setFill(fieldColor.getValue());
+        gcBackground.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
     }
 
     @FXML
     public void onSave()
     {
-        //format canvas as image
-        Image currentField = states.lastElement();
-
-        Window parentWindow = fieldEditorDialog.getScene().getWindow();
-        ImageFileController saveFileDialog = new ImageFileController();
-
-        fieldSelectedFilePath = saveFileDialog.startSaveFileDialog(parentWindow, currentField);
-
+        saveImage();
     }
 
     @FXML
