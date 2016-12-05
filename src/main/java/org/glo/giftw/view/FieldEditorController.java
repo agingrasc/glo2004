@@ -10,12 +10,14 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
 
 import java.io.File;
+import java.util.Stack;
 
 public class FieldEditorController
 {
@@ -23,7 +25,9 @@ public class FieldEditorController
 
     private File fieldSelectedFilePath;
 
-    private GraphicsContext gcForground, gcBackground;
+    private GraphicsContext gcForeground, gcBackground;
+
+    private Stack<Image> states;
 
     @FXML
     private DialogPane fieldEditorDialog;
@@ -96,10 +100,13 @@ public class FieldEditorController
     private void initCanvas()
     {
         gcBackground = fieldDraw.getGraphicsContext2D();
-        gcForground = fieldDrawPreview.getGraphicsContext2D();
+        gcForeground = fieldDrawPreview.getGraphicsContext2D();
 
         gcBackground.setFill(Color.WHITE);
         gcBackground.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
+
+        states = new Stack<Image>();
+        saveLastDrawnState(gcBackground);
     }
 
     private void initChoiceBox()
@@ -193,8 +200,8 @@ public class FieldEditorController
     void onDraw(MouseEvent me)
     {
         //System.out.println("onDraw");
-        eraseAll(gcForground);
-        drawShape(me, gcForground);
+        eraseAll(gcForeground);
+        drawShape(me, gcForeground);
 
         if (fieldPencil.isSelected())
         {
@@ -223,7 +230,7 @@ public class FieldEditorController
     void onFinishShape(MouseEvent me)
     {
         //System.out.println("onFinishShape");
-        eraseAll(gcForground);
+        eraseAll(gcForeground);
         drawShape(me, gcBackground);
         saveLastDrawnState(gcBackground);
     }
@@ -231,13 +238,22 @@ public class FieldEditorController
     void saveLastDrawnState(GraphicsContext gc)
     {
         System.out.println("Saving...");
-        gc.save();
+        WritableImage currentField = new WritableImage((int) fieldDraw.getWidth(),
+                                                        (int) fieldDraw.getHeight());
+        fieldDraw.snapshot(null, currentField);
+
+        states.push(currentField);
     }
 
     void restorePreviousState(GraphicsContext gc)
     {
         System.out.println("restoring..");
-        gc.restore();
+        if(states.size()>1) {
+            states.pop();
+            Image lastImage = states.lastElement();
+            eraseAll(gc);
+            gc.drawImage(lastImage, 0, 0);
+        }
     }
 
     void eraseAll(GraphicsContext gc)
