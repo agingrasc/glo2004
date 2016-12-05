@@ -26,7 +26,6 @@ import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.Obstacle;
 import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.strategy.Team;
-import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 import org.glo.giftw.view.edit.ViewablePlayer;
 
@@ -104,8 +103,7 @@ public class ItemsAccordionController
                     Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     //FIXME: dimension
-                    String uuid = Controller.getInstance().addObstacle(selected.getName(), new Vector(), 0,
-                                                                       new Vector());
+                    String uuid = Controller.getInstance().addObstacle(selected.getName());
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
                     try
 					{
@@ -139,8 +137,7 @@ public class ItemsAccordionController
                     String uuid;
                     try
                     {
-                        uuid = Controller.getInstance().addPlayer(new Vector(), 0, new Vector(),
-                                                                         selected.getName());
+                        uuid = Controller.getInstance().addPlayer(selected.getName());
                         ViewablePlayer viewablePlayer = new ViewablePlayer(uuid);
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewablePlayer);
                         db.setDragView(viewablePlayer.getImage());
@@ -178,7 +175,7 @@ public class ItemsAccordionController
                      Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
                      ClipboardContent content = new ClipboardContent();
                      //FIXME: dimension
-                     String uuid = Controller.getInstance().addProjectile(new Vector(), 0, new Vector());
+                     String uuid = Controller.getInstance().addProjectile();
                      ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
                      try
 					{
