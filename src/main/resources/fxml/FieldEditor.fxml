@@ -18,11 +18,6 @@
     <content>
         <Pane fx:id="fieldEditorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css">
             <children>
-                <Label layoutX="14.0" layoutY="14.0" text="Édition de Terrain">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
                 <ChoiceBox fx:id="fieldSize" layoutX="555.0" layoutY="19.0" prefHeight="26.0" prefWidth="70.0" />
                 <Label layoutX="432.0" layoutY="17.0" text="x">
                     <font>
@@ -79,10 +74,26 @@
                         </ImageView>
                     </graphic>
                 </RadioButton>
-                <Button fx:id="undoButton" layoutX="176.0" layoutY="19.0" mnemonicParsing="false" onAction="#onUndo" text="Undo" />
                 <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" width="600.0" />
                 <Canvas fx:id="fieldDrawPreview" height="300.0" layoutX="25.0" layoutY="64.0" onMouseDragged="#onDraw" onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="600.0" />
-            <Button fx:id="redoButton" layoutX="246.0" layoutY="19.0" mnemonicParsing="false" onAction="#onRedo" text="Redo" />
+                <Button fx:id="undoButton" layoutX="186.0" layoutY="15.0" mnemonicParsing="false" onAction="#onUndo">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/back-arrow.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="redoButton" layoutX="239.0" layoutY="15.0" mnemonicParsing="false" onAction="#onRedo">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/next-1.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </Pane>
     </content>
