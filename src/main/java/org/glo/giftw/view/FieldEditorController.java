@@ -161,10 +161,7 @@ public class FieldEditorController
     public void onSave()
     {
         //format canvas as image
-        WritableImage currentField = new WritableImage((int) fieldDraw.getWidth(),
-                                                       (int) fieldDraw.getHeight());
-
-        fieldDraw.snapshot(null, currentField);
+        Image currentField = states.lastElement();
 
         Window parentWindow = fieldEditorDialog.getScene().getWindow();
         ImageFileController saveFileDialog = new ImageFileController();
@@ -202,6 +199,7 @@ public class FieldEditorController
     {
         gcBackground.setFill(fieldColor.getValue());
         gcBackground.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
+        saveLastDrawnState();
     }
 
     @FXML
@@ -209,12 +207,11 @@ public class FieldEditorController
     {
         //System.out.println("onDraw");
         eraseAll(gcForeground);
-        drawShape(me, gcForeground);
+        drawShapeWithAbsoluteCoordinates(me, gcForeground);
 
         if (fieldPencil.isSelected())
         {
-            gcBackground.setFill(fieldColor.getValue());
-            gcBackground.fillRect(me.getX(), me.getY(), 3, 3);
+            drawWithPencil(me.getX(), me.getY(), 3);
         }
     }
 
@@ -229,8 +226,7 @@ public class FieldEditorController
         }
         else if (fieldPencil.isSelected())
         {
-            gcBackground.setFill(fieldColor.getValue());
-            gcBackground.fillRect(me.getX(), me.getY(), 3, 3);
+            drawWithPencil(me.getX(), me.getY(), 3);
         }
     }
 
@@ -239,7 +235,7 @@ public class FieldEditorController
     {
         //System.out.println("onFinishShape");
         eraseAll(gcForeground);
-        drawShape(me, gcBackground);
+        drawShapeWithAbsoluteCoordinates(me, gcBackground);
         saveLastDrawnState();
     }
 
@@ -285,33 +281,44 @@ public class FieldEditorController
         gc.clearRect(0 , 0, fieldDraw.getWidth(), fieldDraw.getHeight());
     }
 
-    void drawShape(MouseEvent me, GraphicsContext gc)
+    void drawWithPencil(double x, double y, double size)
     {
-        //System.out.println("drawShape");
+        gcBackground.setFill(fieldColor.getValue());
+        gcBackground.fillRect(x, y, size, size);
+    }
+
+    void drawShapeWithAbsoluteCoordinates(MouseEvent me, GraphicsContext gc)
+    {
+        // Choisir le point initial et la distance
         gc.setStroke(fieldColor.getValue());
 
-        // Choisir le point initial et la distance
-        double x, y, distX, distY;
-        if(me.getX() > startDragPosition[0]) {
-            x = startDragPosition[0];
-            distX = me.getX() - startDragPosition[0];
+        if (fieldLine.isSelected()) {
+            gc.strokeLine(startDragPosition[0], startDragPosition[1], me.getX(), me.getY());
         }
-        else
-        {
-            x = me.getX();
-            distX = startDragPosition[0] - me.getX();
-        }
+        else {
+            double x, y, distX, distY;
+            if (me.getX() > startDragPosition[0]) {
+                x = startDragPosition[0];
+                distX = me.getX() - startDragPosition[0];
+            } else {
+                x = me.getX();
+                distX = startDragPosition[0] - me.getX();
+            }
 
-        if(me.getY() > startDragPosition[1]) {
-            y = startDragPosition[1];
-            distY = me.getY() - startDragPosition[1];
+            if (me.getY() > startDragPosition[1]) {
+                y = startDragPosition[1];
+                distY = me.getY() - startDragPosition[1];
+            } else {
+                y = me.getY();
+                distY = startDragPosition[1] - me.getY();
+            }
+            drawShape(x, y, distX, distY, gc);
         }
-        else
-        {
-            y = me.getY();
-            distY = startDragPosition[1] - me.getY();
-        }
+    }
 
+    void drawShape(double x, double y, double distX, double distY, GraphicsContext gc)
+    {
+        //System.out.println("drawShape");
         if (fieldCircle.isSelected())
         {
             gc.strokeOval( x, y, distX, distY );
@@ -319,10 +326,6 @@ public class FieldEditorController
         else if (fieldSquare.isSelected())
         {
             gc.strokeRect( x, y, distX, distY );
-        }
-        else if (fieldLine.isSelected())
-        {
-            gc.strokeLine(startDragPosition[0], startDragPosition[1], me.getX(), me.getY());
         }
     }
 }
