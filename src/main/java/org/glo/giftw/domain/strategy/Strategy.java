@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.HashSet;
 
 /**
  * Contient les frames et les appels necessaires pour les joueurs
@@ -26,7 +27,7 @@ public class Strategy implements Serializable, TreeViewable
     private Sport sport;
     private int currentFrameIdx;
     private HashMap<String, Team> teams; //Associe chaque équipe impliquée dans une strategie avec son nom
-    private ArrayList<GameObject> gameObjects; //Liste contenant les instances des gameObjects de la stratégie
+    private HashSet<GameObject> gameObjects; //Set contenant les instances des gameObjects de la stratégie
     private ArrayList<Frame> frames;
     private boolean checkMaxNumberPlayer;
     private boolean checkMaxNumberTeam;
@@ -42,7 +43,7 @@ public class Strategy implements Serializable, TreeViewable
         this.sport = sport;
         this.currentFrameIdx = 0;
         this.teams = new HashMap<>();
-        this.gameObjects = new ArrayList<>();
+        this.gameObjects = new HashSet<>();
         this.frames = new ArrayList<>();
         this.frames.add(new Frame(true));
         this.checkMaxNumberPlayer = checkMaxNumberPlayer;
@@ -327,7 +328,6 @@ public class Strategy implements Serializable, TreeViewable
                                 String team) throws TeamNotFound, MaxNumberException
     {
         Player player = new Player();
-        this.gameObjects.add(player);
         if (team == null)
         {
             if (this.teams.get("default") == null)
@@ -343,7 +343,6 @@ public class Strategy implements Serializable, TreeViewable
     public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
     {
         Projectile projectile = new Projectile(this.sport.getProjectile());
-        this.gameObjects.add(projectile);
         return this.addGameObject(projectile, position, orientation, dimensions);
     }
 
