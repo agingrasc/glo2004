@@ -82,6 +82,7 @@ public class Strategy implements Serializable, TreeViewable
 
     public void setCurrentFrameIdx(int currentFrameIdx)
     {
+        assert currentFrameIdx >= 0 && currentFrameIdx < this.frames.size();
         this.currentFrameIdx = currentFrameIdx;
     }
 
@@ -191,7 +192,8 @@ public class Strategy implements Serializable, TreeViewable
     }
 
     /**
-     * Retourne la frame précédant la frame courrante. Si la frame courante est la première frame, retourne celle-ci.
+     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante. 
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
      *
      * @return La frame précédente.
      */
@@ -205,7 +207,31 @@ public class Strategy implements Serializable, TreeViewable
     }
 
     /**
-     * Retourne la frame suivant la frame courante. Si la frame courante est la dernière frame, retourne celle-ci.
+     * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame précédente, puis retourne celle-ci.
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
+     * 
+     * @return La keyFrame précédente.
+     */
+    public Frame previousKeyFrame()
+    {
+        if (this.currentFrameIdx != 0)
+        {
+            int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+            if (this.currentFrameIdx % intervalBetweenKeyFrame != 0)
+            {
+                this.currentFrameIdx -= this.currentFrameIdx % intervalBetweenKeyFrame; 
+            }
+            else
+            {
+                this.currentFrameIdx -= intervalBetweenKeyFrame;
+            }
+        }
+        return this.frames.get(this.currentFrameIdx);
+    }
+
+    /**
+     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante. 
+     * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
      *
      * @return La frame suivante.
      */
@@ -214,6 +240,22 @@ public class Strategy implements Serializable, TreeViewable
         if (!this.isLastFrame())
         {
             this.currentFrameIdx++;
+        }
+        return this.frames.get(this.currentFrameIdx);
+    }
+
+    /**
+     * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame suivante, puis retourne celle-ci.
+     * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
+     * 
+     * @return La keyFrame suivante.
+     */
+    public Frame nextKeyFrame()
+    {
+        if (!this.isLastFrame())
+        {
+            int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+            this.currentFrameIdx = (this.currentFrameIdx / intervalBetweenKeyFrame  + 1) * intervalBetweenKeyFrame;
         }
         return this.frames.get(this.currentFrameIdx);
     }

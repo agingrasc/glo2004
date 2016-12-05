@@ -63,6 +63,73 @@ public class TestStrategy
     }
 
     @Test
+    public void testPreviousKeyFrame()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            strat.createNewFrame();
+        }
+        strat.previousKeyFrame();
+        Assert.assertEquals(0, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(12);
+        strat.previousKeyFrame();
+        Assert.assertEquals(0, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(45);
+        strat.previousKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        strat.previousKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.previousKeyFrame();
+        Assert.assertEquals(0, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(29);
+        strat.previousKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(36);
+        strat.previousKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        
+    }
+    
+    @Test
+    public void testNextKeyFrame()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            strat.createNewFrame();
+        }
+        strat.nextKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.nextKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        strat.nextKeyFrame();
+        Assert.assertEquals(45, strat.getCurrentFrameIdx());
+        
+        strat.nextKeyFrame();
+        Assert.assertEquals(45, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(8);
+        strat.nextKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(29);
+        strat.nextKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(31);
+        strat.nextKeyFrame();
+        Assert.assertEquals(45, strat.getCurrentFrameIdx());
+    }
+
+    @Test
     public void testPlaceGameObject() throws GameObjectNotFound
     {
         strat.createNewFrame();

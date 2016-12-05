@@ -272,7 +272,8 @@ public class Controller
     }
 
     /**
-     * Retourne la frame précédente de la stratégie.
+     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante. 
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
      *
      * @return La frame précédente.
      */
@@ -282,13 +283,36 @@ public class Controller
     }
 
     /**
-     * Retourne la frame suivante de la stratégie.
+     * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame précédente, puis retourne celle-ci.
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
+     * 
+     * @return La keyFrame précédente.
+     */
+    public Frame previousKeyFrame()
+    {
+        return this.currentStrategy.previousKeyFrame();
+    }
+
+    /**
+     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante. 
+     * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
      *
      * @return La frame suivante.
      */
     public Frame nextFrame()
     {
         return this.currentStrategy.nextFrame();
+    }
+
+    /**
+     * Retourne la keyFrame suivante de la stratégie.
+     * Si la frame courante est la dernière frame, c'est celle-ci qui est retournée.
+     *
+     * @return La frame suivante.
+     */
+    public Frame nextKeyFrame()
+    {
+        return this.currentStrategy.nextKeyFrame();
     }
 
     /**
