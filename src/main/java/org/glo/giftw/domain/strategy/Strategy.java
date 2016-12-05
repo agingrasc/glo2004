@@ -349,6 +349,11 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.teams.get(teamName).setColour(colour);
     }
+    
+    public Vector getPixelToUnitRatio()
+    {
+        return this.sport.getPixelToUnitRatio();
+    }
 
     public void setPixelToUnitRatio(Vector ratio)
     {
@@ -424,6 +429,20 @@ public class Strategy implements Serializable, TreeViewable
             GameObjectState gameObjectState = new GameObjectState(position, orientation, dimensions);
             this.getCurrentFrame().addGameObject(gameObject, gameObjectState);
         }
+    }
+
+    public void removeGameObject(GameObject gameObject)
+    {
+        if(gameObject instanceof Player)
+        {
+            String teamName = this.getPlayerTeam((Player)gameObject);
+            this.removeTeamPlayer(teamName, (Player) gameObject);
+        }
+        for(Frame f : this.frames)
+        {
+            f.removeGameObject(gameObject);
+        }
+        this.gameObjects.remove(gameObject);
     }
 
     public void clearUnplacedGameObjects()
@@ -538,16 +557,6 @@ public class Strategy implements Serializable, TreeViewable
             e.printStackTrace();
         }
         return loadedStrat;
-    }
-
-    private void copy(Strategy strat)
-    {
-        this.name = strat.name;
-        this.sport = strat.sport;
-        this.currentFrameIdx = strat.currentFrameIdx;
-        this.teams = strat.teams;
-        this.gameObjects = strat.gameObjects;
-        this.frames = strat.frames;
     }
 
     @Override
