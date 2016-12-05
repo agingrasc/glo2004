@@ -87,6 +87,11 @@ public class NewSportController
         FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
 
         fieldEditorController.initSpinners(fieldLength.getValue(), fieldWidth.getValue());
+        if(fieldImage.getImage() != null)
+        {
+            System.out.println("Il y avait une image!");
+            fieldEditorController.initImage(fieldImage.getImage(), fieldImageFile);
+        }
 
         dialog.showAndWait();
         fieldImageFile = fieldEditorController.getDrawnFieldFilePath();

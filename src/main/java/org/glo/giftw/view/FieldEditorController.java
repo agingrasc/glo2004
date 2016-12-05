@@ -62,6 +62,12 @@ public class FieldEditorController
         return (double) fieldWidth.getValue();
     }
 
+    public void initImage(Image image, File imageFilePath)
+    {
+        gcBackground.drawImage(image, 0, 0);
+        fieldSelectedFilePath = imageFilePath;
+    }
+
     public void initSpinners(double initialLength, double initialWidth)
     {
         double fieldInitialLength;
