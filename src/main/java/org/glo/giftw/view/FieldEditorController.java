@@ -27,7 +27,7 @@ public class FieldEditorController
 
     private GraphicsContext gcForeground, gcBackground;
 
-    private Stack<Image> states;
+    private Stack<Image> states, undoStates;
 
     @FXML
     private DialogPane fieldEditorDialog;
@@ -106,7 +106,8 @@ public class FieldEditorController
         gcBackground.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
 
         states = new Stack<Image>();
-        saveLastDrawnState(gcBackground);
+        undoStates = new Stack<Image>();
+        saveLastDrawnState();
     }
 
     private void initChoiceBox()
@@ -176,7 +177,14 @@ public class FieldEditorController
     public void onUndo()
     {
         System.out.println("onUndo");
-        restorePreviousState(gcBackground);
+        restorePreviousState();
+    }
+
+    @FXML
+    public void onRedo()
+    {
+        System.out.println("onRedo");
+        restoreNextState();
     }
 
     @FXML
@@ -232,12 +240,16 @@ public class FieldEditorController
         //System.out.println("onFinishShape");
         eraseAll(gcForeground);
         drawShape(me, gcBackground);
-        saveLastDrawnState(gcBackground);
+        saveLastDrawnState();
     }
 
-    void saveLastDrawnState(GraphicsContext gc)
+    void saveLastDrawnState()
     {
         System.out.println("Saving...");
+        if(!undoStates.empty())
+        {
+            undoStates.removeAllElements();
+        }
         WritableImage currentField = new WritableImage((int) fieldDraw.getWidth(),
                                                         (int) fieldDraw.getHeight());
         fieldDraw.snapshot(null, currentField);
@@ -245,14 +257,25 @@ public class FieldEditorController
         states.push(currentField);
     }
 
-    void restorePreviousState(GraphicsContext gc)
+    void restorePreviousState()
     {
         System.out.println("restoring..");
         if(states.size()>1) {
-            states.pop();
+            undoStates.push(states.pop());
             Image lastImage = states.lastElement();
-            eraseAll(gc);
-            gc.drawImage(lastImage, 0, 0);
+            eraseAll(gcBackground);
+            gcBackground.drawImage(lastImage, 0, 0);
+        }
+    }
+
+    void restoreNextState()
+    {
+        if(!undoStates.empty())
+        {
+            states.push(undoStates.pop());
+            Image lastImage = states.lastElement();
+            eraseAll(gcBackground);
+            gcBackground.drawImage(lastImage, 0, 0);
         }
     }
 
