@@ -24,7 +24,7 @@ public class CreationToolBarController
         boolean isFirstFrame = Controller.getInstance().isFirstFrame();
         if (!isFirstFrame)
         {
-            Controller.getInstance().previousFrame();
+            Controller.getInstance().previousKeyFrame();
             RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
         }
     }
@@ -39,7 +39,7 @@ public class CreationToolBarController
         }
         else
         {
-            Controller.getInstance().nextFrame();
+            Controller.getInstance().nextKeyFrame();
         }
         RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
     }

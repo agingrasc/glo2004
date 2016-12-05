@@ -112,10 +112,10 @@ public class CreationStackPaneController
         placeObjectsInPane(currentPane);
         if (!Controller.getInstance().isFirstFrame())
         {
-            Controller.getInstance().previousFrame();
+            Controller.getInstance().previousKeyFrame();
             placeObjectsInPane(previousPane);
             previousPane.getChildren().forEach(n -> n.setOpacity(0.5));
-            Controller.getInstance().nextFrame();
+            Controller.getInstance().nextKeyFrame();
         }
     }
 
