@@ -51,9 +51,6 @@ public class FieldEditorController
     private Spinner<Double> fieldLength, fieldWidth;
 
     @FXML
-    private ChoiceBox<String> fieldSize;
-
-    @FXML
     private ColorPicker fieldColor;
 
     @FXML
@@ -108,22 +105,8 @@ public class FieldEditorController
 
     public void initSpinners(double initialLength, double initialWidth)
     {
-        double fieldInitialLength;
-        double fieldInitialWidth;
-
-        if (initialLength > 0 && initialWidth > 0)
-        {
-            fieldInitialLength = initialLength;
-            fieldInitialWidth = initialWidth;
-        }
-        else
-        {
-            fieldInitialLength = (fieldDraw.getWidth()) / 100;
-            fieldInitialWidth = (fieldDraw.getHeight()) / 100;
-        }
-
-        fieldLength.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, fieldInitialLength));
-        fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, fieldInitialWidth));
+        fieldLength.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialLength));
+        fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialWidth));
 
         fieldLength.setEditable(true);
         fieldWidth.setEditable(true);
@@ -150,31 +133,6 @@ public class FieldEditorController
         states = new Stack<Image>();
         undoStates = new Stack<Image>();
         saveLastDrawnState();
-    }
-
-    private void initChoiceBox()
-    {
-        fieldSize.getItems().addAll("m2", "pi2");
-        fieldSize.setValue("m2");
-
-        fieldSize.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1)
-            {
-                System.out.println("selection changed!");
-                if (fieldSize.getSelectionModel().isSelected(1)) //pi carré
-                {
-                    fieldLength.getValueFactory().setValue((fieldDraw.getWidth() / 100) * 3.28);
-                    fieldWidth.getValueFactory().setValue((fieldDraw.getHeight() / 100) * 3.28);
-                }
-                else if (fieldSize.getSelectionModel().isSelected(0)) // mètre carré
-                {
-                    fieldLength.getValueFactory().setValue((fieldDraw.getWidth() / 100));
-                    fieldWidth.getValueFactory().setValue((fieldDraw.getHeight() / 100));
-                }
-            }
-        });
     }
 
     private void initRadioButtons()
@@ -237,7 +195,6 @@ public class FieldEditorController
         rootDialog.setTitle("Édition de Terrain");
         initResizable();
         initCanvas();
-        initChoiceBox();
         initRadioButtons();
         initSlider();
         initKeyEvent();
