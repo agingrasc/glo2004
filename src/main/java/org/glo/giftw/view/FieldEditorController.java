@@ -42,6 +42,9 @@ public class FieldEditorController
     private DialogPane rootPane;
 
     @FXML
+    private ToolBar drawToolBar;
+
+    @FXML
     private Canvas fieldDraw, fieldDrawPreview;
 
     @FXML
@@ -124,6 +127,16 @@ public class FieldEditorController
 
         fieldLength.setEditable(true);
         fieldWidth.setEditable(true);
+    }
+
+    private void initResizable()
+    {
+        rootPane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                drawToolBar.setPrefWidth(rootPane.getWidth());
+            }
+        });
     }
 
     private void initCanvas()
@@ -222,6 +235,7 @@ public class FieldEditorController
         fieldDrawControl = new GraphicContextDrawController();
         rootDialog = new Dialog();
         rootDialog.setTitle("Édition de Terrain");
+        initResizable();
         initCanvas();
         initChoiceBox();
         initRadioButtons();
