@@ -76,15 +76,10 @@ public class NewSportController
     {
         System.out.println("onActionDraw");
 
-        Dialog<Object> dialog = new Dialog<Object>();
-
         FXMLLoader loader = new FXMLLoader();
-
         loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
-        DialogPane fieldEditorDialogPane = loader.load();
-        
-        dialog.setDialogPane(fieldEditorDialogPane);
-        dialog.setTitle("Édition de Terrain");
+        loader.load();
+
         FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
 
         fieldEditorController.initSpinners(fieldLength.getValue(), fieldWidth.getValue());
@@ -94,7 +89,9 @@ public class NewSportController
             fieldEditorController.initImage(fieldImage.getImage(), fieldImageFile);
         }
 
+        Dialog<Object> dialog = fieldEditorController.getDialog();
         dialog.showAndWait();
+
         fieldImageFile = fieldEditorController.getDrawnFieldFilePath();
         setImage(fieldEditorController.getDrawnFieldFilePath(), fieldImage);
         if (fieldEditorController.getDrawnFieldFilePath() != null)

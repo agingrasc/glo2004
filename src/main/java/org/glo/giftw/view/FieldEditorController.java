@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.util.EventListener;
@@ -32,6 +33,8 @@ public class FieldEditorController
     private GraphicsContext gcForeground, gcBackground;
 
     private Stack<Image> states, undoStates;
+
+    private Dialog rootDialog;
 
     @FXML
     private DialogPane rootPane;
@@ -59,6 +62,8 @@ public class FieldEditorController
     public double getLength() { return fieldLength.getValue(); }
 
     public double getWidth() { return fieldWidth.getValue(); }
+
+    public Dialog getDialog() { return rootDialog; }
 
     public void saveImage()
     {
@@ -195,10 +200,14 @@ public class FieldEditorController
     {
         System.out.println("initializeFieldEditor");
         startDragPosition = new double[2];
+        rootDialog = new Dialog();
+        rootDialog.setTitle("Édition de Terrain");
         initCanvas();
         initChoiceBox();
         initRadioButtons();
         initKeyEvent();
+        rootDialog.setDialogPane(rootPane);
+        rootDialog.setResizable(true);
     }
 
     @FXML
