@@ -52,6 +52,12 @@ public class FieldEditorController
     private ColorPicker fieldColor;
 
     @FXML
+    private Slider drawSizeSlider;
+
+    @FXML
+    private TextField drawSizeText;
+
+    @FXML
     private RadioButton fieldPencil, fieldCircle, fieldSquare, fieldLine;
 
     public File getDrawnFieldFilePath()
@@ -168,7 +174,17 @@ public class FieldEditorController
         fieldPencil.setSelected(true);
     }
 
-    public void initKeyEvent()
+    private void initSlider()
+    {
+        drawSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                drawSizeText.setText(String.valueOf(drawSizeSlider.getValue()));
+            }
+        });
+    }
+
+    private void initKeyEvent()
     {
         final EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
             @Override
@@ -205,6 +221,7 @@ public class FieldEditorController
         initCanvas();
         initChoiceBox();
         initRadioButtons();
+        initSlider();
         initKeyEvent();
         rootDialog.setDialogPane(rootPane);
         rootDialog.setResizable(true);
@@ -244,6 +261,14 @@ public class FieldEditorController
     }
 
     @FXML
+    public void onTextSizeChanged()
+    {
+        System.out.println("onTextSizeChanged");
+        double newSize = Double.valueOf(drawSizeText.getText());
+        drawSizeSlider.setValue(newSize);
+    }
+
+    @FXML
     void onFillColor()
     {
         gcBackground.setFill(fieldColor.getValue());
@@ -260,7 +285,7 @@ public class FieldEditorController
 
         if (fieldPencil.isSelected())
         {
-            drawWithPencil(me.getX(), me.getY(), 3);
+            drawWithPencil(me.getX(), me.getY(), drawSizeSlider.getValue());
         }
     }
 
@@ -275,7 +300,7 @@ public class FieldEditorController
         }
         else if (fieldPencil.isSelected())
         {
-            drawWithPencil(me.getX(), me.getY(), 3);
+            drawWithPencil(me.getX(), me.getY(), drawSizeSlider.getValue());
         }
     }
 
@@ -340,6 +365,7 @@ public class FieldEditorController
     {
         // Choisir le point initial et la distance
         gc.setStroke(fieldColor.getValue());
+        gc.setLineWidth(drawSizeSlider.getValue());
 
         if (fieldLine.isSelected()) {
             gc.strokeLine(startDragPosition[0], startDragPosition[1], me.getX(), me.getY());

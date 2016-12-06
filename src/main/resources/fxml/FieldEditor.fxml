@@ -73,8 +73,8 @@
                 </Label>
                 <Spinner fx:id="fieldLength" layoutX="672.0" layoutY="4.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="97.0" />
                 <Spinner fx:id="fieldWidth" layoutX="781.0" layoutY="4.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="88.0" />
-                <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" width="600.0" />
-                <Canvas fx:id="fieldDrawPreview" height="479.0" layoutX="19.0" layoutY="54.0" onMouseDragged="#onDraw" onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="929.0" />
+                <Canvas fx:id="fieldDraw" height="480.0" layoutX="25.0" layoutY="64.0" width="930.0" />
+                <Canvas fx:id="fieldDrawPreview" height="480.0" layoutX="25.0" layoutY="64.0" width="930.0" onMouseDragged="#onDraw" onMousePressed="#onInitShape" onMouseReleased="#onFinishShape"  />
                 <ColorPicker fx:id="fieldColor" editable="true" layoutX="14.0" layoutY="5.0" prefHeight="26.0" prefWidth="57.0" promptText="Fond du terrain" />
                 <Button layoutX="82.0" layoutY="1.0" mnemonicParsing="false" onAction="#onFillColor" prefHeight="28.0" prefWidth="36.0">
                     <graphic>
@@ -122,9 +122,8 @@
                     </graphic>
                 </RadioButton>
                 <Slider fx:id="drawSizeSlider" layoutX="367.0" layoutY="10.0" max="20.0" prefHeight="15.0" prefWidth="102.0" value="3.0" />
-            <TextField fx:id="drawSizeText" layoutX="480.0" layoutY="5.0" onAction="#onTextSizeChanged" prefHeight="26.0" prefWidth="35.0" text="3" />
-            <Label layoutX="522.0" layoutY="10.0" text="px" />
-
+                <TextField fx:id="drawSizeText" layoutX="480.0" layoutY="5.0" onAction="#onTextSizeChanged" prefHeight="26.0" prefWidth="35.0" text="3" />
+                <Label layoutX="522.0" layoutY="10.0" text="px" />
             </children>
         </Pane>
     </content>
