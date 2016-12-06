@@ -170,4 +170,9 @@ public class GraphicContextDrawController {
         Canvas canvas = gc.getCanvas();
         gc.drawImage(image, 0, 0,  image.getWidth(), image.getHeight(), 0, 0,canvas.getWidth(), canvas.getHeight());
     }
+
+    public void drawImage(GraphicsContext gc, Image image, double destW, double destH)
+    {
+        gc.drawImage(image, 0, 0,  image.getWidth(), image.getHeight(), 0, 0, destW, destH);
+    }
 }
