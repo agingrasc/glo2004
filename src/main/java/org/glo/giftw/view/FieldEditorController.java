@@ -99,7 +99,7 @@ public class FieldEditorController
 
     public void initImage(Image image, File imageFilePath)
     {
-        gcBackground.drawImage(image, 0, 0);
+        fieldDrawControl.drawImage(gcBackground, image);
         fieldSelectedFilePath = imageFilePath;
     }
 

@@ -73,7 +73,7 @@ public class GraphicContextDrawController {
             undoStates.push(states.pop());
             Image lastImage = states.lastElement();
             eraseAll(gc);
-            gc.drawImage(lastImage, 0, 0);
+            drawImage(gc, lastImage);
         }
     }
 
@@ -84,7 +84,7 @@ public class GraphicContextDrawController {
             states.push(undoStates.pop());
             Image lastImage = states.lastElement();
             eraseAll(gc);
-            gc.drawImage(lastImage, 0, 0);
+            drawImage(gc, lastImage);
         }
     }
 
@@ -163,5 +163,11 @@ public class GraphicContextDrawController {
     public void drawLine(GraphicsContext gc, double x1, double y1, double x2, double y2)
     {
         gc.strokeLine(x1, y1, x2, y2);
+    }
+
+    public void drawImage(GraphicsContext gc, Image image)
+    {
+        Canvas canvas = gc.getCanvas();
+        gc.drawImage(image, 0, 0,  image.getWidth(), image.getHeight(), 0, 0,canvas.getWidth(), canvas.getHeight());
     }
 }
