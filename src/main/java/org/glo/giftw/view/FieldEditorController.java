@@ -181,7 +181,7 @@ public class FieldEditorController
                     else if (keyEvent.getCode() == KeyCode.Z) {
                         restorePreviousState();
                     }
-                    else if (keyEvent.getCode() == KeyCode.N) {
+                    else if (keyEvent.getCode() == KeyCode.Y) {
                         restoreNextState();
                     }
                 }
