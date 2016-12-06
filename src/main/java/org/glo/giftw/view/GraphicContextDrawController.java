@@ -53,6 +53,13 @@ public class GraphicContextDrawController {
 
     public Image getCurrentDrawnState(){ return states.lastElement(); }
 
+    public void setDrawColor(GraphicsContext gc, Color color)
+    {
+        gc.setStroke(color);
+        gc.setFill(color);
+        drawColor = color;
+    }
+
     public void eraseAll(GraphicsContext gc)
     {
         Canvas canvas = gc.getCanvas();
@@ -83,7 +90,6 @@ public class GraphicContextDrawController {
 
     public void saveLastDrawnState(GraphicsContext gc)
     {
-        System.out.println("Saving...");
         if(!undoStates.empty())
         {
             undoStates.removeAllElements();

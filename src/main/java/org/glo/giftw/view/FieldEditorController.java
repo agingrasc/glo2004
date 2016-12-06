@@ -32,6 +32,8 @@ public class FieldEditorController
 
     private GraphicsContext gcForeground, gcBackground;
 
+    private GraphicContextDrawController fieldDrawControl;
+
     private Stack<Image> states, undoStates;
 
     private Dialog rootDialog;
@@ -74,7 +76,7 @@ public class FieldEditorController
     public void saveImage()
     {
         //format canvas as image
-        Image currentField = states.lastElement();
+        Image currentField = fieldDrawControl.getCurrentDrawnState();
 
         Window parentWindow = rootPane.getScene().getWindow();
         ImageFileController saveFileDialog = new ImageFileController();
@@ -180,6 +182,7 @@ public class FieldEditorController
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 drawSizeText.setText(String.valueOf(drawSizeSlider.getValue()));
+                onTextSizeChanged();
             }
         });
     }
@@ -216,6 +219,7 @@ public class FieldEditorController
     {
         System.out.println("initializeFieldEditor");
         startDragPosition = new double[2];
+        fieldDrawControl = new GraphicContextDrawController();
         rootDialog = new Dialog();
         rootDialog.setTitle("Édition de Terrain");
         initCanvas();
@@ -258,6 +262,7 @@ public class FieldEditorController
         fieldDraw.setWidth(fieldLength.getValue());
         fieldDrawPreview.setHeight(fieldWidth.getValue());
         fieldDrawPreview.setWidth(fieldLength.getValue());
+
     }
 
     @FXML
@@ -266,6 +271,8 @@ public class FieldEditorController
         System.out.println("onTextSizeChanged");
         double newSize = Double.valueOf(drawSizeText.getText());
         drawSizeSlider.setValue(newSize);
+        fieldDrawControl.setStrokeLineSize(gcBackground, newSize);
+        fieldDrawControl.setStrokeLineSize(gcForeground, newSize);
     }
 
     @FXML
@@ -281,7 +288,7 @@ public class FieldEditorController
     {
         //System.out.println("onDraw");
         eraseAll(gcForeground);
-        drawShapeWithAbsoluteCoordinates(me, gcForeground);
+        drawShape(me, gcForeground);
 
         if (fieldPencil.isSelected())
         {
@@ -309,98 +316,41 @@ public class FieldEditorController
     {
         //System.out.println("onFinishShape");
         eraseAll(gcForeground);
-        drawShapeWithAbsoluteCoordinates(me, gcBackground);
+        drawShape(me, gcBackground);
         saveLastDrawnState();
     }
 
-    void saveLastDrawnState()
-    {
-        System.out.println("Saving...");
-        if(!undoStates.empty())
-        {
-            undoStates.removeAllElements();
-        }
-        WritableImage currentField = new WritableImage((int) fieldDraw.getWidth(),
-                                                        (int) fieldDraw.getHeight());
-        fieldDraw.snapshot(null, currentField);
+    void eraseAll(GraphicsContext gc) { fieldDrawControl.eraseAll(gc); }
 
-        states.push(currentField);
-    }
+    void saveLastDrawnState() { fieldDrawControl.saveLastDrawnState(gcBackground); }
 
-    void restorePreviousState()
-    {
-        System.out.println("restoring..");
-        if(states.size()>1) {
-            undoStates.push(states.pop());
-            Image lastImage = states.lastElement();
-            eraseAll(gcBackground);
-            gcBackground.drawImage(lastImage, 0, 0);
-        }
-    }
+    void restorePreviousState() { fieldDrawControl.redrawPreviousState(gcBackground); }
 
-    void restoreNextState()
-    {
-        if(!undoStates.empty())
-        {
-            states.push(undoStates.pop());
-            Image lastImage = states.lastElement();
-            eraseAll(gcBackground);
-            gcBackground.drawImage(lastImage, 0, 0);
-        }
-    }
-
-    void eraseAll(GraphicsContext gc)
-    {
-        //System.out.println("eraseAll");
-        gc.clearRect(0 , 0, fieldDraw.getWidth(), fieldDraw.getHeight());
-    }
+    void restoreNextState() { fieldDrawControl.redrawNextState(gcBackground); }
 
     void drawWithPencil(double x, double y, double size)
     {
-        gcBackground.setFill(fieldColor.getValue());
-        gcBackground.fillRect(x, y, size, size);
+        fieldDrawControl.setStrokeLineSize(gcBackground, drawSizeSlider.getValue());
+        fieldDrawControl.setDrawColor(gcBackground, fieldColor.getValue());
+        fieldDrawControl.drawWithPencil(gcBackground, x, y, size);
     }
 
-    void drawShapeWithAbsoluteCoordinates(MouseEvent me, GraphicsContext gc)
+    void drawShape(MouseEvent me, GraphicsContext gc)
     {
         // Choisir le point initial et la distance
-        gc.setStroke(fieldColor.getValue());
-        gc.setLineWidth(drawSizeSlider.getValue());
+        fieldDrawControl.setStrokeLineSize(gc, drawSizeSlider.getValue());
+        fieldDrawControl.setDrawColor(gc, fieldColor.getValue());
 
         if (fieldLine.isSelected()) {
-            gc.strokeLine(startDragPosition[0], startDragPosition[1], me.getX(), me.getY());
+            fieldDrawControl.drawLine(gc, startDragPosition[0], startDragPosition[1], me.getX(), me.getY());
         }
-        else {
-            double x, y, distX, distY;
-            if (me.getX() > startDragPosition[0]) {
-                x = startDragPosition[0];
-                distX = me.getX() - startDragPosition[0];
-            } else {
-                x = me.getX();
-                distX = startDragPosition[0] - me.getX();
-            }
-
-            if (me.getY() > startDragPosition[1]) {
-                y = startDragPosition[1];
-                distY = me.getY() - startDragPosition[1];
-            } else {
-                y = me.getY();
-                distY = startDragPosition[1] - me.getY();
-            }
-            drawShape(x, y, distX, distY, gc);
-        }
-    }
-
-    void drawShape(double x, double y, double distX, double distY, GraphicsContext gc)
-    {
-        //System.out.println("drawShape");
-        if (fieldCircle.isSelected())
+        else if (fieldCircle.isSelected())
         {
-            gc.strokeOval( x, y, distX, distY );
+            fieldDrawControl.drawOval(gc, me.getX(), me.getY(), startDragPosition[0], startDragPosition[1]);
         }
         else if (fieldSquare.isSelected())
         {
-            gc.strokeRect( x, y, distX, distY );
+            fieldDrawControl.drawRectangle(gc, me.getX(), me.getY(), startDragPosition[0], startDragPosition[1]);
         }
     }
 }
