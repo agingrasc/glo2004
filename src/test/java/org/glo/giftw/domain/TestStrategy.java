@@ -16,6 +16,7 @@ public class TestStrategy
     ArrayList<String> roles;
     Field patinoire;
     Player joueur;
+    Projectile projectile;
     Sport hockey;
     Strategy strat;
 
@@ -28,17 +29,24 @@ public class TestStrategy
         roles.add("gardien");
 
         patinoire = new Field();
-        hockey = new Sport("hockey", roles, patinoire, "puck", "", 6, 2);
+        projectile = new Projectile("puck", "", new Vector(8, 8));
+        hockey = new Sport("hockey", roles, patinoire, projectile, 6, 2);
         strat = new Strategy("test", hockey, true, true);
         try
         {
-            joueur = (Player) strat.addPlayer(new Vector(400, 1295), 0, new Vector(50, 100), null);
+            String id = strat.addPlayer(null);
+            joueur = (Player) strat.getGameObjectByUUID(id);
+            strat.placeGameObject(id, new Vector(400, 1295), 0, new Vector(50, 100));
         }
         catch (TeamNotFound e)
         {
             e.printStackTrace();
         }
         catch (MaxNumberException e)
+        {
+            e.printStackTrace();
+        } 
+        catch (GameObjectNotFound e)
         {
             e.printStackTrace();
         }
@@ -57,6 +65,73 @@ public class TestStrategy
     }
 
     @Test
+    public void testPreviousKeyFrame()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            strat.createNewFrame();
+        }
+        strat.previousKeyFrame();
+        Assert.assertEquals(0, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(12);
+        strat.previousKeyFrame();
+        Assert.assertEquals(0, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(45);
+        strat.previousKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        strat.previousKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.previousKeyFrame();
+        Assert.assertEquals(0, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(29);
+        strat.previousKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(36);
+        strat.previousKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        
+    }
+    
+    @Test
+    public void testNextKeyFrame()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            strat.createNewFrame();
+        }
+        strat.nextKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.nextKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        strat.nextKeyFrame();
+        Assert.assertEquals(45, strat.getCurrentFrameIdx());
+        
+        strat.nextKeyFrame();
+        Assert.assertEquals(45, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(8);
+        strat.nextKeyFrame();
+        Assert.assertEquals(15, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(29);
+        strat.nextKeyFrame();
+        Assert.assertEquals(30, strat.getCurrentFrameIdx());
+        
+        strat.setCurrentFrameIdx(31);
+        strat.nextKeyFrame();
+        Assert.assertEquals(45, strat.getCurrentFrameIdx());
+    }
+
+    @Test
     public void testPlaceGameObject() throws GameObjectNotFound
     {
         strat.createNewFrame();
@@ -69,5 +144,37 @@ public class TestStrategy
             Assert.assertEquals(i, frame.getOrientation(joueur), 0.1);
             Assert.assertTrue(frame.getDimensions(joueur).equals(new Vector(50 + 2 * i, 100 + 2 * i)));
         }
+    }
+
+    @Test(expected = GameObjectNotFound.class)
+    public void testClearUnplacedGameObjects() throws TeamNotFound, MaxNumberException, GameObjectNotFound
+    {
+        String placedPlayerId = strat.addPlayer(null);
+        strat.placeGameObject(placedPlayerId, new Vector(), 0, new Vector());
+        String unPlacedPlayerId = strat.addPlayer(null);
+
+        //les trois appels devraient fonctionner
+        strat.getGameObjectByUUID(joueur.getId());
+        strat.getGameObjectByUUID(placedPlayerId);
+        strat.getGameObjectByUUID(unPlacedPlayerId);
+        
+        strat.clearUnplacedGameObjects();
+        
+        strat.getGameObjectByUUID(joueur.getId());
+        strat.getGameObjectByUUID(placedPlayerId);
+        strat.getGameObjectByUUID(unPlacedPlayerId);
+        Assert.fail("Une exception GameObjectNotFound devrait être lancée.");
+    }
+    
+    @Test
+    public void testAddProjectile() throws GameObjectNotFound
+    {
+        String gloriousPuckId = this.strat.addProjectile();
+        Projectile gloriousPuck = (Projectile)this.strat.getGameObjectByUUID(gloriousPuckId);
+        GameObjectState gos = new GameObjectState(new Vector(), 0, gloriousPuck.getDefaultDimensions());
+        strat.getCurrentFrame().addGameObject(gloriousPuck, gos);
+        Vector expected = new Vector(8, 8);
+        Vector actual = this.strat.getCurrentFrame().getDimensions(gloriousPuck);
+        Assert.assertTrue(actual.equals(expected));
     }
 }

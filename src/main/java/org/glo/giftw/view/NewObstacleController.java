@@ -25,6 +25,12 @@ public class NewObstacleController
 
     @FXML
     private TextField obstacleName;
+    
+    @FXML
+    private TextField obstacleWidth;
+
+    @FXML
+    private TextField obstacleHeight;
 
     private File imageToOpen;
 
@@ -48,9 +54,12 @@ public class NewObstacleController
 
         if (result.isPresent() && result.get() == ButtonType.FINISH)
         {
+        	Integer obsWidth = Integer.parseInt(obstacleWidth.getText());
+            Integer obsHeight = Integer.parseInt(obstacleHeight.getText());
             Controller.getInstance().createObstacle(obstacleName.getText(), isCollision.isSelected(),
-                                                    imageToOpen.getPath());
+                                                    imageToOpen.getPath(), obsWidth, obsHeight);
             RootLayoutController.getInstance().getOpenObstacleController().updateTable();
+            RootLayoutController.getInstance().getItemsAccordionController().updateObstaclesTable();
         }
     }
 }

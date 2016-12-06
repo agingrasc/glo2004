@@ -1,10 +1,11 @@
 package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.util.Vector;
+import org.glo.giftw.domain.util.Viewable;
 
 import java.io.Serializable;
 
-public class Projectile extends GameObject implements Serializable
+public class Projectile extends GameObject implements Serializable, Viewable
 {
     public static final long serialVersionUID = 1L;
     private static int projectileCount = 0;
@@ -13,11 +14,12 @@ public class Projectile extends GameObject implements Serializable
     private Player controller;
     private Vector speed;
 
-    public Projectile(String name, String imagePath)
+    public Projectile(String name, String imagePath, Vector defaultDimensions)
     {
         super();
         this.name = name;
         this.imagePath = imagePath;
+        this.defaultDimensions = defaultDimensions;
         this.controller = null;
         this.speed = new Vector(0, 0);
         this.collidable = false;

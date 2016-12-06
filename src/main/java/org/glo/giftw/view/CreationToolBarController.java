@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
 import org.glo.giftw.domain.Controller;
-import org.glo.giftw.domain.strategy.Frame;
 
 import java.io.IOException;
 
@@ -20,29 +19,29 @@ public class CreationToolBarController
     }
 
     @FXML
-    void onActionPrevious(ActionEvent event)
+    void onActionPrevious(ActionEvent event) throws IOException
     {
         boolean isFirstFrame = Controller.getInstance().isFirstFrame();
         if (!isFirstFrame)
         {
-            Frame frame = Controller.getInstance().previousFrame();
-            //FIXME: appel au controlleur de creation
+            Controller.getInstance().previousKeyFrame();
+            RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
         }
     }
 
     @FXML
-    void onActionNext(ActionEvent event)
+    void onActionNext(ActionEvent event) throws IOException
     {
         boolean isLastFrame = Controller.getInstance().isLastFrame();
         if (isLastFrame)
         {
-            Frame frame = Controller.getInstance().createNewFrame();
+            Controller.getInstance().createNewFrame();
         }
         else
         {
-            Frame frame = Controller.getInstance().nextFrame();
+            Controller.getInstance().nextKeyFrame();
         }
-        //FIXME: appel au controlleur de creation
+        RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
     }
 
     @FXML

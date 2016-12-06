@@ -6,6 +6,7 @@ import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.Field;
 import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.strategy.Sport;
 import org.glo.giftw.domain.strategy.Strategy;
 import org.glo.giftw.domain.util.Vector;
@@ -21,7 +22,6 @@ public class TestController
     {
         public ControllerStub(Strategy strategy)
         {
-            super();
             this.currentStrategy = strategy;
         }
     }
@@ -32,8 +32,8 @@ public class TestController
     public void setUp()
     {
         Field field = new Field();
-        Sport sport = new Sport("Hockey", Arrays.asList("Centre", "Ailier", "Defenseur", "Gardien"), field, "Puck", "",
-                                6, 2);
+        Projectile proj = new Projectile("Puck", "", new Vector(8, 8));
+        Sport sport = new Sport("Hockey", Arrays.asList("Centre", "Ailier", "Defenseur", "Gardien"), field, proj, 6, 2);
         Strategy strategy = new Strategy("test", sport, false, false);
         controller = new ControllerStub(strategy);
     }
@@ -41,7 +41,7 @@ public class TestController
     @Test
     public void testAddPlayerDefaultTeam() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
-        String playerUuid = this.controller.addPlayer(new Vector(), 0f, new Vector(), null);
+        String playerUuid = this.controller.addPlayer(null);
         Player player = (Player) this.controller.getGameObjectByUUID(playerUuid);
         Assert.assertEquals("default", this.controller.getPlayerTeam(player));
     }
@@ -49,7 +49,7 @@ public class TestController
     @Test(expected = TeamNotFound.class)
     public void testAddPlayerNewTeamNotFound() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
-        String playerUuid = this.controller.addPlayer(new Vector(), 0f, new Vector(), "BlU");
+        String playerUuid = this.controller.addPlayer("BlU");
         Player player = (Player) this.controller.getGameObjectByUUID(playerUuid);
         Assert.fail("Une exception TeamNotFound devrait etre lance");
     }
@@ -58,7 +58,7 @@ public class TestController
     public void testAddPlayerNewTeam() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
         this.controller.addTeam("BLU", "0x0000FF");
-        String playerUuid = this.controller.addPlayer(new Vector(), 0f, new Vector(), "BLU");
+        String playerUuid = this.controller.addPlayer("BLU");
         Player player = (Player) this.controller.getGameObjectByUUID(playerUuid);
         Assert.assertEquals("BLU", this.controller.getPlayerTeam(player));
     }

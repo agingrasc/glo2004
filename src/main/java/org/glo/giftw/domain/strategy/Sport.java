@@ -23,25 +23,20 @@ public class Sport implements Serializable, TreeViewable
         this.name = "";
         this.roles = new ArrayList<>();
         this.field = new Field();
-        this.projectile = new Projectile("", "");
+        this.projectile = new Projectile("", "", new Vector(1, 1));
         this.maxPLayersPerTeam = 6; //valeur par défaut pour le hockey
         this.maxTeams = 2;
     }
 
-    public Sport(String name, List<String> roles, Field field, String projectileName, String projectileImagePath,
-                 int maxPlayersPerTeam, int maxTeams)
+    public Sport(String name, List<String> roles, Field field, Projectile projectile, int maxPlayersPerTeam,
+            int maxTeams)
     {
         this.name = name;
         this.roles = new ArrayList<String>(roles);
         this.field = field;
-        this.projectile = new Projectile(projectileName, projectileImagePath);
+        this.projectile = projectile;
         this.maxPLayersPerTeam = maxPlayersPerTeam;
         this.maxTeams = maxTeams;
-    }
-
-    public double getUnitRatio()
-    {
-        return this.field.getUnitRatio();
     }
 
     public String getName()
@@ -57,6 +52,11 @@ public class Sport implements Serializable, TreeViewable
     public List<String> getRoles()
     {
         return this.roles;
+    }
+    
+    public Vector getPixelToUnitRatio()
+    {
+        return this.field.getPixelToUnitRatio();
     }
 
     public void setPixelToUnitRatio(Vector ratio)

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Contient les frames et les appels necessaires pour les joueurs
@@ -26,10 +28,15 @@ public class Strategy implements Serializable, TreeViewable
     private Sport sport;
     private int currentFrameIdx;
     private HashMap<String, Team> teams; //Associe chaque équipe impliquée dans une strategie avec son nom
-    private ArrayList<GameObject> gameObjects; //Liste contenant les instances des gameObjects de la stratégie
+    private HashSet<GameObject> gameObjects; //Set contenant les instances des gameObjects de la stratégie
     private ArrayList<Frame> frames;
     private boolean checkMaxNumberPlayer;
     private boolean checkMaxNumberTeam;
+
+    protected Strategy()
+    {
+
+    }
 
     public Strategy(String name, Sport sport, boolean checkMaxNumberPlayer, boolean checkMaxNumberTeam)
     {
@@ -37,7 +44,7 @@ public class Strategy implements Serializable, TreeViewable
         this.sport = sport;
         this.currentFrameIdx = 0;
         this.teams = new HashMap<>();
-        this.gameObjects = new ArrayList<>();
+        this.gameObjects = new HashSet<>();
         this.frames = new ArrayList<>();
         this.frames.add(new Frame(true));
         this.checkMaxNumberPlayer = checkMaxNumberPlayer;
@@ -75,6 +82,7 @@ public class Strategy implements Serializable, TreeViewable
 
     public void setCurrentFrameIdx(int currentFrameIdx)
     {
+        assert currentFrameIdx >= 0 && currentFrameIdx < this.frames.size();
         this.currentFrameIdx = currentFrameIdx;
     }
 
@@ -113,6 +121,11 @@ public class Strategy implements Serializable, TreeViewable
             }
         }
         return null;
+    }
+
+    public Projectile getProjectile()
+    {
+        return this.sport.getProjectile();
     }
 
     public void setCheckMaxNumberTeam(boolean checkMaxNumberTeam)
@@ -179,7 +192,8 @@ public class Strategy implements Serializable, TreeViewable
     }
 
     /**
-     * Retourne la frame précédant la frame courrante. Si la frame courante est la première frame, retourne celle-ci.
+     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante. 
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
      *
      * @return La frame précédente.
      */
@@ -193,7 +207,31 @@ public class Strategy implements Serializable, TreeViewable
     }
 
     /**
-     * Retourne la frame suivant la frame courante. Si la frame courante est la dernière frame, retourne celle-ci.
+     * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame précédente, puis retourne celle-ci.
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
+     * 
+     * @return La keyFrame précédente.
+     */
+    public Frame previousKeyFrame()
+    {
+        if (this.currentFrameIdx != 0)
+        {
+            int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+            if (this.currentFrameIdx % intervalBetweenKeyFrame != 0)
+            {
+                this.currentFrameIdx -= this.currentFrameIdx % intervalBetweenKeyFrame; 
+            }
+            else
+            {
+                this.currentFrameIdx -= intervalBetweenKeyFrame;
+            }
+        }
+        return this.frames.get(this.currentFrameIdx);
+    }
+
+    /**
+     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante. 
+     * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
      *
      * @return La frame suivante.
      */
@@ -202,6 +240,22 @@ public class Strategy implements Serializable, TreeViewable
         if (!this.isLastFrame())
         {
             this.currentFrameIdx++;
+        }
+        return this.frames.get(this.currentFrameIdx);
+    }
+
+    /**
+     * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame suivante, puis retourne celle-ci.
+     * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
+     * 
+     * @return La keyFrame suivante.
+     */
+    public Frame nextKeyFrame()
+    {
+        if (!this.isLastFrame())
+        {
+            int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+            this.currentFrameIdx = (this.currentFrameIdx / intervalBetweenKeyFrame  + 1) * intervalBetweenKeyFrame;
         }
         return this.frames.get(this.currentFrameIdx);
     }
@@ -295,6 +349,11 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.teams.get(teamName).setColour(colour);
     }
+    
+    public Vector getPixelToUnitRatio()
+    {
+        return this.sport.getPixelToUnitRatio();
+    }
 
     public void setPixelToUnitRatio(Vector ratio)
     {
@@ -305,19 +364,9 @@ public class Strategy implements Serializable, TreeViewable
     /*
      * Gestion des GameObjects
      */
-    private GameObject addGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
-    {
-        GameObjectState gameObjectState = new GameObjectState(position, orientation, dimensions);
-        this.gameObjects.add(gameObject);
-        this.getCurrentFrame().addGameObject(gameObject, gameObjectState);
-        return gameObject;
-    }
-
-    public GameObject addPlayer(Vector position, float orientation, Vector dimensions,
-                                String team) throws TeamNotFound, MaxNumberException
+    public String addPlayer(String team) throws TeamNotFound, MaxNumberException
     {
         Player player = new Player();
-        this.gameObjects.add(player);
         if (team == null)
         {
             if (this.teams.get("default") == null)
@@ -327,51 +376,88 @@ public class Strategy implements Serializable, TreeViewable
             team = "default";
         }
         this.addTeamPlayer(team, player);
-        return this.addGameObject(player, position, orientation, dimensions);
+        this.gameObjects.add(player);
+        return player.getId();
     }
 
-    public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
+    public String addProjectile()
     {
         Projectile projectile = new Projectile(this.sport.getProjectile());
         this.gameObjects.add(projectile);
-        return this.addGameObject(projectile, position, orientation, dimensions);
+        return projectile.getId();
     }
 
-    public GameObject addObstacle(Obstacle obstacle, Vector position, float orientation, Vector dimensions)
+    public String addObstacle(Obstacle obstacle)
     {
         this.gameObjects.add(obstacle);
-        return this.addGameObject(obstacle, position, orientation, dimensions);
+        return obstacle.getId();
     }
 
     public void placeGameObject(String gameObjectUuid, Vector position, float orientation, Vector dimensions) throws GameObjectNotFound
     {
         GameObject gameObject = this.getGameObjectByUUID(gameObjectUuid);
-        this.getCurrentFrame().placeGameObject(gameObject, position, orientation, dimensions);
-        if (this.currentFrameIdx != 0)
+        Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
+        if (currentFrameGameObjects.contains(gameObject))
         {
-            int nbFrames = Strategy.framePerSecond / Strategy.keyFramePerSecond;
-            int previousKeyFrameId = this.currentFrameIdx - nbFrames;
-            Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
-
-            double posDeltaX = (position.getX() - previousKeyFrame.getPosition(gameObject).getX()) / nbFrames;
-            double posDeltaY = (position.getY() - previousKeyFrame.getPosition(gameObject).getY()) / nbFrames;
-            float deltaOrientation = (orientation - previousKeyFrame.getOrientation(gameObject)) / nbFrames;
-            double dimDeltaX = (dimensions.getX() - previousKeyFrame.getDimensions(gameObject).getX()) / nbFrames;
-            double dimDeltaY = (dimensions.getY() - previousKeyFrame.getDimensions(gameObject).getY()) / nbFrames;
-
-            for (int i = 1; i < nbFrames; i++)
+            this.getCurrentFrame().placeGameObject(gameObject, position, orientation, dimensions);
+            if (this.currentFrameIdx != 0)
             {
-                Frame subFrame = this.getFrame(previousKeyFrameId + i);
-                Vector p = subFrame.getPosition(gameObject);
-                float o = subFrame.getOrientation(gameObject);
-                Vector d = subFrame.getDimensions(gameObject);
-                subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
-                                         o + i * deltaOrientation,
-                                         new Vector(d.getX() + i * dimDeltaX, d.getY() + i * dimDeltaY));
+                int nbFrames = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+                int previousKeyFrameId = this.currentFrameIdx - nbFrames;
+                Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
+
+                double posDeltaX = (position.getX() - previousKeyFrame.getPosition(gameObject).getX()) / nbFrames;
+                double posDeltaY = (position.getY() - previousKeyFrame.getPosition(gameObject).getY()) / nbFrames;
+                float deltaOrientation = (orientation - previousKeyFrame.getOrientation(gameObject)) / nbFrames;
+                double dimDeltaX = (dimensions.getX() - previousKeyFrame.getDimensions(gameObject).getX()) / nbFrames;
+                double dimDeltaY = (dimensions.getY() - previousKeyFrame.getDimensions(gameObject).getY()) / nbFrames;
+
+                for (int i = 1; i < nbFrames; i++)
+                {
+                    Frame subFrame = this.getFrame(previousKeyFrameId + i);
+                    Vector p = subFrame.getPosition(gameObject);
+                    float o = subFrame.getOrientation(gameObject);
+                    Vector d = subFrame.getDimensions(gameObject);
+                    subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
+                                             o + i * deltaOrientation,
+                                             new Vector(d.getX() + i * dimDeltaX, d.getY() + i * dimDeltaY));
+                }
             }
+        }
+        else
+        {
+            GameObjectState gameObjectState = new GameObjectState(position, orientation, dimensions);
+            this.getCurrentFrame().addGameObject(gameObject, gameObjectState);
         }
     }
 
+    public void removeGameObject(GameObject gameObject)
+    {
+        if(gameObject instanceof Player)
+        {
+            String teamName = this.getPlayerTeam((Player)gameObject);
+            this.removeTeamPlayer(teamName, (Player) gameObject);
+        }
+        for(Frame f : this.frames)
+        {
+            f.removeGameObject(gameObject);
+        }
+        this.gameObjects.remove(gameObject);
+    }
+
+    public void clearUnplacedGameObjects()
+    {
+        HashSet<GameObject> newGameObjectSet = new HashSet<GameObject>();
+        Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
+        for(GameObject go : this.gameObjects)
+        {
+            if(currentFrameGameObjects.contains(go))
+            {
+                newGameObjectSet.add(go);
+            }
+        }
+        this.gameObjects = newGameObjectSet;
+    }
 
     /*
      * Autre méthodes
@@ -471,16 +557,6 @@ public class Strategy implements Serializable, TreeViewable
             e.printStackTrace();
         }
         return loadedStrat;
-    }
-
-    private void copy(Strategy strat)
-    {
-        this.name = strat.name;
-        this.sport = strat.sport;
-        this.currentFrameIdx = strat.currentFrameIdx;
-        this.teams = strat.teams;
-        this.gameObjects = strat.gameObjects;
-        this.frames = strat.frames;
     }
 
     @Override

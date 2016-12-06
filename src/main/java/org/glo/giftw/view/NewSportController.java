@@ -38,6 +38,12 @@ public class NewSportController
 
     @FXML
     private TextField projectileName;
+    
+    @FXML
+    private TextField projectileWidth;
+
+    @FXML
+    private TextField projectileHeight;
 
     @FXML
     private ImageView fieldImage;
@@ -174,14 +180,16 @@ public class NewSportController
             Integer fwidth = Integer.parseInt(fieldWidth.getEditor().getText());
             String sportImgPath = fieldImageFile.getPath();
             String projName = projectileName.getText();
+            Integer projWidth = Integer.parseInt(projectileWidth.getText());
+            Integer projHeight = Integer.parseInt(projectileHeight.getText());
             String projPath = projectileImageFile.getPath();
             Integer maxNumberOfPlayer = Integer.parseInt(maxPlayers.getText());
             Integer maxNumberOfTeams = Integer.parseInt(maxTeams.getText());
-
             Controller.getInstance().createSport(name, lroles, flength, fwidth, sportImgPath, projName, projPath,
-                                                 maxNumberOfPlayer, maxNumberOfTeams);
+                                                 projWidth, projHeight, maxNumberOfPlayer, maxNumberOfTeams);
 
             RootLayoutController.getInstance().getOpenStrategyController().updateTree();
+            RootLayoutController.getInstance().getItemsAccordionController().updateProjectilesTable();
         }
     }
 }

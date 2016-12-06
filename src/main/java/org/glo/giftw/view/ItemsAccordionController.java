@@ -6,11 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -18,20 +13,22 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Callback;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.exceptions.MaxNumberException;
+import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.Obstacle;
 import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.strategy.Team;
+import org.glo.giftw.view.edit.ViewableGameObject;
+import org.glo.giftw.view.edit.ViewablePlayer;
 
-import java.io.File;
 import java.io.IOException;
 
 public class ItemsAccordionController
@@ -71,12 +68,134 @@ public class ItemsAccordionController
     private ObservableList<Team> teams;
 
     private ObservableList<Projectile> projectiles;
+    
+    public static final int PLAYER_RADIUS = 16;
+    
+    public static final int OBSTACLE_SIZE = 32;
+    
+    public static final int PROJECTILE_SIZE = 16;
 
 
     @FXML
-    private void initialize() throws IOException
+    public void initialize() throws IOException
+    {	
+    	initObstacleTable();
+        initTeamTable();
+        initProjectileTable();
+
+        updateAllTables();
+        
+        initObstacleDrag();
+        initTeamDrag();
+        initProjectileDrag();
+    }
+    
+    private void initObstacleDrag()
     {
-        obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
+    	obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Obstacle selected = obstaclesTableView.getSelectionModel().getSelectedItem();
+                if (selected != null)
+                {
+                    Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    String uuid = Controller.getInstance().addObstacle(selected.getName());
+                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    try
+					{
+						RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewableGameObject);
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    db.setDragView(viewableGameObject.getImage());
+                    content.putString(uuid);
+                    db.setContent(content);
+                    event.consume();
+                }
+            }
+        });
+    }
+    
+    private void initTeamDrag()
+    {
+    	teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Team selected = teamsTableView.getSelectionModel().getSelectedItem();
+                if (selected != null)
+                {
+                    Dragboard db = teamsTableView.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    String uuid;
+                    try
+                    {
+                        uuid = Controller.getInstance().addPlayer(selected.getName());
+                        ViewablePlayer viewablePlayer = new ViewablePlayer(uuid);
+                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewablePlayer);
+                        db.setDragView(viewablePlayer.getImage());
+                        content.putString(uuid);
+                        db.setContent(content);
+                        event.consume();
+                    }
+                    catch (MaxNumberException err)
+                    {
+                        //FIXME: afficher un pop-up pour indiquer que le nombre max de joueur a ete place
+                    }
+                    catch (TeamNotFound err)
+                    {
+                        err.printStackTrace();
+                    } catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
+            }
+        });
+    }
+    
+    private void initProjectileDrag()
+    {
+    	 projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+         {
+             @Override
+             public void handle(MouseEvent event)
+             {
+                 Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
+                 if (selected != null)
+                 {
+                     Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
+                     ClipboardContent content = new ClipboardContent();
+                     //FIXME: dimension
+                     String uuid = Controller.getInstance().addProjectile();
+                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                     try
+					{
+						RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewableGameObject);
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                     db.setDragView(viewableGameObject.getImage());
+                     content.putString(uuid);
+                     db.setContent(content);
+                     event.consume();
+                 }
+             }
+         });
+    }
+    
+    private void initObstacleTable()
+    {
+    	obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
         obstaclesTableView.setItems(obstacles);
         obstacleImageColumn.setCellFactory(
                 new Callback<TableColumn<Obstacle, String>, TableCell<Obstacle, String>>()
@@ -93,11 +212,9 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    File file = new File(item);
-                                    ImageView imageView = new ImageView(new Image(file.toURI().toString()));
-                                    imageView.setFitWidth(32);
-                                    imageView.setFitHeight(32);
-                                    setGraphic(imageView);
+                                    Image img = new Image(String.format("file:%s", item), OBSTACLE_SIZE, OBSTACLE_SIZE, true, true);
+                                    ImageView imgView = new ImageView(img);
+                                    setGraphic(imgView);
                                 }
                                 else
                                 {
@@ -126,8 +243,11 @@ public class ItemsAccordionController
                         return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                     }
                 });
-
-        teams = FXCollections.observableArrayList(Controller.getInstance().getTeams());
+    }
+    
+    private void initTeamTable()
+    {
+    	teams = FXCollections.observableArrayList(Controller.getInstance().getTeams());
         teamsTableView.setItems(teams);
         teamImageColumn.setCellFactory(
                 new Callback<TableColumn<Team, String>, TableCell<Team, String>>()
@@ -144,11 +264,8 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    final Canvas canvas = new Canvas(32, 32);
-                                    GraphicsContext gc = canvas.getGraphicsContext2D();
-                                    gc.setFill(Color.web(item));
-                                    gc.fillOval(0, 0, 32, 32);
-                                    setGraphic(canvas);
+                                    Circle circle = new Circle(PLAYER_RADIUS, Color.web(item));
+                                    setGraphic(circle);
                                 }
                                 else
                                 {
@@ -177,8 +294,11 @@ public class ItemsAccordionController
                         return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                     }
                 });
-
-        projectiles = FXCollections.observableArrayList(Controller.getInstance().getProjectile());
+    }
+    
+    private void initProjectileTable()
+    {
+    	projectiles = FXCollections.observableArrayList(Controller.getInstance().getProjectile());
         projectilesTableView.setItems(projectiles);
         projectileImageColumn.setCellFactory(
                 new Callback<TableColumn<Projectile, String>, TableCell<Projectile, String>>()
@@ -195,11 +315,9 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    File file = new File(item);
-                                    ImageView imageView = new ImageView(new Image(file.toURI().toString()));
-                                    imageView.setFitWidth(32);
-                                    imageView.setFitHeight(32);
-                                    setGraphic(imageView);
+                                    Image img = new Image(String.format("file:%s", item), PROJECTILE_SIZE, PROJECTILE_SIZE, true, true);
+                                    ImageView imgView = new ImageView(img);
+                                    setGraphic(imgView);
                                 }
                                 else
                                 {
@@ -228,92 +346,6 @@ public class ItemsAccordionController
                         return new ReadOnlyObjectWrapper<String>(p.getValue().getName());
                     }
                 });
-
-        updateAllTables();
-
-        obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
-        { //drag
-            @Override
-            public void handle(MouseEvent event)
-            {
-                // drag was detected, start drag-and-drop gesture
-                Obstacle selected = obstaclesTableView.getSelectionModel().getSelectedItem();
-                if (selected != null)
-                {
-                    Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
-                    ClipboardContent content = new ClipboardContent();
-                    File imageFile = new File(selected.getImagePath());
-                    Image image = new Image(imageFile.toURI().toString(), 32, 32, true, false);
-                    db.setDragView(image);
-                    content.putString(selected.getName());
-                    db.setContent(content);
-                    event.consume();
-                }
-            }
-        });
-
-        projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
-        { //drag
-            @Override
-            public void handle(MouseEvent event)
-            {
-                // drag was detected, start drag-and-drop gesture
-                Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
-                if (selected != null)
-                {
-                    Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
-                    ClipboardContent content = new ClipboardContent();
-                    File imageFile = new File(selected.getImagePath());
-                    Image image = new Image(imageFile.toURI().toString(), 16, 16, false, false);
-                    db.setDragView(image);
-                    content.putString(selected.getName());
-                    db.setContent(content);
-                    event.consume();
-                }
-            }
-        });
-
-        teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>()
-        { //drag
-            @Override
-            public void handle(MouseEvent event)
-            {
-                // drag was detected, start drag-and-drop gesture
-                Team selected = teamsTableView.getSelectionModel().getSelectedItem();
-                if (selected != null)
-                {
-                    Dragboard db = teamsTableView.startDragAndDrop(TransferMode.ANY);
-                    ClipboardContent content = new ClipboardContent();
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_DISPLAY_PATH.toString()));
-                    VBox playerDisplay = null;
-                    try
-                    {
-                        playerDisplay = loader.load();
-                    }
-                    catch (IOException e)
-                    {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    PlayerDisplayController pdc = loader.getController();
-                    Canvas canvas = pdc.getCanvas();
-                    GraphicsContext gc = canvas.getGraphicsContext2D();
-                    gc.setFill(Color.web(selected.getColour()));
-                    gc.fillOval(0, 0, 32, 32);
-                    Scene scene = new Scene(playerDisplay);
-                    System.out.println(scene.getFill());
-                    SnapshotParameters parameters = new SnapshotParameters();
-                    parameters.setFill(Color.TRANSPARENT);
-                    playerDisplay.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
-                    WritableImage snapshot = playerDisplay.snapshot(parameters, null);
-                    db.setDragView(snapshot);
-                    content.putString(selected.getName());
-                    db.setContent(content);
-                    event.consume();
-                }
-            }
-        });
     }
 
     public void updateObstaclesTable()
@@ -325,7 +357,6 @@ public class ItemsAccordionController
     public void updateTeamsTable()
     {
         teams.clear();
-        //TODO teams n'enregistrent pas
         teams.addAll(Controller.getInstance().getTeams());
     }
 

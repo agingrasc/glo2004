@@ -1,7 +1,6 @@
 package org.glo.giftw.domain;
 
 import org.glo.giftw.domain.util.Vector;
-import org.glo.giftw.domain.util.VectorFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +21,10 @@ public class TestVector
     public void setUp()
     {
         this.nVec = new Vector();
-        this.upVec = VectorFactory.up();
-        this.downVec = VectorFactory.down();
-        this.leftVec = VectorFactory.left();
-        this.rightVec = VectorFactory.right();
+        this.upVec = new Vector(0, 1);
+        this.downVec = new Vector(0, -1);
+        this.leftVec = new Vector(-1, 0);
+        this.rightVec = new Vector(1, 0);
     }
 
     @After
