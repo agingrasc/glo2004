@@ -82,8 +82,9 @@ public class NewSportController
 
         loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
         DialogPane fieldEditorDialogPane = loader.load();
-
+        
         dialog.setDialogPane(fieldEditorDialogPane);
+        dialog.setTitle("Édition de Terrain");
         FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
 
         fieldEditorController.initSpinners(fieldLength.getValue(), fieldWidth.getValue());

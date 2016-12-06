@@ -18,6 +18,30 @@
 <?import javafx.scene.text.Font?>
 
 <DialogPane fx:id="rootPane" expanded="true" prefHeight="450.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
+    <header>
+        <MenuBar prefWidth="286.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Fichier">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onNew" text="Nouveau (ctrl+N)" />
+                        <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Ouvrir (ctrl+O)" />
+                        <MenuItem mnemonicParsing="false" onAction="#onSave" text="Sauvergarder (ctrl+S)" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Édition">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onUndo" text="Annuler (ctrl+Z)" />
+                        <MenuItem mnemonicParsing="false" onAction="#onRedo" text="Rétablir (ctrl+Y)" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Aide">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="À propos" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </header>
     <content>
         <Pane fx:id="fieldEditorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css">
             <children>
@@ -103,28 +127,4 @@
         <ButtonType fx:constant="CANCEL" />
         <ButtonType fx:constant="FINISH" />
     </buttonTypes>
-   <header>
-      <MenuBar prefWidth="286.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Fichier">
-            <items>
-                <MenuItem mnemonicParsing="false" onAction="#onNew" text="Nouveau (ctrl+N)" />
-                <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Ouvrir (ctrl+O)" />
-                <MenuItem mnemonicParsing="false" onAction="#onSave" text="Sauvergarder (ctrl+S)" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Édition">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#onUndo" text="Annuler (ctrl+Z)" />
-                  <MenuItem mnemonicParsing="false" onAction="#onRedo" text="Rétablir (ctrl+Y)" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Aide">
-            <items>
-              <MenuItem mnemonicParsing="false" text="À propos" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </header>
 </DialogPane>
