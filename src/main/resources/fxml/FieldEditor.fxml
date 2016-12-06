@@ -7,6 +7,9 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.Image?>
@@ -26,7 +29,6 @@
                 </Label>
                 <Spinner fx:id="fieldLength" layoutX="325.0" layoutY="19.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="97.0" />
                 <Spinner fx:id="fieldWidth" layoutX="455.0" layoutY="19.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="88.0" />
-                <Button fx:id="saveButton" layoutX="555.0" layoutY="373.0" mnemonicParsing="false" onAction="#onSave" text="Sauvegarder" />
                 <ColorPicker fx:id="fieldColor" editable="true" layoutX="80.0" layoutY="373.0" prefHeight="26.0" prefWidth="127.0" promptText="Fond du terrain" />
                 <Label layoutX="14.0" layoutY="378.0" text="Couleur:" />
                 <Button layoutX="229.0" layoutY="369.0" mnemonicParsing="false" onAction="#onFillColor" prefHeight="28.0" prefWidth="36.0">
@@ -94,7 +96,6 @@
                         </ImageView>
                     </graphic>
                 </Button>
-            <Button fx:id="newButton" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#onNew" text="Nouveau" />
             </children>
         </Pane>
     </content>
@@ -102,4 +103,28 @@
         <ButtonType fx:constant="CANCEL" />
         <ButtonType fx:constant="FINISH" />
     </buttonTypes>
+   <header>
+      <MenuBar prefWidth="286.0">
+        <menus>
+          <Menu mnemonicParsing="false" onAction="#onSave" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onNew" text="Nouveau (ctrl+N)" />
+              <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Ouvrir (ctrl+O)" />
+                  <MenuItem mnemonicParsing="false" text="Sauvergarder (ctrl+S)" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onUndo" text="annuler (ctrl+Z)" />
+                  <MenuItem mnemonicParsing="false" onAction="#onRedo" text="rétablir (ctrl+Y)" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </header>
 </DialogPane>
