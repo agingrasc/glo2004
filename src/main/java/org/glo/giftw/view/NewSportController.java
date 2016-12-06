@@ -88,7 +88,6 @@ public class NewSportController
 
         FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
 
-        fieldEditorController.initSpinners(fieldLength.getValue(), fieldWidth.getValue());
         if(fieldImage.getImage() != null)
         {
             System.out.println("Il y avait une image!");
@@ -100,15 +99,6 @@ public class NewSportController
 
         fieldImageFile = fieldEditorController.getDrawnFieldFilePath();
         setImage(fieldEditorController.getDrawnFieldFilePath(), fieldImage);
-        if (fieldEditorController.getDrawnFieldFilePath() != null)
-        {
-            double newLength = fieldEditorController.getLength();
-            double newWidth = fieldEditorController.getWidth();
-            if (newLength > 0 && newWidth > 0)
-            {
-                initSpinners(newLength, newWidth);
-            }
-        }
     }
 
     @FXML

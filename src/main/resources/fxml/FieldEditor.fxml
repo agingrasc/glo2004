@@ -12,14 +12,12 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <DialogPane fx:id="rootPane" expanded="true" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
     <content>
@@ -79,19 +77,6 @@
                               </ImageView>
                           </graphic>
                       </Button>
-                  <Separator orientation="VERTICAL" prefHeight="30.0" />
-                      <Spinner fx:id="fieldLength" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="97.0" />
-                      <Label text="x">
-                          <font>
-                              <Font size="19.0" />
-                          </font>
-                      </Label>
-                      <Spinner fx:id="fieldWidth" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="88.0" />
-                  <Label text="m²">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
                   <Separator orientation="VERTICAL" prefHeight="30.0" />
                       <ColorPicker fx:id="fieldColor" editable="true" prefHeight="26.0" prefWidth="57.0" promptText="Fond du terrain" />
                       <Button mnemonicParsing="false" onAction="#onFillColor" prefHeight="28.0" prefWidth="36.0">

@@ -48,9 +48,6 @@ public class FieldEditorController
     private Canvas fieldDraw, fieldDrawPreview;
 
     @FXML
-    private Spinner<Double> fieldLength, fieldWidth;
-
-    @FXML
     private ColorPicker fieldColor;
 
     @FXML
@@ -66,10 +63,6 @@ public class FieldEditorController
     {
         return fieldSelectedFilePath;
     }
-
-    public double getLength() { return fieldLength.getValue(); }
-
-    public double getWidth() { return fieldWidth.getValue(); }
 
     public Dialog getDialog() { return rootDialog; }
 
@@ -101,15 +94,6 @@ public class FieldEditorController
     {
         fieldDrawControl.drawImage(gcBackground, image);
         fieldSelectedFilePath = null;
-    }
-
-    public void initSpinners(double initialLength, double initialWidth)
-    {
-        fieldLength.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialLength));
-        fieldWidth.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, initialWidth));
-
-        fieldLength.setEditable(true);
-        fieldWidth.setEditable(true);
     }
 
     private void initResizable()
@@ -224,17 +208,6 @@ public class FieldEditorController
 
     @FXML
     public void onRedo() { restoreNextState(); }
-
-    @FXML
-    public void onSizeChanged()
-    {
-        System.out.println("onSizeChanged");
-        fieldDraw.setHeight(fieldWidth.getValue());
-        fieldDraw.setWidth(fieldLength.getValue());
-        fieldDrawPreview.setHeight(fieldWidth.getValue());
-        fieldDrawPreview.setWidth(fieldLength.getValue());
-
-    }
 
     @FXML
     public void onTextSizeChanged()
