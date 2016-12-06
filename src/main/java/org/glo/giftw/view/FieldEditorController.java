@@ -56,12 +56,9 @@ public class FieldEditorController
         return fieldSelectedFilePath;
     }
 
-    public double getLength()
-    {
-        return (double) fieldLength.getValue();
-    }
+    public double getLength() { return fieldLength.getValue(); }
 
-    public double getWidth() { return (double) fieldWidth.getValue(); }
+    public double getWidth() { return fieldWidth.getValue(); }
 
     public void saveImage()
     {
@@ -72,6 +69,19 @@ public class FieldEditorController
         ImageFileController saveFileDialog = new ImageFileController();
 
         fieldSelectedFilePath = saveFileDialog.startSaveFileDialog(parentWindow, currentField);
+    }
+
+    public void openImage()
+    {
+        Window parentWindow = rootPane.getScene().getWindow();
+        ImageFileController openFileDialog = new ImageFileController();
+
+        File openFilePath = openFileDialog.startOpenFileDialog(parentWindow);
+        if(openFilePath != null)
+        {
+            Image newBackground = new Image(openFilePath.toURI().toString());
+            initImage(newBackground, openFilePath);
+        }
     }
 
     public void initImage(Image image, File imageFilePath)
@@ -158,9 +168,22 @@ public class FieldEditorController
         final EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(keyEvent.getCode() == KeyCode.S && keyEvent.isControlDown())
-                {
-                    saveImage();
+                if(keyEvent.isControlDown()) {
+                    if (keyEvent.getCode() == KeyCode.S) {
+                        saveImage();
+                    }
+                    else if (keyEvent.getCode() == KeyCode.O) {
+                        openImage();
+                    }
+                    else if (keyEvent.getCode() == KeyCode.N) {
+                        onNew();
+                    }
+                    else if (keyEvent.getCode() == KeyCode.Z) {
+                        restorePreviousState();
+                    }
+                    else if (keyEvent.getCode() == KeyCode.N) {
+                        restoreNextState();
+                    }
                 }
             }
         };
@@ -182,7 +205,7 @@ public class FieldEditorController
     public void onNew()
     {
         eraseAll(gcBackground);
-        gcBackground.setFill(fieldColor.getValue());
+        gcBackground.setFill(Color.WHITE);
         gcBackground.fillRect(0, 0, fieldDraw.getWidth(), fieldDraw.getHeight());
     }
 
@@ -193,18 +216,13 @@ public class FieldEditorController
     }
 
     @FXML
-    public void onUndo()
-    {
-        System.out.println("onUndo");
-        restorePreviousState();
-    }
+    public void onOpen() { openImage(); }
 
     @FXML
-    public void onRedo()
-    {
-        System.out.println("onRedo");
-        restoreNextState();
-    }
+    public void onUndo() { restorePreviousState(); }
+
+    @FXML
+    public void onRedo() { restoreNextState(); }
 
     @FXML
     public void onSizeChanged()

@@ -17,18 +17,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:id="rootPane" expanded="true" headerText="Éditer le terrain:" prefHeight="450.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
+<DialogPane fx:id="rootPane" expanded="true" prefHeight="450.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
     <content>
         <Pane fx:id="fieldEditorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css">
             <children>
-                <ChoiceBox fx:id="fieldSize" layoutX="555.0" layoutY="19.0" prefHeight="26.0" prefWidth="70.0" />
-                <Label layoutX="432.0" layoutY="17.0" text="x">
+                <ChoiceBox fx:id="fieldSize" layoutX="581.0" layoutY="4.0" prefHeight="26.0" prefWidth="70.0" />
+                <Label layoutX="458.0" layoutY="2.0" text="x">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <Spinner fx:id="fieldLength" layoutX="325.0" layoutY="19.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="97.0" />
-                <Spinner fx:id="fieldWidth" layoutX="455.0" layoutY="19.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="88.0" />
+                <Spinner fx:id="fieldLength" layoutX="351.0" layoutY="4.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="97.0" />
+                <Spinner fx:id="fieldWidth" layoutX="481.0" layoutY="4.0" onInputMethodTextChanged="#onSizeChanged" prefHeight="26.0" prefWidth="88.0" />
                 <ColorPicker fx:id="fieldColor" editable="true" layoutX="80.0" layoutY="373.0" prefHeight="26.0" prefWidth="127.0" promptText="Fond du terrain" />
                 <Label layoutX="14.0" layoutY="378.0" text="Couleur:" />
                 <Button layoutX="229.0" layoutY="369.0" mnemonicParsing="false" onAction="#onFillColor" prefHeight="28.0" prefWidth="36.0">
@@ -77,8 +77,8 @@
                     </graphic>
                 </RadioButton>
                 <Canvas fx:id="fieldDraw" height="300.0" layoutX="25.0" layoutY="64.0" width="600.0" />
-                <Canvas fx:id="fieldDrawPreview" height="300.0" layoutX="25.0" layoutY="64.0" onMouseDragged="#onDraw" onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="600.0" />
-                <Button fx:id="undoButton" layoutX="186.0" layoutY="15.0" mnemonicParsing="false" onAction="#onUndo">
+                <Canvas fx:id="fieldDrawPreview" height="326.0" layoutX="25.0" layoutY="64.0" onMouseDragged="#onDraw" onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="600.0" />
+                <Button fx:id="undoButton" layoutX="212.0" mnemonicParsing="false" onAction="#onUndo">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -87,7 +87,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="redoButton" layoutX="239.0" layoutY="15.0" mnemonicParsing="false" onAction="#onRedo">
+                <Button fx:id="redoButton" layoutX="265.0" mnemonicParsing="false" onAction="#onRedo">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -106,22 +106,22 @@
    <header>
       <MenuBar prefWidth="286.0">
         <menus>
-          <Menu mnemonicParsing="false" onAction="#onSave" text="File">
+          <Menu mnemonicParsing="false" text="Fichier">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onNew" text="Nouveau (ctrl+N)" />
-              <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Ouvrir (ctrl+O)" />
-                  <MenuItem mnemonicParsing="false" text="Sauvergarder (ctrl+S)" />
+                <MenuItem mnemonicParsing="false" onAction="#onNew" text="Nouveau (ctrl+N)" />
+                <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Ouvrir (ctrl+O)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSave" text="Sauvergarder (ctrl+S)" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Édition">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#onUndo" text="annuler (ctrl+Z)" />
-                  <MenuItem mnemonicParsing="false" onAction="#onRedo" text="rétablir (ctrl+Y)" />
+              <MenuItem mnemonicParsing="false" onAction="#onUndo" text="Annuler (ctrl+Z)" />
+                  <MenuItem mnemonicParsing="false" onAction="#onRedo" text="Rétablir (ctrl+Y)" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Aide">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="À propos" />
             </items>
           </Menu>
         </menus>
