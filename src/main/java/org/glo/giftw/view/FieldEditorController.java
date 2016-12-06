@@ -93,14 +93,14 @@ public class FieldEditorController
         if(openFilePath != null)
         {
             Image newBackground = new Image(openFilePath.toURI().toString());
-            initImage(newBackground, openFilePath);
+            initImage(newBackground);
         }
     }
 
-    public void initImage(Image image, File imageFilePath)
+    public void initImage(Image image)
     {
         fieldDrawControl.drawImage(gcBackground, image);
-        fieldSelectedFilePath = imageFilePath;
+        fieldSelectedFilePath = null;
     }
 
     public void initSpinners(double initialLength, double initialWidth)

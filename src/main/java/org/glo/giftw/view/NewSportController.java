@@ -86,7 +86,7 @@ public class NewSportController
         if(fieldImage.getImage() != null)
         {
             System.out.println("Il y avait une image!");
-            fieldEditorController.initImage(fieldImage.getImage(), fieldImageFile);
+            fieldEditorController.initImage(fieldImage.getImage());
         }
 
         Dialog<Object> dialog = fieldEditorController.getDialog();
