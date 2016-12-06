@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:id="fieldEditorDialog" expanded="true" headerText="Éditer le terrain:" prefHeight="450.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
+<DialogPane fx:id="rootPane" expanded="true" headerText="Éditer le terrain:" prefHeight="450.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
     <content>
         <Pane fx:id="fieldEditorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="660.0" stylesheets="@../css/visuaLigueCSS.css">
             <children>

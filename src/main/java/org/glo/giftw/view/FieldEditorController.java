@@ -34,7 +34,7 @@ public class FieldEditorController
     private Stack<Image> states, undoStates;
 
     @FXML
-    private DialogPane fieldEditorDialog;
+    private DialogPane rootPane;
 
     @FXML
     private Canvas fieldDraw, fieldDrawPreview;
@@ -68,7 +68,7 @@ public class FieldEditorController
         //format canvas as image
         Image currentField = states.lastElement();
 
-        Window parentWindow = fieldEditorDialog.getScene().getWindow();
+        Window parentWindow = rootPane.getScene().getWindow();
         ImageFileController saveFileDialog = new ImageFileController();
 
         fieldSelectedFilePath = saveFileDialog.startSaveFileDialog(parentWindow, currentField);
@@ -164,7 +164,7 @@ public class FieldEditorController
                 }
             }
         };
-
+        rootPane.addEventFilter(KeyEvent.KEY_PRESSED, keyEventEventHandler);
     }
 
     @FXML

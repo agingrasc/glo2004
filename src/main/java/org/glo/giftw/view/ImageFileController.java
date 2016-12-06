@@ -28,7 +28,6 @@ public class ImageFileController
     private void initDialog()
     {
         imageChooser = new FileChooser();
-        imageChooser.setTitle("Sélectionner une image d'obstacle");
         imageChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("image file",
                                                 "*.png", "*.jpg",
@@ -45,6 +44,7 @@ public class ImageFileController
 
     File startOpenFileDialog(Window parentWindow)
     {
+        imageChooser.setTitle("Ouvrir une image");
         File selectedImage = imageChooser.showOpenDialog(parentWindow);
         return selectedImage;
     }
@@ -61,6 +61,7 @@ public class ImageFileController
         File selectedImagePath = null;
         try
         {
+            imageChooser.setTitle("Sauvegarder une image");
             selectedImagePath = imageChooser.showSaveDialog(parentWindow);
             if (selectedImagePath != null)
             {
