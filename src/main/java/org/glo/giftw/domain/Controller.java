@@ -446,4 +446,10 @@ public class Controller
     {
         return this.currentStrategy.getCurrentFrame().getOrientation(gameObject);
     }
+    
+    public Vector getDimensions(GameObject gameObject)
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        return gameObject.getDimensions().mul(ratio);
+    }
 }
