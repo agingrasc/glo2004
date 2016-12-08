@@ -232,13 +232,11 @@ public class Controller
      * @param gameObjectUuid Le uuid du GameObject.
      * @param position       La position du GameObject.
      * @param orientation    L'orientation du GameObject.
-     * @param dimensions     Les dimensions du GameObject.
      * @throws GameObjectNotFound
      */
-    public void placeGameObject(String gameObjectUuid, Vector position, float orientation,
-                                Vector dimensions) throws GameObjectNotFound
+    public void placeGameObject(String gameObjectUuid, Vector position, float orientation) throws GameObjectNotFound
     {
-        this.currentStrategy.placeGameObject(gameObjectUuid, position, orientation, dimensions);
+        this.currentStrategy.placeGameObject(gameObjectUuid, position, orientation);
     }
 
     /**
@@ -441,12 +439,5 @@ public class Controller
     public float getOrientation(GameObject gameObject)
     {
         return this.currentStrategy.getCurrentFrame().getOrientation(gameObject);
-    }
-    
-    public Vector getDimensions(GameObject gameObject)
-    {
-        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
-        Vector dimensionsCM = this.currentStrategy.getCurrentFrame().getDimensions(gameObject);
-        return dimensionsCM.mul(ratio);
     }
 }

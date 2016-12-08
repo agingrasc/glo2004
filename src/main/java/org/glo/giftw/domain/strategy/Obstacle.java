@@ -16,13 +16,13 @@ public class Obstacle extends GameObject implements Serializable, Viewable
         this("", true, "", new Vector(1, 1));
     }
 
-    public Obstacle(String name, boolean isCollidable, String imagePath, Vector defaultDimensions)
+    public Obstacle(String name, boolean isCollidable, String imagePath, Vector dimensions)
     {
         super();
         this.name = name;
         this.collidable = isCollidable;
         this.imagePath = imagePath;
-        this.defaultDimensions = defaultDimensions;
+        this.dimensions = dimensions;
         Obstacle.obstacleCount++;
     }
 
