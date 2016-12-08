@@ -86,7 +86,7 @@ public class MediaContentController extends AnimationTimer
         {
             Vector position = frame.getPosition(go);
             float orientation = frame.getOrientation(go);
-            Vector dimension = frame.getDimensions(go);
+            Vector dimension = Controller.getInstance().getDimensions(go);
             if (go instanceof Player)
             {
                 Player player = (Player) go;

@@ -9,7 +9,6 @@ import javafx.scene.layout.Pane;
 
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
-import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 
@@ -46,12 +45,9 @@ public class FrameView extends Pane
         {
             String uuid = db.getString();
             Vector coordinate = new Vector(event.getX(), event.getY());
-            GameObject gameObject = null;
             try
 			{
-            	gameObject = Controller.getInstance().getGameObjectByUUID(uuid);
-            	//TODO fix dimensions pixel, dimensions?
-				Controller.getInstance().placeGameObject(uuid, coordinate, 0, gameObject.getDefaultDimensions());
+				Controller.getInstance().placeGameObject(uuid, coordinate, 0);
 			} catch (GameObjectNotFound e)
 			{
 				e.printStackTrace();

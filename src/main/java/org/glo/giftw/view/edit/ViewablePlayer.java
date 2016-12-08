@@ -50,7 +50,6 @@ public class ViewablePlayer extends ViewableGameObject
     private Circle getPlayerImg(Player player)
     {
         Color teamColor = getTeamColor(player);
-        //TODO dimensions pixel?
         Vector dimensions = Controller.getInstance().getDimensions(player);
         return new Circle(dimensions.getX()/2, teamColor);
     }
