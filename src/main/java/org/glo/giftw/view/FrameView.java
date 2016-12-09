@@ -106,13 +106,13 @@ public class FrameView extends Pane
         {
             public void handle(MouseEvent me)
             {
+            	System.out.println("mouse clicked in frame");
             	Accordion rightMenu = null;
 				try
 				{
 					rightMenu = RootLayoutController.getInstance().getGeneralPropertiesPaneController().getRootAccordion();
 				} catch (IOException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
                 RootLayoutController.getInstance().setRightPane(rightMenu);

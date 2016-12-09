@@ -8,11 +8,11 @@ import org.glo.giftw.domain.strategy.Player;
  */
 public class ViewableGameObjectBuilder
 {
-    public static ViewableGameObject buildViewableGameObject(GameObject gameObject)
+    public static ViewableGameObject buildViewableGameObject(GameObject gameObject, boolean isDisplayName, boolean isDisplayRole)
     {
         if (gameObject instanceof Player)
         {
-            return new ViewablePlayer(gameObject.getId());
+            return new ViewablePlayer(gameObject.getId(), isDisplayName, isDisplayRole);
         }
         else
         {

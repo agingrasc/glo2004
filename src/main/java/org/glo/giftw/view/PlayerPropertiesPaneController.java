@@ -1,5 +1,7 @@
 package org.glo.giftw.view;
 
+import java.io.IOException;
+
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.GameObject;
@@ -10,11 +12,15 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 
 public class PlayerPropertiesPaneController
 {
     @FXML
     private Accordion rootAccordion;
+    
+    @FXML
+    private TitledPane playerPropertiesTitledPane;
 
     @FXML
     private ColorPicker teamColorPicker;
@@ -25,27 +31,38 @@ public class PlayerPropertiesPaneController
     @FXML
     private TextField nameTextField;
     
-    private String uuid;
     
     @FXML
     public void initialize()
     {
-    	if(this.uuid != null)
+    	String selectedUUID = null;
+		try
+		{
+			selectedUUID = RootLayoutController.getInstance().getCreationStackPaneController().getSelectedUUID();
+		} catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
+    	rootAccordion.setExpandedPane(playerPropertiesTitledPane);
+    	
+    	if(selectedUUID != null)
     	{
     		GameObject gameObject = null;
     		try
 			{
-				gameObject = Controller.getInstance().getGameObjectByUUID(uuid);
+				gameObject = Controller.getInstance().getGameObjectByUUID(selectedUUID);
 				
 			} catch (GameObjectNotFound e)
 			{
 				e.printStackTrace();
 			}
+    		
     		//TODO
     		//Afficher les roles du sport
     		//roleComboBox.getItems().add(Controller.getInstance().);
-    		//Afficher le role du joueur selectionner
-    		//Afficher le nom du joueur selectionner
+    		System.out.println("setting text to" + gameObject.getName());
+    		nameTextField.setText(gameObject.getName());
+    		//Afficher le role du joueur select
     	}
     }
     
@@ -57,11 +74,27 @@ public class PlayerPropertiesPaneController
     @FXML
     void onAction(ActionEvent event) 
     {
-    	//TODO setter les attributs du joueur et update le creationStackPane
+    	String selectedUUID = null;
+		try
+		{
+			selectedUUID = RootLayoutController.getInstance().getCreationStackPaneController().getSelectedUUID();
+		} catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
+    	GameObject gameObject = null;
+		try
+		{
+			gameObject = Controller.getInstance().getGameObjectByUUID(selectedUUID);
+			
+		} catch (GameObjectNotFound e)
+		{
+			e.printStackTrace();
+		}
+		gameObject.setName(nameTextField.getText());
+    	//TODO 
+		//setter le role
+		//setter la team?
+		//display strategie
     }
-
-	public void setSelectedUUID(String uuid)
-	{
-		this.uuid = uuid;
-	}
 }

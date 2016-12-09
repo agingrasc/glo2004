@@ -14,7 +14,7 @@
 
 <Accordion fx:id="rootAccordion" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.PlayerPropertiesPaneController">
     <panes>
-        <TitledPane animated="false" stylesheets="@../css/visuaLigueCSS.css" text="Propriétés du joueur:">
+        <TitledPane fx:id="playerPropertiesTitledPane" animated="false" stylesheets="@../css/visuaLigueCSS.css" text="Propriétés du joueur:">
             <content>
                 <VBox>
                     <children>

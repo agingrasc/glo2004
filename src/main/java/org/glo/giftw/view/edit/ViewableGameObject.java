@@ -48,6 +48,7 @@ public class ViewableGameObject
 
     public Node display(Vector position)
     {
+    	//System.out.println(position);
         this.node.relocate(position.getX(), position.getY());
         return this.node;
     }
@@ -60,7 +61,6 @@ public class ViewableGameObject
         {
         	GameObject gameObject = this.ctlInst.getGameObjectByUUID(this.uuid);
             imgPath = ((Viewable)gameObject).getImagePath();
-            //TODO dimensions pixel?
             dimensions = ctlInst.getDimensions(gameObject);
         }
         catch (GameObjectNotFound gameObjectNotFound)

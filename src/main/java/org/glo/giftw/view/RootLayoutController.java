@@ -346,7 +346,7 @@ public class RootLayoutController
         }
         return defaultToolBarController;
     }
-
+    
     public GeneralPropertiesPaneController getGeneralPropertiesPaneController() throws IOException
     {
         if (generalPropertiesPaneController == null)
@@ -498,13 +498,11 @@ public class RootLayoutController
 
     public PlayerPropertiesPaneController getPlayerPropertiesPaneController() throws IOException
     {
-        if (playerPropertiesPaneController == null)
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_PROPERTIES_PANE_PATH.toString()));
-            loader.load();
-            this.playerPropertiesPaneController = loader.getController();
-        }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_PROPERTIES_PANE_PATH.toString()));
+        loader.load();
+        this.playerPropertiesPaneController = loader.getController();
+        
         return playerPropertiesPaneController;
     }
 

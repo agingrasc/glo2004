@@ -13,6 +13,9 @@ public class GeneralPropertiesPaneController
 {
     @FXML
     private Accordion rootAccordion;
+    
+    @FXML
+    private TitledPane generalPropertiesTitledPane;
 
     @FXML
     private CheckBox showRolesCheckBox;
@@ -28,6 +31,14 @@ public class GeneralPropertiesPaneController
 
     @FXML
     private TextField teamNameTextField;
+    
+    @FXML
+    public void initialize()
+    {
+    	rootAccordion.setExpandedPane(generalPropertiesTitledPane);
+    	showRolesCheckBox.setSelected(false);
+    	showNamesCheckBox.setSelected(false);
+    }
 
     @FXML
     void onActionAddTeam(ActionEvent event) throws IOException
@@ -44,27 +55,32 @@ public class GeneralPropertiesPaneController
         }
         catch (MaxNumberException e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     @FXML
-    void onActionColorPicker(ActionEvent event)
-    {
-
-    }
-
-    @FXML
     void onShowNames(ActionEvent event)
     {
-
+    	try
+		{
+			RootLayoutController.getInstance().getCreationStackPaneController().setDisplayNames(showNamesCheckBox.isSelected());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
     }
 
     @FXML
     void onShowRoles(ActionEvent event)
     {
-
+    	try
+		{
+			RootLayoutController.getInstance().getCreationStackPaneController().setDisplayRoles(showRolesCheckBox.isSelected());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}    
     }
 
     public Accordion getRootAccordion()

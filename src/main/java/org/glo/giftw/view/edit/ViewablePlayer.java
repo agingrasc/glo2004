@@ -1,6 +1,7 @@
 package org.glo.giftw.view.edit;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
@@ -29,15 +30,13 @@ public class ViewablePlayer extends ViewableGameObject
     private boolean isDisplayName;
     private boolean isDisplayRole;
 
-    public ViewablePlayer(String uuid)
+    public ViewablePlayer(String uuid, boolean isDisplayName, boolean isDisplayRole)
     {
         super();
         this.uuid = uuid;
-        this.node = new VBox();
-        //FIXME: passer correctement ces champs à la création
-        this.isDisplayName = false;
-        this.isDisplayRole = false;
-        this.node = this.constructNode();
+        this.isDisplayName = isDisplayName;
+        this.isDisplayRole = isDisplayRole;
+        this.constructNode();
     }
 
     private Player getPlayer()
@@ -75,17 +74,18 @@ public class ViewablePlayer extends ViewableGameObject
         Label name = new Label(player.getName());
         Label role = new Label(player.getRole());
 
-        VBox node = new VBox();
+        node = new VBox();
+        ((VBox)node).setAlignment(Pos.CENTER);
         //node.setBackground(Background.EMPTY);
         node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
 
         name.setVisible(isDisplayName);
-        node.getChildren().add(name);
+        ((VBox)node).getChildren().add(name);
 
         role.setVisible(isDisplayRole);
-        node.getChildren().add(role);
+        ((VBox)node).getChildren().add(role);
 
-        node.getChildren().add(playerImg);
+        ((VBox)node).getChildren().add(playerImg);
 
         node.setOnDragDetected(this::onNodeDragDetected);
         initMouseClicked();
@@ -121,7 +121,7 @@ public class ViewablePlayer extends ViewableGameObject
         ((VBox) this.node).getChildren().get(1).setVisible(show);
     }
     
-    private void initMouseClicked()
+    protected void initMouseClicked()
     {
         this.node.setOnMousePressed(new EventHandler<MouseEvent>()
         {
@@ -129,10 +129,9 @@ public class ViewablePlayer extends ViewableGameObject
             {
             	try
 				{
-					RootLayoutController.getInstance().getPlayerPropertiesPaneController().setSelectedUUID(uuid);
+					RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(uuid);
 				} catch (IOException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             	
@@ -142,10 +141,10 @@ public class ViewablePlayer extends ViewableGameObject
 					rightMenu = RootLayoutController.getInstance().getPlayerPropertiesPaneController().getRootAccordion();
 				} catch (IOException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
                 RootLayoutController.getInstance().setRightPane(rightMenu);
+                me.consume();
             }
         });
     }
