@@ -7,6 +7,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.GameObject;

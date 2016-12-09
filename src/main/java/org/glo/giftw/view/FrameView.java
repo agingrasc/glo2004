@@ -1,8 +1,11 @@
 package org.glo.giftw.view;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Accordion;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
@@ -24,7 +27,7 @@ public class FrameView extends Pane
     {
         this.setBackground(Background.EMPTY);
         this.viewableGameObjects = new HashMap<>();
-
+        this.initMouseClicked();
         this.setOnDragOver(this::onDragOver);
         this.setOnDragDropped(this::onDragDropped);
     }
@@ -50,7 +53,7 @@ public class FrameView extends Pane
             try
 			{
             	gameObject = Controller.getInstance().getGameObjectByUUID(uuid);
-            	//TODO fix dimensions pixel, dimensions?
+            	//TODO Enlever dimensions?
 				Controller.getInstance().placeGameObject(uuid, coordinate, 0, gameObject.getDefaultDimensions());
 			} catch (GameObjectNotFound e)
 			{
@@ -99,5 +102,25 @@ public class FrameView extends Pane
     public ViewableGameObject getViewableGameObject(String uuid)
     {
         return this.viewableGameObjects.get(uuid);
+    }
+    
+    private void initMouseClicked()
+    {
+        this.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            public void handle(MouseEvent me)
+            {
+            	Accordion rightMenu = null;
+				try
+				{
+					rightMenu = RootLayoutController.getInstance().getGeneralPropertiesPaneController().getRootAccordion();
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                RootLayoutController.getInstance().setRightPane(rightMenu);
+            }
+        });
     }
 }

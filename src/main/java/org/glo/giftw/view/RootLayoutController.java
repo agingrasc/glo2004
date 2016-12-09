@@ -3,6 +3,7 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
@@ -523,4 +524,9 @@ public class RootLayoutController
     {
         return borderPane;
     }
+
+	public void setRightPane(Accordion rightMenu)
+	{
+		borderPane.setRight(rightMenu);
+	}
 }

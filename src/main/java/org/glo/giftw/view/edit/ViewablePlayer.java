@@ -1,19 +1,25 @@
 package org.glo.giftw.view.edit;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import java.io.IOException;
 
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Player;
 import org.glo.giftw.domain.util.Vector;
+import org.glo.giftw.view.RootLayoutController;
 
 /**
  *
@@ -83,6 +89,7 @@ public class ViewablePlayer extends ViewableGameObject
         node.getChildren().add(playerImg);
 
         node.setOnDragDetected(this::onNodeDragDetected);
+        initMouseClicked();
         return node;
     }
 
@@ -113,5 +120,34 @@ public class ViewablePlayer extends ViewableGameObject
     public void setShowRole(boolean show)
     {
         ((VBox) this.node).getChildren().get(1).setVisible(show);
+    }
+    
+    private void initMouseClicked()
+    {
+        this.node.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            public void handle(MouseEvent me)
+            {
+            	try
+				{
+					RootLayoutController.getInstance().getPlayerPropertiesPaneController().setSelectedUUID(uuid);
+				} catch (IOException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	
+            	Accordion rightMenu = null;
+				try
+				{
+					rightMenu = RootLayoutController.getInstance().getPlayerPropertiesPaneController().getRootAccordion();
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                RootLayoutController.getInstance().setRightPane(rightMenu);
+            }
+        });
     }
 }
