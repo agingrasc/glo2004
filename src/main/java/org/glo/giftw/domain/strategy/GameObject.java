@@ -12,14 +12,14 @@ public abstract class GameObject implements Serializable
     protected String name;
     protected boolean collidable;
     protected String id;
-    protected Vector defaultDimensions;
+    protected Vector dimensions;
 
     public GameObject()
     {
         this.name = "";
         this.collidable = true;
         this.id = UUID.randomUUID().toString();
-        this.defaultDimensions = new Vector(1, 1);
+        this.dimensions = new Vector(1, 1);
     }
 
     public GameObject(GameObject gameObject)
@@ -27,7 +27,7 @@ public abstract class GameObject implements Serializable
         this.name = gameObject.name;
         this.collidable = gameObject.collidable;
         this.id = UUID.randomUUID().toString();
-        this.defaultDimensions = gameObject.defaultDimensions;
+        this.dimensions = gameObject.dimensions;
     }
 
     public abstract GameObject copy();
@@ -57,14 +57,14 @@ public abstract class GameObject implements Serializable
         return this.id;
     }
 
-    public Vector getDefaultDimensions()
+    public Vector getDimensions()
     {
-        return defaultDimensions;
+        return dimensions;
     }
 
-    public void setDefaultDimensions(Vector defaultDimensions)
+    public void setDimensions(Vector dimensions)
     {
-        this.defaultDimensions = defaultDimensions;
+        this.dimensions = dimensions;
     }
 
     public void setId(String id)

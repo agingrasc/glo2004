@@ -230,15 +230,14 @@ public class Controller
     /**
      * Place un GameObject dans la frame courante. Si le GameObject est déjà présent, son état est mis à jour.
      * @param gameObjectUuid Le uuid du GameObject.
-     * @param position       La position du GameObject.
+     * @param position       La position du GameObject, en pixels.
      * @param orientation    L'orientation du GameObject.
-     * @param dimensions     Les dimensions du GameObject.
      * @throws GameObjectNotFound
      */
-    public void placeGameObject(String gameObjectUuid, Vector position, float orientation,
-                                Vector dimensions) throws GameObjectNotFound
+    public void placeGameObject(String gameObjectUuid, Vector position, float orientation) throws GameObjectNotFound
     {
-        this.currentStrategy.placeGameObject(gameObjectUuid, position, orientation, dimensions);
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation);
     }
 
     /**
@@ -431,6 +430,11 @@ public class Controller
         return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
     
+    /**
+     * Retourne la position en pixels d'un GameObject.
+     * @param gameObject Le GameObject dont on veut connaître la position.
+     * @return La position du GameObject, en pixels.
+     */
     public Vector getPosition(GameObject gameObject)
     {
         Vector ratio = this.currentStrategy.getPixelToUnitRatio();
@@ -446,7 +450,6 @@ public class Controller
     public Vector getDimensions(GameObject gameObject)
     {
         Vector ratio = this.currentStrategy.getPixelToUnitRatio();
-        Vector dimensionsCM = this.currentStrategy.getCurrentFrame().getDimensions(gameObject);
-        return dimensionsCM.mul(ratio);
+        return gameObject.getDimensions().mul(ratio);
     }
 }
