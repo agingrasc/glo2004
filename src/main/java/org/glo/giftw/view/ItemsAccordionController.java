@@ -7,6 +7,9 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -152,7 +155,13 @@ public class ItemsAccordionController
                     }
                     catch (MaxNumberException err)
                     {
-                        //FIXME: afficher un pop-up pour indiquer que le nombre max de joueur a ete place
+                    	Alert alert = new Alert(AlertType.WARNING);
+                    	alert.setTitle("Avertissement");
+                    	alert.setHeaderText("Avertissement");
+                    	alert.setContentText("Le nombre de joueurs maximum dans l'equipe est atteint!");
+                    	DialogPane dialogPane = alert.getDialogPane();
+                    	dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
+                    	alert.showAndWait();
                     }
                     catch (TeamNotFound err)
                     {

@@ -3,6 +3,7 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
@@ -55,6 +56,14 @@ public class GeneralPropertiesPaneController
         }
         catch (MaxNumberException e)
         {
+        	Alert alert = new Alert(AlertType.WARNING);
+        	alert.setTitle("Avertissement");
+        	alert.setHeaderText("Avertissement");
+        	alert.setContentText("Le nombre d'equipes maximum est atteint!");
+        	DialogPane dialogPane = alert.getDialogPane();
+        	dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
+        	alert.showAndWait();
+
             e.printStackTrace();
         }
     }
