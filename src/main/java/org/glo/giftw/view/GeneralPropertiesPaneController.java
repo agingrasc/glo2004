@@ -3,6 +3,7 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
@@ -13,6 +14,9 @@ public class GeneralPropertiesPaneController
 {
     @FXML
     private Accordion rootAccordion;
+    
+    @FXML
+    private TitledPane generalPropertiesTitledPane;
 
     @FXML
     private CheckBox showRolesCheckBox;
@@ -28,6 +32,14 @@ public class GeneralPropertiesPaneController
 
     @FXML
     private TextField teamNameTextField;
+    
+    @FXML
+    public void initialize()
+    {
+    	rootAccordion.setExpandedPane(generalPropertiesTitledPane);
+    	showRolesCheckBox.setSelected(false);
+    	showNamesCheckBox.setSelected(false);
+    }
 
     @FXML
     void onActionAddTeam(ActionEvent event) throws IOException
@@ -44,27 +56,40 @@ public class GeneralPropertiesPaneController
         }
         catch (MaxNumberException e)
         {
-            // TODO Auto-generated catch block
+        	Alert alert = new Alert(AlertType.WARNING);
+        	alert.setTitle("Avertissement");
+        	alert.setHeaderText("Avertissement");
+        	alert.setContentText("Le nombre d'equipes maximum est atteint!");
+        	DialogPane dialogPane = alert.getDialogPane();
+        	dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
+        	alert.showAndWait();
+
             e.printStackTrace();
         }
     }
 
     @FXML
-    void onActionColorPicker(ActionEvent event)
-    {
-
-    }
-
-    @FXML
     void onShowNames(ActionEvent event)
     {
-
+    	try
+		{
+			RootLayoutController.getInstance().getCreationStackPaneController().setDisplayNames(showNamesCheckBox.isSelected());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
     }
 
     @FXML
     void onShowRoles(ActionEvent event)
     {
-
+    	try
+		{
+			RootLayoutController.getInstance().getCreationStackPaneController().setDisplayRoles(showRolesCheckBox.isSelected());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}    
     }
 
     public Accordion getRootAccordion()

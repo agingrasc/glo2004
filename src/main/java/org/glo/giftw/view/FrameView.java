@@ -1,15 +1,17 @@
 package org.glo.giftw.view;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Accordion;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
-import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 
@@ -24,7 +26,7 @@ public class FrameView extends Pane
     {
         this.setBackground(Background.EMPTY);
         this.viewableGameObjects = new HashMap<>();
-
+        this.initMouseClicked();
         this.setOnDragOver(this::onDragOver);
         this.setOnDragDropped(this::onDragDropped);
     }
@@ -46,12 +48,9 @@ public class FrameView extends Pane
         {
             String uuid = db.getString();
             Vector coordinate = new Vector(event.getX(), event.getY());
-            GameObject gameObject = null;
             try
 			{
-            	gameObject = Controller.getInstance().getGameObjectByUUID(uuid);
-            	//TODO fix dimensions pixel, dimensions?
-				Controller.getInstance().placeGameObject(uuid, coordinate, 0, gameObject.getDefaultDimensions());
+				Controller.getInstance().placeGameObject(uuid, coordinate, 0);
 			} catch (GameObjectNotFound e)
 			{
 				e.printStackTrace();
@@ -99,5 +98,25 @@ public class FrameView extends Pane
     public ViewableGameObject getViewableGameObject(String uuid)
     {
         return this.viewableGameObjects.get(uuid);
+    }
+    
+    private void initMouseClicked()
+    {
+        this.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            public void handle(MouseEvent me)
+            {
+            	System.out.println("mouse clicked in frame");
+            	Accordion rightMenu = null;
+				try
+				{
+					rightMenu = RootLayoutController.getInstance().getGeneralPropertiesPaneController().getRootAccordion();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+                RootLayoutController.getInstance().setRightPane(rightMenu);
+            }
+        });
     }
 }

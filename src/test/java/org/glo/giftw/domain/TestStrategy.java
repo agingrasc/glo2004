@@ -36,7 +36,7 @@ public class TestStrategy
         {
             String id = strat.addPlayer(null);
             joueur = (Player) strat.getGameObjectByUUID(id);
-            strat.placeGameObject(id, new Vector(400, 1295), 0, new Vector(50, 100));
+            strat.placeGameObject(id, new Vector(400, 1295), 0);
         }
         catch (TeamNotFound e)
         {
@@ -136,13 +136,12 @@ public class TestStrategy
     {
         strat.createNewFrame();
         strat.goToEnd();
-        strat.placeGameObject(joueur.getId(), new Vector(550, 1445), 15, new Vector(80, 130));
+        strat.placeGameObject(joueur.getId(), new Vector(550, 1445), 15);
         for (int i = 1; i < 16; i++)
         {
             Frame frame = strat.getFrame(i);
             Assert.assertTrue(frame.getPosition(joueur).equals(new Vector(400 + 10 * i, 1295 + 10 * i)));
             Assert.assertEquals(i, frame.getOrientation(joueur), 0.1);
-            Assert.assertTrue(frame.getDimensions(joueur).equals(new Vector(50 + 2 * i, 100 + 2 * i)));
         }
     }
 
@@ -150,7 +149,7 @@ public class TestStrategy
     public void testClearUnplacedGameObjects() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
         String placedPlayerId = strat.addPlayer(null);
-        strat.placeGameObject(placedPlayerId, new Vector(), 0, new Vector());
+        strat.placeGameObject(placedPlayerId, new Vector(), 0);
         String unPlacedPlayerId = strat.addPlayer(null);
 
         //les trois appels devraient fonctionner
@@ -171,10 +170,8 @@ public class TestStrategy
     {
         String gloriousPuckId = this.strat.addProjectile();
         Projectile gloriousPuck = (Projectile)this.strat.getGameObjectByUUID(gloriousPuckId);
-        GameObjectState gos = new GameObjectState(new Vector(), 0, gloriousPuck.getDefaultDimensions());
-        strat.getCurrentFrame().addGameObject(gloriousPuck, gos);
-        Vector expected = new Vector(8, 8);
-        Vector actual = this.strat.getCurrentFrame().getDimensions(gloriousPuck);
-        Assert.assertTrue(actual.equals(expected));
+        String expected = "puck";
+        String actual = gloriousPuck.getName();
+        Assert.assertTrue(expected.endsWith(actual));
     }
 }

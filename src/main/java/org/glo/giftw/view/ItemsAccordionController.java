@@ -7,10 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -35,6 +39,9 @@ public class ItemsAccordionController
 {
     @FXML
     private Accordion rootAccordion;
+    
+    @FXML
+    private TitledPane teamsTitledPane;
 
     @FXML
     private TableView<Team> teamsTableView;
@@ -79,6 +86,8 @@ public class ItemsAccordionController
     @FXML
     public void initialize() throws IOException
     {	
+    	rootAccordion.setExpandedPane(teamsTitledPane);
+    	
     	initObstacleTable();
         initTeamTable();
         initProjectileTable();
@@ -137,7 +146,7 @@ public class ItemsAccordionController
                     try
                     {
                         uuid = Controller.getInstance().addPlayer(selected.getName());
-                        ViewablePlayer viewablePlayer = new ViewablePlayer(uuid);
+                        ViewablePlayer viewablePlayer = new ViewablePlayer(uuid, false, false);
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewablePlayer);
                         db.setDragView(viewablePlayer.getImage());
                         content.putString(uuid);
@@ -146,7 +155,13 @@ public class ItemsAccordionController
                     }
                     catch (MaxNumberException err)
                     {
-                        //FIXME: afficher un pop-up pour indiquer que le nombre max de joueur a ete place
+                    	Alert alert = new Alert(AlertType.WARNING);
+                    	alert.setTitle("Avertissement");
+                    	alert.setHeaderText("Avertissement");
+                    	alert.setContentText("Le nombre de joueurs maximum dans l'equipe est atteint!");
+                    	DialogPane dialogPane = alert.getDialogPane();
+                    	dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
+                    	alert.showAndWait();
                     }
                     catch (TeamNotFound err)
                     {

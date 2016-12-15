@@ -3,6 +3,7 @@ package org.glo.giftw.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
@@ -345,7 +346,7 @@ public class RootLayoutController
         }
         return defaultToolBarController;
     }
-
+    
     public GeneralPropertiesPaneController getGeneralPropertiesPaneController() throws IOException
     {
         if (generalPropertiesPaneController == null)
@@ -497,13 +498,11 @@ public class RootLayoutController
 
     public PlayerPropertiesPaneController getPlayerPropertiesPaneController() throws IOException
     {
-        if (playerPropertiesPaneController == null)
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_PROPERTIES_PANE_PATH.toString()));
-            loader.load();
-            this.playerPropertiesPaneController = loader.getController();
-        }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_PROPERTIES_PANE_PATH.toString()));
+        loader.load();
+        this.playerPropertiesPaneController = loader.getController();
+        
         return playerPropertiesPaneController;
     }
 
@@ -523,4 +522,9 @@ public class RootLayoutController
     {
         return borderPane;
     }
+
+	public void setRightPane(Accordion rightMenu)
+	{
+		borderPane.setRight(rightMenu);
+	}
 }

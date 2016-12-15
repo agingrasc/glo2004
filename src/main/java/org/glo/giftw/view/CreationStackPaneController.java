@@ -32,6 +32,10 @@ public class CreationStackPaneController
     private FrameView currentPane;
     private boolean ctrlPressed = false;
     private Vector ratioPixelToUnit;
+    private ImageView fieldBackground;
+    private boolean displayNames;
+    private boolean displayRoles;
+    private String selectedUUID;
 
     @FXML
     void onMouseMoved(MouseEvent event) throws IOException
@@ -43,6 +47,8 @@ public class CreationStackPaneController
 
     public void init()
     {
+    	displayNames = false;
+    	displayRoles = false;
         addEventFilter();
         setFieldAsBackground();
         computeAndSetPixelToUnitRatio();
@@ -82,7 +88,7 @@ public class CreationStackPaneController
     {
         File file = new File(Controller.getInstance().getSportFieldImagePath());
         Image sportFieldImage = new Image(file.toURI().toString());
-        ImageView fieldBackground = new ImageView(sportFieldImage);
+        fieldBackground = new ImageView(sportFieldImage);
         fieldBackground.setPreserveRatio(true);
         fieldBackground.setFitHeight(this.scrollPane.getViewportBounds().getHeight());
         fieldBackground.setFitWidth(this.scrollPane.getViewportBounds().getWidth());
@@ -126,7 +132,7 @@ public class CreationStackPaneController
         pane.clearPane();
         for (GameObject gameObject : gameObjectSet)
         {
-            ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject);
+        	ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject, displayNames, displayRoles);
             pane.addViewableToHashMap(gameObject.getId(), obj);
             pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
         }
@@ -171,4 +177,26 @@ public class CreationStackPaneController
     {
         return this.scrollPane;
     }
+
+	public void setDisplayNames(boolean displayNames)
+	{
+		this.displayNames = displayNames;
+		displayStrategy();
+	}
+
+	public void setDisplayRoles(boolean displayRoles)
+	{
+		this.displayRoles = displayRoles;
+		displayStrategy();
+	}
+
+	public String getSelectedUUID()
+	{
+		return selectedUUID;
+	}
+
+	public void setSelectedUUID(String selectedUUID)
+	{
+		this.selectedUUID = selectedUUID;
+	}
 }
