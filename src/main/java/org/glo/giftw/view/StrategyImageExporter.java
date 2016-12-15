@@ -4,13 +4,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.glo.giftw.domain.strategy.Frame;
-import org.glo.giftw.domain.strategy.GameObject;
-import org.glo.giftw.domain.strategy.Strategy;
+import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.view.edit.ViewableGameObject;
 import org.glo.giftw.view.edit.ViewablePlayer;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,9 +40,9 @@ public class StrategyImageExporter extends ImageView {
         this.setImage(gcDraw.getCurrentDrawnState());
     }
 
-    public void tracePlayerMovement(ViewablePlayer player)
+    public void tracePlayerMovement(Player player)
     {
-
+        String uuid = player.getId();
     }
 
     public void traceProjectileMovement(ViewableGameObject projectile)
@@ -55,18 +55,24 @@ public class StrategyImageExporter extends ImageView {
         Image image = gameObject.getImage();
         gcDraw.drawImage(gc, image, image.getWidth(), image.getHeight());
     }
-    
+
     public void drawFirstFrame()
     {
 
         Frame firstFrame = strategy.getFrame(0);
         Set<GameObject> gameObjectSet = firstFrame.getGameObjects();
-        for(int i =0; i<gameObjectSet.size(); i++)
+        Collection<Team> teamCollection = strategy.getTeams();
+        for(int i = 0; i<teamCollection.size(); i++)
         {
-            // get game objects in frame
-            ViewableGameObject vgo;
-            drawGameObject(vgo);
 
+            List<Player> players = strategy.getTeamPlayers();
+            for(int i =0; i<gameObjectSet.size(); i++)
+            {
+                // get game objects in frame
+                ViewableGameObject vgo;
+                //drawGameObject(vgo);
+
+            }
         }
     }
 
