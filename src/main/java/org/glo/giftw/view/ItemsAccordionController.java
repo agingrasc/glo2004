@@ -146,7 +146,7 @@ public class ItemsAccordionController
                     try
                     {
                         uuid = Controller.getInstance().addPlayer(selected.getName());
-                        ViewablePlayer viewablePlayer = new ViewablePlayer(uuid, false, false);
+                        ViewablePlayer viewablePlayer = new ViewablePlayer(uuid, false, false, false);
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewablePlayer);
                         db.setDragView(viewablePlayer.getImage());
                         content.putString(uuid);

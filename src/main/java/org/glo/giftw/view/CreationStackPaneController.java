@@ -132,7 +132,16 @@ public class CreationStackPaneController
         pane.clearPane();
         for (GameObject gameObject : gameObjectSet)
         {
-        	ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject, displayNames, displayRoles);
+        	boolean selected = false;
+        	if(selectedUUID != null)
+        	{
+	        	if(selectedUUID.equals(gameObject.getId()))
+	        	{
+	        		selected = true;
+	        	}
+        	}
+        	
+        	ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject, displayNames, displayRoles, selected);
             pane.addViewableToHashMap(gameObject.getId(), obj);
             pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
         }

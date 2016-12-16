@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,7 +14,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
@@ -29,13 +30,15 @@ public class ViewablePlayer extends ViewableGameObject
 {
     private boolean isDisplayName;
     private boolean isDisplayRole;
+    private boolean isSelected;
 
-    public ViewablePlayer(String uuid, boolean isDisplayName, boolean isDisplayRole)
+    public ViewablePlayer(String uuid, boolean isDisplayName, boolean isDisplayRole, boolean isSelected)
     {
         super();
         this.uuid = uuid;
         this.isDisplayName = isDisplayName;
         this.isDisplayRole = isDisplayRole;
+        this.isSelected = isSelected;
         this.constructNode();
     }
 
@@ -52,11 +55,22 @@ public class ViewablePlayer extends ViewableGameObject
         }
     }
 
-    private Circle getPlayerImg(Player player)
+    private Canvas getPlayerImg(Player player)
     {
         Color teamColor = getTeamColor(player);
         Vector dimensions = Controller.getInstance().getDimensions(player);
-        return new Circle(dimensions.getX()/2, teamColor);
+        //TODO le joueur n'a pas d'orientation avant d'etre placé, nullPointerException
+        //float orientation = Controller.getInstance().getOrientation(player);
+        Canvas canvas = new Canvas(dimensions.getX(), dimensions.getY());
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(teamColor);
+    	gc.fillOval(0, 0, dimensions.getX(), dimensions.getY());
+        gc.setFill(Color.BLACK);
+        double[] xCoord = {dimensions.getX(), 0.7 * dimensions.getX(), 0.7 * dimensions.getX()}; 
+        double[] yCoord = {dimensions.getY()/2, 0.3 * dimensions.getY(), 0.7 * dimensions.getX()}; 
+        gc.fillPolygon(xCoord, yCoord, 3);
+        //gc.rotate(orientation);
+        return canvas;
     }
 
     private Color getTeamColor(Player player)
@@ -70,14 +84,21 @@ public class ViewablePlayer extends ViewableGameObject
     protected Node constructNode()
     {
         Player player = getPlayer();
-        Circle playerImg = getPlayerImg(player);
+        Canvas playerImg = getPlayerImg(player);
         Label name = new Label(player.getName());
         Label role = new Label(player.getRole());
 
         node = new VBox();
         ((VBox)node).setAlignment(Pos.CENTER);
         //node.setBackground(Background.EMPTY);
-        node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+        if(isSelected)
+    	{
+        	node.setStyle("-fx-background-color: gray");
+    	}
+        else
+        {
+        	node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+        }
 
         name.setVisible(isDisplayName);
         ((VBox)node).getChildren().add(name);
@@ -97,7 +118,7 @@ public class ViewablePlayer extends ViewableGameObject
     {
         return this.getSnapshot();
     }
-
+    
     private Image getSnapshot()
     {
         if (this.node.getParent() == null && this.node.getScene() == null)
@@ -130,6 +151,7 @@ public class ViewablePlayer extends ViewableGameObject
             	try
 				{
 					RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(uuid);
+					RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
 				} catch (IOException e1)
 				{
 					e1.printStackTrace();
@@ -144,6 +166,7 @@ public class ViewablePlayer extends ViewableGameObject
 					e.printStackTrace();
 				}
                 RootLayoutController.getInstance().setRightPane(rightMenu);
+                
                 me.consume();
             }
         });

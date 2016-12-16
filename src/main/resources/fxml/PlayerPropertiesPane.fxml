@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -28,6 +29,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <ColorPicker fx:id="teamColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -36,7 +38,9 @@
                                 <Label text="Nom:" GridPane.rowIndex="1" />
                                 <ComboBox fx:id="roleComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
                                 <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button mnemonicParsing="false" onAction="#onAction" text="Appliquer" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" onAction="#onAction" text="Appliquer" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <Slider fx:id="orientationSlider" max="360.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Orientation:" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
                     </children>

@@ -82,6 +82,7 @@ public class FrameView extends Pane
         try
         {
             this.getChildren().add(node);
+            System.out.println(node.getScene());
         }
         catch (Exception e)
         {
@@ -106,11 +107,12 @@ public class FrameView extends Pane
         {
             public void handle(MouseEvent me)
             {
-            	System.out.println("mouse clicked in frame");
             	Accordion rightMenu = null;
 				try
 				{
 					rightMenu = RootLayoutController.getInstance().getGeneralPropertiesPaneController().getRootAccordion();
+					RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(null);
+					RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
 				} catch (IOException e)
 				{
 					e.printStackTrace();
