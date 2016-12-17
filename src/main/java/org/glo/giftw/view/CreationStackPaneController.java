@@ -1,5 +1,6 @@
 package org.glo.giftw.view;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -15,6 +16,7 @@ import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Frame;
 import org.glo.giftw.domain.strategy.GameObject;
+import org.glo.giftw.domain.strategy.Strategy;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 import org.glo.giftw.view.edit.ViewableGameObjectBuilder;
@@ -24,7 +26,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
-public class CreationStackPaneController
+public class CreationStackPaneController extends AnimationTimer
 {
     @FXML
     private StackPane stackPane;
@@ -38,18 +40,54 @@ public class CreationStackPaneController
     private boolean displayNames;
     private boolean displayRoles;
     private String selectedUUID;
-    private EditionMode mode;
+    public EditionMode mode;
+    private long lastTimeStamp;
+    private Vector currentMousePosition;
+
+    @Override
+    public void handle(long timestamp)
+    {
+        long delta_t = timestamp - lastTimeStamp;
+
+        long fpsInNano = 1000^3 / Strategy.FRAME_PER_SECOND;
+        if (delta_t >= fpsInNano)
+        {
+            this.lastTimeStamp = timestamp;
+            String uuid = this.getSelectedUUID();
+            try
+            {
+                Controller.getInstance().placeGameObject(uuid, this.currentMousePosition);
+            }
+            catch (GameObjectNotFound gameObjectNotFound)
+            {
+                gameObjectNotFound.printStackTrace();
+            }
+
+            if (Controller.getInstance().isLastFrame())
+            {
+                Controller.getInstance().createNewFrame();
+            }
+            else
+            {
+                Controller.getInstance().nextFrame();
+            }
+            this.resetDisplay();
+            this.displayStrategy();
+        }
+    }
 
     @FXML
     void onMouseMoved(MouseEvent event) throws IOException
     {
         BottomToolBarController bottomToolBarController = RootLayoutController.getInstance().getBottomToolBarController();
         Vector adjCoord = new Vector(event.getX(), event.getY());
+        this.currentMousePosition = adjCoord;
         bottomToolBarController.updateCoordinate(adjCoord, this.ratioPixelToUnit);
     }
 
     public void init(EditionMode mode)
     {
+        this.lastTimeStamp = 0;
         this.mode = mode;
         displayNames = false;
         displayRoles = false;

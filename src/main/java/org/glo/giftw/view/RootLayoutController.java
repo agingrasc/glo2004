@@ -137,6 +137,8 @@ public class RootLayoutController
         borderPane.setCenter(getCreationStackPaneController().getScrollPane());
         borderPane.setBottom(getBottomToolBarController().getRootToolBar());
         borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
+        borderPane.applyCss();
+        borderPane.layout();
         this.getCreationStackPaneController().init(EditionMode.REAL_TIME);
     }
 

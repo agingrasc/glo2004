@@ -44,6 +44,14 @@ public class FrameView extends Pane
 
     public void onDragDropped(DragEvent event)
     {
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().stop();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString())
