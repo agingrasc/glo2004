@@ -49,10 +49,15 @@ public class StrategyImageExporter {
 
     public Image getImage(){ return gcDraw.getCurrentDrawnState(); }
 
-    private void initListFrames() {
+    private void setAtFirstFrame()
+    {
         while (!controller.isFirstFrame()) {
             controller.previousFrame();
         }
+    }
+
+    private void initListFrames() {
+        setAtFirstFrame();
         while (!controller.isLastFrame()) {
             frames.add(controller.getCurrentFrame());
             controller.nextFrame();
@@ -133,18 +138,19 @@ public class StrategyImageExporter {
     }
 
     private void drawObjects() {
-        Frame firstFrame = frames.get(0);
         // get game objects in frame
+        setAtFirstFrame();
 
-        for (GameObject gameObject : firstFrame.getGameObjects()) {
-            if (gameObject.getClass().isInstance(Player.class)) {
+        for (GameObject gameObject : controller.getGameObjects()) {
+            if (gameObject instanceof Player) {
                 tracePlayerMovement(gameObject);
-                drawPlayer(gameObject, frames.get(0).getPosition(gameObject));
-                drawPlayer(gameObject, frames.get(frames.size()).getPosition(gameObject));
+                drawPlayer(gameObject, controller.getPosition(gameObject));
+                setAtFirstFrame();
+                drawPlayer(gameObject, controller.getPosition(gameObject));
             }
         }
 
-        Projectile projectile = controller.getProjectile();
+        /*Projectile projectile = controller.getProjectile();
         traceProjectileMovement(projectile);
         drawGameObject(projectile, projectile.getImagePath(), projectile.getDimensions());
 
@@ -153,7 +159,7 @@ public class StrategyImageExporter {
             Vector size = obstacle.getDimensions();
 
             drawGameObject(obstacle, filePath, size);
-        }
+        }*/
 
         gcDraw.saveLastDrawnState(gc);
     }
