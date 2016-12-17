@@ -205,6 +205,20 @@ public class Controller
         this.currentStrategy.removeTeam(teamName);
     }
 
+    public void dropProjectile(String playerUuid)
+    {
+        Player player = null;
+        try
+        {
+            player = (Player) this.getGameObjectByUUID(playerUuid);
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
+        player.dropProjectile();
+    }
+
     public String getTeamColour(String teamName)
     {
         return this.currentStrategy.getTeamColour(teamName);
