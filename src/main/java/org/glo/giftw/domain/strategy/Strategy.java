@@ -518,7 +518,7 @@ public class Strategy implements Serializable, TreeViewable
 
     public void takeProjectile(GameObject player)
     {
-        Set<GameObject> gameObjectsInCollision = this.frames.get(this.currentFrameIdx).detectCollisions(player);
+        Set<GameObject> gameObjectsInCollision = this.frames.get(this.currentFrameIdx).detectCollisionsIgnoreCollidable(player);
         for (GameObject gameObject: gameObjectsInCollision)
         {
             if (gameObject instanceof Projectile)

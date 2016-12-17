@@ -93,6 +93,7 @@ public class Player extends GameObject implements Serializable
 
     public void dropProjectile()
     {
+        this.projectile.setController(null);
         this.projectile = null;
     }
 

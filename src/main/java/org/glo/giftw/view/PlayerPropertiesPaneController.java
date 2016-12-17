@@ -96,8 +96,25 @@ public class PlayerPropertiesPaneController
     }
     
     @FXML
-    void onTakeProjectile(ActionEvent event) 
+    void onTakeProjectile(ActionEvent event)
     {
+        String selectedUUID = null;
+        try
+        {
+            selectedUUID = RootLayoutController.getInstance().getCreationStackPaneController().getSelectedUUID();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        if (this.takeProjectileCheckBox.isSelected())
+        {
+            Controller.getInstance().takeProjectile(selectedUUID);
+        }
+        else
+        {
+            Controller.getInstance().dropProjectile(selectedUUID);
+        }
     	
     }
 

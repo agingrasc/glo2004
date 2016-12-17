@@ -93,8 +93,9 @@ public class GameObjectState implements Serializable
      */
     public boolean detectCollision(GameObjectState other)
     {
-        double dx = Math.abs(other.position.getX() - this.position.getX());
-        double dy = Math.abs(other.position.getY() - this.position.getY());
+        Vector adjPosition = new Vector(this.position.getX() + this.dimensions.getX()/2, this.position.getY() + this.dimensions.getY()/2);
+        double dx = Math.abs(other.position.getX() - adjPosition.getX());
+        double dy = Math.abs(other.position.getY() - adjPosition.getY());
         return dx < (this.dimensions.getX() + other.dimensions.getX()) / 2 && dy < (this.dimensions.getY() + other.dimensions.getY()) / 2;
     }
 

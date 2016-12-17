@@ -207,6 +207,10 @@ public class Controller
 
     public void dropProjectile(String playerUuid)
     {
+        if (playerUuid == null)
+        {
+            return;
+        }
         Player player = null;
         try
         {
@@ -470,6 +474,10 @@ public class Controller
 
     public void takeProjectile(String playerUuid)
     {
+        if (playerUuid == null)
+        {
+            return;
+        }
         try
         {
             this.currentStrategy.takeProjectile(getGameObjectByUUID(playerUuid));
