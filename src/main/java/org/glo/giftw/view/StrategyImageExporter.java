@@ -10,20 +10,16 @@ import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
 
-import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by alexandra on 12/6/16.
  */
 public class StrategyImageExporter extends ImageView {
-    private List<Frame> frames;
+    private ArrayList<Frame> frames;
     private Vector dimensions;
 
     private Controller controller;
-
-    private ImageFileController imageFileController;
-    private File fileName;
 
     private Canvas content;
     private GraphicsContext gc;
@@ -33,6 +29,7 @@ public class StrategyImageExporter extends ImageView {
         controller = Controller.getInstance();
         dimensions = controller.getFieldDimensions();
 
+        frames = new ArrayList<>();
         initListFrames();
 
         content = new Canvas(dimensions.getX(), dimensions.getY());
@@ -43,6 +40,8 @@ public class StrategyImageExporter extends ImageView {
         gcDraw.drawImage(gc, new Image(fieldPath));
 
         drawObjects();
+
+        this.setImage(gcDraw.getCurrentDrawnState());
     }
 
     private void initListFrames() {
@@ -56,13 +55,13 @@ public class StrategyImageExporter extends ImageView {
         frames.add(controller.getCurrentFrame());
     }
 
-    protected void drawGameObject(GameObject gameObject, String filePath, Vector size) {
+    private void drawGameObject(GameObject gameObject, String filePath, Vector size) {
         Vector position = controller.getPosition(gameObject);
 
         gcDraw.drawImage(gc, new Image(filePath), position.getX(), position.getY(), size.getX(), size.getY());
     }
 
-    public void tracePlayerMovement(GameObject player) {
+    private void tracePlayerMovement(GameObject player) {
         gcDraw.setStrokeLineSize(gc, 5);
         Frame frame = frames.get(0);
         Vector prevPosition = frame.getPosition(player);
@@ -82,7 +81,7 @@ public class StrategyImageExporter extends ImageView {
 
     }
 
-    public void traceProjectileMovement(GameObject projectile) {
+    private void traceProjectileMovement(GameObject projectile) {
         gcDraw.setStrokeLineSize(gc, 5);
         gcDraw.setStrokeLineStyle(gc, true);
         Frame frame = frames.get(0);
@@ -103,7 +102,7 @@ public class StrategyImageExporter extends ImageView {
         gcDraw.setStrokeLineStyle(gc, false);
     }
 
-    public void drawPlayer(GameObject player, Vector position) {
+    private void drawPlayer(GameObject player, Vector position) {
         String team = controller.getPlayerTeam(player);
 
         Color color = Color.web(controller.getTeamColour(team));
@@ -119,7 +118,7 @@ public class StrategyImageExporter extends ImageView {
         gcDraw.setDrawColor(gc, Color.BLACK);
     }
 
-    public void drawPlayerHasBall(GameObject player, Vector position) {
+    private void drawPlayerHasBall(GameObject player, Vector position) {
         drawPlayer(player, position);
         gcDraw.setDrawColor(gc, Color.YELLOW);
 
@@ -127,7 +126,7 @@ public class StrategyImageExporter extends ImageView {
         gc.strokeOval(position.getX(), position.getY(), size.getX(), size.getY());
     }
 
-    public void drawObjects() {
+    private void drawObjects() {
         Frame firstFrame = frames.get(0);
         // get game objects in frame
 
@@ -149,10 +148,9 @@ public class StrategyImageExporter extends ImageView {
 
             drawGameObject(obstacle, filePath, size);
         }
+
+        gcDraw.saveLastDrawnState(gc);
     }
 
-    public void exportStratAsImage() {
-        this.setImage(gcDraw.getCurrentDrawnState());
-    }
 }
 
