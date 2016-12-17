@@ -45,6 +45,24 @@ public class Strategy implements Serializable, TreeViewable
         this.checkMaxNumberPlayer = checkMaxNumberPlayer;
         this.checkMaxNumberTeam = checkMaxNumberTeam;
     }
+    
+    public Strategy(Strategy strategy)
+    {
+        this.name = strategy.name;
+        this.sport = strategy.sport;
+        this.currentFrameIdx = strategy.currentFrameIdx;
+        this.teams = new HashMap<>();
+        strategy.teams.forEach((name, team) -> this.teams.put(name, new Team(team)));
+        this.gameObjects = new HashSet<>();
+        for (GameObject gameObject : strategy.gameObjects)
+        {
+            this.gameObjects.add(gameObject.copy());
+        }
+        this.frames = new ArrayList<>();
+        strategy.frames.forEach(frame -> this.frames.add(new Frame(frame)));
+        this.checkMaxNumberPlayer = strategy.checkMaxNumberPlayer;
+        this.checkMaxNumberTeam = strategy.checkMaxNumberTeam;
+    }
 
 
     /*

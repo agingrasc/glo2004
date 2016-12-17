@@ -33,6 +33,19 @@ public class Team implements Serializable
         this(name, colour, maxNumberOfPlayers, checkMaxNumberOfPlayers);
         this.players = new HashSet<>(players);
     }
+    
+    public Team(Team team)
+    {
+        this.name = team.name;
+        this.colour = team.colour;
+        this.players = new HashSet<>();
+        for (Player player : team.players)
+        {
+            this.players.add(new Player(player));
+        }
+        this.maxNumberOfPlayers = team.maxNumberOfPlayers;
+        this.checkMaxNumberOfPlayers = team.checkMaxNumberOfPlayers;
+    }
 
     public String getName()
     {
