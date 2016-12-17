@@ -38,6 +38,7 @@ public class CreationStackPaneController
     private boolean displayNames;
     private boolean displayRoles;
     private String selectedUUID;
+    private EditionMode mode;
 
     @FXML
     void onMouseMoved(MouseEvent event) throws IOException
@@ -47,8 +48,9 @@ public class CreationStackPaneController
         bottomToolBarController.updateCoordinate(adjCoord, this.ratioPixelToUnit);
     }
 
-    public void init()
+    public void init(EditionMode mode)
     {
+        this.mode = mode;
         displayNames = false;
         displayRoles = false;
         addEventFilter();
@@ -119,7 +121,7 @@ public class CreationStackPaneController
     public void displayStrategy()
     {
         placeGameObjectInPane(currentPane);
-        if (!Controller.getInstance().isFirstFrame())
+        if (!Controller.getInstance().isFirstFrame() && (this.mode == EditionMode.IMAGE || this.mode == EditionMode.REAL_TIME))
         {
             Controller.getInstance().previousKeyFrame();
             placeGameObjectInPane(previousPane);
@@ -253,4 +255,5 @@ public class CreationStackPaneController
     {
         this.selectedUUID = selectedUUID;
     }
+
 }
