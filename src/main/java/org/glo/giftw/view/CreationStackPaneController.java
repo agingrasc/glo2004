@@ -132,8 +132,13 @@ public class CreationStackPaneController extends AnimationTimer
     private void setFieldAsBackground()
     {
         File file = new File(Controller.getInstance().getSportFieldImagePath());
-        Image sportFieldImage = new Image(file.toURI().toString());
-        fieldBackground = new ImageView(sportFieldImage);
+        Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
+        double wantedRatio = fieldDimensions.getX()/fieldDimensions.getY();
+        Image originalSportFieldImage = new Image(file.toURI().toString());
+        double width = originalSportFieldImage.getWidth();
+        double height = width/wantedRatio;
+        Image newSportFieldImage = new Image(file.toURI().toString(), width, height, false, true);
+        fieldBackground = new ImageView(newSportFieldImage);
         fieldBackground.setPreserveRatio(true);
         fieldBackground.setFitHeight(this.scrollPane.getViewportBounds().getHeight());
         fieldBackground.setFitWidth(this.scrollPane.getViewportBounds().getWidth());
@@ -145,6 +150,10 @@ public class CreationStackPaneController extends AnimationTimer
         Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
         double adjustedWidth = stackPane.getWidth();
         double adjustedHeight = stackPane.getHeight();
+        System.out.println(adjustedHeight);
+        System.out.println(adjustedWidth);
+        System.out.println(fieldDimensions.getY());
+        System.out.println(fieldDimensions.getX());
         this.ratioPixelToUnit = new Vector(adjustedWidth / fieldDimensions.getX(),
                                            adjustedHeight / fieldDimensions.getY());
         Controller.getInstance().setPixelToUnitRatio(this.ratioPixelToUnit);

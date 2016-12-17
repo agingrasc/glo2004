@@ -204,6 +204,7 @@ public class Controller
 
     public void setPixelToUnitRatio(Vector ratio)
     {
+    	System.out.println(ratio);
         this.currentStrategy.setPixelToUnitRatio(ratio);
     }
 
