@@ -114,7 +114,6 @@ public class ItemsAccordionController
 						Controller.getInstance().placeGameObject(uuid, new Vector(-1, -1), -1);
 					} catch (GameObjectNotFound e1)
 					{
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid, true);
@@ -125,7 +124,6 @@ public class ItemsAccordionController
                     }
                     catch (IOException e)
                     {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     db.setDragView(viewableGameObject.getImage());
@@ -159,7 +157,6 @@ public class ItemsAccordionController
     						Controller.getInstance().placeGameObject(uuid, new Vector(-1, -1), -1);
     					} catch (GameObjectNotFound e1)
     					{
-    						// TODO Auto-generated catch block
     						e1.printStackTrace();
     					}
                         ViewablePlayer viewablePlayer = new ViewablePlayer(uuid, false, false, false);
@@ -187,7 +184,6 @@ public class ItemsAccordionController
                     }
                     catch (IOException e)
                     {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
@@ -207,7 +203,6 @@ public class ItemsAccordionController
                 {
                     Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
-                    //FIXME: dimension
                     String uuid = Controller.getInstance().addProjectile();
                     try
 					{
@@ -215,7 +210,6 @@ public class ItemsAccordionController
 						Controller.getInstance().placeGameObject(uuid, new Vector(-1, -1), -1);
 					} catch (GameObjectNotFound e1)
 					{
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid, true);
@@ -226,7 +220,6 @@ public class ItemsAccordionController
                     }
                     catch (IOException e)
                     {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     db.setDragView(viewableGameObject.getImage());

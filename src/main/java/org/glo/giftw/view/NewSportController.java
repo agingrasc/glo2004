@@ -64,7 +64,6 @@ public class NewSportController
     @FXML
     public void initialize()
     {
-        System.out.println("initializeNewSport");
         initSpinners(0, 0);
     }
 
@@ -80,8 +79,6 @@ public class NewSportController
     @FXML
     void onActionDraw(ActionEvent event) throws IOException
     {
-        System.out.println("onActionDraw");
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
         loader.load();
@@ -90,7 +87,6 @@ public class NewSportController
 
         if (fieldImage.getImage() != null)
         {
-            System.out.println("Il y avait une image!");
             fieldEditorController.initImage(fieldImage.getImage());
         }
 
@@ -104,7 +100,6 @@ public class NewSportController
     @FXML
     void onActionBrowseField(ActionEvent event)
     {
-        System.out.println("onActionBrowseField");
         Window parentWindow = rootDialogPane.getScene().getWindow();
         ImageFileController imageFileController = new ImageFileController();
 
@@ -116,7 +111,6 @@ public class NewSportController
     @FXML
     void onActionBrowseProjectile(ActionEvent event)
     {
-        System.out.println("onActionBrowseProjectile");
         Window parentWindow = rootDialogPane.getScene().getWindow();
         ImageFileController imageFileController = new ImageFileController();
 

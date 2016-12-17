@@ -150,10 +150,6 @@ public class CreationStackPaneController extends AnimationTimer
         Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
         double adjustedWidth = stackPane.getWidth();
         double adjustedHeight = stackPane.getHeight();
-        System.out.println(adjustedHeight);
-        System.out.println(adjustedWidth);
-        System.out.println(fieldDimensions.getY());
-        System.out.println(fieldDimensions.getX());
         this.ratioPixelToUnit = new Vector(adjustedWidth / fieldDimensions.getX(),
                                            adjustedHeight / fieldDimensions.getY());
         Controller.getInstance().setPixelToUnitRatio(this.ratioPixelToUnit);
@@ -314,17 +310,9 @@ public class CreationStackPaneController extends AnimationTimer
 
 	public void delete()
 	{
-		GameObject obj;
-		try
-		{
-			obj = Controller.getInstance().getGameObjectByUUID(selectedUUID);
-		} catch (GameObjectNotFound e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Controller.getInstance().
-		
+		Controller.getInstance().deleteGameObject(selectedUUID);
+		resetDisplay();
+		displayStrategy();
 	}
 
 }
