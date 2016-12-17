@@ -101,7 +101,6 @@ public class Controller
      * @param name              Le nom de l'obstacle.
      * @param isCollidable      Un booléen indiquant si l'obstacle génère des collisions.
      * @param imagePath         Le chemin vers l'image associé à l'obstacle.
-     * @param defaultDimensions Les dimensions standards de ce type d'obstacle.
      */
     public void createObstacle(String name, boolean isCollidable, String imagePath, int obstacleWidth,
                                int obstacleHeight)
@@ -227,6 +226,15 @@ public class Controller
         return this.currentStrategy.getFieldCoordinate(adjustedCoordinate);
     }
 
+    public List<Frame> getFrames()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getFrames();
+        }
+        return null;
+    }
+
     public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
     {
         return this.currentStrategy.getGameObjectByUUID(uuid);
@@ -295,6 +303,15 @@ public class Controller
         {
             return null;
         }
+    }
+
+    public List<String> getStrategyRoles()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getSport().getRoles();
+        }
+        return null;
     }
 
     public Collection<Strategy> getStrategies()
