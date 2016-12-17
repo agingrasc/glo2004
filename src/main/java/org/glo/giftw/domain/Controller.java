@@ -256,13 +256,13 @@ public class Controller
 
     public void placeGameObject(String gameObjectUuid, Vector position) throws GameObjectNotFound
     {
-        float orientation = this.getCurrentFrame().getOrientation(this.getGameObjectByUUID(gameObjectUuid));
+        float orientation = this.getOrientation(this.getGameObjectByUUID(gameObjectUuid));
         this.placeGameObject(gameObjectUuid, position, orientation);
     }
 
     public void placeGameObject(String gameObjectUuid, float orientation) throws GameObjectNotFound
     {
-        Vector position = this.getCurrentFrame().getPosition(this.getGameObjectByUUID(gameObjectUuid));
+        Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
         this.placeGameObject(gameObjectUuid, position, orientation);
     }
 
