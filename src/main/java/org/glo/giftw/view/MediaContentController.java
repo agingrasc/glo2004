@@ -1,6 +1,5 @@
 package org.glo.giftw.view;
 
-import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,39 +14,14 @@ import org.glo.giftw.domain.util.Vector;
 import java.io.File;
 import java.util.Collection;
 
-public class MediaContentController extends AnimationTimer
+public class MediaContentController
 {
 
-    private final static long FPS = 1000 * 1000 * 1000 / 30; //en nanoseconde
 
     @FXML
     private Pane field;
 
-    private long lastTimeStamp;
-
     private Vector ratioPixelToUnit;
-
-    @Override
-    /**
-     * Main loop pour la visualisation
-     * @param long timestamp temps systeme au moment de l'appel en nanoseconde
-     */
-    public void handle(long timestamp)
-    {
-        long delta_t = timestamp - this.lastTimeStamp;
-        this.lastTimeStamp = timestamp;
-        boolean isLastFrame = Controller.getInstance().isLastFrame();
-
-        if (delta_t >= FPS && !isLastFrame)
-        {
-            //actual stuff
-            System.out.println("FUBAR: " + timestamp);
-            this.field.getChildren().clear();
-
-            Frame frame = Controller.getInstance().nextFrame();
-            this.displayFrame(frame);
-        }
-    }
 
     public void displayNewFrame()
     {

@@ -3,15 +3,16 @@ package org.glo.giftw.view.edit;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.domain.util.Viewable;
+import org.glo.giftw.view.EditionMode;
+import org.glo.giftw.view.RootLayoutController;
+
+import java.io.IOException;
 
 /**
  *
@@ -86,6 +87,17 @@ public class ViewableGameObject
 
     protected void onNodeDragDetected(MouseEvent event)
     {
+        try
+        {
+            if (RootLayoutController.getInstance().getCreationStackPaneController().mode == EditionMode.REAL_TIME)
+            {
+                RootLayoutController.getInstance().getCreationStackPaneController().start();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         Dragboard db = this.node.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
         db.setDragView(this.getImage());
