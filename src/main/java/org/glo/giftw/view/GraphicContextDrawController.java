@@ -1,10 +1,13 @@
 package org.glo.giftw.view;
 
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 
 import java.util.Stack;
 
@@ -109,6 +112,25 @@ public class GraphicContextDrawController {
         drawSize = newSize;
     }
 
+    public void setStrokeLineStyle(GraphicsContext gc, boolean isDotted)
+    {
+        if(isDotted) {
+            gc.setLineDashes(5);
+            gc.setLineDashOffset(3);
+        }
+        else {
+            gc.setLineDashes(null);
+            gc.setLineDashOffset(0);
+        }
+    }
+
+    public void drawText(GraphicsContext gc, double x, double y, double size, String content)
+    {
+        Font font = new Font(size);
+        gc.setFont(font);
+        gc.strokeText(content, x, y, size);
+    }
+
     public void drawWithPencil(GraphicsContext gc, double x, double y, double size)
     {
         gc.setFill(drawColor);
@@ -165,6 +187,44 @@ public class GraphicContextDrawController {
         gc.strokeLine(x1, y1, x2, y2);
     }
 
+    public void drawArrow(GraphicsContext gc, double x1, double y1, double x2, double y2)
+    {
+        gc.strokeLine(x1, y1, x2, y2);
+
+        double orientationInDegrees = Math.toDegrees(Math.atan2((x2-x1), (y2 - y1)));
+        drawArrowHead(gc, x2, y2, orientationInDegrees);
+    }
+
+    public void drawArrowHead(GraphicsContext gc, double x, double y, double orientationInDegrees)
+    {
+        Rotate rotate = new Rotate(orientationInDegrees, x, y);
+        double arrowHeadLength = 9;
+        double rad = Math.toRadians(30);
+        double[] arrow_x = new double[3];
+        double[] arrow_y = new double[3];
+
+        arrow_x[0] = x - arrowHeadLength*Math.cos(rad);
+        arrow_x[2] = arrow_x[0];
+
+        arrow_y[0] = y + arrowHeadLength*Math.sin(rad);
+        arrow_y[2] = y - arrowHeadLength*Math.sin(rad);
+
+        arrow_x[1] = x;
+        arrow_y[1] = y;
+
+        Point2D new0 = rotate.transform(arrow_x[0], arrow_y[0]);
+        Point2D new2 = rotate.transform(arrow_x[2], arrow_y[2]);
+
+        arrow_x[0] = new0.getX();
+        arrow_y[0] = new0.getY();
+
+        arrow_x[2] = new2.getX();
+        arrow_y[2] = new2.getY();
+
+        gc.strokePolyline(arrow_x, arrow_y, 3);
+    }
+
+
     public void drawImage(GraphicsContext gc, Image image)
     {
         Canvas canvas = gc.getCanvas();
@@ -174,5 +234,10 @@ public class GraphicContextDrawController {
     public void drawImage(GraphicsContext gc, Image image, double destW, double destH)
     {
         gc.drawImage(image, 0, 0,  image.getWidth(), image.getHeight(), 0, 0, destW, destH);
+    }
+
+    public void drawImage(GraphicsContext gc, Image image, double x, double y, double destW, double destH)
+    {
+        gc.drawImage(image, 0, 0,  image.getWidth(), image.getHeight(), x, y, destW, destH);
     }
 }
