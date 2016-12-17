@@ -44,7 +44,6 @@ public class CreationStackPaneController extends AnimationTimer
     private String selectedUUID;
     public EditionMode mode;
     private long lastTimeStamp;
-    private Vector currentMousePosition;
 
     @Override
     public void handle(long timestamp)
@@ -58,7 +57,7 @@ public class CreationStackPaneController extends AnimationTimer
             String uuid = this.getSelectedUUID();
             try
             {
-                Controller.getInstance().placeGameObject(uuid, this.currentMousePosition);
+                Controller.getInstance().placeGameObject(uuid, this.currentPane.getCurrentMousePosition());
             }
             catch (GameObjectNotFound gameObjectNotFound)
             {
@@ -83,7 +82,6 @@ public class CreationStackPaneController extends AnimationTimer
     {
         BottomToolBarController bottomToolBarController = RootLayoutController.getInstance().getBottomToolBarController();
         Vector adjCoord = new Vector(event.getX(), event.getY());
-        this.currentMousePosition = adjCoord;
         bottomToolBarController.updateCoordinate(adjCoord, this.ratioPixelToUnit);
     }
 
@@ -311,5 +309,12 @@ public class CreationStackPaneController extends AnimationTimer
     {
         this.selectedUUID = selectedUUID;
     }
+
+	public void delete()
+	{
+		Controller.getInstance().deleteGameObject(selectedUUID);
+		this.resetDisplay();
+		this.displayStrategy();
+	}
 
 }

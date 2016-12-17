@@ -153,6 +153,7 @@ public class NewSportController
     void onActionAddRole(ActionEvent event)
     {
         roles.getItems().add(addRole.getText());
+        roles.setValue(addRole.getText());
         addRole.setText(null);
     }
 

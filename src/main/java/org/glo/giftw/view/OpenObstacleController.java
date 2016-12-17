@@ -101,7 +101,12 @@ public class OpenObstacleController
         return rootVBox;
     }
 
-    public void updateTable()
+    public TableView<Obstacle> getTableView()
+	{
+		return tableView;
+	}
+
+	public void updateTable()
     {
         obstacles.clear();
         obstacles.addAll(Controller.getInstance().getObstacles());

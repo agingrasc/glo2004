@@ -13,6 +13,7 @@ import org.glo.giftw.domain.util.Vector;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Controller
 {
@@ -118,6 +119,18 @@ public class Controller
     public void deleteObstacle(String name)
     {
         this.obstaclePool.deleteObstacle(name);
+    }
+
+    public void deleteGameObject(String gameObjectUuid)
+    {
+        try
+        {
+            this.currentStrategy.deleteGameObject(this.getGameObjectByUUID(gameObjectUuid));
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
     }
 
     /**
@@ -236,6 +249,14 @@ public class Controller
         return null;
     }
 
+    public Set<GameObject> getGameObjects()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getGameObjects();
+        }
+        return null;
+    }
     public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
     {
         return this.currentStrategy.getGameObjectByUUID(uuid);
@@ -265,25 +286,6 @@ public class Controller
     {
         Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
         this.placeGameObject(gameObjectUuid, position, orientation);
-    }
-
-    /**
-     * Retire un GameObject de la stratégie et de toutes les frames, s'il est présent.
-     *
-     * @param gameObjectUuid Le uuid du GameObject.
-     */
-    public void removeGameObject(String gameObjectUuid)
-    {
-        try
-        {
-            GameObject goToRemove = this.currentStrategy.getGameObjectByUUID(gameObjectUuid);
-            this.currentStrategy.removeGameObject(goToRemove);
-
-        }
-        catch (GameObjectNotFound e)
-        {
-            //Le GameObject n'est pas présent dans la Frame, on ne fait rien!
-        }
     }
 
     /**

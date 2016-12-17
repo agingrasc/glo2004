@@ -17,39 +17,23 @@ public class ModeToolBarController
     @FXML
     void onActionImageByImage(ActionEvent event) throws IOException
     {
-        TreeViewable strategy = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
-        if (strategy != null)
+        String strategy = Controller.getInstance().getStrategyName();
+        if (strategy == null)
         {
-            try
-            {
-                Controller.getInstance().openStrategy(strategy.getDisplayName());
-            }
-            catch (StrategyNotFound e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            RootLayoutController.getInstance().imageByImage();
+            openStrategy();
         }
+        RootLayoutController.getInstance().imageByImage();
     }
 
     @FXML
     void onActionRealTime(ActionEvent event) throws IOException
     {
-        TreeViewable strategy = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
-        if (strategy != null)
+        String strategy = Controller.getInstance().getStrategyName();
+        if (strategy == null)
         {
-            try
-            {
-                Controller.getInstance().openStrategy(strategy.getDisplayName());
-            }
-            catch (StrategyNotFound e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            RootLayoutController.getInstance().realTime();
+            openStrategy();
         }
+        RootLayoutController.getInstance().realTime();
     }
 
     @FXML
@@ -58,19 +42,7 @@ public class ModeToolBarController
         String strategy = Controller.getInstance().getStrategyName();
         if (strategy == null)
         {
-            TreeViewable strategySelected = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
-            if (strategySelected != null)
-            {
-                try
-                {
-                    Controller.getInstance().openStrategy(strategySelected.getDisplayName());
-                }
-                catch (StrategyNotFound e)
-                {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
+            openStrategy();
         }
 
         RootLayoutController.getInstance().watch();
@@ -80,4 +52,22 @@ public class ModeToolBarController
     {
         return rootToolBar;
     }
+
+    private void openStrategy() throws IOException
+    {
+        TreeViewable strategy = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
+        if (strategy != null)
+        {
+            try
+            {
+                Controller.getInstance().openStrategy(strategy.getDisplayName());
+            }
+            catch (StrategyNotFound e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
