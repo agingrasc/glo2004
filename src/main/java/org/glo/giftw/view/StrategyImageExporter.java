@@ -84,21 +84,19 @@ public class StrategyImageExporter extends ImageView {
             prevPosition = nextPosition;
         }
 
-        drawPlayer(player);
     }
 
-    public void traceProjectileMovement(Projectile projectile) {
+    public void traceProjectileMovement(GameObject projectile) {
 
 
     }
 
-    public void drawPlayer(GameObject player) {
+    public void drawPlayer(GameObject player, Vector position) {
         String team = controller.getPlayerTeam(player);
 
         Color color = Color.web(controller.getTeamColour(team));
         gcDraw.setDrawColor(gc, color);
 
-        Vector position = frames.get(0).getPosition(player);
         Vector size = player.getDimensions();
 
         gc.fillOval(position.getX(), position.getY(), size.getX(), size.getY());
@@ -109,6 +107,14 @@ public class StrategyImageExporter extends ImageView {
         gcDraw.setDrawColor(gc, Color.BLACK);
     }
 
+    public void drawPlayerHasBall(GameObject player, Vector position) {
+        drawPlayer(player, position);
+        gcDraw.setDrawColor(gc, Color.YELLOW);
+
+        Vector size = player.getDimensions();
+        gc.strokeOval(position.getX(), position.getY(), size.getX(), size.getY());
+    }
+
     public void drawObjectsInFrame() {
         Frame firstFrame = frames.get(0);
         Set<GameObject> gameObjectSet = firstFrame.getGameObjects();
@@ -116,14 +122,15 @@ public class StrategyImageExporter extends ImageView {
 
         for (GameObject gameObject : gameObjectSet) {
             if (gameObject.getClass().isInstance(Player.class)) {
-                drawPlayer(gameObject);
                 tracePlayerMovement(gameObject);
+                drawPlayer(gameObject, frames.get(0).getPosition(gameObject));
+                drawPlayer(gameObject, frames.get(frames.size()).getPosition(gameObject));
             }
         }
 
         Projectile projectile = controller.getProjectile();
-        drawGameObject(projectile, projectile.getImagePath(), projectile.getDimensions());
         traceProjectileMovement(projectile);
+        drawGameObject(projectile, projectile.getImagePath(), projectile.getDimensions());
 
         for (Obstacle obstacle : controller.getObstacles()) {
             String filePath = obstacle.getImagePath();
