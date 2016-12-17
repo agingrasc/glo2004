@@ -106,7 +106,7 @@ public class ItemsAccordionController
                     Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     String uuid = Controller.getInstance().addObstacle(selected.getName());
-                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid, true);
                     try
                     {
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(
@@ -189,7 +189,7 @@ public class ItemsAccordionController
                     ClipboardContent content = new ClipboardContent();
                     //FIXME: dimension
                     String uuid = Controller.getInstance().addProjectile();
-                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid, true);
                     try
                     {
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(

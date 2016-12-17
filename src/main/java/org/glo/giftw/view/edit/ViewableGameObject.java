@@ -21,6 +21,7 @@ public class ViewableGameObject
     protected Controller ctlInst;
     protected Node node;
     protected String uuid;
+    protected boolean isSelected;
 
     protected ViewableGameObject()
     {
@@ -30,8 +31,9 @@ public class ViewableGameObject
         this.uuid = null;
     }
 
-    public ViewableGameObject(String uuid)
+    public ViewableGameObject(String uuid, boolean isSelected)
     {
+    	this.isSelected = isSelected;
         this.uuid = uuid;
         this.ctlInst = Controller.getInstance();
         this.constructNode();
@@ -43,6 +45,18 @@ public class ViewableGameObject
         this.node = new ImageView(img);
         this.node.setOnDragDetected(this::onNodeDragDetected);
         return this.node;
+    }
+    
+    public void updateNode()
+    {
+    	 if(isSelected)
+         {
+         	node.setStyle("-fx-background-color: gray");
+         }
+    	 else
+    	 {
+    		 node.setStyle(null);
+    	 }
     }
 
     public Node display(Vector position)
@@ -82,5 +96,6 @@ public class ViewableGameObject
 
     public void setSelected(boolean selected)
     {
+    	this.isSelected = selected;
     }
 }

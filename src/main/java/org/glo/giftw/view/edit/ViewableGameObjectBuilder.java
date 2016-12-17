@@ -17,7 +17,7 @@ public class ViewableGameObjectBuilder
         }
         else
         {
-            return new ViewableGameObject(gameObject.getId());
+            return new ViewableGameObject(gameObject.getId(), isSelected);
         }
     }
 }

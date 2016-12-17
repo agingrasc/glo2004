@@ -15,9 +15,11 @@ import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Frame;
 import org.glo.giftw.domain.strategy.GameObject;
+import org.glo.giftw.domain.strategy.Player;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 import org.glo.giftw.view.edit.ViewableGameObjectBuilder;
+import org.glo.giftw.view.edit.ViewablePlayer;
 
 import java.io.File;
 import java.io.IOException;
@@ -165,6 +167,13 @@ public class CreationStackPaneController
                 selected = true;
             }
             obj.setSelected(selected);
+            if(gameObject instanceof Player)
+            {
+            	((ViewablePlayer)obj).setDisplayName(displayNames);
+            	((ViewablePlayer)obj).setDisplayRole(displayRoles);
+            }
+            
+            obj.updateNode();//Pour mettre a jour l'affichage selon le domaine
 
             pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
         }
