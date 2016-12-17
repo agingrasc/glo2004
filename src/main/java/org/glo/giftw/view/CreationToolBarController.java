@@ -13,9 +13,9 @@ public class CreationToolBarController
     private ToolBar rootToolBar;
 
     @FXML
-    void onActionDelete(ActionEvent event)
+    void onActionDelete(ActionEvent event) throws IOException
     {
-        System.out.println("onActionDelete");
+    	RootLayoutController.getInstance().getCreationStackPaneController().delete();
     }
 
     @FXML
@@ -49,26 +49,24 @@ public class CreationToolBarController
     @FXML
     void onActionRedo(ActionEvent event)
     {
-        System.out.println("onActionRedo");
+        //TODO
     }
 
     @FXML
     void onActionUndo(ActionEvent event)
     {
-        System.out.println("onActionUndo");
+        //TODO
     }
 
     @FXML
     void onActionZoomIn(ActionEvent event) throws IOException
     {
-        System.out.println("onActionZoomIn");
         RootLayoutController.getInstance().getCreationStackPaneController().zoomIn();
     }
 
     @FXML
     void onActionZoomOut(ActionEvent event) throws IOException
     {
-        System.out.println("onActionZoomOut");
         RootLayoutController.getInstance().getCreationStackPaneController().zoomOut();
     }
 

@@ -120,6 +120,18 @@ public class Controller
         this.obstaclePool.deleteObstacle(name);
     }
 
+    public void deleteGameObject(String gameObjectUuid)
+    {
+        try
+        {
+            this.currentStrategy.deleteGameObject(this.getGameObjectByUUID(gameObjectUuid));
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
+    }
+
     /**
      * Crée une nouvelle stratégie.
      *
@@ -265,25 +277,6 @@ public class Controller
     {
         Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
         this.placeGameObject(gameObjectUuid, position, orientation);
-    }
-
-    /**
-     * Retire un GameObject de la stratégie et de toutes les frames, s'il est présent.
-     *
-     * @param gameObjectUuid Le uuid du GameObject.
-     */
-    public void removeGameObject(String gameObjectUuid)
-    {
-        try
-        {
-            GameObject goToRemove = this.currentStrategy.getGameObjectByUUID(gameObjectUuid);
-            this.currentStrategy.removeGameObject(goToRemove);
-
-        }
-        catch (GameObjectNotFound e)
-        {
-            //Le GameObject n'est pas présent dans la Frame, on ne fait rien!
-        }
     }
 
     /**

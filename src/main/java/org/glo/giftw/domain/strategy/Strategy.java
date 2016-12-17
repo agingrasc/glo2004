@@ -422,18 +422,29 @@ public class Strategy implements Serializable, TreeViewable
         }
     }
 
-    public void removeGameObject(GameObject gameObject)
+    public void deleteGameObject(GameObject gameObject)
     {
         if (gameObject instanceof Player)
         {
-            String teamName = this.getPlayerTeam((Player) gameObject);
-            this.removeTeamPlayer(teamName, (Player) gameObject);
+            boolean isPlayerInFrame = false;
+            for (Frame frame: this.frames)
+            {
+                if (frame.getGameObjects().contains(gameObject))
+                {
+                    isPlayerInFrame = true;
+                    break;
+                }
+            }
+            if (!isPlayerInFrame)
+            {
+                String teamName = this.getPlayerTeam((Player) gameObject);
+                this.removeTeamPlayer(teamName, (Player) gameObject);
+            }
         }
-        for (Frame f : this.frames)
+        for (int i = this.currentFrameIdx; i < this.frames.size(); i++)
         {
-            f.removeGameObject(gameObject);
+            this.frames.get(i).removeGameObject(gameObject);
         }
-        this.gameObjects.remove(gameObject);
     }
 
     public void clearUnplacedGameObjects()

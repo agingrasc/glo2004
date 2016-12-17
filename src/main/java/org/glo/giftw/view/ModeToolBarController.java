@@ -26,7 +26,6 @@ public class ModeToolBarController
             }
             catch (StrategyNotFound e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             RootLayoutController.getInstance().imageByImage();
@@ -45,7 +44,6 @@ public class ModeToolBarController
             }
             catch (StrategyNotFound e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             RootLayoutController.getInstance().realTime();
@@ -67,7 +65,6 @@ public class ModeToolBarController
                 }
                 catch (StrategyNotFound e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

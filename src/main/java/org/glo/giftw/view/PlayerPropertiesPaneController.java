@@ -79,7 +79,6 @@ public class PlayerPropertiesPaneController
                 }
                 catch (GameObjectNotFound e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 try
@@ -88,7 +87,6 @@ public class PlayerPropertiesPaneController
                 }
                 catch (IOException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -129,7 +127,6 @@ public class PlayerPropertiesPaneController
 			RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

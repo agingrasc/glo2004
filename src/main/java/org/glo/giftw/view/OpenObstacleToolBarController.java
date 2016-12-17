@@ -1,5 +1,9 @@
 package org.glo.giftw.view;
 
+import java.io.IOException;
+
+import org.glo.giftw.domain.Controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
@@ -10,9 +14,14 @@ public class OpenObstacleToolBarController
     private ToolBar rootToolBar;
 
     @FXML
-    void onActionDelete(ActionEvent event)
+    void onActionDelete(ActionEvent event) throws IOException
     {
-        System.out.println("onActionDelete");
+    	String selected = RootLayoutController.getInstance().getOpenObstacleController().getTableView().getSelectionModel().getSelectedItem().getName();
+        if (selected != null)
+        {
+        	Controller.getInstance().deleteObstacle(selected);
+        }
+        RootLayoutController.getInstance().getOpenObstacleController().updateTable();
     }
 
     public ToolBar getRootToolBar()
