@@ -60,26 +60,15 @@ public class ViewablePlayer extends ViewableGameObject
     {
         Color teamColor = getTeamColor(player);
         Vector dimensions = Controller.getInstance().getDimensions(player);
-        float orientation;
-        try
-        {
-            orientation = Controller.getInstance().getOrientation(player);
-            System.out.println(orientation);
-        }
-        catch (NullPointerException e)
-        {
-            orientation = 0;
-        }
-        Canvas canvas = new Canvas(dimensions.getX(), dimensions.getY());
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        playerImg = new Canvas(dimensions.getX(), dimensions.getY());
+        GraphicsContext gc = playerImg.getGraphicsContext2D();
         gc.setFill(teamColor);
         gc.fillOval(0, 0, dimensions.getX(), dimensions.getY());
         gc.setFill(Color.BLACK);
         double[] xCoord = {dimensions.getX(), 0.7 * dimensions.getX(), 0.7 * dimensions.getX()};
         double[] yCoord = {dimensions.getY() / 2, 0.3 * dimensions.getY(), 0.7 * dimensions.getX()};
         gc.fillPolygon(xCoord, yCoord, 3);
-        //gc.rotate(orientation)
-        return canvas;
+        return playerImg;
     }
 
     private Color getTeamColor(Player player)
@@ -118,7 +107,16 @@ public class ViewablePlayer extends ViewableGameObject
             node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         }
     	Player player = getPlayer();
-    	playerImg = getPlayerImg(player);
+    	float orientation;
+        try
+        {
+            orientation = Controller.getInstance().getOrientation(player);
+        }
+        catch (NullPointerException e)
+        {
+            orientation = 0;
+        }
+        playerImg.setRotate(orientation);
     	name.setText(player.getName());
         role.setText(player.getRole());
         name.setVisible(isDisplayName);
