@@ -37,7 +37,7 @@ public class Field implements Serializable
     {
         return this.pixeltoUnitRatio;
     }
-    
+
     public void setPixelToUnitRatio(Vector ratio)
     {
         assert ratio.getX() > 0 && ratio.getY() > 0;

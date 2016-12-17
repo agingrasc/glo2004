@@ -29,7 +29,7 @@ public class Sport implements Serializable, TreeViewable
     }
 
     public Sport(String name, List<String> roles, Field field, Projectile projectile, int maxPlayersPerTeam,
-            int maxTeams)
+                 int maxTeams)
     {
         this.name = name;
         this.roles = new ArrayList<String>(roles);
@@ -53,7 +53,7 @@ public class Sport implements Serializable, TreeViewable
     {
         return this.roles;
     }
-    
+
     public Vector getPixelToUnitRatio()
     {
         return this.field.getPixelToUnitRatio();

@@ -14,7 +14,8 @@ import java.util.Stack;
 /**
  * Created by alexandra on 12/5/16.
  */
-public class GraphicContextDrawController {
+public class GraphicContextDrawController
+{
 
     private Stack<Image> states, undoStates;
 
@@ -54,7 +55,10 @@ public class GraphicContextDrawController {
         undoStates = new Stack<Image>();
     }
 
-    public Image getCurrentDrawnState(){ return states.lastElement(); }
+    public Image getCurrentDrawnState()
+    {
+        return states.lastElement();
+    }
 
     public void setDrawColor(GraphicsContext gc, Color color)
     {
@@ -66,13 +70,14 @@ public class GraphicContextDrawController {
     public void eraseAll(GraphicsContext gc)
     {
         Canvas canvas = gc.getCanvas();
-        gc.clearRect(0 , 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     public void redrawPreviousState(GraphicsContext gc)
     {
         System.out.println("restoring..");
-        if(states.size()>1) {
+        if (states.size() > 1)
+        {
             undoStates.push(states.pop());
             Image lastImage = states.lastElement();
             eraseAll(gc);
@@ -82,7 +87,7 @@ public class GraphicContextDrawController {
 
     public void redrawNextState(GraphicsContext gc)
     {
-        if(!undoStates.empty())
+        if (!undoStates.empty())
         {
             states.push(undoStates.pop());
             Image lastImage = states.lastElement();
@@ -93,14 +98,14 @@ public class GraphicContextDrawController {
 
     public void saveLastDrawnState(GraphicsContext gc)
     {
-        if(!undoStates.empty())
+        if (!undoStates.empty())
         {
             undoStates.removeAllElements();
         }
         Canvas canvas = gc.getCanvas();
 
         WritableImage currentField = new WritableImage((int) canvas.getWidth(),
-                (int) canvas.getHeight());
+                                                       (int) canvas.getHeight());
         canvas.snapshot(null, currentField);
 
         states.push(currentField);
@@ -142,44 +147,56 @@ public class GraphicContextDrawController {
     {
         //System.out.println("drawShape");
         double x, y, distX, distY;
-        if (x1 > x2) {
+        if (x1 > x2)
+        {
             x = x2;
             distX = x1 - x2;
-        } else {
+        }
+        else
+        {
             x = x1;
             distX = x2 - x1;
         }
 
-        if (y1 > y2) {
+        if (y1 > y2)
+        {
             y = y2;
             distY = y1 - y2;
-        } else {
+        }
+        else
+        {
             y = y1;
             distY = y2 - y1;
         }
-        gc.strokeOval( x, y, distX, distY );
+        gc.strokeOval(x, y, distX, distY);
     }
 
     public void drawRectangle(GraphicsContext gc, double x1, double y1, double x2, double y2)
     {
         //System.out.println("drawShape");
         double x, y, distX, distY;
-        if (x1 > x2) {
+        if (x1 > x2)
+        {
             x = x2;
             distX = x1 - x2;
-        } else {
+        }
+        else
+        {
             x = x1;
             distX = x2 - x1;
         }
 
-        if (y1 > y2) {
+        if (y1 > y2)
+        {
             y = y2;
             distY = y1 - y2;
-        } else {
+        }
+        else
+        {
             y = y1;
             distY = y2 - y1;
         }
-        gc.strokeRect( x, y, distX, distY );
+        gc.strokeRect(x, y, distX, distY);
     }
 
     public void drawLine(GraphicsContext gc, double x1, double y1, double x2, double y2)
@@ -228,7 +245,7 @@ public class GraphicContextDrawController {
     public void drawImage(GraphicsContext gc, Image image)
     {
         Canvas canvas = gc.getCanvas();
-        gc.drawImage(image, 0, 0,  image.getWidth(), image.getHeight(), 0, 0,canvas.getWidth(), canvas.getHeight());
+        gc.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), 0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     public void drawImage(GraphicsContext gc, Image image, double destW, double destH)

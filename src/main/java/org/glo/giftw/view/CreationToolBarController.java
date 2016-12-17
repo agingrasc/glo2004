@@ -25,6 +25,7 @@ public class CreationToolBarController
         if (!isFirstFrame)
         {
             Controller.getInstance().previousKeyFrame();
+            RootLayoutController.getInstance().getCreationStackPaneController().resetDisplay();
             RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
         }
     }
@@ -41,6 +42,7 @@ public class CreationToolBarController
         {
             Controller.getInstance().nextKeyFrame();
         }
+        RootLayoutController.getInstance().getCreationStackPaneController().resetDisplay();
         RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
     }
 

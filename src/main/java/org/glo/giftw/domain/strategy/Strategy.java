@@ -7,12 +7,7 @@ import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.util.Vector;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Contient les frames et les appels necessaires pour les joueurs
@@ -192,7 +187,7 @@ public class Strategy implements Serializable, TreeViewable
     }
 
     /**
-     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante. 
+     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante.
      * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
      *
      * @return La frame précédente.
@@ -209,7 +204,7 @@ public class Strategy implements Serializable, TreeViewable
     /**
      * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame précédente, puis retourne celle-ci.
      * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
-     * 
+     *
      * @return La keyFrame précédente.
      */
     public Frame previousKeyFrame()
@@ -219,7 +214,7 @@ public class Strategy implements Serializable, TreeViewable
             int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
             if (this.currentFrameIdx % intervalBetweenKeyFrame != 0)
             {
-                this.currentFrameIdx -= this.currentFrameIdx % intervalBetweenKeyFrame; 
+                this.currentFrameIdx -= this.currentFrameIdx % intervalBetweenKeyFrame;
             }
             else
             {
@@ -230,7 +225,7 @@ public class Strategy implements Serializable, TreeViewable
     }
 
     /**
-     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante. 
+     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante.
      * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
      *
      * @return La frame suivante.
@@ -247,7 +242,7 @@ public class Strategy implements Serializable, TreeViewable
     /**
      * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame suivante, puis retourne celle-ci.
      * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
-     * 
+     *
      * @return La keyFrame suivante.
      */
     public Frame nextKeyFrame()
@@ -255,7 +250,7 @@ public class Strategy implements Serializable, TreeViewable
         if (!this.isLastFrame())
         {
             int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
-            this.currentFrameIdx = (this.currentFrameIdx / intervalBetweenKeyFrame  + 1) * intervalBetweenKeyFrame;
+            this.currentFrameIdx = (this.currentFrameIdx / intervalBetweenKeyFrame + 1) * intervalBetweenKeyFrame;
         }
         return this.frames.get(this.currentFrameIdx);
     }
@@ -349,7 +344,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.teams.get(teamName).setColour(colour);
     }
-    
+
     public Vector getPixelToUnitRatio()
     {
         return this.sport.getPixelToUnitRatio();
@@ -429,12 +424,12 @@ public class Strategy implements Serializable, TreeViewable
 
     public void removeGameObject(GameObject gameObject)
     {
-        if(gameObject instanceof Player)
+        if (gameObject instanceof Player)
         {
-            String teamName = this.getPlayerTeam((Player)gameObject);
+            String teamName = this.getPlayerTeam((Player) gameObject);
             this.removeTeamPlayer(teamName, (Player) gameObject);
         }
-        for(Frame f : this.frames)
+        for (Frame f : this.frames)
         {
             f.removeGameObject(gameObject);
         }
@@ -445,9 +440,9 @@ public class Strategy implements Serializable, TreeViewable
     {
         HashSet<GameObject> newGameObjectSet = new HashSet<GameObject>();
         Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
-        for(GameObject go : this.gameObjects)
+        for (GameObject go : this.gameObjects)
         {
-            if(currentFrameGameObjects.contains(go))
+            if (currentFrameGameObjects.contains(go))
             {
                 newGameObjectSet.add(go);
             }
@@ -471,7 +466,7 @@ public class Strategy implements Serializable, TreeViewable
 
     public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
     {
-        for (GameObject gameObject: this.gameObjects)
+        for (GameObject gameObject : this.gameObjects)
         {
             if (gameObject.getId().equals(uuid))
             {

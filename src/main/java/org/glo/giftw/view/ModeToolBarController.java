@@ -42,11 +42,11 @@ public class ModeToolBarController
     @FXML
     void onActionWatch(ActionEvent event) throws IOException
     {
-    	String strategy = Controller.getInstance().getStrategyName();
-    	if(strategy == null)
-    	{
-    		TreeViewable strategySelected = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
-    		if (strategySelected != null)
+        String strategy = Controller.getInstance().getStrategyName();
+        if (strategy == null)
+        {
+            TreeViewable strategySelected = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
+            if (strategySelected != null)
             {
                 try
                 {
@@ -58,8 +58,8 @@ public class ModeToolBarController
                     e.printStackTrace();
                 }
             }
-    	}
-        
+        }
+
         RootLayoutController.getInstance().watch();
     }
 

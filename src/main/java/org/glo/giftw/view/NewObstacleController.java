@@ -25,7 +25,7 @@ public class NewObstacleController
 
     @FXML
     private TextField obstacleName;
-    
+
     @FXML
     private TextField obstacleWidth;
 
@@ -54,7 +54,7 @@ public class NewObstacleController
 
         if (result.isPresent() && result.get() == ButtonType.FINISH)
         {
-        	Integer obsWidth = Integer.parseInt(obstacleWidth.getText());
+            Integer obsWidth = Integer.parseInt(obstacleWidth.getText());
             Integer obsHeight = Integer.parseInt(obstacleHeight.getText());
             Controller.getInstance().createObstacle(obstacleName.getText(), isCollision.isSelected(),
                                                     imageToOpen.getPath(), obsWidth, obsHeight);

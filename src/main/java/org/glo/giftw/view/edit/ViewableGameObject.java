@@ -7,7 +7,6 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.GameObject;
@@ -48,7 +47,7 @@ public class ViewableGameObject
 
     public Node display(Vector position)
     {
-    	//System.out.println(position);
+        //System.out.println(position);
         this.node.relocate(position.getX(), position.getY());
         return this.node;
     }
@@ -59,8 +58,8 @@ public class ViewableGameObject
         Vector dimensions = null;
         try
         {
-        	GameObject gameObject = this.ctlInst.getGameObjectByUUID(this.uuid);
-            imgPath = ((Viewable)gameObject).getImagePath();
+            GameObject gameObject = this.ctlInst.getGameObjectByUUID(this.uuid);
+            imgPath = ((Viewable) gameObject).getImagePath();
             dimensions = ctlInst.getDimensions(gameObject);
         }
         catch (GameObjectNotFound gameObjectNotFound)
@@ -79,5 +78,9 @@ public class ViewableGameObject
         content.putString(this.uuid);
         db.setContent(content);
         event.consume();
+    }
+
+    public void setSelected(boolean selected)
+    {
     }
 }
