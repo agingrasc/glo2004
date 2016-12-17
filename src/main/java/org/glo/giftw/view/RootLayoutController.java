@@ -103,10 +103,13 @@ public class RootLayoutController
         addToolBar(getModeToolBarController().getRootToolBar());
         addToolBar(getMediaToolBarController().getRootToolBar());
         borderPane.setLeft(null);
-        borderPane.setCenter(getMediaContentController().getField());
+        borderPane.setCenter(getCreationStackPaneController().getScrollPane());
         borderPane.setBottom(getBottomToolBarController().getRootToolBar());
         borderPane.setRight(null);
-        getMediaContentController().displayNewFrame();
+        borderPane.applyCss();
+        borderPane.layout();
+        getMediaToolBarController().initialize();
+        getCreationStackPaneController().init();
     }
 
     public void imageByImage() throws IOException

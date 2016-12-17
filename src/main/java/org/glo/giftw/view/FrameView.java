@@ -90,7 +90,6 @@ public class FrameView extends Pane
         try
         {
             this.getChildren().add(node);
-            System.out.println(node.getScene());
         }
         catch (Exception e)
         {
