@@ -21,6 +21,7 @@ import java.util.Map;
 public class FrameView extends Pane
 {
     private HashMap<String, ViewableGameObject> viewableGameObjects;
+    private Vector currentMousePosition;
 
     public FrameView()
     {
@@ -37,6 +38,7 @@ public class FrameView extends Pane
         {
             event.acceptTransferModes(TransferMode.ANY);
         }
+        this.currentMousePosition = new Vector(event.getX(), event.getY());
         event.consume();
     }
 
@@ -59,6 +61,7 @@ public class FrameView extends Pane
             try
             {
                 Controller.getInstance().placeGameObject(uuid, coordinate);
+                RootLayoutController.getInstance().getCreationStackPaneController().stop();
                 RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
             }
             catch (IOException e)
@@ -132,5 +135,10 @@ public class FrameView extends Pane
                 RootLayoutController.getInstance().setRightPane(rightMenu);
             }
         });
+    }
+
+    public Vector getCurrentMousePosition()
+    {
+        return this.currentMousePosition;
     }
 }

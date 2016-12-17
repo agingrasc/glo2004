@@ -40,16 +40,17 @@ public class MediaToolBarController extends AnimationTimer
         long delta_t = timestamp - this.lastTimeStamp;
         boolean isLastFrame = Controller.getInstance().isLastFrame();
 
-        System.out.println("Call play");
         if (delta_t >= FPS && !isLastFrame)
         {
             this.lastTimeStamp = timestamp;
-            System.out.println("fubar: " + timestamp);
             this.field.resetDisplay();
             this.field.displayStrategy();
             Controller.getInstance().nextFrame();
             isLastFrame = Controller.getInstance().isLastFrame();
-            System.out.println("Last frame: " + isLastFrame);
+        }
+        else if (isLastFrame)
+        {
+            this.stop();
         }
     }
 
