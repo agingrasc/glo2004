@@ -4,16 +4,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import javafx.scene.paint.Color;
 import org.glo.giftw.domain.Controller;
-import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
-import org.glo.giftw.view.edit.ViewableGameObject;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by alexandra on 12/6/16.
@@ -43,6 +41,8 @@ public class StrategyImageExporter extends ImageView {
         String fieldPath = controller.getSportFieldImagePath();
 
         gcDraw.drawImage(gc, new Image(fieldPath));
+
+        drawObjects();
     }
 
     private void initListFrames() {
@@ -60,10 +60,6 @@ public class StrategyImageExporter extends ImageView {
         Vector position = controller.getPosition(gameObject);
 
         gcDraw.drawImage(gc, new Image(filePath), position.getX(), position.getY(), size.getX(), size.getY());
-    }
-
-    public void exportStratAsImage() {
-        this.setImage(gcDraw.getCurrentDrawnState());
     }
 
     public void tracePlayerMovement(GameObject player) {
@@ -87,8 +83,24 @@ public class StrategyImageExporter extends ImageView {
     }
 
     public void traceProjectileMovement(GameObject projectile) {
+        gcDraw.setStrokeLineSize(gc, 5);
+        gcDraw.setStrokeLineStyle(gc, true);
+        Frame frame = frames.get(0);
+        Vector prevPosition = frame.getPosition(projectile);
+        Vector nextPosition;
 
+        for (int i = 1; i < frames.size(); i++) {
+            frame = frames.get(i);
+            nextPosition = frame.getPosition(projectile);
+            if (frame.isKeyFrame()) {
+                gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+            } else {
+                gcDraw.drawLine(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+            }
 
+            prevPosition = nextPosition;
+        }
+        gcDraw.setStrokeLineStyle(gc, false);
     }
 
     public void drawPlayer(GameObject player, Vector position) {
@@ -115,12 +127,11 @@ public class StrategyImageExporter extends ImageView {
         gc.strokeOval(position.getX(), position.getY(), size.getX(), size.getY());
     }
 
-    public void drawObjectsInFrame() {
+    public void drawObjects() {
         Frame firstFrame = frames.get(0);
-        Set<GameObject> gameObjectSet = firstFrame.getGameObjects();
         // get game objects in frame
 
-        for (GameObject gameObject : gameObjectSet) {
+        for (GameObject gameObject : firstFrame.getGameObjects()) {
             if (gameObject.getClass().isInstance(Player.class)) {
                 tracePlayerMovement(gameObject);
                 drawPlayer(gameObject, frames.get(0).getPosition(gameObject));
@@ -140,6 +151,8 @@ public class StrategyImageExporter extends ImageView {
         }
     }
 
-
+    public void exportStratAsImage() {
+        this.setImage(gcDraw.getCurrentDrawnState());
+    }
 }
 
