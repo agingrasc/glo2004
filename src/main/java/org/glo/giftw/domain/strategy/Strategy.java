@@ -392,6 +392,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         GameObject gameObject = this.getGameObjectByUUID(gameObjectUuid);
         Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
+        //FIXME: il faut déplacer les projectiles associés aux joueurs
         if (currentFrameGameObjects.contains(gameObject))
         {
             this.getCurrentFrame().placeGameObject(gameObject, position, orientation);
@@ -513,6 +514,20 @@ public class Strategy implements Serializable, TreeViewable
         }
 
         return repr;
+    }
+
+    public void takeProjectile(GameObject player)
+    {
+        Set<GameObject> gameObjectsInCollision = this.frames.get(this.currentFrameIdx).detectCollisions(player);
+        for (GameObject gameObject: gameObjectsInCollision)
+        {
+            if (gameObject instanceof Projectile)
+            {
+                ((Projectile) gameObject).setController((Player) player);
+                ((Player) player).takeProjectile((Projectile) gameObject);
+                break;
+            }
+        }
     }
 
     public void save(String stratPath)

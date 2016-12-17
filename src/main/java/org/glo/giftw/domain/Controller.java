@@ -454,6 +454,18 @@ public class Controller
         return this.obstaclePool.getAllObstacles();
     }
 
+    public void takeProjectile(String playerUuid)
+    {
+        try
+        {
+            this.currentStrategy.takeProjectile(getGameObjectByUUID(playerUuid));
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
+    }
+
     public void saveStrategies()
     {
         this.strategyPool.save();
