@@ -59,7 +59,15 @@ public class ViewablePlayer extends ViewableGameObject
         Color teamColor = getTeamColor(player);
         Vector dimensions = Controller.getInstance().getDimensions(player);
         //TODO le joueur n'a pas d'orientation avant d'etre placé, nullPointerException
-        //float orientation = Controller.getInstance().getOrientation(player);
+        float orientation;
+        try
+        {
+            orientation = Controller.getInstance().getOrientation(player);
+        }
+        catch (NullPointerException e)
+        {
+            orientation = 0;
+        }
         Canvas canvas = new Canvas(dimensions.getX(), dimensions.getY());
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(teamColor);
@@ -68,7 +76,7 @@ public class ViewablePlayer extends ViewableGameObject
         double[] xCoord = {dimensions.getX(), 0.7 * dimensions.getX(), 0.7 * dimensions.getX()};
         double[] yCoord = {dimensions.getY() / 2, 0.3 * dimensions.getY(), 0.7 * dimensions.getX()};
         gc.fillPolygon(xCoord, yCoord, 3);
-        //gc.rotate(orientation);
+        gc.rotate(orientation);
         return canvas;
     }
 

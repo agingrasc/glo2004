@@ -254,6 +254,18 @@ public class Controller
         this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation);
     }
 
+    public void placeGameObject(String gameObjectUuid, Vector position) throws GameObjectNotFound
+    {
+        float orientation = this.getCurrentFrame().getOrientation(this.getGameObjectByUUID(gameObjectUuid));
+        this.placeGameObject(gameObjectUuid, position, orientation);
+    }
+
+    public void placeGameObject(String gameObjectUuid, float orientation) throws GameObjectNotFound
+    {
+        Vector position = this.getCurrentFrame().getPosition(this.getGameObjectByUUID(gameObjectUuid));
+        this.placeGameObject(gameObjectUuid, position, orientation);
+    }
+
     /**
      * Retire un GameObject de la stratégie et de toutes les frames, s'il est présent.
      *
