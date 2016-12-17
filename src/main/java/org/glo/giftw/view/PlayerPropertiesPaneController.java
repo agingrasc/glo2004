@@ -28,7 +28,9 @@ public class PlayerPropertiesPaneController
 
     @FXML
     private Slider orientationSlider;
-
+    
+    @FXML
+    private CheckBox takeProjectileCheckBox;
 
     @FXML
     public void initialize()
@@ -91,6 +93,12 @@ public class PlayerPropertiesPaneController
                 }
             }
         });
+    }
+    
+    @FXML
+    void onTakeProjectile(ActionEvent event) 
+    {
+    	
     }
 
     public Accordion getRootAccordion()
