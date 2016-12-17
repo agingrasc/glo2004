@@ -78,7 +78,7 @@ public class ViewablePlayer extends ViewableGameObject
         double[] xCoord = {dimensions.getX(), 0.7 * dimensions.getX(), 0.7 * dimensions.getX()};
         double[] yCoord = {dimensions.getY() / 2, 0.3 * dimensions.getY(), 0.7 * dimensions.getX()};
         gc.fillPolygon(xCoord, yCoord, 3);
-        //gc.rotate(orientation);
+        //gc.rotate(orientation)
         return canvas;
     }
 

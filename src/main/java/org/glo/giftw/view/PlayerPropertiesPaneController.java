@@ -82,16 +82,15 @@ public class PlayerPropertiesPaneController
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                /*try
+                try
                 {
-                	System.out.println("displayStrategy");
                     RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
                 }
                 catch (IOException e)
                 {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }*/
+                }
             }
         });
     }

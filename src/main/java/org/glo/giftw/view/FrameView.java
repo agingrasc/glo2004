@@ -58,7 +58,7 @@ public class FrameView extends Pane
             Vector coordinate = new Vector(event.getX(), event.getY());
             try
             {
-                Controller.getInstance().placeGameObject(uuid, coordinate, 0);
+                Controller.getInstance().placeGameObject(uuid, coordinate);
                 RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
             }
             catch (IOException e)
