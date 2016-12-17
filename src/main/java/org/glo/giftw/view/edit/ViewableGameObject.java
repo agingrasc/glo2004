@@ -26,7 +26,6 @@ public class ViewableGameObject
 
     protected ViewableGameObject()
     {
-        //FIXME: code smell
         this.ctlInst = Controller.getInstance();
         this.node = null;
         this.uuid = null;
@@ -62,7 +61,6 @@ public class ViewableGameObject
 
     public Node display(Vector position)
     {
-        //System.out.println(position);
         this.node.relocate(position.getX(), position.getY());
         return this.node;
     }
