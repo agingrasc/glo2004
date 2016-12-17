@@ -176,5 +176,14 @@ public class ViewablePlayer extends ViewableGameObject
     public void setSelected(boolean selected)
     {
         this.isSelected = selected;
+
+        if (this.isSelected)
+        {
+            node.setStyle("-fx-background-color: gray");
+        }
+        else
+        {
+            node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+        }
     }
 }
