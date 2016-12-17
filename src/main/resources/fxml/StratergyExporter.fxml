@@ -6,7 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<DialogPane fx:id="rootPane" prefHeight="425.0" prefWidth="360.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StrategyExporterController">
+<DialogPane fx:id="rootPane" prefHeight="425.0" prefWidth="360.0" stylesheets="@../css/visuaLigueCSS.css"
+            xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.glo.giftw.view.StrategyExporterController">
    <content>
       <ImageView fx:id="strategyView" fitHeight="417.0" fitWidth="613.0" pickOnBounds="true" preserveRatio="true" />
    </content>
