@@ -469,6 +469,10 @@ public class Strategy implements Serializable, TreeViewable
         return this.sport.validatePosition(position);
     }
 
+    public Set<GameObject> getGameObjects()
+    {
+        return this.gameObjects;
+    }
 
     public GameObject getGameObjectByCoordinate(Vector coordinate)
     {

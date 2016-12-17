@@ -13,6 +13,7 @@ import org.glo.giftw.domain.util.Vector;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Controller
 {
@@ -248,6 +249,14 @@ public class Controller
         return null;
     }
 
+    public Set<GameObject> getGameObjects()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getGameObjects();
+        }
+        return null;
+    }
     public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
     {
         return this.currentStrategy.getGameObjectByUUID(uuid);
