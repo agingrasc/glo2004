@@ -13,6 +13,7 @@ public enum FXMLPaths
     MEDIA_CONTENT_PATH("/fxml/MediaContent.fxml"),
     MEDIA_TOOL_BAR_PATH("/fxml/MediaToolBar.fxml"),
     MODE_TOOL_BAR_PATH("/fxml/ModeToolBar.fxml"),
+    STRATEGY_EXPORTER("/fxml/StratergyExporter.fxml"),
     NEW_OBSTACLE_PATH("/fxml/NewObstacle.fxml"),
     NEW_SPORT_PATH("/fxml/NewSport.fxml"),
     NEW_STRATEGY_PATH("/fxml/NewStrategy.fxml"),

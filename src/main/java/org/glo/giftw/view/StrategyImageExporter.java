@@ -10,12 +10,13 @@ import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by alexandra on 12/6/16.
  */
-public class StrategyImageExporter extends ImageView {
+public class StrategyImageExporter {
     private ArrayList<Frame> frames;
     private Vector dimensions;
 
@@ -26,6 +27,8 @@ public class StrategyImageExporter extends ImageView {
     private GraphicContextDrawController gcDraw;
 
     public StrategyImageExporter() {
+        System.out.println("BuildingStrategyExportation");
+
         controller = Controller.getInstance();
         dimensions = controller.getFieldDimensions();
 
@@ -35,16 +38,16 @@ public class StrategyImageExporter extends ImageView {
         content = new Canvas(dimensions.getX(), dimensions.getY());
         gc = content.getGraphicsContext2D();
         gcDraw = new GraphicContextDrawController();
-        String fieldPath = controller.getSportFieldImagePath();
+        File fieldPath = new File(controller.getSportFieldImagePath());
 
-        gcDraw.drawImage(gc, new Image(fieldPath));
+        gcDraw.drawImage(gc, new Image(fieldPath.toURI().toString()));
 
         drawObjects();
-
-        this.setImage(gcDraw.getCurrentDrawnState());
     }
 
     public Vector getDimensions(){ return dimensions; }
+
+    public Image getImage(){ return gcDraw.getCurrentDrawnState(); }
 
     private void initListFrames() {
         while (!controller.isFirstFrame()) {
@@ -60,7 +63,8 @@ public class StrategyImageExporter extends ImageView {
     private void drawGameObject(GameObject gameObject, String filePath, Vector size) {
         Vector position = controller.getPosition(gameObject);
 
-        gcDraw.drawImage(gc, new Image(filePath), position.getX(), position.getY(), size.getX(), size.getY());
+        File file = new File(filePath);
+        gcDraw.drawImage(gc, new Image(file.toURI().toString()), position.getX(), position.getY(), size.getX(), size.getY());
     }
 
     private void tracePlayerMovement(GameObject player) {

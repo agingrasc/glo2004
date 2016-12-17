@@ -1,3 +1,5 @@
+package org.glo.giftw.view;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -15,12 +17,12 @@ public class StrategyExporterController {
     private DialogPane rootPane;
 
     @FXML
-    private ImageView StrategyView;
+    private ImageView strategyView;
 
     @FXML
     public void initialize()
     {
-        System.out.println("initializeFieldEditor");
+        System.out.println("initializeStrategyExporter");
 
         rootDialog = new Dialog();
         rootDialog.setTitle("Exporter la stratégie");
@@ -36,6 +38,11 @@ public class StrategyExporterController {
         rootDialog.setWidth(imageSize.getX());
         rootDialog.setHeight(imageSize.getY());
 
-        StrategyView.setImage(preview.getImage());
+        strategyView.setImage(preview.getImage());
+    }
+
+    public void showDialog()
+    {
+        rootDialog.showAndWait();
     }
 }

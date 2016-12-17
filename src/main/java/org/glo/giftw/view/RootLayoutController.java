@@ -21,6 +21,7 @@ public class RootLayoutController
     private MediaContentController mediaContentController;
     private MediaToolBarController mediaToolBarController;
     private ModeToolBarController modeToolBarController;
+    private StrategyExporterController strategyExporterController;
     private NewObstacleController newObstacleController;
     private NewSportController newSportController;
     private NewStrategyController newStrategyController;
@@ -56,6 +57,11 @@ public class RootLayoutController
             INSTANCE = new RootLayoutController();
         }
         return INSTANCE;
+    }
+
+    public void exportStrategy() throws IOException
+    {
+        getStrategyExporterController().showDialog();
     }
 
     public void openObstacle() throws IOException
@@ -174,15 +180,15 @@ public class RootLayoutController
     }
 
     @FXML
-    void onActionExportJPEG(ActionEvent event)
+    void onActionExportJPEG(ActionEvent event) throws IOException
     {
-        System.out.println("onActionExportJPEG");
+        exportStrategy();
     }
 
     @FXML
-    void onActionExportPNG(ActionEvent event)
+    void onActionExportPNG(ActionEvent event) throws IOException
     {
-        System.out.println("onActionExportPNG");
+        exportStrategy();
     }
 
     @FXML
@@ -413,6 +419,14 @@ public class RootLayoutController
             this.modeToolBarController = loader.getController();
         }
         return modeToolBarController;
+    }
+
+    public StrategyExporterController getStrategyExporterController() throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(FXMLPaths.STRATEGY_EXPORTER.toString()));
+        loader.load();
+        this.strategyExporterController = loader.getController();
+        return strategyExporterController;
     }
 
     public NewObstacleController getNewObstacleController() throws IOException
