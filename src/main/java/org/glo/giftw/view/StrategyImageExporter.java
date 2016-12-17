@@ -17,7 +17,6 @@ import java.util.ArrayList;
  * Created by alexandra on 12/6/16.
  */
 public class StrategyImageExporter {
-    private ArrayList<Frame> frames;
     private Vector dimensions;
 
     private Controller controller;
@@ -32,9 +31,6 @@ public class StrategyImageExporter {
         controller = Controller.getInstance();
         dimensions = controller.getFieldDimensions();
 
-        frames = new ArrayList<>();
-        initListFrames();
-
         content = new Canvas(dimensions.getX(), dimensions.getY());
         gc = content.getGraphicsContext2D();
         gcDraw = new GraphicContextDrawController();
@@ -45,24 +41,18 @@ public class StrategyImageExporter {
         drawObjects();
     }
 
-    public Vector getDimensions(){ return dimensions; }
+    public Vector getDimensions() {
+        return dimensions;
+    }
 
-    public Image getImage(){ return gcDraw.getCurrentDrawnState(); }
+    public Image getImage() {
+        return gcDraw.getCurrentDrawnState();
+    }
 
-    private void setAtFirstFrame()
-    {
+    private void setAtFirstFrame() {
         while (!controller.isFirstFrame()) {
             controller.previousFrame();
         }
-    }
-
-    private void initListFrames() {
-        setAtFirstFrame();
-        while (!controller.isLastFrame()) {
-            frames.add(controller.getCurrentFrame());
-            controller.nextFrame();
-        }
-        frames.add(controller.getCurrentFrame());
     }
 
     private void drawGameObject(GameObject gameObject, String filePath, Vector size) {
@@ -74,12 +64,15 @@ public class StrategyImageExporter {
 
     private void tracePlayerMovement(GameObject player) {
         gcDraw.setStrokeLineSize(gc, 5);
-        Frame frame = frames.get(0);
-        Vector prevPosition = frame.getPosition(player);
+        setAtFirstFrame();
+        Vector prevPosition = controller.getPosition(player);
         Vector nextPosition;
 
-        for (int i = 1; i < frames.size(); i++) {
-            frame = frames.get(i);
+        Frame frame;
+
+        while (!controller.isLastFrame()) {
+            controller.nextFrame();
+            frame = controller.getCurrentFrame();
             nextPosition = frame.getPosition(player);
             if (frame.isKeyFrame()) {
                 gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
@@ -93,14 +86,16 @@ public class StrategyImageExporter {
     }
 
     private void traceProjectileMovement(GameObject projectile) {
+        setAtFirstFrame();
         gcDraw.setStrokeLineSize(gc, 5);
         gcDraw.setStrokeLineStyle(gc, true);
-        Frame frame = frames.get(0);
+        Frame frame = controller.getCurrentFrame();
         Vector prevPosition = frame.getPosition(projectile);
         Vector nextPosition;
 
-        for (int i = 1; i < frames.size(); i++) {
-            frame = frames.get(i);
+        while (!controller.isLastFrame()) {
+            controller.nextFrame();
+            frame = controller.getCurrentFrame();
             nextPosition = frame.getPosition(projectile);
             if (frame.isKeyFrame()) {
                 gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
