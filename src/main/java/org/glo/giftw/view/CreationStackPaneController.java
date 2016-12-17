@@ -314,17 +314,9 @@ public class CreationStackPaneController extends AnimationTimer
 
 	public void delete()
 	{
-		GameObject obj;
-		try
-		{
-			obj = Controller.getInstance().getGameObjectByUUID(selectedUUID);
-		} catch (GameObjectNotFound e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Controller.getInstance().
-		
+		Controller.getInstance().deleteGameObject(selectedUUID);
+		this.resetDisplay();
+		this.displayStrategy();
 	}
 
 }
