@@ -29,7 +29,9 @@ public class ViewablePlayer extends ViewableGameObject
 {
     private boolean isDisplayName;
     private boolean isDisplayRole;
-    private boolean isSelected;
+    private Canvas playerImg;
+    private Label name;
+    private Label role;
 
     public ViewablePlayer(String uuid, boolean isDisplayName, boolean isDisplayRole, boolean isSelected)
     {
@@ -58,18 +60,15 @@ public class ViewablePlayer extends ViewableGameObject
     {
         Color teamColor = getTeamColor(player);
         Vector dimensions = Controller.getInstance().getDimensions(player);
-        //TODO le joueur n'a pas d'orientation avant d'etre placé, nullPointerException
-        //float orientation = Controller.getInstance().getOrientation(player);
-        Canvas canvas = new Canvas(dimensions.getX(), dimensions.getY());
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        playerImg = new Canvas(dimensions.getX(), dimensions.getY());
+        GraphicsContext gc = playerImg.getGraphicsContext2D();
         gc.setFill(teamColor);
         gc.fillOval(0, 0, dimensions.getX(), dimensions.getY());
         gc.setFill(Color.BLACK);
         double[] xCoord = {dimensions.getX(), 0.7 * dimensions.getX(), 0.7 * dimensions.getX()};
         double[] yCoord = {dimensions.getY() / 2, 0.3 * dimensions.getY(), 0.7 * dimensions.getX()};
         gc.fillPolygon(xCoord, yCoord, 3);
-        //gc.rotate(orientation);
-        return canvas;
+        return playerImg;
     }
 
     private Color getTeamColor(Player player)
@@ -80,17 +79,26 @@ public class ViewablePlayer extends ViewableGameObject
     }
 
     @Override
-    protected Node constructNode()
+    public Node constructNode()
     {
         Player player = getPlayer();
-        Canvas playerImg = getPlayerImg(player);
-        Label name = new Label(player.getName());
-        Label role = new Label(player.getRole());
-
+        playerImg = getPlayerImg(player);
+        name = new Label(player.getName());
+        role = new Label(player.getRole());
         node = new VBox();
-        ((VBox) node).setAlignment(Pos.CENTER);
-        //node.setBackground(Background.EMPTY);
-        if (isSelected)
+        ((VBox) node).setAlignment(Pos.CENTER);        
+        ((VBox) node).getChildren().add(name);
+        ((VBox) node).getChildren().add(role);
+        ((VBox) node).getChildren().add(playerImg);
+        updateNode();
+        node.setOnDragDetected(this::onNodeDragDetected);
+        initMouseClicked();
+        return node;
+    }
+    
+    public void updateNode() 
+    {
+    	if (isSelected)
         {
             node.setStyle("-fx-background-color: gray");
         }
@@ -98,18 +106,21 @@ public class ViewablePlayer extends ViewableGameObject
         {
             node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         }
-
+    	Player player = getPlayer();
+    	float orientation;
+        try
+        {
+            orientation = Controller.getInstance().getOrientation(player);
+        }
+        catch (NullPointerException e)
+        {
+            orientation = 0;
+        }
+        playerImg.setRotate(orientation);
+    	name.setText(player.getName());
+        role.setText(player.getRole());
         name.setVisible(isDisplayName);
-        ((VBox) node).getChildren().add(name);
-
         role.setVisible(isDisplayRole);
-        ((VBox) node).getChildren().add(role);
-
-        ((VBox) node).getChildren().add(playerImg);
-
-        node.setOnDragDetected(this::onNodeDragDetected);
-        initMouseClicked();
-        return node;
     }
 
     @Override
@@ -129,19 +140,18 @@ public class ViewablePlayer extends ViewableGameObject
         WritableImage snapshot = this.node.snapshot(parameters, null);
         return snapshot;
     }
+    
+    public void setDisplayName(boolean isDisplayName)
+	{
+		this.isDisplayName = isDisplayName;
+	}
 
-    public void setShowName(boolean show)
-    {
-        //FIXME: devrait pouvoir se fixe avec de l'heritage
-        ((VBox) this.node).getChildren().get(0).setVisible(show);
-    }
+	public void setDisplayRole(boolean isDisplayRole)
+	{
+		this.isDisplayRole = isDisplayRole;
+	}
 
-    public void setShowRole(boolean show)
-    {
-        ((VBox) this.node).getChildren().get(1).setVisible(show);
-    }
-
-    protected void initMouseClicked()
+	protected void initMouseClicked()
     {
         this.node.setOnMousePressed(new EventHandler<MouseEvent>()
         {
@@ -171,10 +181,5 @@ public class ViewablePlayer extends ViewableGameObject
                 me.consume();
             }
         });
-    }
-
-    public void setSelected(boolean selected)
-    {
-        this.isSelected = selected;
     }
 }

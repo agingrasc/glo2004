@@ -19,11 +19,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Callback;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
 import org.glo.giftw.domain.strategy.Obstacle;
 import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.strategy.Team;
+import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 import org.glo.giftw.view.edit.ViewablePlayer;
 
@@ -106,7 +108,16 @@ public class ItemsAccordionController
                     Dragboard db = obstaclesTableView.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     String uuid = Controller.getInstance().addObstacle(selected.getName());
-                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    try
+					{
+                    	//Pour eviter les null pointers qui suivent
+						Controller.getInstance().placeGameObject(uuid, new Vector(-1, -1), -1);
+					} catch (GameObjectNotFound e1)
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid, true);
                     try
                     {
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(
@@ -142,6 +153,15 @@ public class ItemsAccordionController
                     try
                     {
                         uuid = Controller.getInstance().addPlayer(selected.getName());
+                        try
+    					{
+                        	//Pour eviter les null pointers qui suivent
+    						Controller.getInstance().placeGameObject(uuid, new Vector(-1, -1), -1);
+    					} catch (GameObjectNotFound e1)
+    					{
+    						// TODO Auto-generated catch block
+    						e1.printStackTrace();
+    					}
                         ViewablePlayer viewablePlayer = new ViewablePlayer(uuid, false, false, false);
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(
                                 uuid, viewablePlayer);
@@ -189,7 +209,16 @@ public class ItemsAccordionController
                     ClipboardContent content = new ClipboardContent();
                     //FIXME: dimension
                     String uuid = Controller.getInstance().addProjectile();
-                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    try
+					{
+                    	//Pour eviter les null pointers qui suivent
+						Controller.getInstance().placeGameObject(uuid, new Vector(-1, -1), -1);
+					} catch (GameObjectNotFound e1)
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid, true);
                     try
                     {
                         RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(

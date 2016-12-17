@@ -11,10 +11,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
-import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
-import org.glo.giftw.view.edit.ViewableGameObjectBuilder;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,6 +42,14 @@ public class FrameView extends Pane
 
     public void onDragDropped(DragEvent event)
     {
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().stop();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString())
@@ -52,14 +58,7 @@ public class FrameView extends Pane
             Vector coordinate = new Vector(event.getX(), event.getY());
             try
             {
-                Controller.getInstance().placeGameObject(uuid, coordinate, 0);
-                GameObject gameObject = Controller.getInstance().getGameObjectByUUID(uuid);
-                boolean displayNames = RootLayoutController.getInstance().getCreationStackPaneController().getDisplayNames();
-                boolean displayRoles = RootLayoutController.getInstance().getCreationStackPaneController().getDisplayRoles();
-                ViewableGameObject viewableGameObject = ViewableGameObjectBuilder.buildViewableGameObject(gameObject,
-                                                                                                          displayNames,
-                                                                                                          displayRoles,
-                                                                                                          true);
+                Controller.getInstance().placeGameObject(uuid, coordinate);
                 RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
             }
             catch (IOException e)
@@ -90,7 +89,6 @@ public class FrameView extends Pane
         try
         {
             this.getChildren().add(node);
-            System.out.println(node.getScene());
         }
         catch (Exception e)
         {
@@ -125,7 +123,7 @@ public class FrameView extends Pane
                 {
                     rightMenu = RootLayoutController.getInstance().getGeneralPropertiesPaneController().getRootAccordion();
                     RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(null);
-//					RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+					RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
                 }
                 catch (IOException e)
                 {

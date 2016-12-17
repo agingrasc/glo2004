@@ -16,8 +16,8 @@ public class Strategy implements Serializable, TreeViewable
 {
     public static final long serialVersionUID = 2L;
     public static final String STRATEGY_PATH = "data/strategies";
-    private static int framePerSecond = 30;
-    private static int keyFramePerSecond = 2;
+    public static int FRAME_PER_SECOND = 30;
+    public static int KEY_FRAME_PER_SECOND = 2;
 
     private String name;
     private Sport sport;
@@ -160,7 +160,7 @@ public class Strategy implements Serializable, TreeViewable
             Frame lastKeyFrame = this.frames.get(this.frames.size() - 1);
 
             //ajout des subFrames
-            for (int i = 1; i < (Strategy.framePerSecond / Strategy.keyFramePerSecond); i++)
+            for (int i = 1; i < (Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND); i++)
             {
                 Frame subFrame = new Frame(lastKeyFrame);
                 subFrame.setKeyFrame(false);
@@ -211,7 +211,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         if (this.currentFrameIdx != 0)
         {
-            int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+            int intervalBetweenKeyFrame = Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
             if (this.currentFrameIdx % intervalBetweenKeyFrame != 0)
             {
                 this.currentFrameIdx -= this.currentFrameIdx % intervalBetweenKeyFrame;
@@ -249,7 +249,7 @@ public class Strategy implements Serializable, TreeViewable
     {
         if (!this.isLastFrame())
         {
-            int intervalBetweenKeyFrame = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+            int intervalBetweenKeyFrame = Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
             this.currentFrameIdx = (this.currentFrameIdx / intervalBetweenKeyFrame + 1) * intervalBetweenKeyFrame;
         }
         return this.frames.get(this.currentFrameIdx);
@@ -263,7 +263,7 @@ public class Strategy implements Serializable, TreeViewable
     public void changeCurrentFrame(float delta)
     {
         this.currentFrameIdx += Math.round(
-                delta * 10) * Strategy.framePerSecond / 10; //bond précis au 1/10 de secondes
+                delta * 10) * Strategy.FRAME_PER_SECOND / 10; //bond précis au 1/10 de secondes
     }
 
     /**
@@ -397,7 +397,7 @@ public class Strategy implements Serializable, TreeViewable
             this.getCurrentFrame().placeGameObject(gameObject, position, orientation);
             if (this.currentFrameIdx != 0)
             {
-                int nbFrames = Strategy.framePerSecond / Strategy.keyFramePerSecond;
+                int nbFrames = Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
                 int previousKeyFrameId = this.currentFrameIdx - nbFrames;
                 Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
 

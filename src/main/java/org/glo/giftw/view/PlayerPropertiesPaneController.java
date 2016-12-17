@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.GameObject;
-import org.glo.giftw.domain.util.Vector;
+import org.glo.giftw.domain.strategy.Player;
 
 import java.io.IOException;
 
@@ -19,9 +19,6 @@ public class PlayerPropertiesPaneController
 
     @FXML
     private TitledPane playerPropertiesTitledPane;
-
-    @FXML
-    private ColorPicker teamColorPicker;
 
     @FXML
     private ComboBox<String> roleComboBox;
@@ -60,29 +57,25 @@ public class PlayerPropertiesPaneController
                 e.printStackTrace();
             }
 
-            //TODO
-            //Afficher les roles du sport
-            //roleComboBox.getItems().add(Controller.getInstance().);
+            roleComboBox.getItems().addAll(Controller.getInstance().getStrategyRoles());
             nameTextField.setText(gameObject.getName());
-            //Afficher le role du joueur select
-            //Afficher l'orientation
+            roleComboBox.setValue(((Player)gameObject).getRole());
             initSlider(selectedUUID, gameObject);
         }
     }
 
     private void initSlider(String uuid, GameObject gameObject)
     {
+    	orientationSlider.setValue(Controller.getInstance().getOrientation(gameObject));
         orientationSlider.valueProperty().addListener(new ChangeListener<Number>()
         {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val)
             {
-                Vector position = Controller.getInstance().getPosition(gameObject);
                 float orientation = new_val.floatValue();
-                System.out.println(orientation);
                 try
                 {
-                    Controller.getInstance().placeGameObject(uuid, position, orientation);
+                    Controller.getInstance().placeGameObject(uuid, orientation);
                 }
                 catch (GameObjectNotFound e)
                 {
@@ -130,9 +123,14 @@ public class PlayerPropertiesPaneController
             e.printStackTrace();
         }
         gameObject.setName(nameTextField.getText());
-        //TODO
-        //setter le role
-        //setter la team?
-        //display strategie
+        ((Player)gameObject).setRole(roleComboBox.getValue());
+        try
+		{
+			RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

@@ -36,7 +36,20 @@ public class ModeToolBarController
     @FXML
     void onActionRealTime(ActionEvent event) throws IOException
     {
-        RootLayoutController.getInstance().realTime();
+        TreeViewable strategy = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
+        if (strategy != null)
+        {
+            try
+            {
+                Controller.getInstance().openStrategy(strategy.getDisplayName());
+            }
+            catch (StrategyNotFound e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            RootLayoutController.getInstance().realTime();
+        }
     }
 
     @FXML

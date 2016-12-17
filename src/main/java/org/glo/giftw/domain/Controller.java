@@ -101,7 +101,6 @@ public class Controller
      * @param name              Le nom de l'obstacle.
      * @param isCollidable      Un booléen indiquant si l'obstacle génère des collisions.
      * @param imagePath         Le chemin vers l'image associé à l'obstacle.
-     * @param defaultDimensions Les dimensions standards de ce type d'obstacle.
      */
     public void createObstacle(String name, boolean isCollidable, String imagePath, int obstacleWidth,
                                int obstacleHeight)
@@ -205,6 +204,7 @@ public class Controller
 
     public void setPixelToUnitRatio(Vector ratio)
     {
+    	System.out.println(ratio);
         this.currentStrategy.setPixelToUnitRatio(ratio);
     }
 
@@ -227,6 +227,15 @@ public class Controller
         return this.currentStrategy.getFieldCoordinate(adjustedCoordinate);
     }
 
+    public List<Frame> getFrames()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getFrames();
+        }
+        return null;
+    }
+
     public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
     {
         return this.currentStrategy.getGameObjectByUUID(uuid);
@@ -244,6 +253,18 @@ public class Controller
     {
         Vector ratio = this.currentStrategy.getPixelToUnitRatio();
         this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation);
+    }
+
+    public void placeGameObject(String gameObjectUuid, Vector position) throws GameObjectNotFound
+    {
+        float orientation = this.getOrientation(this.getGameObjectByUUID(gameObjectUuid));
+        this.placeGameObject(gameObjectUuid, position, orientation);
+    }
+
+    public void placeGameObject(String gameObjectUuid, float orientation) throws GameObjectNotFound
+    {
+        Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
+        this.placeGameObject(gameObjectUuid, position, orientation);
     }
 
     /**
@@ -295,6 +316,15 @@ public class Controller
         {
             return null;
         }
+    }
+
+    public List<String> getStrategyRoles()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getSport().getRoles();
+        }
+        return null;
     }
 
     public Collection<Strategy> getStrategies()

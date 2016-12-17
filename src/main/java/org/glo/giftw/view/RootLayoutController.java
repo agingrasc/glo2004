@@ -103,10 +103,13 @@ public class RootLayoutController
         addToolBar(getModeToolBarController().getRootToolBar());
         addToolBar(getMediaToolBarController().getRootToolBar());
         borderPane.setLeft(null);
-        borderPane.setCenter(getMediaContentController().getField());
+        borderPane.setCenter(getCreationStackPaneController().getScrollPane());
         borderPane.setBottom(getBottomToolBarController().getRootToolBar());
         borderPane.setRight(null);
-        getMediaContentController().displayNewFrame();
+        borderPane.applyCss();
+        borderPane.layout();
+        getMediaToolBarController().initialize();
+        getCreationStackPaneController().init(EditionMode.WATCH);
     }
 
     public void imageByImage() throws IOException
@@ -121,7 +124,7 @@ public class RootLayoutController
         borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
         borderPane.applyCss();
         borderPane.layout();
-        getCreationStackPaneController().init();
+        getCreationStackPaneController().init(EditionMode.IMAGE);
     }
 
     public void realTime() throws IOException
@@ -134,6 +137,9 @@ public class RootLayoutController
         borderPane.setCenter(getCreationStackPaneController().getScrollPane());
         borderPane.setBottom(getBottomToolBarController().getRootToolBar());
         borderPane.setRight(getGeneralPropertiesPaneController().getRootAccordion());
+        borderPane.applyCss();
+        borderPane.layout();
+        this.getCreationStackPaneController().init(EditionMode.REAL_TIME);
     }
 
     public void configureSport() throws IOException
