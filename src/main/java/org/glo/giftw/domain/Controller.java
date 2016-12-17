@@ -124,7 +124,7 @@ public class Controller
     {
         try
         {
-            this.currentStrategy.removeGameObject(this.getGameObjectByUUID(gameObjectUuid));
+            this.currentStrategy.deleteGameObject(this.getGameObjectByUUID(gameObjectUuid));
         }
         catch (GameObjectNotFound gameObjectNotFound)
         {

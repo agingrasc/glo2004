@@ -311,8 +311,8 @@ public class CreationStackPaneController extends AnimationTimer
 	public void delete()
 	{
 		Controller.getInstance().deleteGameObject(selectedUUID);
-		resetDisplay();
-		displayStrategy();
+		this.resetDisplay();
+		this.displayStrategy();
 	}
 
 }
