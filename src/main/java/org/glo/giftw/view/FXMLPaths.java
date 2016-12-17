@@ -16,15 +16,11 @@ public enum FXMLPaths
     NEW_OBSTACLE_PATH("/fxml/NewObstacle.fxml"),
     NEW_SPORT_PATH("/fxml/NewSport.fxml"),
     NEW_STRATEGY_PATH("/fxml/NewStrategy.fxml"),
-    OBSTACLE_PROPERTIES_PANE_PATH("/fxml/ObstaclePropertiesPane.fxml"),
-    OPEN_LIST_ITEM("/fxml/OpenListItem.fxml"),
     OPEN_OBSTACLE_PATH("/fxml/OpenObstacle.fxml"),
     OPEN_OBSTACLE_TOOL_BAR_PATH("/fxml/OpenObstacleToolBar.fxml"),
     OPEN_STRATEGY_PATH("/fxml/OpenStrategy.fxml"),
     OPEN_STRATEGY_TOOL_BAR_PATH("/fxml/OpenStrategyToolBar.fxml"),
     PLAYER_PROPERTIES_PANE_PATH("/fxml/PlayerPropertiesPane.fxml"),
-    PLAYER_DISPLAY_PATH("/fxml/PlayerDisplay.fxml"),
-    PROJECTILE_PROPERTIES_PANE_PATH("/fxml/ProjectilePropertiesPane.fxml"),
     ROOT_LAYOUT_PATH("/fxml/RootLayout.fxml");
 
     private String name = "";

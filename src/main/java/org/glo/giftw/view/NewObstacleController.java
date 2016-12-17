@@ -43,7 +43,6 @@ public class NewObstacleController
         imageToOpen = imageFileController.startOpenFileDialog(parentWindow);
 
         imagePreview.setImage(new Image(imageToOpen.toURI().toString()));
-        System.out.println("onActionBrowse");
     }
 
     public void showDialog() throws IOException

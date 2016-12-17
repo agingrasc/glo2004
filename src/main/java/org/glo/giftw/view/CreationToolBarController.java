@@ -13,8 +13,10 @@ public class CreationToolBarController
     private ToolBar rootToolBar;
 
     @FXML
-    void onActionDelete(ActionEvent event)
+    void onActionDelete(ActionEvent event) throws IOException
     {
+    	RootLayoutController.getInstance().getCreationStackPaneController().delete();
+    	
         System.out.println("onActionDelete");
     }
 
