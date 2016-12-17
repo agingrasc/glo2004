@@ -1,6 +1,5 @@
 package org.glo.giftw.view;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
@@ -24,13 +23,11 @@ public class RootLayoutController
     private NewObstacleController newObstacleController;
     private NewSportController newSportController;
     private NewStrategyController newStrategyController;
-    private ObstaclePropertiesPaneController obstaclePropertiesPaneController;
     private OpenObstacleController openObstacleController;
     private OpenObstacleToolBarController openObstacleToolBarController;
     private OpenStrategyController openStrategyController;
     private OpenStrategyToolBarController openStrategyToolBarController;
     private PlayerPropertiesPaneController playerPropertiesPaneController;
-    private ProjectilePropertiesPaneController projectilePropertiesPaneController;
 
     @FXML
     private ToggleGroup mode;
@@ -142,21 +139,6 @@ public class RootLayoutController
         this.getCreationStackPaneController().init(EditionMode.REAL_TIME);
     }
 
-    public void configureSport() throws IOException
-    {
-        newSport();
-    }
-
-    public void configureObstacle() throws IOException
-    {
-        newObstacle();
-    }
-
-    public void configureStrategy() throws IOException
-    {
-        newStrategy();
-    }
-
     private void addToolBar(ToolBar toolBar)
     {
         rootToolBar.getItems().addAll(toolBar.getItems());
@@ -165,144 +147,6 @@ public class RootLayoutController
     private void clearRootToolBar()
     {
         rootToolBar.getItems().clear();
-    }
-
-    @FXML
-    void onActionDelete(ActionEvent event)
-    {
-        System.out.println("onActionDelete");
-    }
-
-    @FXML
-    void onActionExportJPEG(ActionEvent event)
-    {
-        System.out.println("onActionExportJPEG");
-    }
-
-    @FXML
-    void onActionExportPNG(ActionEvent event)
-    {
-        System.out.println("onActionExportPNG");
-    }
-
-    @FXML
-    void onActionImageByImage(ActionEvent event)
-    {
-        System.out.println("onActionImageByImage");
-    }
-
-    @FXML
-    void onActionInsertObstacle(ActionEvent event)
-    {
-        System.out.println("onActionInsertObstacle");
-    }
-
-    @FXML
-    void onActionInsertPlayer(ActionEvent event)
-    {
-        System.out.println("onActionInsertPlayer");
-    }
-
-    @FXML
-    void onActionInsertProjectile(ActionEvent event)
-    {
-        System.out.println("onActionInsertProjectile");
-    }
-
-    @FXML
-    void onActionNewObstacle(ActionEvent event)
-    {
-        System.out.println("onActionNewObstacle");
-    }
-
-    @FXML
-    void onActionNewSport(ActionEvent event)
-    {
-        System.out.println("onActionNewSport");
-    }
-
-    @FXML
-    void onActionNewStrategy(ActionEvent event)
-    {
-        System.out.println("onActionNewStrategy");
-    }
-
-    @FXML
-    void onActionOpenObstacle(ActionEvent event)
-    {
-        System.out.println("onActionOpenObstacle");
-    }
-
-    @FXML
-    void onActionOpenSport(ActionEvent event)
-    {
-        System.out.println("onActionOpenSport");
-    }
-
-    @FXML
-    void onActionOpenStrategy(ActionEvent event)
-    {
-        System.out.println("onActionOpenStrategy");
-    }
-
-    @FXML
-    void onActionRealTime(ActionEvent event)
-    {
-        System.out.println("onActionRealTime");
-    }
-
-    @FXML
-    void onActionRedo(ActionEvent event)
-    {
-        System.out.println("onActionRedo");
-    }
-
-    @FXML
-    void onActionSave(ActionEvent event)
-    {
-        System.out.println("onActionSave");
-    }
-
-    @FXML
-    void onActionSaveAs(ActionEvent event)
-    {
-        System.out.println("onActionSaveAs");
-    }
-
-    @FXML
-    void onActionShowNames(ActionEvent event)
-    {
-        System.out.println("onActionShowNames");
-    }
-
-    @FXML
-    void onActionShowRoles(ActionEvent event)
-    {
-        System.out.println("onActionShowRoles");
-    }
-
-    @FXML
-    void onActionUndo(ActionEvent event)
-    {
-        System.out.println("onActionUndo");
-    }
-
-    @FXML
-    void onActionWatch(ActionEvent event)
-    {
-        System.out.println("onActionWatch");
-    }
-
-    @FXML
-    void onActionZoomIn(ActionEvent event)
-    {
-        System.out.println("onActionZoomIn");
-    }
-
-    @FXML
-    void onActionZoomOut(ActionEvent event)
-    {
-        System.out.println("onActionZoomOut");
     }
 
     public BottomToolBarController getBottomToolBarController() throws IOException
@@ -442,18 +286,6 @@ public class RootLayoutController
         return newStrategyController;
     }
 
-    public ObstaclePropertiesPaneController getObstaclePropertiesPaneController() throws IOException
-    {
-        if (obstaclePropertiesPaneController == null)
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(FXMLPaths.OBSTACLE_PROPERTIES_PANE_PATH.toString()));
-            loader.load();
-            this.obstaclePropertiesPaneController = loader.getController();
-        }
-        return obstaclePropertiesPaneController;
-    }
-
     public OpenObstacleController getOpenObstacleController() throws IOException
     {
         if (openObstacleController == null)
@@ -510,18 +342,6 @@ public class RootLayoutController
         this.playerPropertiesPaneController = loader.getController();
 
         return playerPropertiesPaneController;
-    }
-
-    public ProjectilePropertiesPaneController getProjectilePropertiesPaneController() throws IOException
-    {
-        if (projectilePropertiesPaneController == null)
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(FXMLPaths.PROJECTILE_PROPERTIES_PANE_PATH.toString()));
-            loader.load();
-            this.projectilePropertiesPaneController = loader.getController();
-        }
-        return projectilePropertiesPaneController;
     }
 
     public BorderPane getBorderPane()
