@@ -1,6 +1,5 @@
 package org.glo.giftw.domain.util;
 
-import java.lang.Math;
 import java.io.Serializable;
 
 /**
@@ -67,11 +66,12 @@ public class Vector implements Serializable
      */
     public double magnitude()
     {
-        return Math.sqrt(this.x*this.x + this.y*this.y);
+        return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
     /**
      * Returns the direction of this vector in the range -pi to pi.
+     *
      * @return angle de la direction
      */
     public double direction()
@@ -85,7 +85,7 @@ public class Vector implements Serializable
     public Vector normalized()
     {
         double len = magnitude();
-        return new Vector(x/len, y/len);
+        return new Vector(x / len, y / len);
     }
 
     //Operateurs mathematiques et logique
@@ -99,7 +99,7 @@ public class Vector implements Serializable
     {
         return new Vector(this.x * multiplier, this.y * multiplier);
     }
-    
+
     //multiplication par deux constantes idépendantes pour x et y
     //ceci n'est pas un produit scalaire ou vectoriel
     public Vector mul(Vector multiplier)
@@ -112,7 +112,7 @@ public class Vector implements Serializable
     {
         return new Vector(this.x / divider, this.y / divider);
     }
-    
+
     //division par deux constantes idépendantes pour x et y
     //ceci n'est pas un produit scalaire ou vectoriel
     public Vector div(Vector divider)
@@ -125,7 +125,7 @@ public class Vector implements Serializable
     {
         return "(x: " + this.x + ", y: " + this.y + ") cm";
     }
-    
+
     public double getDistance(Vector other)
     {
         return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));

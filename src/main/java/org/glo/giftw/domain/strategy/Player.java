@@ -30,6 +30,7 @@ public class Player extends GameObject implements Serializable
         this.collidable = true;
         this.speed = new Vector(0, 0);
         this.hasProjectile = false;
+        this.dimensions = new Vector(300, 300); // TODO: faire des tests pour trouver une bonne valeur
         Player.playerCount++;
     }
 

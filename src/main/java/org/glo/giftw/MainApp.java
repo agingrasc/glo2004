@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.view.FXMLPaths;
 import org.glo.giftw.view.RootLayoutController;
 
@@ -12,41 +13,50 @@ import java.io.IOException;
 
 public class MainApp extends Application
 {
-	private Stage primaryStage;
-	public static final String TITLE = "VisuaLigue";
+    private Stage primaryStage;
+    public static final String TITLE = "VisuaLigue";
 
-	@Override
-	public void start(Stage primaryStage) throws IOException
-	{
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle(TITLE);
-		this.primaryStage.setMaximized(true);
+    @Override
+    public void start(Stage primaryStage) throws IOException
+    {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle(TITLE);
+        this.primaryStage.setMaximized(true);
 
-		initRootLayout();
-		RootLayoutController.getInstance().openStrategy();
-	}
+        initRootLayout();
+        RootLayoutController.getInstance().openStrategy();
+    }
 
-	public void initRootLayout()
-	{
-		try
-		{
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource(FXMLPaths.ROOT_LAYOUT_PATH.toString()));
-			loader.setController(RootLayoutController.getInstance());
-			BorderPane rootLayout = loader.load();
+    @Override
+    public void stop() throws Exception
+    {
+        System.out.println("Sauvegarde automatique de toutes les stratégies.");
+        Controller.getInstance().saveStrategies();
+        super.stop();
+    }
 
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+    public void initRootLayout()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(FXMLPaths.ROOT_LAYOUT_PATH.toString()));
+            loader.setController(RootLayoutController.getInstance());
+            BorderPane rootLayout = loader.load();
 
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
-	public static void main(String[] args)
-	{
-		launch(args);
-	}
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
 }

@@ -1,5 +1,6 @@
 package org.glo.giftw.domain;
 
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.exceptions.TeamNotFound;
@@ -15,14 +16,29 @@ import java.util.List;
 
 public class Controller
 {
-    public static final double COORDINATE_CONVERSION_RATIO = 1.0; //mm par pixel
+    private static Controller INSTANCE = null;
+    protected Strategy currentStrategy;
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
     private StrategyPool strategyPool;
 
-    protected Strategy currentStrategy;
+    protected Controller()
+    {
+        super();
+        this.sportPool = new SportPool();
+        this.obstaclePool = new ObstaclePool();
+        this.strategyPool = new StrategyPool();
+        this.currentStrategy = new NullStrategy();
+    }
 
-    private static Controller INSTANCE = null;
+    public static Controller getInstance()
+    {
+        if (Controller.INSTANCE == null)
+        {
+            Controller.INSTANCE = new Controller();
+        }
+        return Controller.INSTANCE;
+    }
 
     public boolean isLastFrame()
     {
@@ -44,54 +60,64 @@ public class Controller
         currentStrategy.goToEnd();
     }
 
-    protected Controller()
-    {
-        super();
-        this.sportPool = new SportPool();
-        this.obstaclePool = new ObstaclePool();
-        this.strategyPool = new StrategyPool();
-        this.currentStrategy = null;
-    }
-
-    public static Controller getInstance()
-    {
-        if (Controller.INSTANCE == null)
-        {
-            Controller.INSTANCE = new Controller();
-        }
-        return Controller.INSTANCE;
-    }
-
     /**
      * Crée un nouveau sport et le sauvegarde dans SportPool.
      *
      * @param name                Le nom du sport.
      * @param roles               La liste des rôles associés au sport.
-     * @param fieldLength         La largeur du terrain (composante x).
-     * @param fieldHeight         La hauteur du terrain (composante y).
+     * @param fieldLength         La largeur du terrain en cm (composante x).
+     * @param fieldHeight         La hauteur du terrain en cm (composante y).
+     * @param fieldImagePath      Le chemin vers l'image associé au terrain.
      * @param projectileName      Le nom du projectile du sport.
      * @param projectileImagePath Le chemin vers l'image associé au projectile.
+     * @param projectileLength    La largeur du projectile en cm (composante x).
+     * @param projectileHeigth    La hauteur du projectile en cm (composante y).
      * @param maxPLayersPerTeam   Le nombre maximum de joueurs par équipe sur le terrain à un moment donné.
      * @param maxTeams            Le nombre maximum d'équipe lors d'une partie.
      */
     public void createSport(String name, List<String> roles, int fieldLength, int fieldHeight, String fieldImagePath,
-                            String projectileName, String projectileImagePath, int maxPLayersPerTeam, int maxTeams)
+                            String projectileName, String projectileImagePath, int projectileLength,
+                            int projectileHeigth, int maxPLayersPerTeam, int maxTeams)
     {
-        Vector fieldDimension = new Vector(fieldLength / COORDINATE_CONVERSION_RATIO,
-                                           fieldHeight / COORDINATE_CONVERSION_RATIO);
-        this.sportPool.addSport(name, roles, fieldDimension, fieldImagePath, projectileName,
-                                projectileImagePath, maxPLayersPerTeam, maxTeams);
+        Vector fieldDimension = new Vector(fieldLength, fieldHeight);
+        Vector projectileDefaultDimensions = new Vector(projectileLength, projectileLength);
+        this.sportPool.addSport(name, roles, fieldDimension, fieldImagePath, projectileName, projectileImagePath,
+                                projectileDefaultDimensions, maxPLayersPerTeam, maxTeams);
+    }
+
+    /**
+     * Supprime un sport du sportPool, s'il est présent.
+     *
+     * @param name Le nom du sport à supprimer.
+     */
+    public void deleteSport(String name)
+    {
+        this.sportPool.deleteSport(name);
     }
 
     /**
      * Crée un nouveau type d'obstacle et le sauvegarde dans Obstacle Pool.
      *
-     * @param name      Le nom de l'obstacle.
-     * @param imagePath Le chemin vers l'image associé à l'obstacle.
+     * @param name              Le nom de l'obstacle.
+     * @param isCollidable      Un booléen indiquant si l'obstacle génère des collisions.
+     * @param imagePath         Le chemin vers l'image associé à l'obstacle.
      */
-    public void createObstacle(String name, boolean isCollidable, String imagePath)
+    public void createObstacle(String name, boolean isCollidable, String imagePath, int obstacleWidth,
+                               int obstacleHeight)
     {
-        this.obstaclePool.addObstacleType(name, isCollidable, imagePath);
+        Vector defaultDimensions = new Vector(obstacleWidth, obstacleHeight);
+        this.obstaclePool.addObstacleType(name, isCollidable, imagePath, defaultDimensions);
+    }
+
+    /**
+     * Supprime un obstacle de l'obstaclePool, s'il est présent. L'obstacle n'est pas retiré des stratégies,
+     * ce qui peut occasionner des erreurs.
+     *
+     * @param name Le nom de l'obstacle à supprimer.
+     */
+    public void deleteObstacle(String name)
+    {
+        this.obstaclePool.deleteObstacle(name);
     }
 
     /**
@@ -109,75 +135,155 @@ public class Controller
     }
 
     /**
-     * Crée un nouveau joueur dans la stratégie et l'ajoute dans la frame courante.
+     * Supprime une strategy du strategyPool, si elle est présente.
      *
-     * @param position    La position initiale du joueur.
-     * @param orientation L'orientation initiale du joueur.
-     * @param dimensions  Les dimensions initiales du joueur.
+     * @param name Le nom de la stratégie.
+     */
+    public void deleteStrategy(String name)
+    {
+        this.strategyPool.deleteStrategy(name);
+    }
+
+    /**
+     * Crée un nouveau joueur dans la stratégie et l'ajoute à l'équipe spécifiée.
+     *
+     * @param team L'équipe du joueur.
      * @return L'id du joueur nouvellement créé.
      */
-    public GameObject addPlayer(Vector position, float orientation, Vector dimensions,
-                                String team) throws TeamNotFound, MaxNumberException
+    public String addPlayer(String team) throws TeamNotFound, MaxNumberException
     {
-        return this.currentStrategy.addPlayer(position, orientation, dimensions, team);
+        return this.currentStrategy.addPlayer(team);
     }
 
     /**
-     * Crée un nouvel obstacle dans la stratégie et l'ajoute dans la frame courante.
+     * Crée un nouvel obstacle dans la stratégie.
      *
-     * @param position    La position initiale de l'obstacle.
-     * @param orientation L'orientation initiale de l'obstacle.
-     * @param dimensions  Les dimensions initiales de l'obstacle.
+     * @param name Le nom du type d'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
-    public GameObject addObstacle(String name, Vector position, float orientation, Vector dimensions)
+    public String addObstacle(String name)
     {
         Obstacle obstacle = this.obstaclePool.create(name);
-        return this.currentStrategy.addObstacle(obstacle, position, orientation, dimensions);
+        return this.currentStrategy.addObstacle(obstacle);
     }
 
     /**
-     * Crée un nouveau projectile dans la stratégie et l'ajoute dans la frame courante.
+     * Crée un nouveau projectile dans la stratégie.
      *
-     * @param position    La position initiale du projectile.
-     * @param orientation L'orientation initiale du projectile.
-     * @param dimensions  Les dimensions initiales du projectile.
      * @return L'id du projectile nouvellement créé.
      */
-    public GameObject addProjectile(Vector position, float orientation, Vector dimensions)
+    public String addProjectile()
     {
-        return this.currentStrategy.addProjectile(position, orientation, dimensions);
+        return this.currentStrategy.addProjectile();
     }
 
     public void addTeam(String teamName, String colour) throws MaxNumberException
     {
         this.currentStrategy.addTeam(teamName, colour);
     }
-    
-    public Collection<Team> getTeams()
+
+    /**
+     * Supprime une équipe, si elle existe.
+     *
+     * @param teamName Le nom de l'équipe.
+     */
+    public void deleteTeam(String teamName)
     {
-        return this.currentStrategy.getTeams();
+        this.currentStrategy.removeTeam(teamName);
     }
-    
+
     public String getTeamColour(String teamName)
     {
         return this.currentStrategy.getTeamColour(teamName);
     }
-    
+
     public void setTeamColour(String teamName, String colour)
     {
         this.currentStrategy.setTeamColour(teamName, colour);
     }
 
-    public GameObject getGameObjectByCoordinate(Vector adjustedMouseCoordinate, Vector ratioPixelToUnit)
+    public void setPixelToUnitRatio(Vector ratio)
     {
-        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate, ratioPixelToUnit);
-        return currentStrategy.getGameObjectByCoordinate(coordinate);
+    	System.out.println(ratio);
+        this.currentStrategy.setPixelToUnitRatio(ratio);
     }
 
-    public void placeGameObject(GameObject gameObject, Vector position, float orientation, Vector dimensions)
+    public String getGameObjectByCoordinate(Vector adjustedMouseCoordinate) throws GameObjectNotFound
     {
-        this.currentStrategy.placeGameObject(gameObject, position, orientation, dimensions);
+        Vector coordinate = this.getFieldCoordinate(adjustedMouseCoordinate);
+        GameObject gameObject = currentStrategy.getGameObjectByCoordinate(coordinate);
+        if (gameObject == null)
+        {
+            throw new GameObjectNotFound("Aucun gameObject au coordonnee: " + adjustedMouseCoordinate.toString());
+        }
+        else
+        {
+            return gameObject.getId();
+        }
+    }
+
+    public Vector getFieldCoordinate(Vector adjustedCoordinate)
+    {
+        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate);
+    }
+
+    public List<Frame> getFrames()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getFrames();
+        }
+        return null;
+    }
+
+    public GameObject getGameObjectByUUID(String uuid) throws GameObjectNotFound
+    {
+        return this.currentStrategy.getGameObjectByUUID(uuid);
+    }
+
+    /**
+     * Place un GameObject dans la frame courante. Si le GameObject est déjà présent, son état est mis à jour.
+     *
+     * @param gameObjectUuid Le uuid du GameObject.
+     * @param position       La position du GameObject, en pixels.
+     * @param orientation    L'orientation du GameObject.
+     * @throws GameObjectNotFound
+     */
+    public void placeGameObject(String gameObjectUuid, Vector position, float orientation) throws GameObjectNotFound
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation);
+    }
+
+    public void placeGameObject(String gameObjectUuid, Vector position) throws GameObjectNotFound
+    {
+        float orientation = this.getOrientation(this.getGameObjectByUUID(gameObjectUuid));
+        this.placeGameObject(gameObjectUuid, position, orientation);
+    }
+
+    public void placeGameObject(String gameObjectUuid, float orientation) throws GameObjectNotFound
+    {
+        Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
+        this.placeGameObject(gameObjectUuid, position, orientation);
+    }
+
+    /**
+     * Retire un GameObject de la stratégie et de toutes les frames, s'il est présent.
+     *
+     * @param gameObjectUuid Le uuid du GameObject.
+     */
+    public void removeGameObject(String gameObjectUuid)
+    {
+        try
+        {
+            GameObject goToRemove = this.currentStrategy.getGameObjectByUUID(gameObjectUuid);
+            this.currentStrategy.removeGameObject(goToRemove);
+
+        }
+        catch (GameObjectNotFound e)
+        {
+            //Le GameObject n'est pas présent dans la Frame, on ne fait rien!
+        }
     }
 
     /**
@@ -194,20 +300,31 @@ public class Controller
     {
         return this.currentStrategy.getFieldImagePath();
     }
-    
-    public Projectile getProjectile()
-    {
-        return this.currentStrategy.getSport().getProjectile();
-    }
-
-    public Collection<Obstacle> getObstacles()
-    {
-        return this.obstaclePool.getAllObstacles();
-    }
 
     public Collection<Sport> getSports()
     {
         return this.sportPool.getAllSports();
+    }
+
+    public String getStrategyName()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getName();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public List<String> getStrategyRoles()
+    {
+        if (this.currentStrategy != null)
+        {
+            return this.currentStrategy.getSport().getRoles();
+        }
+        return null;
     }
 
     public Collection<Strategy> getStrategies()
@@ -241,11 +358,6 @@ public class Controller
         return currentStrategy.getFieldDimensions();
     }
 
-    public Vector getFieldCoordinate(Vector adjustedCoordinate, Vector ratioPixelToUnit)
-    {
-        return this.currentStrategy.getFieldCoordinate(adjustedCoordinate, ratioPixelToUnit);
-    }
-
     /**
      * Retourne la frame courante de la stratégie.
      *
@@ -257,7 +369,8 @@ public class Controller
     }
 
     /**
-     * Retourne la frame précédente de la stratégie.
+     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante.
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
      *
      * @return La frame précédente.
      */
@@ -267,13 +380,36 @@ public class Controller
     }
 
     /**
-     * Retourne la frame suivante de la stratégie.
+     * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame précédente, puis retourne celle-ci.
+     * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
+     *
+     * @return La keyFrame précédente.
+     */
+    public Frame previousKeyFrame()
+    {
+        return this.currentStrategy.previousKeyFrame();
+    }
+
+    /**
+     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante.
+     * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
      *
      * @return La frame suivante.
      */
     public Frame nextFrame()
     {
         return this.currentStrategy.nextFrame();
+    }
+
+    /**
+     * Retourne la keyFrame suivante de la stratégie.
+     * Si la frame courante est la dernière frame, c'est celle-ci qui est retournée.
+     *
+     * @return La frame suivante.
+     */
+    public Frame nextKeyFrame()
+    {
+        return this.currentStrategy.nextKeyFrame();
     }
 
     /**
@@ -300,40 +436,58 @@ public class Controller
         this.currentStrategy.changeCurrentFrame(delta);
         return this.currentStrategy.getCurrentFrame();
     }
-    
-    public Dragable getDraggedObject(String name)
+
+    public Collection<Team> getTeams()
     {
-        if(this.getProjectile().getName() == name)
-        {
-            return this.getProjectile();
-        }
-        else
-        {
-            Collection<Obstacle> obstacles = this.getObstacles();
-            for(Obstacle o : obstacles)
-            {
-                if(o.getName() == name)
-                {
-                    return o;
-                }
-            }
-            Collection<Team> teams = this.getTeams();
-            for(Team t : teams)
-            {
-                if(t.getName() == name)
-                {
-                    return t;
-                }
-                List<Player> players = t.getPlayers();
-                for(Player p : players)
-                {
-                    if(p.getName() == name)
-                    {
-                        return p;
-                    }
-                }
-            }
-            return null;
-        } 
+        return this.currentStrategy.getTeams();
+    }
+
+    public Projectile getProjectile()
+    {
+        return this.currentStrategy.getProjectile();
+    }
+
+    public Collection<Obstacle> getObstacles()
+    {
+        return this.obstaclePool.getAllObstacles();
+    }
+
+    public void saveStrategies()
+    {
+        this.strategyPool.save();
+    }
+
+    public void clearUnplacedGameObjects()
+    {
+        this.currentStrategy.clearUnplacedGameObjects();
+    }
+
+    public String goTo()
+    {
+        return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    }
+
+    /**
+     * Retourne la position en pixels d'un GameObject.
+     *
+     * @param gameObject Le GameObject dont on veut connaître la position.
+     * @return La position du GameObject, en pixels.
+     */
+    public Vector getPosition(GameObject gameObject)
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        Vector positionCM = this.currentStrategy.getCurrentFrame().getPosition(gameObject);
+        return positionCM.mul(ratio);
+    }
+
+    public float getOrientation(GameObject gameObject)
+    {
+        return this.currentStrategy.getCurrentFrame().getOrientation(gameObject);
+    }
+
+    public Vector getDimensions(GameObject gameObject)
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        return gameObject.getDimensions().mul(ratio);
     }
 }

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.text.Font?>
-
-
-<Label alignment="CENTER" contentDisplay="CENTER" stylesheets="@../css/visuaLigueCSS.css" text="Aucun contenu dans la table.&#10;&#10;Utilisez le bouton &quot;Nouveau&quot; pour ajouter un élément." textAlignment="CENTER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.ListPlaceHolderController">
-   <font>
-      <Font size="18.0" />
-   </font>
+<Label alignment="CENTER" contentDisplay="CENTER" stylesheets="@../css/visuaLigueCSS.css"
+       text="Aucun contenu dans la table.&#10;&#10;Utilisez le bouton &quot;Nouveau&quot; pour ajouter un élément."
+       textAlignment="CENTER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+       fx:controller="org.glo.giftw.view.ListPlaceHolderController">
+    <font>
+        <Font size="18.0"/>
+    </font>
 </Label>

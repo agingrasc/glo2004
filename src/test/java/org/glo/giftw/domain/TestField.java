@@ -87,8 +87,9 @@ public class TestField
     {
         Vector coordInPixel = new Vector(500, 500);
         Vector ratioPixelToUnit = new Vector(1, 1);
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
         Vector expected = new Vector(500, 500);
-        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit)));
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel)));
 
     }
 
@@ -98,7 +99,8 @@ public class TestField
         Vector coordInPixel = new Vector(500, 500);
         Vector ratioPixelToUnit = new Vector(2, 2);
         Vector expected = new Vector(250, 250);
-        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit)));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel)));
     }
 
     @Test
@@ -107,7 +109,8 @@ public class TestField
         Vector coordInPixel = new Vector(500, 500);
         Vector ratioPixelToUnit = new Vector(0.5, 0.5);
         Vector expected = new Vector(1000, 1000);
-        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit)));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        assertTrue(expected.equals(field.getFieldCoordinate(coordInPixel)));
     }
 
     @Test
@@ -115,7 +118,8 @@ public class TestField
     {
         Vector coordInPixel = new Vector(-100, 200);
         Vector ratioPixelToUnit = new Vector(1, 1);
-        assertNull(field.getFieldCoordinate(coordInPixel, ratioPixelToUnit));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        assertNull(field.getFieldCoordinate(coordInPixel));
     }
 
     @Test
@@ -124,7 +128,8 @@ public class TestField
         Vector coord = new Vector(500, 500);
         Vector ratioPixelToUnit = new Vector(1, 1);
         Vector expected = new Vector(500, 500);
-        Assert.assertTrue(expected.equals(field.getFieldCoordinate(coord, ratioPixelToUnit)));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(coord)));
 
     }
 
@@ -134,7 +139,8 @@ public class TestField
         Vector pixelCoord = new Vector(500, 500);
         Vector ratioPixelToUnit = new Vector(1, 1);  //1 pixel per unit
         Vector expected = new Vector(500, 500);
-        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord)));
     }
 
     @Test
@@ -143,7 +149,8 @@ public class TestField
         Vector pixelCoord = new Vector(500, 500);
         Vector ratioPixelToUnit = new Vector(2, 2);  //2 pixels par unit
         Vector expected = new Vector(250, 250);
-        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord)));
     }
 
     @Test
@@ -152,7 +159,8 @@ public class TestField
         Vector pixelCoord = new Vector(500, 500);
         Vector ratioPixelToUnit = new Vector(0.5, 0.5); //0.5 pixels per unit
         Vector expected = new Vector(1000, 1000);
-        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord, ratioPixelToUnit)));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        Assert.assertTrue(expected.equals(field.getFieldCoordinate(pixelCoord)));
     }
 
     @Test
@@ -160,6 +168,7 @@ public class TestField
     {
         Vector pixelCoord = new Vector(10000, 7000);
         Vector ratioPixelToUnit = new Vector(1, 1);  //1 pixel per unit
-        Assert.assertEquals(null, field.getFieldCoordinate(pixelCoord, ratioPixelToUnit));
+        this.field.setPixelToUnitRatio(ratioPixelToUnit);
+        Assert.assertEquals(null, field.getFieldCoordinate(pixelCoord));
     }
 }

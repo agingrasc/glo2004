@@ -1,23 +1,22 @@
 package org.glo.giftw.view;
 
-import java.io.IOException;
-
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.paint.Color;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.MaxNumberException;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
+import java.io.IOException;
 
 public class GeneralPropertiesPaneController
 {
-	@FXML
+    @FXML
     private Accordion rootAccordion;
+
+    @FXML
+    private TitledPane generalPropertiesTitledPane;
 
     @FXML
     private CheckBox showRolesCheckBox;
@@ -30,46 +29,75 @@ public class GeneralPropertiesPaneController
 
     @FXML
     private ColorPicker colorPicker;
-    
+
     @FXML
     private TextField teamNameTextField;
 
     @FXML
-    void onActionAddTeam(ActionEvent event) throws IOException 
+    public void initialize()
     {
-    	try
-		{
-    		Color color = colorPicker.getValue();
-    		String hex = String.format( "#%02X%02X%02X",
-    	            (int)( color.getRed() * 255 ),
-    	            (int)( color.getGreen() * 255 ),
-    	            (int)( color.getBlue() * 255 ) );
-			Controller.getInstance().addTeam(teamNameTextField.getText(),hex);
-			RootLayoutController.getInstance().getItemsAccordionController().updateTeamsTable();
-		} catch (MaxNumberException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        rootAccordion.setExpandedPane(generalPropertiesTitledPane);
+        showRolesCheckBox.setSelected(false);
+        showNamesCheckBox.setSelected(false);
     }
 
     @FXML
-    void onActionColorPicker(ActionEvent event) {
+    void onActionAddTeam(ActionEvent event) throws IOException
+    {
+        try
+        {
+            Color color = colorPicker.getValue();
+            String hex = String.format("#%02X%02X%02X",
+                                       (int) (color.getRed() * 255),
+                                       (int) (color.getGreen() * 255),
+                                       (int) (color.getBlue() * 255));
+            Controller.getInstance().addTeam(teamNameTextField.getText(), hex);
+            RootLayoutController.getInstance().getItemsAccordionController().updateTeamsTable();
+        }
+        catch (MaxNumberException e)
+        {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Avertissement");
+            alert.setHeaderText("Avertissement");
+            alert.setContentText("Le nombre d'equipes maximum est atteint!");
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
+            alert.showAndWait();
 
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void onShowNames(ActionEvent event) {
-
+    void onShowNames(ActionEvent event)
+    {
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().setDisplayNames(
+                    showNamesCheckBox.isSelected());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void onShowRoles(ActionEvent event) {
-
+    void onShowRoles(ActionEvent event)
+    {
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().setDisplayRoles(
+                    showRolesCheckBox.isSelected());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
-	public Accordion getRootAccordion()
-	{
-		return rootAccordion;
-	}
+    public Accordion getRootAccordion()
+    {
+        return rootAccordion;
+    }
 }

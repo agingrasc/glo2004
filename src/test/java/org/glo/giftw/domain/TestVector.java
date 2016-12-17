@@ -1,7 +1,6 @@
 package org.glo.giftw.domain;
 
 import org.glo.giftw.domain.util.Vector;
-import org.glo.giftw.domain.util.VectorFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +21,10 @@ public class TestVector
     public void setUp()
     {
         this.nVec = new Vector();
-        this.upVec = VectorFactory.up();
-        this.downVec = VectorFactory.down();
-        this.leftVec = VectorFactory.left();
-        this.rightVec = VectorFactory.right();
+        this.upVec = new Vector(0, 1);
+        this.downVec = new Vector(0, -1);
+        this.leftVec = new Vector(-1, 0);
+        this.rightVec = new Vector(1, 0);
     }
 
     @After
@@ -60,13 +59,13 @@ public class TestVector
         assertEquals(nVec.direction(), 0, EPSILON);
         assertFalse(nVec.direction() == 42);
 
-        assertEquals(upVec.direction(), Math.PI/2, EPSILON);
-        assertEquals(downVec.direction(), -Math.PI/2, EPSILON);
+        assertEquals(upVec.direction(), Math.PI / 2, EPSILON);
+        assertEquals(downVec.direction(), -Math.PI / 2, EPSILON);
         assertEquals(rightVec.direction(), 0, EPSILON);
         assertEquals(leftVec.direction(), Math.PI, EPSILON);
 
         Vector testVec = new Vector(1, 1);
-        assertEquals(testVec.direction(), Math.PI/4, EPSILON);
+        assertEquals(testVec.direction(), Math.PI / 4, EPSILON);
         testVec = new Vector(3, 4);
         assertEquals(testVec.direction(), 0.9273, EPSILON);
     }
@@ -74,7 +73,7 @@ public class TestVector
     @Test
     public void testNormalized()
     {
-        Vector testVec = new Vector(Math.sqrt(2)/2, Math.sqrt(2)/2);
+        Vector testVec = new Vector(Math.sqrt(2) / 2, Math.sqrt(2) / 2);
         assertTrue(testVec.equals(testVec.normalized()));
 
         testVec = new Vector(1, 1);

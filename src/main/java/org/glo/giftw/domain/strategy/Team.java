@@ -1,7 +1,6 @@
 package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.exceptions.MaxNumberException;
-import org.glo.giftw.domain.Dragable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Team implements Serializable, Dragable
+public class Team implements Serializable
 {
     public final static long serialVersionUID = 0L;
 
@@ -28,12 +27,13 @@ public class Team implements Serializable, Dragable
         this.checkMaxNumberOfPlayers = checkMaxNumberOfPlayers;
     }
 
-    public Team(String name, String colour, int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers, Set<Player> players)
+    public Team(String name, String colour, int maxNumberOfPlayers, boolean checkMaxNumberOfPlayers,
+                Set<Player> players)
     {
         this(name, colour, maxNumberOfPlayers, checkMaxNumberOfPlayers);
         this.players = new HashSet<>(players);
     }
-    
+
     public String getName()
     {
         return this.name;

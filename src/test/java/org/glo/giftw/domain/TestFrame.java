@@ -4,7 +4,9 @@ import org.glo.giftw.domain.strategy.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,20 +28,24 @@ public class TestFrame
     public void setUp()
     {
         playerOne = new Player("Foo", "Goaler", 13);
-        gosP1 = new GameObjectState();        
+        gosP1 = new GameObjectState();
         playerTwo = new Player("Bar", "Ailier", 42);
-        gosP2 = new GameObjectState(new org.glo.giftw.domain.util.Vector(1500, 3000), 0, new org.glo.giftw.domain.util.Vector(1, 1));
-        
+        gosP2 = new GameObjectState(new org.glo.giftw.domain.util.Vector(1500, 3000), 0,
+                                    new org.glo.giftw.domain.util.Vector(1, 1));
+
         obsOne = new Obstacle();
         gosO1 = new GameObjectState();
         obsTwo = new Obstacle();
         gosO2 = new GameObjectState();
         obsThree = new Obstacle();
-        gosO3 = new GameObjectState(new org.glo.giftw.domain.util.Vector(1500, 3000), 0, new org.glo.giftw.domain.util.Vector(1, 1));
+        gosO3 = new GameObjectState(new org.glo.giftw.domain.util.Vector(1500, 3000), 0,
+                                    new org.glo.giftw.domain.util.Vector(1, 1));
         obsNo = new Obstacle();
-        gosNo = new GameObjectState(new org.glo.giftw.domain.util.Vector(500, 700), 0, new org.glo.giftw.domain.util.Vector());
+        gosNo = new GameObjectState(new org.glo.giftw.domain.util.Vector(500, 700), 0,
+                                    new org.glo.giftw.domain.util.Vector());
         obsNoTwo = new Obstacle();
-        gosNo2 = new GameObjectState(new org.glo.giftw.domain.util.Vector(700, 120), 0, new org.glo.giftw.domain.util.Vector());
+        gosNo2 = new GameObjectState(new org.glo.giftw.domain.util.Vector(700, 120), 0,
+                                     new org.glo.giftw.domain.util.Vector());
 
         frame = new Frame();
         frame.addGameObject(playerOne, gosP1);
@@ -162,7 +168,7 @@ public class TestFrame
         frame.addGameObject(obsOne, gosO1);
         frame.addGameObject(obsThree, gosO3);
         frame.addGameObject(playerTwo, gosP2);
-        
+
         HashSet<GameObject> h1 = new HashSet<GameObject>();
         h1.add(obsOne);
         HashSet<GameObject> h2 = new HashSet<GameObject>();
@@ -175,7 +181,7 @@ public class TestFrame
         allExpectedCollisions.put(obsOne, h2);
         allExpectedCollisions.put(playerTwo, h3);
         allExpectedCollisions.put(obsThree, h4);
-        
+
         assertEquals(allExpectedCollisions, frame.detectCollisions());
     }
 }

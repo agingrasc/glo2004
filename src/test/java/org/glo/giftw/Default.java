@@ -1,17 +1,22 @@
 package org.glo.giftw;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-public class Default {
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+public class Default
+{
 
     @Test
-    public void success() {
+    public void success()
+    {
         assertTrue(true);
     }
 
     @Test
-    public void failure() {
+    public void failure()
+    {
         assertFalse(false);
     }
 }

@@ -1,6 +1,7 @@
 package org.glo.giftw.domain.pool;
 
 import org.glo.giftw.domain.strategy.Obstacle;
+import org.glo.giftw.domain.util.Vector;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,59 +16,59 @@ public class ObstaclePool extends ObjectPool
     public static final String obstacle_POOL_PATH = "./data/obstacle_pool.ser";
 
     private HashMap<String, Obstacle> obstacles;    // Associe le nom d'un obstacle avec le chemin vers son image
-    
+
     public ObstaclePool()
     {
         this(true);
     }
-    
+
     public ObstaclePool(boolean persistent)
     {
         super(persistent);
         obstacles = new HashMap<>();
-        if(persistent)
+        if (persistent)
         {
             this.loadObjectPool(obstacle_POOL_PATH);
         }
     }
-    
-    public void addObstacleType(String name, boolean isCollidable, String imagePath)
+
+    public void addObstacleType(String name, boolean isCollidable, String imagePath, Vector defaultDimensions)
     {
-        this.obstacles.put(name, new Obstacle(name, isCollidable, imagePath));
-        if(this.persistent)
+        this.obstacles.put(name, new Obstacle(name, isCollidable, imagePath, defaultDimensions));
+        if (this.persistent)
         {
             this.saveObjectPool(obstacle_POOL_PATH);
         }
     }
-    
+
     public void deleteObstacle(String name)
     {
         this.obstacles.remove(name);
-        if(this.persistent)
+        if (this.persistent)
         {
             this.saveObjectPool(obstacle_POOL_PATH);
         }
     }
-    
+
     public Obstacle create(String name)
     {
         return new Obstacle(this.obstacles.get(name));
     }
-    
+
     public Obstacle getObstacle(String name)
     {
         return this.obstacles.get(name);
     }
-    
-    public Collection<Obstacle> getAllObstacles()
-	{
-		return obstacles.values();
-	}
 
-	@Override
+    public Collection<Obstacle> getAllObstacles()
+    {
+        return obstacles.values();
+    }
+
+    @Override
     protected void copy(ObjectPool op)
     {
-        ObstaclePool tmp = (ObstaclePool)op;
+        ObstaclePool tmp = (ObstaclePool) op;
         this.obstacles = tmp.obstacles;
     }
 
@@ -79,7 +80,7 @@ public class ObstaclePool extends ObjectPool
         {
             ret += "    " + entry.getValue() + "\n";
         }
-        
+
         return ret;
     }
 }

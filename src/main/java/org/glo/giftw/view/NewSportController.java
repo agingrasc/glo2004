@@ -23,7 +23,7 @@ public class NewSportController
 
     @FXML
     private TextField sportName;
-    
+
     @FXML
     private TextField addRole;
 
@@ -40,6 +40,12 @@ public class NewSportController
     private TextField projectileName;
 
     @FXML
+    private TextField projectileWidth;
+
+    @FXML
+    private TextField projectileHeight;
+
+    @FXML
     private ImageView fieldImage;
 
     @FXML
@@ -52,7 +58,7 @@ public class NewSportController
     private Spinner<Double> fieldWidth;
 
     private File fieldImageFile;
-    
+
     private File projectileImageFile;
 
     @FXML
@@ -76,30 +82,23 @@ public class NewSportController
     {
         System.out.println("onActionDraw");
 
-        Dialog<Object> dialog = new Dialog<Object>();
-
         FXMLLoader loader = new FXMLLoader();
-
         loader.setLocation(getClass().getResource(FXMLPaths.FIELD_EDITOR_PATH.toString()));
-        DialogPane fieldEditorDialogPane = loader.load();
+        loader.load();
 
-        dialog.setDialogPane(fieldEditorDialogPane);
         FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
 
-        fieldEditorController.initSpinners((double) fieldLength.getValue(), (double) fieldWidth.getValue());
+        if (fieldImage.getImage() != null)
+        {
+            System.out.println("Il y avait une image!");
+            fieldEditorController.initImage(fieldImage.getImage());
+        }
 
+        Dialog<Object> dialog = fieldEditorController.getDialog();
         dialog.showAndWait();
+
         fieldImageFile = fieldEditorController.getDrawnFieldFilePath();
         setImage(fieldEditorController.getDrawnFieldFilePath(), fieldImage);
-        if (fieldEditorController.getDrawnFieldFilePath() != null)
-        {
-            double newLength = fieldEditorController.getLength();
-            double newWidth = fieldEditorController.getWidth();
-            if (newLength > 0 && newWidth > 0)
-            {
-                initSpinners(newLength, newWidth);
-            }
-        }
     }
 
     @FXML
@@ -131,30 +130,31 @@ public class NewSportController
         if (imageToOpen != null)
         {
             /*if ( (double)fieldLength.getValue() > 0 && (double)fieldWidth.getValue() > 0) {
-				fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
+                fieldImage.setFitHeight((double)fieldWidth.getValue() * 100);
 				fieldImage.setFitWidth((double)fieldLength.getValue() * 100);
 			}*/
             imageView.setImage(new Image(imageToOpen.toURI().toString()));
         }
     }
-    
+
     @FXML
-    void onKeyPressed(KeyEvent event) 
+    void onKeyPressed(KeyEvent event)
     {
-    	if(event.getCode().equals(KeyCode.DELETE))
-    	{
-    		if(roles.getValue() != null)
-    		{
-    			roles.getItems().remove(roles.getValue());
-    		}
-    	}
+        if (event.getCode().equals(KeyCode.DELETE))
+        {
+            if (roles.getValue() != null)
+            {
+                roles.getItems().remove(roles.getValue());
+            }
+        }
     }
-    
+
     @FXML
     void onActionAddRole(ActionEvent event)
     {
-    	roles.getItems().add(addRole.getText());
-    	addRole.setText(null);
+        roles.getItems().add(addRole.getText());
+        roles.setValue(addRole.getText());
+        addRole.setText(null);
     }
 
     public void showDialog() throws IOException
@@ -171,14 +171,16 @@ public class NewSportController
             Integer fwidth = Integer.parseInt(fieldWidth.getEditor().getText());
             String sportImgPath = fieldImageFile.getPath();
             String projName = projectileName.getText();
+            Integer projWidth = Integer.parseInt(projectileWidth.getText());
+            Integer projHeight = Integer.parseInt(projectileHeight.getText());
             String projPath = projectileImageFile.getPath();
             Integer maxNumberOfPlayer = Integer.parseInt(maxPlayers.getText());
             Integer maxNumberOfTeams = Integer.parseInt(maxTeams.getText());
-            
             Controller.getInstance().createSport(name, lroles, flength, fwidth, sportImgPath, projName, projPath,
-                                                 maxNumberOfPlayer, maxNumberOfTeams);
+                                                 projWidth, projHeight, maxNumberOfPlayer, maxNumberOfTeams);
 
             RootLayoutController.getInstance().getOpenStrategyController().updateTree();
+            RootLayoutController.getInstance().getItemsAccordionController().updateProjectilesTable();
         }
     }
 }
