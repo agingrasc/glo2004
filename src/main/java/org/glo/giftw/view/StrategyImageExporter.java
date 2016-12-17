@@ -44,6 +44,8 @@ public class StrategyImageExporter extends ImageView {
         this.setImage(gcDraw.getCurrentDrawnState());
     }
 
+    public Vector getDimensions(){ return dimensions; }
+
     private void initListFrames() {
         while (!controller.isFirstFrame()) {
             controller.previousFrame();

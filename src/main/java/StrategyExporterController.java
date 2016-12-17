@@ -2,6 +2,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.ImageView;
+import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.StrategyImageExporter;
 
 /**
@@ -29,6 +30,12 @@ public class StrategyExporterController {
         StrategyImageExporter preview = new StrategyImageExporter();
 
         rootDialog.setResizable(true);
-        rootDialog.setWidth(StrategyImageExporter.get);
+
+        Vector imageSize = preview.getDimensions();
+
+        rootDialog.setWidth(imageSize.getX());
+        rootDialog.setHeight(imageSize.getY());
+
+        StrategyView.setImage(preview.getImage());
     }
 }
