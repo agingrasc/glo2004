@@ -346,7 +346,7 @@ public class RootLayoutController
         }
         return defaultToolBarController;
     }
-    
+
     public GeneralPropertiesPaneController getGeneralPropertiesPaneController() throws IOException
     {
         if (generalPropertiesPaneController == null)
@@ -502,7 +502,7 @@ public class RootLayoutController
         loader.setLocation(getClass().getResource(FXMLPaths.PLAYER_PROPERTIES_PANE_PATH.toString()));
         loader.load();
         this.playerPropertiesPaneController = loader.getController();
-        
+
         return playerPropertiesPaneController;
     }
 
@@ -523,8 +523,8 @@ public class RootLayoutController
         return borderPane;
     }
 
-	public void setRightPane(Accordion rightMenu)
-	{
-		borderPane.setRight(rightMenu);
-	}
+    public void setRightPane(Accordion rightMenu)
+    {
+        borderPane.setRight(rightMenu);
+    }
 }

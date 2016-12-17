@@ -8,7 +8,8 @@ import org.glo.giftw.domain.strategy.Player;
  */
 public class ViewableGameObjectBuilder
 {
-    public static ViewableGameObject buildViewableGameObject(GameObject gameObject, boolean isDisplayName, boolean isDisplayRole, boolean isSelected)
+    public static ViewableGameObject buildViewableGameObject(GameObject gameObject, boolean isDisplayName,
+                                                             boolean isDisplayRole, boolean isSelected)
     {
         if (gameObject instanceof Player)
         {

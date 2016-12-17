@@ -109,10 +109,10 @@ public class OpenStrategyController
             root.getChildren().add(sportItem);
             for (Strategy strategy : strategies)
             {
-            	 if (strategy.getSport().getName().equals(sport.getName())) 
-                 { 
-                     sportItem.getChildren().add(new TreeItem<TreeViewable>(strategy)); 
-                 } 
+                if (strategy.getSport().getName().equals(sport.getName()))
+                {
+                    sportItem.getChildren().add(new TreeItem<TreeViewable>(strategy));
+                }
             }
         }
     }

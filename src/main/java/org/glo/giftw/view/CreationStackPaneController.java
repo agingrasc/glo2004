@@ -12,6 +12,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Frame;
 import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.util.Vector;
@@ -20,6 +21,7 @@ import org.glo.giftw.view.edit.ViewableGameObjectBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 
 public class CreationStackPaneController
@@ -47,12 +49,13 @@ public class CreationStackPaneController
 
     public void init()
     {
-    	displayNames = false;
-    	displayRoles = false;
+        displayNames = false;
+        displayRoles = false;
         addEventFilter();
         setFieldAsBackground();
         computeAndSetPixelToUnitRatio();
         addPanes();
+        resetDisplay();
         displayStrategy();
     }
 
@@ -115,35 +118,67 @@ public class CreationStackPaneController
 
     public void displayStrategy()
     {
-        placeObjectsInPane(currentPane);
+        placeGameObjectInPane(currentPane);
         if (!Controller.getInstance().isFirstFrame())
         {
             Controller.getInstance().previousKeyFrame();
-            placeObjectsInPane(previousPane);
+            placeGameObjectInPane(previousPane);
             previousPane.getChildren().forEach(n -> n.setOpacity(0.5));
             Controller.getInstance().nextKeyFrame();
         }
     }
 
-    private void placeObjectsInPane(FrameView pane)
+    public void resetDisplay()
+    {
+        this.currentPane.clearPane();
+        this.currentPane.getViewableGameObjects().clear();
+        this.previousPane.clearPane();
+        this.previousPane.getViewableGameObjects().clear();
+        this.generateViewableGameObjectFromFrame(this.currentPane);
+
+        if (!Controller.getInstance().isFirstFrame())
+        {
+            Controller.getInstance().previousKeyFrame();
+            this.generateViewableGameObjectFromFrame(this.previousPane);
+            Controller.getInstance().nextKeyFrame();
+        }
+    }
+
+    private void placeGameObjectInPane(FrameView pane)
+    {
+        Map<String, ViewableGameObject> viewables = pane.getViewableGameObjects();
+        for (String key : viewables.keySet())
+        {
+            ViewableGameObject obj = viewables.get(key);
+            GameObject gameObject = null;
+            try
+            {
+                gameObject = Controller.getInstance().getGameObjectByUUID(key);
+            }
+            catch (GameObjectNotFound gameObjectNotFound)
+            {
+                gameObjectNotFound.printStackTrace();
+            }
+            boolean selected = false;
+            if (selectedUUID != null && selectedUUID.equals(gameObject.getId()))
+            {
+                selected = true;
+            }
+            obj.setSelected(selected);
+
+            pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
+        }
+    }
+
+    public void generateViewableGameObjectFromFrame(FrameView pane)
     {
         Frame currentFrame = Controller.getInstance().getCurrentFrame();
         Set<GameObject> gameObjectSet = currentFrame.getGameObjects();
-        pane.clearPane();
         for (GameObject gameObject : gameObjectSet)
         {
-        	boolean selected = false;
-        	if(selectedUUID != null)
-        	{
-	        	if(selectedUUID.equals(gameObject.getId()))
-	        	{
-	        		selected = true;
-	        	}
-        	}
-        	
-        	ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject, displayNames, displayRoles, selected);
+            ViewableGameObject obj = ViewableGameObjectBuilder.buildViewableGameObject(gameObject, displayNames,
+                                                                                       displayRoles, false);
             pane.addViewableToHashMap(gameObject.getId(), obj);
-            pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
         }
     }
 
@@ -182,30 +217,40 @@ public class CreationStackPaneController
         return this.currentPane;
     }
 
+    public boolean getDisplayNames()
+    {
+        return this.displayNames;
+    }
+
+    public boolean getDisplayRoles()
+    {
+        return this.displayRoles;
+    }
+
     public ScrollPane getScrollPane()
     {
         return this.scrollPane;
     }
 
-	public void setDisplayNames(boolean displayNames)
-	{
-		this.displayNames = displayNames;
-		displayStrategy();
-	}
+    public void setDisplayNames(boolean displayNames)
+    {
+        this.displayNames = displayNames;
+        displayStrategy();
+    }
 
-	public void setDisplayRoles(boolean displayRoles)
-	{
-		this.displayRoles = displayRoles;
-		displayStrategy();
-	}
+    public void setDisplayRoles(boolean displayRoles)
+    {
+        this.displayRoles = displayRoles;
+        displayStrategy();
+    }
 
-	public String getSelectedUUID()
-	{
-		return selectedUUID;
-	}
+    public String getSelectedUUID()
+    {
+        return selectedUUID;
+    }
 
-	public void setSelectedUUID(String selectedUUID)
-	{
-		this.selectedUUID = selectedUUID;
-	}
+    public void setSelectedUUID(String selectedUUID)
+    {
+        this.selectedUUID = selectedUUID;
+    }
 }

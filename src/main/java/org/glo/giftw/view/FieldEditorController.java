@@ -12,16 +12,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 
 import java.io.File;
-import java.util.EventListener;
 import java.util.Stack;
 
 public class FieldEditorController
@@ -64,7 +61,10 @@ public class FieldEditorController
         return fieldSelectedFilePath;
     }
 
-    public Dialog getDialog() { return rootDialog; }
+    public Dialog getDialog()
+    {
+        return rootDialog;
+    }
 
     public void saveImage()
     {
@@ -83,7 +83,7 @@ public class FieldEditorController
         ImageFileController openFileDialog = new ImageFileController();
 
         File openFilePath = openFileDialog.startOpenFileDialog(parentWindow);
-        if(openFilePath != null)
+        if (openFilePath != null)
         {
             Image newBackground = new Image(openFilePath.toURI().toString());
             initImage(newBackground);
@@ -98,9 +98,11 @@ public class FieldEditorController
 
     private void initResizable()
     {
-        rootPane.widthProperty().addListener(new ChangeListener<Number>() {
+        rootPane.widthProperty().addListener(new ChangeListener<Number>()
+        {
             @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1)
+            {
                 drawToolBar.setPrefWidth(rootPane.getWidth());
             }
         });
@@ -133,9 +135,11 @@ public class FieldEditorController
 
     private void initSlider()
     {
-        drawSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        drawSizeSlider.valueProperty().addListener(new ChangeListener<Number>()
+        {
             @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1)
+            {
                 drawSizeText.setText(String.valueOf(drawSizeSlider.getValue()));
                 onTextSizeChanged();
             }
@@ -144,23 +148,31 @@ public class FieldEditorController
 
     private void initKeyEvent()
     {
-        final EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
+        final EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>()
+        {
             @Override
-            public void handle(KeyEvent keyEvent) {
-                if(keyEvent.isControlDown()) {
-                    if (keyEvent.getCode() == KeyCode.S) {
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.isControlDown())
+                {
+                    if (keyEvent.getCode() == KeyCode.S)
+                    {
                         saveImage();
                     }
-                    else if (keyEvent.getCode() == KeyCode.O) {
+                    else if (keyEvent.getCode() == KeyCode.O)
+                    {
                         openImage();
                     }
-                    else if (keyEvent.getCode() == KeyCode.N) {
+                    else if (keyEvent.getCode() == KeyCode.N)
+                    {
                         onNew();
                     }
-                    else if (keyEvent.getCode() == KeyCode.Z) {
+                    else if (keyEvent.getCode() == KeyCode.Z)
+                    {
                         restorePreviousState();
                     }
-                    else if (keyEvent.getCode() == KeyCode.Y) {
+                    else if (keyEvent.getCode() == KeyCode.Y)
+                    {
                         restoreNextState();
                     }
                 }
@@ -201,13 +213,22 @@ public class FieldEditorController
     }
 
     @FXML
-    public void onOpen() { openImage(); }
+    public void onOpen()
+    {
+        openImage();
+    }
 
     @FXML
-    public void onUndo() { restorePreviousState(); }
+    public void onUndo()
+    {
+        restorePreviousState();
+    }
 
     @FXML
-    public void onRedo() { restoreNextState(); }
+    public void onRedo()
+    {
+        restoreNextState();
+    }
 
     @FXML
     public void onTextSizeChanged()
@@ -264,13 +285,25 @@ public class FieldEditorController
         saveLastDrawnState();
     }
 
-    void eraseAll(GraphicsContext gc) { fieldDrawControl.eraseAll(gc); }
+    void eraseAll(GraphicsContext gc)
+    {
+        fieldDrawControl.eraseAll(gc);
+    }
 
-    void saveLastDrawnState() { fieldDrawControl.saveLastDrawnState(gcBackground); }
+    void saveLastDrawnState()
+    {
+        fieldDrawControl.saveLastDrawnState(gcBackground);
+    }
 
-    void restorePreviousState() { fieldDrawControl.redrawPreviousState(gcBackground); }
+    void restorePreviousState()
+    {
+        fieldDrawControl.redrawPreviousState(gcBackground);
+    }
 
-    void restoreNextState() { fieldDrawControl.redrawNextState(gcBackground); }
+    void restoreNextState()
+    {
+        fieldDrawControl.redrawNextState(gcBackground);
+    }
 
     void drawWithPencil(double x, double y, double size)
     {
@@ -285,7 +318,8 @@ public class FieldEditorController
         fieldDrawControl.setStrokeLineSize(gc, drawSizeSlider.getValue());
         fieldDrawControl.setDrawColor(gc, fieldColor.getValue());
 
-        if (fieldLine.isSelected()) {
+        if (fieldLine.isSelected())
+        {
             fieldDrawControl.drawLine(gc, startDragPosition[0], startDragPosition[1], me.getX(), me.getY());
         }
         else if (fieldCircle.isSelected())

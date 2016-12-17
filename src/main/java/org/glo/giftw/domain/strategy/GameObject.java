@@ -1,9 +1,9 @@
 package org.glo.giftw.domain.strategy;
 
+import org.glo.giftw.domain.util.Vector;
+
 import java.io.Serializable;
 import java.util.UUID;
-
-import org.glo.giftw.domain.util.Vector;
 
 public abstract class GameObject implements Serializable
 {

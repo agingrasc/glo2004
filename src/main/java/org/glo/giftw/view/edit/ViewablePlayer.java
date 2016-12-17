@@ -14,14 +14,13 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
-import java.io.IOException;
-
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Player;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.RootLayoutController;
+
+import java.io.IOException;
 
 /**
  *
@@ -64,10 +63,10 @@ public class ViewablePlayer extends ViewableGameObject
         Canvas canvas = new Canvas(dimensions.getX(), dimensions.getY());
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(teamColor);
-    	gc.fillOval(0, 0, dimensions.getX(), dimensions.getY());
+        gc.fillOval(0, 0, dimensions.getX(), dimensions.getY());
         gc.setFill(Color.BLACK);
-        double[] xCoord = {dimensions.getX(), 0.7 * dimensions.getX(), 0.7 * dimensions.getX()}; 
-        double[] yCoord = {dimensions.getY()/2, 0.3 * dimensions.getY(), 0.7 * dimensions.getX()}; 
+        double[] xCoord = {dimensions.getX(), 0.7 * dimensions.getX(), 0.7 * dimensions.getX()};
+        double[] yCoord = {dimensions.getY() / 2, 0.3 * dimensions.getY(), 0.7 * dimensions.getX()};
         gc.fillPolygon(xCoord, yCoord, 3);
         //gc.rotate(orientation);
         return canvas;
@@ -89,24 +88,24 @@ public class ViewablePlayer extends ViewableGameObject
         Label role = new Label(player.getRole());
 
         node = new VBox();
-        ((VBox)node).setAlignment(Pos.CENTER);
+        ((VBox) node).setAlignment(Pos.CENTER);
         //node.setBackground(Background.EMPTY);
-        if(isSelected)
-    	{
-        	node.setStyle("-fx-background-color: gray");
-    	}
+        if (isSelected)
+        {
+            node.setStyle("-fx-background-color: gray");
+        }
         else
         {
-        	node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+            node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         }
 
         name.setVisible(isDisplayName);
-        ((VBox)node).getChildren().add(name);
+        ((VBox) node).getChildren().add(name);
 
         role.setVisible(isDisplayRole);
-        ((VBox)node).getChildren().add(role);
+        ((VBox) node).getChildren().add(role);
 
-        ((VBox)node).getChildren().add(playerImg);
+        ((VBox) node).getChildren().add(playerImg);
 
         node.setOnDragDetected(this::onNodeDragDetected);
         initMouseClicked();
@@ -118,7 +117,7 @@ public class ViewablePlayer extends ViewableGameObject
     {
         return this.getSnapshot();
     }
-    
+
     private Image getSnapshot()
     {
         if (this.node.getParent() == null && this.node.getScene() == null)
@@ -141,34 +140,41 @@ public class ViewablePlayer extends ViewableGameObject
     {
         ((VBox) this.node).getChildren().get(1).setVisible(show);
     }
-    
+
     protected void initMouseClicked()
     {
         this.node.setOnMousePressed(new EventHandler<MouseEvent>()
         {
             public void handle(MouseEvent me)
             {
-            	try
-				{
-					RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(uuid);
-					RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
-				} catch (IOException e1)
-				{
-					e1.printStackTrace();
-				}
-            	
-            	Accordion rightMenu = null;
-				try
-				{
-					rightMenu = RootLayoutController.getInstance().getPlayerPropertiesPaneController().getRootAccordion();
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-				}
+                try
+                {
+                    RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(uuid);
+                    RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+                }
+                catch (IOException e1)
+                {
+                    e1.printStackTrace();
+                }
+
+                Accordion rightMenu = null;
+                try
+                {
+                    rightMenu = RootLayoutController.getInstance().getPlayerPropertiesPaneController().getRootAccordion();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
                 RootLayoutController.getInstance().setRightPane(rightMenu);
-                
+
                 me.consume();
             }
         });
+    }
+
+    public void setSelected(boolean selected)
+    {
+        this.isSelected = selected;
     }
 }

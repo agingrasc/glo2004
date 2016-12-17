@@ -1,135 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.ColorPicker?>
-<?import javafx.scene.control.DialogPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
-<DialogPane fx:id="rootPane" expanded="true" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
+<DialogPane fx:id="rootPane" expanded="true" prefHeight="540.0" prefWidth="960.0"
+            stylesheets="@../css/visuaLigueCSS.css" xmlns="http://javafx.com/javafx/8.0.76-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.glo.giftw.view.FieldEditorController">
     <content>
-        <Pane fx:id="fieldEditorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/visuaLigueCSS.css">
+        <Pane fx:id="fieldEditorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/visuaLigueCSS.css">
             <children>
-                <Canvas fx:id="fieldDraw" height="546.0" width="960.0" />
-                <Canvas fx:id="fieldDrawPreview" height="546.0" onMouseDragged="#onDraw" onMousePressed="#onInitShape" onMouseReleased="#onFinishShape" width="960.0" />
+                <Canvas fx:id="fieldDraw" height="546.0" width="960.0"/>
+                <Canvas fx:id="fieldDrawPreview" height="546.0" onMouseDragged="#onDraw" onMousePressed="#onInitShape"
+                        onMouseReleased="#onFinishShape" width="960.0"/>
             </children>
         </Pane>
     </content>
     <buttonTypes>
-        <ButtonType fx:constant="CANCEL" />
-        <ButtonType fx:constant="FINISH" />
+        <ButtonType fx:constant="CANCEL"/>
+        <ButtonType fx:constant="FINISH"/>
     </buttonTypes>
-   <header>
-      <VBox prefHeight="73.0" prefWidth="960.0">
-         <children>
-              <MenuBar prefWidth="286.0">
-                  <menus>
-                      <Menu mnemonicParsing="false" text="Fichier">
-                          <items>
-                              <MenuItem mnemonicParsing="false" onAction="#onNew" text="Nouveau (ctrl+N)" />
-                              <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Ouvrir (ctrl+O)" />
-                              <MenuItem mnemonicParsing="false" onAction="#onSave" text="Sauvergarder (ctrl+S)" />
-                          </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Édition">
-                          <items>
-                              <MenuItem mnemonicParsing="false" onAction="#onUndo" text="Annuler (ctrl+Z)" />
-                              <MenuItem mnemonicParsing="false" onAction="#onRedo" text="Rétablir (ctrl+Y)" />
-                          </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Aide">
-                          <items>
-                              <MenuItem mnemonicParsing="false" text="À propos" />
-                          </items>
-                      </Menu>
-                  </menus>
-              </MenuBar>
-            <ToolBar fx:id="drawToolBar" prefHeight="40.0" prefWidth="960.0">
-               <items>
-                      <Button fx:id="undoButton" mnemonicParsing="false" onAction="#onUndo" prefHeight="33.0" prefWidth="42.0">
-                          <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/back-arrow.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </Button>
-                      <Button fx:id="redoButton" mnemonicParsing="false" onAction="#onRedo">
-                          <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/next-1.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </Button>
-                  <Separator orientation="VERTICAL" prefHeight="30.0" />
-                      <ColorPicker fx:id="fieldColor" editable="true" prefHeight="26.0" prefWidth="57.0" promptText="Fond du terrain" />
-                      <Button mnemonicParsing="false" onAction="#onFillColor" prefHeight="28.0" prefWidth="36.0">
-                          <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/bucket.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </Button>
-                      <RadioButton fx:id="fieldPencil" mnemonicParsing="false">
-                          <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/edit.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </RadioButton>
-                      <RadioButton fx:id="fieldCircle" mnemonicParsing="false">
-                          <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/circle.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </RadioButton>
-                      <RadioButton fx:id="fieldSquare" mnemonicParsing="false">
-                          <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/square.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </RadioButton>
-                      <RadioButton fx:id="fieldLine" mnemonicParsing="false">
-                          <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/line.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </RadioButton>
-                      <Slider fx:id="drawSizeSlider" max="20.0" prefHeight="15.0" prefWidth="102.0" value="3.0" />
-                      <TextField fx:id="drawSizeText" onAction="#onTextSizeChanged" prefHeight="26.0" prefWidth="35.0" text="3" />
-                      <Label text="px" />
-               </items>
-            </ToolBar>
-         </children>
-      </VBox>
-   </header>
+    <header>
+        <VBox prefHeight="73.0" prefWidth="960.0">
+            <children>
+                <MenuBar prefWidth="286.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Fichier">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onNew" text="Nouveau (ctrl+N)"/>
+                                <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Ouvrir (ctrl+O)"/>
+                                <MenuItem mnemonicParsing="false" onAction="#onSave" text="Sauvergarder (ctrl+S)"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Édition">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onUndo" text="Annuler (ctrl+Z)"/>
+                                <MenuItem mnemonicParsing="false" onAction="#onRedo" text="Rétablir (ctrl+Y)"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Aide">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="À propos"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <ToolBar fx:id="drawToolBar" prefHeight="40.0" prefWidth="960.0">
+                    <items>
+                        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#onUndo" prefHeight="33.0"
+                                prefWidth="42.0">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/back-arrow.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="redoButton" mnemonicParsing="false" onAction="#onRedo">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/next-1.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Separator orientation="VERTICAL" prefHeight="30.0"/>
+                        <ColorPicker fx:id="fieldColor" editable="true" prefHeight="26.0" prefWidth="57.0"
+                                     promptText="Fond du terrain"/>
+                        <Button mnemonicParsing="false" onAction="#onFillColor" prefHeight="28.0" prefWidth="36.0">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/bucket.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <RadioButton fx:id="fieldPencil" mnemonicParsing="false">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/edit.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </RadioButton>
+                        <RadioButton fx:id="fieldCircle" mnemonicParsing="false">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/circle.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </RadioButton>
+                        <RadioButton fx:id="fieldSquare" mnemonicParsing="false">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/square.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </RadioButton>
+                        <RadioButton fx:id="fieldLine" mnemonicParsing="false">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/line.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </RadioButton>
+                        <Slider fx:id="drawSizeSlider" max="20.0" prefHeight="15.0" prefWidth="102.0" value="3.0"/>
+                        <TextField fx:id="drawSizeText" onAction="#onTextSizeChanged" prefHeight="26.0" prefWidth="35.0"
+                                   text="3"/>
+                        <Label text="px"/>
+                    </items>
+                </ToolBar>
+            </children>
+        </VBox>
+    </header>
 </DialogPane>

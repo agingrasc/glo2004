@@ -82,11 +82,12 @@ public class Controller
         Vector fieldDimension = new Vector(fieldLength, fieldHeight);
         Vector projectileDefaultDimensions = new Vector(projectileLength, projectileLength);
         this.sportPool.addSport(name, roles, fieldDimension, fieldImagePath, projectileName, projectileImagePath,
-                projectileDefaultDimensions, maxPLayersPerTeam, maxTeams);
+                                projectileDefaultDimensions, maxPLayersPerTeam, maxTeams);
     }
 
     /**
      * Supprime un sport du sportPool, s'il est présent.
+     *
      * @param name Le nom du sport à supprimer.
      */
     public void deleteSport(String name)
@@ -102,15 +103,17 @@ public class Controller
      * @param imagePath         Le chemin vers l'image associé à l'obstacle.
      * @param defaultDimensions Les dimensions standards de ce type d'obstacle.
      */
-    public void createObstacle(String name, boolean isCollidable, String imagePath, int obstacleWidth, int obstacleHeight)
+    public void createObstacle(String name, boolean isCollidable, String imagePath, int obstacleWidth,
+                               int obstacleHeight)
     {
-    	Vector defaultDimensions = new Vector(obstacleWidth, obstacleHeight);
+        Vector defaultDimensions = new Vector(obstacleWidth, obstacleHeight);
         this.obstaclePool.addObstacleType(name, isCollidable, imagePath, defaultDimensions);
     }
 
     /**
      * Supprime un obstacle de l'obstaclePool, s'il est présent. L'obstacle n'est pas retiré des stratégies,
      * ce qui peut occasionner des erreurs.
+     *
      * @param name Le nom de l'obstacle à supprimer.
      */
     public void deleteObstacle(String name)
@@ -134,6 +137,7 @@ public class Controller
 
     /**
      * Supprime une strategy du strategyPool, si elle est présente.
+     *
      * @param name Le nom de la stratégie.
      */
     public void deleteStrategy(String name)
@@ -144,7 +148,7 @@ public class Controller
     /**
      * Crée un nouveau joueur dans la stratégie et l'ajoute à l'équipe spécifiée.
      *
-     * @param team  L'équipe du joueur.
+     * @param team L'équipe du joueur.
      * @return L'id du joueur nouvellement créé.
      */
     public String addPlayer(String team) throws TeamNotFound, MaxNumberException
@@ -155,7 +159,7 @@ public class Controller
     /**
      * Crée un nouvel obstacle dans la stratégie.
      *
-     * @param name  Le nom du type d'obstacle.
+     * @param name Le nom du type d'obstacle.
      * @return L'id de l'obstacle nouvellement créé.
      */
     public String addObstacle(String name)
@@ -181,6 +185,7 @@ public class Controller
 
     /**
      * Supprime une équipe, si elle existe.
+     *
      * @param teamName Le nom de l'équipe.
      */
     public void deleteTeam(String teamName)
@@ -229,6 +234,7 @@ public class Controller
 
     /**
      * Place un GameObject dans la frame courante. Si le GameObject est déjà présent, son état est mis à jour.
+     *
      * @param gameObjectUuid Le uuid du GameObject.
      * @param position       La position du GameObject, en pixels.
      * @param orientation    L'orientation du GameObject.
@@ -242,6 +248,7 @@ public class Controller
 
     /**
      * Retire un GameObject de la stratégie et de toutes les frames, s'il est présent.
+     *
      * @param gameObjectUuid Le uuid du GameObject.
      */
     public void removeGameObject(String gameObjectUuid)
@@ -250,7 +257,7 @@ public class Controller
         {
             GameObject goToRemove = this.currentStrategy.getGameObjectByUUID(gameObjectUuid);
             this.currentStrategy.removeGameObject(goToRemove);
-            
+
         }
         catch (GameObjectNotFound e)
         {
@@ -332,7 +339,7 @@ public class Controller
     }
 
     /**
-     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante. 
+     * Fait reculer l'index de la frame courante, puis retourne la frame précédant la frame courrante.
      * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
      *
      * @return La frame précédente.
@@ -345,7 +352,7 @@ public class Controller
     /**
      * Modifie l'index de la frame courante pour qu'il pointe sur la keyFrame précédente, puis retourne celle-ci.
      * Si la frame courante est la première frame, l'index reste inchangé et la première frame est retournée.
-     * 
+     *
      * @return La keyFrame précédente.
      */
     public Frame previousKeyFrame()
@@ -354,7 +361,7 @@ public class Controller
     }
 
     /**
-     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante. 
+     * Fait avancer l'index de la frame courante, puis retourne la frame suivant la frame courante.
      * Si la frame courante est la dernière frame, l'index reste inchangé et la dernière frame est retournée.
      *
      * @return La frame suivante.
@@ -419,19 +426,20 @@ public class Controller
     {
         this.strategyPool.save();
     }
-    
+
     public void clearUnplacedGameObjects()
     {
         this.currentStrategy.clearUnplacedGameObjects();
     }
-    
+
     public String goTo()
     {
         return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
-    
+
     /**
      * Retourne la position en pixels d'un GameObject.
+     *
      * @param gameObject Le GameObject dont on veut connaître la position.
      * @return La position du GameObject, en pixels.
      */
@@ -441,12 +449,12 @@ public class Controller
         Vector positionCM = this.currentStrategy.getCurrentFrame().getPosition(gameObject);
         return positionCM.mul(ratio);
     }
-    
+
     public float getOrientation(GameObject gameObject)
     {
         return this.currentStrategy.getCurrentFrame().getOrientation(gameObject);
     }
-    
+
     public Vector getDimensions(GameObject gameObject)
     {
         Vector ratio = this.currentStrategy.getPixelToUnitRatio();

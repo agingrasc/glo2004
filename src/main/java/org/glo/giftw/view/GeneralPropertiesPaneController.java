@@ -14,7 +14,7 @@ public class GeneralPropertiesPaneController
 {
     @FXML
     private Accordion rootAccordion;
-    
+
     @FXML
     private TitledPane generalPropertiesTitledPane;
 
@@ -32,13 +32,13 @@ public class GeneralPropertiesPaneController
 
     @FXML
     private TextField teamNameTextField;
-    
+
     @FXML
     public void initialize()
     {
-    	rootAccordion.setExpandedPane(generalPropertiesTitledPane);
-    	showRolesCheckBox.setSelected(false);
-    	showNamesCheckBox.setSelected(false);
+        rootAccordion.setExpandedPane(generalPropertiesTitledPane);
+        showRolesCheckBox.setSelected(false);
+        showNamesCheckBox.setSelected(false);
     }
 
     @FXML
@@ -56,13 +56,13 @@ public class GeneralPropertiesPaneController
         }
         catch (MaxNumberException e)
         {
-        	Alert alert = new Alert(AlertType.WARNING);
-        	alert.setTitle("Avertissement");
-        	alert.setHeaderText("Avertissement");
-        	alert.setContentText("Le nombre d'equipes maximum est atteint!");
-        	DialogPane dialogPane = alert.getDialogPane();
-        	dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
-        	alert.showAndWait();
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Avertissement");
+            alert.setHeaderText("Avertissement");
+            alert.setContentText("Le nombre d'equipes maximum est atteint!");
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
+            alert.showAndWait();
 
             e.printStackTrace();
         }
@@ -71,25 +71,29 @@ public class GeneralPropertiesPaneController
     @FXML
     void onShowNames(ActionEvent event)
     {
-    	try
-		{
-			RootLayoutController.getInstance().getCreationStackPaneController().setDisplayNames(showNamesCheckBox.isSelected());
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().setDisplayNames(
+                    showNamesCheckBox.isSelected());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void onShowRoles(ActionEvent event)
     {
-    	try
-		{
-			RootLayoutController.getInstance().getCreationStackPaneController().setDisplayRoles(showRolesCheckBox.isSelected());
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}    
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().setDisplayRoles(
+                    showRolesCheckBox.isSelected());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public Accordion getRootAccordion()

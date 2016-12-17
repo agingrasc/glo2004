@@ -38,7 +38,7 @@ public class NewSportController
 
     @FXML
     private TextField projectileName;
-    
+
     @FXML
     private TextField projectileWidth;
 
@@ -88,7 +88,7 @@ public class NewSportController
 
         FieldEditorController fieldEditorController = loader.<FieldEditorController>getController();
 
-        if(fieldImage.getImage() != null)
+        if (fieldImage.getImage() != null)
         {
             System.out.println("Il y avait une image!");
             fieldEditorController.initImage(fieldImage.getImage());

@@ -36,7 +36,7 @@ public class SportPool extends ObjectPool
     }
 
     public void addSport(String name, List<String> roles, Vector dimension, String fieldImagePath,
-                         String projectileName, String projectileImagePath, Vector projectileDefaultDimensions, 
+                         String projectileName, String projectileImagePath, Vector projectileDefaultDimensions,
                          int maxPLayersPerTeam, int maxTeams)
     {
         Field field = new Field(dimension, fieldImagePath);

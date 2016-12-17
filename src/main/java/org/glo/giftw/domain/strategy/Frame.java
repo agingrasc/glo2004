@@ -1,12 +1,12 @@
 package org.glo.giftw.domain.strategy;
 
+import org.glo.giftw.domain.util.Vector;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.glo.giftw.domain.util.Vector;
 
 
 public class Frame implements Serializable

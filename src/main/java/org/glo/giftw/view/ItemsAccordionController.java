@@ -6,15 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -39,7 +33,7 @@ public class ItemsAccordionController
 {
     @FXML
     private Accordion rootAccordion;
-    
+
     @FXML
     private TitledPane teamsTitledPane;
 
@@ -75,33 +69,33 @@ public class ItemsAccordionController
     private ObservableList<Team> teams;
 
     private ObservableList<Projectile> projectiles;
-    
+
     public static final int PLAYER_RADIUS = 16;
-    
+
     public static final int OBSTACLE_SIZE = 32;
-    
+
     public static final int PROJECTILE_SIZE = 16;
 
 
     @FXML
     public void initialize() throws IOException
-    {	
-    	rootAccordion.setExpandedPane(teamsTitledPane);
-    	
-    	initObstacleTable();
+    {
+        rootAccordion.setExpandedPane(teamsTitledPane);
+
+        initObstacleTable();
         initTeamTable();
         initProjectileTable();
 
         updateAllTables();
-        
+
         initObstacleDrag();
         initTeamDrag();
         initProjectileDrag();
     }
-    
+
     private void initObstacleDrag()
     {
-    	obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+        obstaclesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -114,13 +108,15 @@ public class ItemsAccordionController
                     String uuid = Controller.getInstance().addObstacle(selected.getName());
                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
                     try
-					{
-						RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewableGameObject);
-					} catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                    {
+                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(
+                                uuid, viewableGameObject);
+                    }
+                    catch (IOException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                     db.setDragView(viewableGameObject.getImage());
                     content.putString(uuid);
                     db.setContent(content);
@@ -129,10 +125,10 @@ public class ItemsAccordionController
             }
         });
     }
-    
+
     private void initTeamDrag()
     {
-    	teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+        teamsTableView.setOnDragDetected(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -147,7 +143,8 @@ public class ItemsAccordionController
                     {
                         uuid = Controller.getInstance().addPlayer(selected.getName());
                         ViewablePlayer viewablePlayer = new ViewablePlayer(uuid, false, false, false);
-                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewablePlayer);
+                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(
+                                uuid, viewablePlayer);
                         db.setDragView(viewablePlayer.getImage());
                         content.putString(uuid);
                         db.setContent(content);
@@ -155,62 +152,66 @@ public class ItemsAccordionController
                     }
                     catch (MaxNumberException err)
                     {
-                    	Alert alert = new Alert(AlertType.WARNING);
-                    	alert.setTitle("Avertissement");
-                    	alert.setHeaderText("Avertissement");
-                    	alert.setContentText("Le nombre de joueurs maximum dans l'equipe est atteint!");
-                    	DialogPane dialogPane = alert.getDialogPane();
-                    	dialogPane.getStylesheets().add(getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
-                    	alert.showAndWait();
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Avertissement");
+                        alert.setHeaderText("Avertissement");
+                        alert.setContentText("Le nombre de joueurs maximum dans l'equipe est atteint!");
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.getStylesheets().add(
+                                getClass().getResource("/css/visuaLigueCSS.css").toExternalForm());
+                        alert.showAndWait();
                     }
                     catch (TeamNotFound err)
                     {
                         err.printStackTrace();
-                    } catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                    }
+                    catch (IOException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         });
     }
-    
+
     private void initProjectileDrag()
     {
-    	 projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
-         {
-             @Override
-             public void handle(MouseEvent event)
-             {
-                 Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
-                 if (selected != null)
-                 {
-                     Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
-                     ClipboardContent content = new ClipboardContent();
-                     //FIXME: dimension
-                     String uuid = Controller.getInstance().addProjectile();
-                     ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
-                     try
-					{
-						RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(uuid, viewableGameObject);
-					} catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-                     db.setDragView(viewableGameObject.getImage());
-                     content.putString(uuid);
-                     db.setContent(content);
-                     event.consume();
-                 }
-             }
-         });
+        projectilesTableView.setOnDragDetected(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
+                if (selected != null)
+                {
+                    Dragboard db = projectilesTableView.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    //FIXME: dimension
+                    String uuid = Controller.getInstance().addProjectile();
+                    ViewableGameObject viewableGameObject = new ViewableGameObject(uuid);
+                    try
+                    {
+                        RootLayoutController.getInstance().getCreationStackPaneController().getCurrentPane().addViewableToHashMap(
+                                uuid, viewableGameObject);
+                    }
+                    catch (IOException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    db.setDragView(viewableGameObject.getImage());
+                    content.putString(uuid);
+                    db.setContent(content);
+                    event.consume();
+                }
+            }
+        });
     }
-    
+
     private void initObstacleTable()
     {
-    	obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
+        obstacles = FXCollections.observableArrayList(Controller.getInstance().getObstacles());
         obstaclesTableView.setItems(obstacles);
         obstacleImageColumn.setCellFactory(
                 new Callback<TableColumn<Obstacle, String>, TableCell<Obstacle, String>>()
@@ -227,7 +228,8 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    Image img = new Image(String.format("file:%s", item), OBSTACLE_SIZE, OBSTACLE_SIZE, true, true);
+                                    Image img = new Image(String.format("file:%s", item), OBSTACLE_SIZE, OBSTACLE_SIZE,
+                                                          true, true);
                                     ImageView imgView = new ImageView(img);
                                     setGraphic(imgView);
                                 }
@@ -259,10 +261,10 @@ public class ItemsAccordionController
                     }
                 });
     }
-    
+
     private void initTeamTable()
     {
-    	teams = FXCollections.observableArrayList(Controller.getInstance().getTeams());
+        teams = FXCollections.observableArrayList(Controller.getInstance().getTeams());
         teamsTableView.setItems(teams);
         teamImageColumn.setCellFactory(
                 new Callback<TableColumn<Team, String>, TableCell<Team, String>>()
@@ -310,10 +312,10 @@ public class ItemsAccordionController
                     }
                 });
     }
-    
+
     private void initProjectileTable()
     {
-    	projectiles = FXCollections.observableArrayList(Controller.getInstance().getProjectile());
+        projectiles = FXCollections.observableArrayList(Controller.getInstance().getProjectile());
         projectilesTableView.setItems(projectiles);
         projectileImageColumn.setCellFactory(
                 new Callback<TableColumn<Projectile, String>, TableCell<Projectile, String>>()
@@ -330,7 +332,8 @@ public class ItemsAccordionController
                                 super.updateItem(item, empty);
                                 if (item != null && !empty)
                                 {
-                                    Image img = new Image(String.format("file:%s", item), PROJECTILE_SIZE, PROJECTILE_SIZE, true, true);
+                                    Image img = new Image(String.format("file:%s", item), PROJECTILE_SIZE,
+                                                          PROJECTILE_SIZE, true, true);
                                     ImageView imgView = new ImageView(img);
                                     setGraphic(imgView);
                                 }
