@@ -308,7 +308,14 @@ public class Strategy implements Serializable, TreeViewable
     {
         if (!teamName.equals("default"))
         {
-            this.removeTeam("default");
+            try
+            {
+                this.removeTeam("default");
+            }
+            catch (TeamNotFound e)
+            {
+                // Il n'y a pas d'équipe nommée "default", but who cares ?
+            }
         }
 
         Team team = new Team(teamName, colour, this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer);
@@ -324,9 +331,16 @@ public class Strategy implements Serializable, TreeViewable
         }
     }
 
-    public void removeTeam(String teamName)
+    public void removeTeam(String teamName) throws TeamNotFound
     {
-        this.teams.remove(teamName);
+        if (this.teams.containsKey(teamName))
+        {
+            this.teams.remove(teamName);
+        }
+        else
+        {
+            throw new TeamNotFound(String.format("L'equipe %s n'existe pas", teamName));
+        }
     }
 
     public void addTeamPlayer(String teamName, Player player) throws TeamNotFound, MaxNumberException
