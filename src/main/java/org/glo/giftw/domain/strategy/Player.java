@@ -85,6 +85,11 @@ public class Player extends GameObject implements Serializable
         }
         return true;
     }
+    
+    public Projectile getProjectile()
+    {
+        return this.projectile;
+    }
 
     public void takeProjectile(Projectile projectile)
     {
@@ -96,7 +101,7 @@ public class Player extends GameObject implements Serializable
         this.projectile.setController(null);
         this.projectile = null;
     }
-
+    
     public static int getPlayerCount()
     {
         return Player.playerCount;
