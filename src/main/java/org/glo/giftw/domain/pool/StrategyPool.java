@@ -1,6 +1,7 @@
 package org.glo.giftw.domain.pool;
 
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
+import org.glo.giftw.domain.strategy.NullStrategy;
 import org.glo.giftw.domain.strategy.Sport;
 import org.glo.giftw.domain.strategy.Strategy;
 
@@ -72,7 +73,10 @@ public class StrategyPool extends ObjectPool
      */
     public void saveStrategy(String name, Strategy strategy)
     {
-        this.strategies.put(name, strategy);
+        if (!(strategy instanceof NullStrategy))
+        {
+            this.strategies.put(name, strategy);
+        }
         if (this.persistent)
         {
             this.saveObjectPool(STRATEGY_POOL_PATH);
