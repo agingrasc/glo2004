@@ -49,13 +49,31 @@ public class CreationToolBarController
     @FXML
     void onActionRedo(ActionEvent event)
     {
-        //TODO
+        Controller.getInstance().redo();
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().resetDisplay();
+            RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void onActionUndo(ActionEvent event)
     {
-        //TODO
+        Controller.getInstance().undo();
+        try
+        {
+            RootLayoutController.getInstance().getCreationStackPaneController().resetDisplay();
+            RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @FXML
