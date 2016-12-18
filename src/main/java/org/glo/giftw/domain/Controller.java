@@ -506,9 +506,7 @@ public class Controller
         try
         {
             gameObject = this.getGameObjectByUUID(playerUuid);
-            boolean result = this.currentStrategy.collide(cmPosition, gameObject);
-            System.out.println("Collision: " + result);
-            return result;
+            return this.currentStrategy.collide(cmPosition, gameObject);
         }
         catch (GameObjectNotFound gameObjectNotFound)
         {

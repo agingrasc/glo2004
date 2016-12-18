@@ -1,5 +1,6 @@
 package org.glo.giftw.view;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
@@ -24,7 +25,8 @@ import java.util.Map;
 public class FrameView extends Pane
 {
     private HashMap<String, ViewableGameObject> viewableGameObjects;
-    private Vector currentMousePosition;
+    private Vector currentMousePosition = new Vector();
+    private Vector currentAbsoluteMousePosition = new Vector();
 
     public FrameView()
     {
@@ -33,6 +35,28 @@ public class FrameView extends Pane
         this.initMouseClicked();
         this.setOnDragOver(this::onDragOver);
         this.setOnDragDropped(this::onDragDropped);
+    }
+
+    private void initMouseClicked()
+    {
+        this.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            public void handle(MouseEvent me)
+            {
+                Accordion rightMenu = null;
+                try
+                {
+                    rightMenu = RootLayoutController.getInstance().getGeneralPropertiesPaneController().getRootAccordion();
+                    RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(null);
+                    RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                RootLayoutController.getInstance().setRightPane(rightMenu);
+            }
+        });
     }
 
     public void onDragOver(DragEvent event)
@@ -50,17 +74,28 @@ public class FrameView extends Pane
             gameObject = Controller.getInstance().getGameObjectByUUID(gameObjectUuid);
             if (gameObject instanceof Player && Controller.getInstance().collide(currentMousePosition, gameObjectUuid))
             {
-                //FIXME: horrible hack -> http://stackoverflow.com/questions/37500567/javafx-how-to-position-the-mouse
-                Robot robot = new Robot();
-                robot.mouseMove((int) event.getScreenX(), (int) event.getScreenY());
-                System.out.println("Limitation du mouvement de la souris");
+                Platform.runLater(() ->
+                                  {
+                                      //FIXME: horrible hack -> http://stackoverflow.com/questions/37500567/javafx-how-to-position-the-mouse
+                                      Robot robot = null;
+                                      try
+                                      {
+                                          robot = new Robot();
+                                      }
+                                      catch (AWTException e)
+                                      {
+                                          e.printStackTrace();
+                                      }
+                                      robot.mouseMove((int) this.currentAbsoluteMousePosition.getX(), (int) this.currentAbsoluteMousePosition.getY());
+                                  });
             }
             else
             {
                 this.currentMousePosition = currentMousePosition;
+                this.currentAbsoluteMousePosition = new Vector(event.getScreenX(), event.getScreenY());
             }
         }
-        catch (IOException|GameObjectNotFound|AWTException e)
+        catch (IOException | GameObjectNotFound e)
         {
             e.printStackTrace();
         }
@@ -138,28 +173,6 @@ public class FrameView extends Pane
     public Map<String, ViewableGameObject> getViewableGameObjects()
     {
         return this.viewableGameObjects;
-    }
-
-    private void initMouseClicked()
-    {
-        this.setOnMousePressed(new EventHandler<MouseEvent>()
-        {
-            public void handle(MouseEvent me)
-            {
-                Accordion rightMenu = null;
-                try
-                {
-                    rightMenu = RootLayoutController.getInstance().getGeneralPropertiesPaneController().getRootAccordion();
-                    RootLayoutController.getInstance().getCreationStackPaneController().setSelectedUUID(null);
-					RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-                RootLayoutController.getInstance().setRightPane(rightMenu);
-            }
-        });
     }
 
     public Vector getCurrentMousePosition()
