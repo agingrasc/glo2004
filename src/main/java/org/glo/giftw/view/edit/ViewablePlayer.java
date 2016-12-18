@@ -43,6 +43,24 @@ public class ViewablePlayer extends ViewableGameObject
         this.constructNode();
     }
 
+    @Override
+    public Node constructNode()
+    {
+        Player player = getPlayer();
+        playerImg = getPlayerImg(player);
+        name = new Label(player.getName());
+        role = new Label(player.getRole());
+        node = new VBox();
+        ((VBox) node).setAlignment(Pos.CENTER);
+        ((VBox) node).getChildren().add(name);
+        ((VBox) node).getChildren().add(role);
+        ((VBox) node).getChildren().add(playerImg);
+        updateNode();
+        node.setOnDragDetected(this::onNodeDragDetected);
+        initMouseClicked();
+        return node;
+    }
+
     private Player getPlayer()
     {
         try
@@ -78,27 +96,9 @@ public class ViewablePlayer extends ViewableGameObject
         return Color.web(teamColor);
     }
 
-    @Override
-    public Node constructNode()
+    public void updateNode()
     {
-        Player player = getPlayer();
-        playerImg = getPlayerImg(player);
-        name = new Label(player.getName());
-        role = new Label(player.getRole());
-        node = new VBox();
-        ((VBox) node).setAlignment(Pos.CENTER);        
-        ((VBox) node).getChildren().add(name);
-        ((VBox) node).getChildren().add(role);
-        ((VBox) node).getChildren().add(playerImg);
-        updateNode();
-        node.setOnDragDetected(this::onNodeDragDetected);
-        initMouseClicked();
-        return node;
-    }
-    
-    public void updateNode() 
-    {
-    	if (isSelected)
+        if (isSelected)
         {
             node.setStyle("-fx-background-color: gray");
         }
@@ -106,17 +106,18 @@ public class ViewablePlayer extends ViewableGameObject
         {
             node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         }
-    	Player player = getPlayer();
-    	float orientation = 0;
+        Player player = getPlayer();
+        float orientation = 0;
         try
         {
             orientation = Controller.getInstance().getOrientation(player);
-        } catch (GameObjectNotFound e)
-		{
-        	orientation = 0;
-		}
+        }
+        catch (GameObjectNotFound e)
+        {
+            orientation = 0;
+        }
         playerImg.setRotate(orientation);
-    	name.setText(player.getName());
+        name.setText(player.getName());
         role.setText(player.getRole());
         name.setVisible(isDisplayName);
         role.setVisible(isDisplayRole);
@@ -139,18 +140,8 @@ public class ViewablePlayer extends ViewableGameObject
         WritableImage snapshot = this.node.snapshot(parameters, null);
         return snapshot;
     }
-    
-    public void setDisplayName(boolean isDisplayName)
-	{
-		this.isDisplayName = isDisplayName;
-	}
 
-	public void setDisplayRole(boolean isDisplayRole)
-	{
-		this.isDisplayRole = isDisplayRole;
-	}
-
-	protected void initMouseClicked()
+    protected void initMouseClicked()
     {
         this.node.setOnMousePressed(new EventHandler<MouseEvent>()
         {
@@ -180,5 +171,15 @@ public class ViewablePlayer extends ViewableGameObject
                 me.consume();
             }
         });
+    }
+
+    public void setDisplayName(boolean isDisplayName)
+    {
+        this.isDisplayName = isDisplayName;
+    }
+
+    public void setDisplayRole(boolean isDisplayRole)
+    {
+        this.isDisplayRole = isDisplayRole;
     }
 }
