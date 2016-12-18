@@ -12,7 +12,7 @@ public class GameObjectState implements Serializable
 {
     public static final long serialVersionUID = 1L;
 
-    private Vector position;
+    private Vector position;    //La position d'un gameObject correspond à son coin supérieur gauche 
     private float orientation;
     private Vector dimensions;
 
@@ -93,9 +93,8 @@ public class GameObjectState implements Serializable
      */
     public boolean detectCollision(GameObjectState other)
     {
-        Vector adjPosition = new Vector(this.position.getX() + this.dimensions.getX()/2, this.position.getY() + this.dimensions.getY()/2);
-        double dx = Math.abs(other.position.getX() - adjPosition.getX());
-        double dy = Math.abs(other.position.getY() - adjPosition.getY());
+        double dx = Math.abs(other.position.getX() - this.position.getX() + 0.5*(other.dimensions.getX() - this.dimensions.getX()));
+        double dy = Math.abs(other.position.getY() - this.position.getY() + 0.5*(other.dimensions.getY() - this.dimensions.getY()));
         return dx < (this.dimensions.getX() + other.dimensions.getX()) / 2 && dy < (this.dimensions.getY() + other.dimensions.getY()) / 2;
     }
 
@@ -111,9 +110,10 @@ public class GameObjectState implements Serializable
 
     public boolean occupiesPosition(Vector position)
     {
-        double dx = Math.abs(position.getX() - this.position.getX());
-        double dy = Math.abs(position.getY() - this.position.getY());
-        return dx <= this.dimensions.getX() / 2 && dy <= this.dimensions.getY() / 2;
+        return  position.getX() > this.position.getX() &&
+                this.position.getX() + this.dimensions.getX() > position.getX() &&
+                position.getY() > this.position.getY() &&
+                this.position.getY() + this.dimensions.getY() > position.getY();
     }
 
     @Override
