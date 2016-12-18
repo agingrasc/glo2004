@@ -175,6 +175,7 @@ public class CreationStackPaneController extends AnimationTimer
 
     public void resetDisplay()
     {
+        Controller.getInstance().clearUnplacedGameObjects();
         this.currentPane.clearPane();
         this.currentPane.getViewableGameObjects().clear();
         this.previousPane.clearPane();
