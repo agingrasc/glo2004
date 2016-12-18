@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class ImageFileController
 {
@@ -46,7 +45,6 @@ public class ImageFileController
     {
         try {
             if (fileName != null) {
-                List<String> fileType = imageChooser.getSelectedExtensionFilter().getExtensions();
                 BufferedImage bImage = SwingFXUtils.fromFXImage(content, null);
                 String format = getFileFormat(fileName);
                 ImageIO.write(bImage, format, fileName);
