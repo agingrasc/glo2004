@@ -18,6 +18,8 @@ public class MediaToolBarController extends AnimationTimer
     private Slider timeSlider;
     @FXML
     private Label timeDisplay;
+    @FXML
+    private TextField jumpDelta;
 
     private double speed;
 
@@ -143,7 +145,10 @@ public class MediaToolBarController extends AnimationTimer
     @FXML
     public void onJumpTime(ActionEvent event)
     {
-
+        float delta_t = Float.parseFloat(this.jumpDelta.getText());
+        Controller.getInstance().changeCurrentFrame(delta_t);
+        this.updateTime();
+        this.field.displayStrategy();
     }
 
     public ToolBar getRootToolBar()

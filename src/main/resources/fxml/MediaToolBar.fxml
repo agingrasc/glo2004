@@ -52,7 +52,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <TextField prefHeight="25.0" prefWidth="58.0" promptText="Delta t" onAction="#onJumpTime"/>
+        <TextField prefHeight="25.0" prefWidth="58.0" promptText="Delta t" onAction="#onJumpTime" fx:id="jumpDelta"/>
         <Slider prefHeight="14.0" prefWidth="318.0" fx:id="timeSlider"/>
         <Label text="00:00/00:00" fx:id="timeDisplay"/>
     </items>
