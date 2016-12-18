@@ -646,9 +646,7 @@ public class Controller
     private void pushStrategyOnStack()
     {
         this.redoStack.clear();
-        Strategy oldStrat = this.currentStrategy;
-        this.currentStrategy = new Strategy(this.currentStrategy);
-        this.undoStack.push(oldStrat);
+        this.undoStack.push(new Strategy(this.currentStrategy));
     }
     
     public void undo()
