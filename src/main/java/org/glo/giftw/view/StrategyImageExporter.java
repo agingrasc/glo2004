@@ -46,6 +46,13 @@ public class StrategyImageExporter {
         drawObjects();
     }
 
+    public void saveTo(String filename)
+    {
+        Image content = gcDraw.getCurrentDrawnState();
+        ImageFileController fileExport = new ImageFileController();
+        fileExport.saveFile(content, new File(filename));
+    }
+
     public Vector getDimensions() {
         return dimensions;
     }

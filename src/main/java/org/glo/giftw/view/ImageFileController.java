@@ -42,6 +42,23 @@ public class ImageFileController
         );
     }
 
+    public File saveFile(Image content, File fileName)
+    {
+        try {
+            if (fileName != null) {
+                List<String> fileType = imageChooser.getSelectedExtensionFilter().getExtensions();
+                BufferedImage bImage = SwingFXUtils.fromFXImage(content, null);
+                String format = getFileFormat(fileName);
+                ImageIO.write(bImage, format, fileName);
+            }
+        }
+        catch (IOException ex)
+        {
+
+        }
+        return fileName;
+    }
+
     File startOpenFileDialog(Window parentWindow)
     {
         imageChooser.setTitle("Ouvrir une image");
@@ -59,21 +76,11 @@ public class ImageFileController
     File startSaveFileDialog(Window parentWindow, Image content)
     {
         File selectedImagePath = null;
-        try
-        {
-            imageChooser.setTitle("Sauvegarder une image");
-            selectedImagePath = imageChooser.showSaveDialog(parentWindow);
-            if (selectedImagePath != null)
-            {
-                List<String> fileType = imageChooser.getSelectedExtensionFilter().getExtensions();
-                BufferedImage bImage = SwingFXUtils.fromFXImage(content, null);
-                String format = getFileFormat(selectedImagePath);
-                ImageIO.write(bImage, format, selectedImagePath);
-            }
-        }
-        catch (IOException ex)
-        {
-        }
+
+        imageChooser.setTitle("Sauvegarder une image");
+        selectedImagePath = imageChooser.showSaveDialog(parentWindow);
+        saveFile(content, selectedImagePath);
+
         return selectedImagePath;
     }
 }
