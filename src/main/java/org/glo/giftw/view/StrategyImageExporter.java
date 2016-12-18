@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 
 import javafx.scene.paint.Color;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
 
@@ -73,11 +74,23 @@ public class StrategyImageExporter {
         controller.setPixelToUnitRatio(ratioPixelToUnit);
     }
 
-    private void drawGameObject(GameObject gameObject, String filePath, Vector size) {
-        Vector position = controller.getPosition(gameObject);
-
+    private void drawGameObject(GameObject gameObject, String filePath, Vector size, Vector position) {
+        centerPosition(position, size);
         File file = new File(filePath);
         gcDraw.drawImage(gc, new Image(file.toURI().toString()), position.getX(), position.getY(), size.getX(), size.getY());
+    }
+
+    private void drawGameObject(GameObject gameObject, String filePath, Vector size) {
+        try
+        {
+            Vector position = controller.getPosition(gameObject);
+            drawGameObject(gameObject, filePath, size, position);
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            return;
+        }
+
     }
 
     private void centerPosition(Vector position, Vector size)
@@ -91,23 +104,37 @@ public class StrategyImageExporter {
         gcDraw.setStrokeLineSize(gc, 5);
         setAtFirstFrame();
         Vector size = controller.getDimensions(player);
-        Vector prevPosition = controller.getPosition(player);
-        centerPosition(prevPosition, size);
-        Vector nextPosition;
+        try {
+            Vector prevPosition = controller.getPosition(player);
+            centerPosition(prevPosition, size);
+            Vector nextPosition;
+            Vector temp = new Vector(0, 0);
 
-        while (!controller.isLastFrame()) {
-            controller.nextFrame();
-            nextPosition = controller.getPosition(player);
-            centerPosition(nextPosition, size);
-            if (controller.getCurrentFrame().isKeyFrame()) {
-                gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
-            } else {
-                gcDraw.drawLine(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+            while (!controller.isLastFrame()) {
+                controller.nextFrame();
+                try {
+                    nextPosition = controller.getPosition(player);
+                    centerPosition(nextPosition, size);
+                    if (controller.getCurrentFrame().isKeyFrame()) {
+                        gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+                    } else {
+                        gcDraw.drawLine(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+                    }
+                    prevPosition = nextPosition;
+                }
+                catch(GameObjectNotFound gameObjectNotFound)
+                {
+                    if(!temp.equals(prevPosition)) {
+                        temp = prevPosition;
+                        drawPlayer(player, temp);
+                    }
+                }
             }
-
-            prevPosition = nextPosition;
         }
-
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            return;
+        }
     }
 
     private void traceProjectileMovement(GameObject projectile) {
@@ -115,27 +142,41 @@ public class StrategyImageExporter {
         gcDraw.setStrokeLineStyle(gc, true);
         setAtFirstFrame();
         Vector size = controller.getDimensions(projectile);
-        Vector prevPosition = controller.getPosition(projectile);
-        centerPosition(prevPosition, size);
-        Vector nextPosition;
+        try {
+            Vector prevPosition = controller.getPosition(projectile);
+            centerPosition(prevPosition, size);
+            Vector nextPosition;
+            Vector temp = new Vector(0, 0);
 
-        while (!controller.isLastFrame()) {
-            controller.nextFrame();
-            nextPosition = controller.getPosition(projectile);
-            centerPosition(nextPosition, size);
-            if (controller.getCurrentFrame().isKeyFrame()) {
-                gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
-            } else {
-                gcDraw.drawLine(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+            while (!controller.isLastFrame()) {
+                controller.nextFrame();
+                try {
+                    nextPosition = controller.getPosition(projectile);
+                    centerPosition(nextPosition, size);
+                    if (controller.getCurrentFrame().isKeyFrame()) {
+                        gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+                    } else {
+                        gcDraw.drawLine(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
+                    }
+                    prevPosition = nextPosition;
+                }
+                catch(GameObjectNotFound gameObjectNotFound)
+                {
+                    if(!temp.equals(prevPosition)) {
+                        temp = prevPosition;
+                        drawGameObject(projectile, controller.getProjectile().getImagePath(), size, temp);
+                    }
+                }
             }
-
-            prevPosition = nextPosition;
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            return;
         }
         gcDraw.setStrokeLineStyle(gc, false);
     }
 
-    private void drawPlayer(GameObject player) {
-        Vector position = controller.getPosition(player);
+    private void drawPlayer(GameObject player, Vector position) {
         Vector size = controller.getDimensions(player);
 
         position.setY(position.getY()+(0.5*size.getY()));
@@ -151,6 +192,17 @@ public class StrategyImageExporter {
         //gcDraw.drawText(gc, position.getX(), position.getY(), 15, player.getName());
 
         gcDraw.setDrawColor(gc, Color.BLACK);
+    }
+
+    private void drawPlayer(GameObject player) {
+        try {
+            Vector position = controller.getPosition(player);
+            drawPlayer(player, position);
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            return;
+        }
     }
 
     private void drawPlayerHasBall(GameObject player, Vector position) {
