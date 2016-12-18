@@ -72,7 +72,7 @@ public class CreationStackPaneController extends AnimationTimer
             {
                 Controller.getInstance().nextFrame();
             }
-            this.resetDisplay();
+            //this.resetDisplay();
             this.displayStrategy();
         }
     }
