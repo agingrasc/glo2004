@@ -37,11 +37,7 @@ public class StrategyPool extends ObjectPool
                                 boolean activateMaxNumberTeam)
     {
         Strategy strat = new Strategy(name, sport, activateMaxNumberPlayer, activateMaxNumberTeam);
-        this.strategies.put(name, strat);
-        if (this.persistent)
-        {
-            this.saveObjectPool(STRATEGY_POOL_PATH);
-        }
+        this.saveStrategy(name,  strat);
         return strat;
     }
 
@@ -74,8 +70,9 @@ public class StrategyPool extends ObjectPool
     /**
      * Méthode publique permettant de sauvegarder le StrategyPool après avoir modifiée une stratégie.
      */
-    public void save()
+    public void saveStrategy(String name, Strategy strategy)
     {
+        this.strategies.put(name, strategy);
         if (this.persistent)
         {
             this.saveObjectPool(STRATEGY_POOL_PATH);

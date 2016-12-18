@@ -1,11 +1,13 @@
 package org.glo.giftw;
 
+import java.util.Timer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.AutoSave;
 import org.glo.giftw.view.FXMLPaths;
 import org.glo.giftw.view.RootLayoutController;
 
@@ -15,6 +17,7 @@ public class MainApp extends Application
 {
     private Stage primaryStage;
     public static final String TITLE = "VisuaLigue";
+    private Timer time;
 
     @Override
     public void start(Stage primaryStage) throws IOException
@@ -25,12 +28,17 @@ public class MainApp extends Application
 
         initRootLayout();
         RootLayoutController.getInstance().openStrategy();
+
+        time = new Timer();
+        AutoSave save = new AutoSave();
+        time.schedule(save, 0, 5000);
     }
 
     @Override
     public void stop() throws Exception
     {
         System.out.println("Sauvegarde automatique de toutes les stratégies.");
+        time.cancel();
         Controller.getInstance().saveStrategies();
         super.stop();
     }
