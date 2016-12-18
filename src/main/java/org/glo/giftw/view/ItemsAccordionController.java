@@ -100,6 +100,7 @@ public class ItemsAccordionController
             @Override
             public void handle(MouseEvent event)
             {
+                Controller.getInstance().clearUnplacedGameObjects();
                 Obstacle selected = obstaclesTableView.getSelectionModel().getSelectedItem();
                 if (selected != null)
                 {
@@ -132,6 +133,7 @@ public class ItemsAccordionController
             @Override
             public void handle(MouseEvent event)
             {
+                Controller.getInstance().clearUnplacedGameObjects();
                 Team selected = teamsTableView.getSelectionModel().getSelectedItem();
                 if (selected != null)
                 {
@@ -180,6 +182,7 @@ public class ItemsAccordionController
             @Override
             public void handle(MouseEvent event)
             {
+                Controller.getInstance().clearUnplacedGameObjects();
                 Projectile selected = projectilesTableView.getSelectionModel().getSelectedItem();
                 if (selected != null)
                 {
