@@ -3,6 +3,8 @@ package org.glo.giftw.view;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.ToolBar;
 import org.glo.giftw.domain.Controller;
 
@@ -12,6 +14,10 @@ public class MediaToolBarController extends AnimationTimer
 {
     @FXML
     private ToolBar rootToolBar;
+    @FXML
+    private SplitMenuButton playButton;
+
+    private double speed;
 
     private final static long FPS = 1000 * 1000 * 1000 / 30; //en nanoseconde
     private long lastTimeStamp;
@@ -39,21 +45,18 @@ public class MediaToolBarController extends AnimationTimer
     {
         long delta_t = timestamp - this.lastTimeStamp;
         boolean isLastFrame = Controller.getInstance().isLastFrame();
-
-        if (delta_t >= FPS && !isLastFrame)
+        if (delta_t >= (FPS * this.speed) && !isLastFrame)
         {
             this.lastTimeStamp = timestamp;
             this.field.resetDisplay();
             this.field.displayStrategy();
             Controller.getInstance().nextFrame();
-            isLastFrame = Controller.getInstance().isLastFrame();
         }
         else if (isLastFrame)
         {
             this.stop();
         }
     }
-
 
     @FXML
     void onActionPause(ActionEvent event)
@@ -81,6 +84,40 @@ public class MediaToolBarController extends AnimationTimer
     {
         Controller.getInstance().goToBeginning();
         this.start();
+    }
+
+    @FXML
+    void onSpeedSelected(ActionEvent event)
+    {
+        String speed = ((MenuItem) event.getSource()).getText();
+        switch (speed)
+        {
+            case "-8x":
+                this.speed = 8;
+                break;
+            case "-4x":
+                this.speed = 4;
+                break;
+            case "-2x":
+                this.speed = 2;
+                break;
+            case "1x":
+                this.speed = 1;
+                break;
+            case "2x":
+                this.speed = 1/2;
+                break;
+            case "4x":
+                this.speed = 1/4;
+                break;
+            case "8x":
+                this.speed = 1/8;
+                break;
+            default:
+                this.speed = 1;
+                System.out.println("Should not happen");
+                break;
+        }
     }
 
     public ToolBar getRootToolBar()

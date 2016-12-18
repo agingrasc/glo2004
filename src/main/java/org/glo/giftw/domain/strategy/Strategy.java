@@ -637,6 +637,6 @@ public class Strategy implements Serializable, TreeViewable
     public String getImagePath()
     {
         //FIXME: retourner le path vers l'image exporter de la stratégie
-        return this.sport.getImagePath();
+        return "./data/" + this.getName() + ".png";
     }
 }

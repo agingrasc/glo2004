@@ -205,7 +205,7 @@ public class GraphicContextDrawController
     {
         gc.strokeLine(x1, y1, x2, y2);
 
-        double orientationInDegrees = Math.toDegrees(Math.atan2((x2-x1), (y2 - y1)));
+        double orientationInDegrees = Math.toDegrees(Math.atan2((y2 - y1), (x2-x1)));
         drawArrowHead(gc, x2, y2, orientationInDegrees);
     }
 
