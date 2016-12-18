@@ -17,35 +17,34 @@ public class ModeToolBarController
     @FXML
     void onActionImageByImage(ActionEvent event) throws IOException
     {
+        openStrategy();
         String strategy = Controller.getInstance().getStrategyName();
-        if (strategy == null)
+        if (strategy != null)
         {
-            openStrategy();
+            RootLayoutController.getInstance().imageByImage();
         }
-        RootLayoutController.getInstance().imageByImage();
     }
 
     @FXML
     void onActionRealTime(ActionEvent event) throws IOException
     {
+        openStrategy();
         String strategy = Controller.getInstance().getStrategyName();
-        if (strategy == null)
+        if (strategy != null)
         {
-            openStrategy();
+            RootLayoutController.getInstance().realTime();
         }
-        RootLayoutController.getInstance().realTime();
     }
 
     @FXML
     void onActionWatch(ActionEvent event) throws IOException
     {
+        openStrategy();
         String strategy = Controller.getInstance().getStrategyName();
-        if (strategy == null)
+        if (strategy != null)
         {
-            openStrategy();
+            RootLayoutController.getInstance().watch();
         }
-
-        RootLayoutController.getInstance().watch();
     }
 
     public ToolBar getRootToolBar()
