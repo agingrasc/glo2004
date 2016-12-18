@@ -14,13 +14,13 @@
                 </ImageView>
             </graphic>
             <items>
-                <MenuItem mnemonicParsing="false" text="-8x"/>
-                <MenuItem mnemonicParsing="false" text="-4x"/>
-                <MenuItem mnemonicParsing="false" text="-2x"/>
-                <MenuItem mnemonicParsing="false" text="1x"/>
-                <MenuItem mnemonicParsing="false" text="2x"/>
-                <MenuItem mnemonicParsing="false" text="4x"/>
-                <MenuItem mnemonicParsing="false" text="8x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="-8x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="-4x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="-2x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="1x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="2x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="4x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="8x"/>
             </items>
         </SplitMenuButton>
         <Button contentDisplay="TOP" layoutX="98.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionStop"
