@@ -1,6 +1,7 @@
 package org.glo.giftw.domain.strategy;
 
 import org.glo.giftw.domain.util.Vector;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -163,14 +164,24 @@ public class Frame implements Serializable
         return null;
     }
 
-    public Vector getPosition(GameObject gameObject)
+    public Vector getPosition(GameObject gameObject) throws GameObjectNotFound
     {
-        return this.gameObjects.get(gameObject).getPosition();
+        GameObjectState gos = this.gameObjects.get(gameObject);
+        if (gos == null)
+        {
+            throw new GameObjectNotFound("Le GameObject n'a pas encore été placé dans la frame!");
+        }
+        return gos.getPosition();
     }
 
-    public float getOrientation(GameObject gameObject)
+    public float getOrientation(GameObject gameObject) throws GameObjectNotFound
     {
-        return this.gameObjects.get(gameObject).getOrientation();
+        GameObjectState gos = this.gameObjects.get(gameObject);
+        if (gos == null)
+        {
+            throw new GameObjectNotFound("Le GameObject n'a pas encore été placé dans la frame!");
+        }
+        return gos.getOrientation();
     }
 
     public Set<GameObject> getGameObjects()
