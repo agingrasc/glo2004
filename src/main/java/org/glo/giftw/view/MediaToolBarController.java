@@ -65,6 +65,7 @@ public class MediaToolBarController extends AnimationTimer
         boolean isLastFrame = Controller.getInstance().isLastFrame();
         if (delta_t >= (FPS * this.speed) && !isLastFrame)
         {
+            this.updateTime();
             this.lastTimeStamp = timestamp;
             this.field.resetDisplay();
             this.field.displayStrategy();
