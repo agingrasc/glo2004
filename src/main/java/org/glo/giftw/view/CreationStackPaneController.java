@@ -217,8 +217,14 @@ public class CreationStackPaneController extends AnimationTimer
             }
             
             obj.updateNode();//Pour mettre a jour l'affichage selon le domaine
-
-            pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
+            
+            try
+			{
+				pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
+			} catch (GameObjectNotFound e)
+			{
+				e.printStackTrace();
+			}
         }
     }
 

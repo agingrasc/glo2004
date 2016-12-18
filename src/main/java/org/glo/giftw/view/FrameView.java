@@ -133,11 +133,15 @@ public class FrameView extends Pane
             	try
 				{
 					Controller.getInstance().placeGameObject(uuid, coordinate, 0);
+					RootLayoutController.getInstance().getCreationStackPaneController().stop();
+	                RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
 				} catch (GameObjectNotFound e1)
 				{
 					e1.printStackTrace();
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
 				}
-                e.printStackTrace();
             }
 
             success = true;
