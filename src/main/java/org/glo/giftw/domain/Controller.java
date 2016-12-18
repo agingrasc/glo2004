@@ -14,11 +14,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 public class Controller
 {
     private static Controller INSTANCE = null;
     protected Strategy currentStrategy;
+    protected Stack<Strategy> undoStack;  //pile des versions précédentes de currentStrategy
+    protected Stack<Strategy> redoStack;  //pile des versions suivantes de currentStrategy
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
     private StrategyPool strategyPool;
@@ -30,6 +33,8 @@ public class Controller
         this.obstaclePool = new ObstaclePool();
         this.strategyPool = new StrategyPool();
         this.currentStrategy = new NullStrategy();
+        undoStack = new Stack<Strategy>();
+        redoStack = new Stack<Strategy>();
     }
 
     public static Controller getInstance()
@@ -165,7 +170,21 @@ public class Controller
      */
     public String addPlayer(String team) throws TeamNotFound, MaxNumberException
     {
-        return this.currentStrategy.addPlayer(team);
+        try
+        {
+            pushStrategyOnStack();
+            return this.currentStrategy.addPlayer(team);
+        }
+        catch (TeamNotFound e)
+        {
+            this.undoStack.pop();  //Il faut enlever la stratégie qui a été push inutilement
+            throw e;
+        }
+        catch (MaxNumberException e)
+        {
+            this.undoStack.pop();  //Il faut enlever la stratégie qui a été push inutilement
+            throw e;
+        }
     }
 
     /**
@@ -176,6 +195,7 @@ public class Controller
      */
     public String addObstacle(String name)
     {
+        pushStrategyOnStack();
         Obstacle obstacle = this.obstaclePool.create(name);
         return this.currentStrategy.addObstacle(obstacle);
     }
@@ -187,12 +207,22 @@ public class Controller
      */
     public String addProjectile()
     {
+        pushStrategyOnStack();
         return this.currentStrategy.addProjectile();
     }
 
     public void addTeam(String teamName, String colour) throws MaxNumberException
     {
-        this.currentStrategy.addTeam(teamName, colour);
+        try
+        {
+            pushStrategyOnStack();
+            this.currentStrategy.addTeam(teamName, colour);
+        }
+        catch (MaxNumberException e)
+        {
+            this.undoStack.pop();  //Il faut enlever la stratégie qui a été push inutilement
+            throw e;
+        }
     }
 
     /**
@@ -202,25 +232,15 @@ public class Controller
      */
     public void deleteTeam(String teamName)
     {
-        this.currentStrategy.removeTeam(teamName);
-    }
-
-    public void dropProjectile(String playerUuid)
-    {
-        if (playerUuid == null)
-        {
-            return;
-        }
-        Player player = null;
         try
         {
-            player = (Player) this.getGameObjectByUUID(playerUuid);
+            pushStrategyOnStack();
+            this.currentStrategy.removeTeam(teamName);
         }
-        catch (GameObjectNotFound gameObjectNotFound)
+        catch (TeamNotFound e)
         {
-            gameObjectNotFound.printStackTrace();
+            this.undoStack.pop();  //Il faut enlever la stratégie qui a été push inutilement
         }
-        player.dropProjectile();
     }
 
     public String getTeamColour(String teamName)
@@ -290,20 +310,47 @@ public class Controller
      */
     public void placeGameObject(String gameObjectUuid, Vector position, float orientation) throws GameObjectNotFound
     {
-        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
-        this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation);
+        try
+        {
+            pushStrategyOnStack();
+            Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+            this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation);
+        }
+        catch(GameObjectNotFound e)
+        {
+            this.undoStack.pop();  //Il faut enlever la stratégie qui a été push inutilement
+            throw e;
+        }
     }
 
     public void placeGameObject(String gameObjectUuid, Vector position) throws GameObjectNotFound
     {
-        float orientation = this.getOrientation(this.getGameObjectByUUID(gameObjectUuid));
-        this.placeGameObject(gameObjectUuid, position, orientation);
+        try
+        {
+            pushStrategyOnStack();
+            float orientation = this.getOrientation(this.getGameObjectByUUID(gameObjectUuid));
+            this.placeGameObject(gameObjectUuid, position, orientation);
+        }
+        catch(GameObjectNotFound e)
+        {
+            this.undoStack.pop();  //Il faut enlever la stratégie qui a été push inutilement
+            throw e;
+        }
     }
 
     public void placeGameObject(String gameObjectUuid, float orientation) throws GameObjectNotFound
     {
-        Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
-        this.placeGameObject(gameObjectUuid, position, orientation);
+        try
+        {
+            pushStrategyOnStack();
+            Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
+            this.placeGameObject(gameObjectUuid, position, orientation);
+        }
+        catch(GameObjectNotFound e)
+        {
+            this.undoStack.pop();  //Il faut enlever la stratégie qui a été push inutilement
+            throw e;
+        }
     }
 
     /**
@@ -359,17 +406,21 @@ public class Controller
 
     public void openStrategy(String strategyName) throws StrategyNotFound
     {
+        undoStack.clear();
+        redoStack.clear();
         Strategy strategy = this.strategyPool.getStrategy(strategyName);
         this.currentStrategy = strategy;
     }
 
     public void setCheckMaxNumberTeam(boolean checkMaxNumberTeam)
     {
+        pushStrategyOnStack();
         this.currentStrategy.setCheckMaxNumberTeam(checkMaxNumberTeam);
     }
 
     public void setCheckMaxNumberPlayer(boolean checkMaxNumberPlayer)
     {
+        pushStrategyOnStack();
         this.currentStrategy.setCheckMaxNumberPlayer(checkMaxNumberPlayer);
     }
 
@@ -439,6 +490,7 @@ public class Controller
      */
     public Frame createNewFrame()
     {
+        pushStrategyOnStack();
         this.currentStrategy.createNewFrame();
         this.currentStrategy.goToEnd();
         return this.currentStrategy.getCurrentFrame();
@@ -480,10 +532,32 @@ public class Controller
         }
         try
         {
+            pushStrategyOnStack();
             this.currentStrategy.takeProjectile(getGameObjectByUUID(playerUuid));
         }
         catch (GameObjectNotFound gameObjectNotFound)
         {
+            this.undoStack.pop();
+            gameObjectNotFound.printStackTrace();
+        }
+    }
+
+    public void dropProjectile(String playerUuid)
+    {
+        if (playerUuid == null)
+        {
+            return;
+        }
+        Player player = null;
+        try
+        {
+            pushStrategyOnStack();
+            player = (Player) this.getGameObjectByUUID(playerUuid);
+            player.dropProjectile();
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            this.undoStack.pop();
             gameObjectNotFound.printStackTrace();
         }
     }
@@ -498,6 +572,23 @@ public class Controller
         this.currentStrategy.clearUnplacedGameObjects();
     }
 
+    public boolean collide(Vector position, String playerUuid)
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        Vector cmPosition = position.div(ratio);
+        GameObject gameObject;
+        try
+        {
+            gameObject = this.getGameObjectByUUID(playerUuid);
+            return this.currentStrategy.collide(cmPosition, gameObject);
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
+        return false;
+    }
+
     public String goTo()
     {
         return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
@@ -508,15 +599,16 @@ public class Controller
      *
      * @param gameObject Le GameObject dont on veut connaître la position.
      * @return La position du GameObject, en pixels.
+     * @throws GameObjectNotFound 
      */
-    public Vector getPosition(GameObject gameObject)
+    public Vector getPosition(GameObject gameObject) throws GameObjectNotFound
     {
         Vector ratio = this.currentStrategy.getPixelToUnitRatio();
         Vector positionCM = this.currentStrategy.getCurrentFrame().getPosition(gameObject);
         return positionCM.mul(ratio);
     }
 
-    public float getOrientation(GameObject gameObject)
+    public float getOrientation(GameObject gameObject) throws GameObjectNotFound
     {
         return this.currentStrategy.getCurrentFrame().getOrientation(gameObject);
     }
@@ -525,5 +617,29 @@ public class Controller
     {
         Vector ratio = this.currentStrategy.getPixelToUnitRatio();
         return gameObject.getDimensions().mul(ratio);
+    }
+    
+    private void pushStrategyOnStack()
+    {
+        this.redoStack.clear();
+        this.undoStack.push(new Strategy(this.currentStrategy));
+    }
+    
+    public void undo()
+    {
+        if (!this.undoStack.empty())
+        {
+            this.redoStack.push(this.currentStrategy);
+            this.currentStrategy = this.undoStack.pop();
+        }
+    }
+    
+    public void redo()
+    {
+        if (!this.redoStack.empty())
+        {
+            this.undoStack.push(this.currentStrategy);
+            this.currentStrategy = this.redoStack.pop();
+        }
     }
 }

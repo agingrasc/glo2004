@@ -45,6 +45,24 @@ public class Strategy implements Serializable, TreeViewable
         this.checkMaxNumberPlayer = checkMaxNumberPlayer;
         this.checkMaxNumberTeam = checkMaxNumberTeam;
     }
+    
+    public Strategy(Strategy strategy)
+    {
+        this.name = strategy.name;
+        this.sport = strategy.sport;
+        this.currentFrameIdx = strategy.currentFrameIdx;
+        this.teams = new HashMap<>();
+        strategy.teams.forEach((name, team) -> this.teams.put(name, new Team(team)));
+        this.gameObjects = new HashSet<>();
+        for (GameObject gameObject : strategy.gameObjects)
+        {
+            this.gameObjects.add(gameObject.copy());
+        }
+        this.frames = new ArrayList<>();
+        strategy.frames.forEach(frame -> this.frames.add(new Frame(frame)));
+        this.checkMaxNumberPlayer = strategy.checkMaxNumberPlayer;
+        this.checkMaxNumberTeam = strategy.checkMaxNumberTeam;
+    }
 
 
     /*
@@ -290,7 +308,14 @@ public class Strategy implements Serializable, TreeViewable
     {
         if (!teamName.equals("default"))
         {
-            this.removeTeam("default");
+            try
+            {
+                this.removeTeam("default");
+            }
+            catch (TeamNotFound e)
+            {
+                // Il n'y a pas d'équipe nommée "default", but who cares ?
+            }
         }
 
         Team team = new Team(teamName, colour, this.sport.getMaxPlayersPerTeam(), this.checkMaxNumberPlayer);
@@ -306,9 +331,16 @@ public class Strategy implements Serializable, TreeViewable
         }
     }
 
-    public void removeTeam(String teamName)
+    public void removeTeam(String teamName) throws TeamNotFound
     {
-        this.teams.remove(teamName);
+        if (this.teams.containsKey(teamName))
+        {
+            this.teams.remove(teamName);
+        }
+        else
+        {
+            throw new TeamNotFound(String.format("L'equipe %s n'existe pas", teamName));
+        }
     }
 
     public void addTeamPlayer(String teamName, Player player) throws TeamNotFound, MaxNumberException
@@ -460,6 +492,11 @@ public class Strategy implements Serializable, TreeViewable
             }
         }
         this.gameObjects = newGameObjectSet;
+    }
+
+    public boolean collide(Vector position, GameObject gameObject)
+    {
+       return this.frames.get(this.currentFrameIdx).collide(position, gameObject);
     }
 
     /*

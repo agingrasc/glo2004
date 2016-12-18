@@ -175,6 +175,7 @@ public class CreationStackPaneController extends AnimationTimer
 
     public void resetDisplay()
     {
+        Controller.getInstance().clearUnplacedGameObjects();
         this.currentPane.clearPane();
         this.currentPane.getViewableGameObjects().clear();
         this.previousPane.clearPane();
@@ -217,8 +218,14 @@ public class CreationStackPaneController extends AnimationTimer
             }
             
             obj.updateNode();//Pour mettre a jour l'affichage selon le domaine
-
-            pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
+            
+            try
+			{
+				pane.placeViewableInPane(obj, Controller.getInstance().getPosition(gameObject));
+			} catch (GameObjectNotFound e)
+			{
+				e.printStackTrace();
+			}
         }
     }
 
