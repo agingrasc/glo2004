@@ -130,6 +130,13 @@ public class FrameView extends Pane
             }
             catch (GameObjectNotFound e)
             {
+            	try
+				{
+					Controller.getInstance().placeGameObject(uuid, coordinate, 0);
+				} catch (GameObjectNotFound e1)
+				{
+					e1.printStackTrace();
+				}
                 e.printStackTrace();
             }
 
