@@ -3,9 +3,7 @@ package org.glo.giftw.view;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import org.glo.giftw.domain.Controller;
 
 import java.io.IOException;
@@ -16,6 +14,10 @@ public class MediaToolBarController extends AnimationTimer
     private ToolBar rootToolBar;
     @FXML
     private SplitMenuButton playButton;
+    @FXML
+    private Slider timeSlider;
+    @FXML
+    private Label timeDisplay;
 
     private double speed;
 
@@ -26,6 +28,7 @@ public class MediaToolBarController extends AnimationTimer
     @FXML
     public void initialize()
     {
+        this.updateTime();
         try
         {
             this.field = RootLayoutController.getInstance().getCreationStackPaneController();
@@ -34,6 +37,21 @@ public class MediaToolBarController extends AnimationTimer
         {
             e.printStackTrace();
         }
+    }
+
+    private void updateTime()
+    {
+        String time = this.formatTime(Controller.getInstance().getCurrentTime());
+        String duration = this.formatTime(Controller.getInstance().getDuration());
+        timeDisplay.setText(time + "/" + duration);
+    }
+
+    private String formatTime(float time)
+    {
+        int roundDownTime = (int) Math.floor(time);
+        int minutes = roundDownTime/ 60;
+        int seconds = roundDownTime % 60;
+        return String.format("%1$02d:%2$02d", minutes, seconds);
     }
 
     @Override
@@ -118,6 +136,12 @@ public class MediaToolBarController extends AnimationTimer
                 System.out.println("Should not happen");
                 break;
         }
+    }
+
+    @FXML
+    public void onJumpTime(ActionEvent event)
+    {
+
     }
 
     public ToolBar getRootToolBar()
