@@ -120,51 +120,57 @@ public class FrameView extends Pane
 
     public void onDragDropped(DragEvent event)
     {
+        RootLayoutController rlcRef = RootLayoutController.getInstance();
+        Controller ctlRef = Controller.getInstance();
+        CreationStackPaneController cspRef = null;
         try
         {
-            RootLayoutController.getInstance().getCreationStackPaneController().stop();
+            cspRef = rlcRef.getCreationStackPaneController();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString())
         {
             String uuid = db.getString();
             Vector coordinate = new Vector(event.getX(), event.getY());
-            try
-            {
-                Controller.getInstance().placeGameObject(uuid, coordinate);
-                RootLayoutController.getInstance().getCreationStackPaneController().stop();
-                RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            catch (GameObjectNotFound e)
-            {
-            	try
-				{
-					Controller.getInstance().placeGameObject(uuid, coordinate, 0);
-					RootLayoutController.getInstance().getCreationStackPaneController().stop();
-	                RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
-				} catch (GameObjectNotFound e1)
-				{
-					e1.printStackTrace();
-				} catch (IOException e1)
-				{
-					e1.printStackTrace();
-				}
-            }
+            placeDropedGameObject(ctlRef, uuid, coordinate);
 
             success = true;
+
+            if (cspRef.mode == EditionMode.REAL_TIME)
+            {
+                ctlRef.previousKeyFrame();
+            }
+
+            cspRef.displayStrategy();
         }
         event.setDropCompleted(success);
+        cspRef.stop();
 
         event.consume();
+    }
+
+    private void placeDropedGameObject(Controller ctlRef, String uuid, Vector coordinate)
+    {
+        try
+        {
+            ctlRef.placeGameObject(uuid, coordinate);
+        }
+        catch (GameObjectNotFound e)
+        {
+            try
+            {
+                ctlRef.placeGameObject(uuid, coordinate, 0);
+            } catch (GameObjectNotFound e1)
+            {
+                e1.printStackTrace();
+            }
+        }
     }
 
     public void addViewableToHashMap(String uuid, ViewableGameObject viewableGameObject)
