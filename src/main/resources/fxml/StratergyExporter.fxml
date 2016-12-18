@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<DialogPane fx:id="rootPane" prefHeight="425.0" prefWidth="360.0" stylesheets="@../css/visuaLigueCSS.css"
+            xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.glo.giftw.view.StrategyExporterController">
+   <content>
+      <ImageView fx:id="strategyView" fitHeight="417.0" fitWidth="613.0" pickOnBounds="true" preserveRatio="true" />
+   </content>
+   <header>
+      <VBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="613.0">
+         <children>
+            <Button mnemonicParsing="false" text="Sauvegarder" />
+         </children>
+      </VBox>
+   </header>
+   <buttonTypes>
+      <ButtonType fx:constant="CLOSE" />
+   </buttonTypes>
+</DialogPane>

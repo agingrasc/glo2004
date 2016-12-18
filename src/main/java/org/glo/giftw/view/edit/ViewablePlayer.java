@@ -107,15 +107,14 @@ public class ViewablePlayer extends ViewableGameObject
             node.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         }
     	Player player = getPlayer();
-    	float orientation;
+    	float orientation = 0;
         try
         {
             orientation = Controller.getInstance().getOrientation(player);
-        }
-        catch (NullPointerException e)
-        {
-            orientation = 0;
-        }
+        } catch (GameObjectNotFound e)
+		{
+        	orientation = 0;
+		}
         playerImg.setRotate(orientation);
     	name.setText(player.getName());
         role.setText(player.getRole());

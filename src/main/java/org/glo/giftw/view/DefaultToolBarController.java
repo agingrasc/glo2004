@@ -54,6 +54,12 @@ public class DefaultToolBarController
         Controller.getInstance().saveStrategies();
     }
 
+    @FXML
+    void onActionExport(ActionEvent event) throws IOException
+    {
+        RootLayoutController.getInstance().exportStrategy();
+    }
+
     public ToolBar getRootToolBar()
     {
         return rootToolBar;

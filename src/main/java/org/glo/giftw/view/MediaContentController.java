@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.glo.giftw.domain.Controller;
+import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.*;
 import org.glo.giftw.domain.util.Vector;
 
@@ -58,8 +59,22 @@ public class MediaContentController
         System.out.println("foo");
         for (GameObject go : gameObjects)
         {
-            Vector position = frame.getPosition(go);
-            float orientation = frame.getOrientation(go);
+            Vector position = new Vector(0,0);
+			try
+			{
+				position = frame.getPosition(go);
+			} catch (GameObjectNotFound e)
+			{
+				e.printStackTrace();
+			}
+            float orientation = 0;
+			try
+			{
+				orientation = frame.getOrientation(go);
+			} catch (GameObjectNotFound e)
+			{
+				e.printStackTrace();
+			}
             Vector dimension = Controller.getInstance().getDimensions(go);
             if (go instanceof Player)
             {

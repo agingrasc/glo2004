@@ -65,14 +65,31 @@ public class FrameView extends Pane
         {
             event.acceptTransferModes(TransferMode.ANY);
         }
+
+        String selectedUuid;
+        try
+        {
+            selectedUuid = RootLayoutController.getInstance().getCreationStackPaneController().getSelectedUUID();
+            if (selectedUuid != null)
+            {
+                updateCurrentMousePosition(event, selectedUuid);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        event.consume();
+    }
+
+    private void updateCurrentMousePosition(DragEvent event, String selectedUuid)
+    {
         Vector currentMousePosition = new Vector(event.getX(), event.getY());
-        String gameObjectUuid;
         GameObject gameObject;
         try
         {
-            gameObjectUuid = RootLayoutController.getInstance().getCreationStackPaneController().getSelectedUUID();
-            gameObject = Controller.getInstance().getGameObjectByUUID(gameObjectUuid);
-            if (gameObject instanceof Player && Controller.getInstance().collide(currentMousePosition, gameObjectUuid))
+            gameObject = Controller.getInstance().getGameObjectByUUID(selectedUuid);
+            if (gameObject instanceof Player && Controller.getInstance().collide(currentMousePosition, selectedUuid))
             {
                 Platform.runLater(() ->
                                   {
@@ -95,11 +112,10 @@ public class FrameView extends Pane
                 this.currentAbsoluteMousePosition = new Vector(event.getScreenX(), event.getScreenY());
             }
         }
-        catch (IOException | GameObjectNotFound e)
+        catch (GameObjectNotFound e)
         {
             e.printStackTrace();
         }
-        event.consume();
     }
 
     public void onDragDropped(DragEvent event)
@@ -130,7 +146,18 @@ public class FrameView extends Pane
             }
             catch (GameObjectNotFound e)
             {
-                e.printStackTrace();
+            	try
+				{
+					Controller.getInstance().placeGameObject(uuid, coordinate, 0);
+					RootLayoutController.getInstance().getCreationStackPaneController().stop();
+	                RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
+				} catch (GameObjectNotFound e1)
+				{
+					e1.printStackTrace();
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
             }
 
             success = true;

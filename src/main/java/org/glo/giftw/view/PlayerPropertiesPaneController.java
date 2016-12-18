@@ -68,7 +68,13 @@ public class PlayerPropertiesPaneController
 
     private void initSlider(String uuid, GameObject gameObject)
     {
-    	orientationSlider.setValue(Controller.getInstance().getOrientation(gameObject));
+    	try
+		{
+			orientationSlider.setValue(Controller.getInstance().getOrientation(gameObject));
+		} catch (GameObjectNotFound e1)
+		{
+			e1.printStackTrace();
+		}
         orientationSlider.valueProperty().addListener(new ChangeListener<Number>()
         {
             public void changed(ObservableValue<? extends Number> ov,
