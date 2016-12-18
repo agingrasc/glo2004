@@ -56,7 +56,7 @@ public class Strategy implements Serializable, TreeViewable
         this.gameObjects = new HashSet<>();
         for (GameObject gameObject : strategy.gameObjects)
         {
-            this.gameObjects.add(gameObject.copyWithUuid());
+            this.gameObjects.add(gameObject);
         }
         this.frames = new ArrayList<>();
         strategy.frames.forEach(frame -> this.frames.add(new Frame(frame)));
@@ -126,11 +126,11 @@ public class Strategy implements Serializable, TreeViewable
 
     public String getPlayerTeam(Player player)
     {
-        for (String teamName : this.teams.keySet())
+        for (Team team : this.teams.values())
         {
-            if (this.teams.get(teamName).isPlayerInTeam(player))
+            if (team.isPlayerInTeam(player))
             {
-                return teamName;
+                return team.getName();
             }
         }
         return null;

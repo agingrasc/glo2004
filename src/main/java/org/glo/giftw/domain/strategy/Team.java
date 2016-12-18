@@ -41,7 +41,7 @@ public class Team implements Serializable
         this.players = new HashSet<>();
         for (Player player : team.players)
         {
-            this.players.add(new Player(player));
+            this.players.add(player);
         }
         this.maxNumberOfPlayers = team.maxNumberOfPlayers;
         this.checkMaxNumberOfPlayers = team.checkMaxNumberOfPlayers;
