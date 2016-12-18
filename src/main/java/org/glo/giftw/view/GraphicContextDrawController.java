@@ -31,30 +31,6 @@ public class GraphicContextDrawController
         undoStates = new Stack<Image>();
     }
 
-    public GraphicContextDrawController(Color initialColor)
-    {
-        drawColor = initialColor;
-        drawSize = 3;
-        states = new Stack<Image>();
-        undoStates = new Stack<Image>();
-    }
-
-    public GraphicContextDrawController(double initialSize)
-    {
-        drawColor = Color.BLACK;
-        drawSize = initialSize;
-        states = new Stack<Image>();
-        undoStates = new Stack<Image>();
-    }
-
-    public GraphicContextDrawController(Color initialColor, double initialSize)
-    {
-        drawColor = initialColor;
-        drawSize = initialSize;
-        states = new Stack<Image>();
-        undoStates = new Stack<Image>();
-    }
-
     public Image getCurrentDrawnState()
     {
         return states.lastElement();
