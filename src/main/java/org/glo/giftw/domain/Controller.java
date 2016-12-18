@@ -508,6 +508,22 @@ public class Controller
         this.currentStrategy.changeCurrentFrame(delta);
         return this.currentStrategy.getCurrentFrame();
     }
+    
+    /**
+     * Retourne le temps écoulé depuis le début du visionnement de la stratégie, en seconde.
+     */
+    public float getCurrentTime()
+    {
+        return this.currentStrategy.getCurrentTime();
+    }
+    
+    /**
+     * Retourne la durée de la stratégie, en secondes.
+     */
+    public float getDuration()
+    {
+        return this.currentStrategy.getDuration();
+    }
 
     public Collection<Team> getTeams()
     {
