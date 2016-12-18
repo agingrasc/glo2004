@@ -184,7 +184,6 @@ public class FieldEditorController
     @FXML
     public void initialize()
     {
-        System.out.println("initializeFieldEditor");
         startDragPosition = new double[2];
         fieldDrawControl = new GraphicContextDrawController();
         rootDialog = new Dialog();
@@ -233,7 +232,6 @@ public class FieldEditorController
     @FXML
     public void onTextSizeChanged()
     {
-        System.out.println("onTextSizeChanged");
         double newSize = Double.valueOf(drawSizeText.getText());
         drawSizeSlider.setValue(newSize);
         fieldDrawControl.setStrokeLineSize(gcBackground, newSize);
@@ -251,7 +249,6 @@ public class FieldEditorController
     @FXML
     void onDraw(MouseEvent me)
     {
-        //System.out.println("onDraw");
         eraseAll(gcForeground);
         drawShape(me, gcForeground);
 
@@ -264,7 +261,6 @@ public class FieldEditorController
     @FXML
     void onInitShape(MouseEvent me)
     {
-        //System.out.println("onInitShape");
         if (fieldCircle.isSelected() || fieldSquare.isSelected() || fieldLine.isSelected())
         {
             startDragPosition[0] = me.getX();
@@ -279,7 +275,6 @@ public class FieldEditorController
     @FXML
     void onFinishShape(MouseEvent me)
     {
-        //System.out.println("onFinishShape");
         eraseAll(gcForeground);
         drawShape(me, gcBackground);
         saveLastDrawnState();

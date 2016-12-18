@@ -205,6 +205,24 @@ public class Controller
         this.currentStrategy.removeTeam(teamName);
     }
 
+    public void dropProjectile(String playerUuid)
+    {
+        if (playerUuid == null)
+        {
+            return;
+        }
+        Player player = null;
+        try
+        {
+            player = (Player) this.getGameObjectByUUID(playerUuid);
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
+        player.dropProjectile();
+    }
+
     public String getTeamColour(String teamName)
     {
         return this.currentStrategy.getTeamColour(teamName);
@@ -452,6 +470,22 @@ public class Controller
     public Collection<Obstacle> getObstacles()
     {
         return this.obstaclePool.getAllObstacles();
+    }
+
+    public void takeProjectile(String playerUuid)
+    {
+        if (playerUuid == null)
+        {
+            return;
+        }
+        try
+        {
+            this.currentStrategy.takeProjectile(getGameObjectByUUID(playerUuid));
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
     }
 
     public void saveStrategies()

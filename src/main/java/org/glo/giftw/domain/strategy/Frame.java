@@ -89,6 +89,25 @@ public class Frame implements Serializable
         return GameObjectsInCollision;
     }
 
+    public Set<GameObject> detectCollisionsIgnoreCollidable(GameObject reference)
+    {
+        GameObjectState referenceState = this.gameObjects.get(reference);
+        Set<GameObject> GameObjectsInCollision = new HashSet<>();
+        for (Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
+        {
+            GameObject other = entry.getKey();
+            if (reference.getId() != other.getId())
+            {
+                if (referenceState.detectCollision(entry.getValue()))
+                {
+                    GameObjectsInCollision.add(other);
+                }
+            }
+        }
+
+        return GameObjectsInCollision;
+    }
+
     /**
      * Detects collisions between all the GameObjects of the frame.
      *

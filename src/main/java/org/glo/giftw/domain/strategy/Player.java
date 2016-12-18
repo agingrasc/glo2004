@@ -11,7 +11,7 @@ public class Player extends GameObject implements Serializable
     private int jerseyNumber;
     private String role;
     private Vector speed;
-    private boolean hasProjectile;
+    private Projectile projectile;
 
     //FIXME: move logic in object containing players
     private static int playerCount = 0;
@@ -29,7 +29,6 @@ public class Player extends GameObject implements Serializable
         this.role = role;
         this.collidable = true;
         this.speed = new Vector(0, 0);
-        this.hasProjectile = false;
         this.dimensions = new Vector(300, 300); // TODO: faire des tests pour trouver une bonne valeur
         Player.playerCount++;
     }
@@ -40,7 +39,7 @@ public class Player extends GameObject implements Serializable
         this.jerseyNumber = player.jerseyNumber;
         this.role = player.role;
         this.speed = player.speed;
-        this.hasProjectile = player.hasProjectile;
+        this.projectile = player.projectile;
     }
 
     public GameObject copy()
@@ -80,17 +79,22 @@ public class Player extends GameObject implements Serializable
 
     public boolean hasProjectile()
     {
-        return this.hasProjectile;
+        if (this.projectile == null)
+        {
+            return false;
+        }
+        return true;
     }
 
-    public void takeProjectile()
+    public void takeProjectile(Projectile projectile)
     {
-        this.hasProjectile = true;
+        this.projectile = projectile;
     }
 
     public void dropProjectile()
     {
-        this.hasProjectile = false;
+        this.projectile.setController(null);
+        this.projectile = null;
     }
 
     public static int getPlayerCount()

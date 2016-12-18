@@ -75,7 +75,6 @@ public class GraphicContextDrawController
 
     public void redrawPreviousState(GraphicsContext gc)
     {
-        System.out.println("restoring..");
         if (states.size() > 1)
         {
             undoStates.push(states.pop());
@@ -145,7 +144,6 @@ public class GraphicContextDrawController
 
     public void drawOval(GraphicsContext gc, double x1, double y1, double x2, double y2)
     {
-        //System.out.println("drawShape");
         double x, y, distX, distY;
         if (x1 > x2)
         {
@@ -173,7 +171,6 @@ public class GraphicContextDrawController
 
     public void drawRectangle(GraphicsContext gc, double x1, double y1, double x2, double y2)
     {
-        //System.out.println("drawShape");
         double x, y, distX, distY;
         if (x1 > x2)
         {

@@ -28,7 +28,9 @@ public class PlayerPropertiesPaneController
 
     @FXML
     private Slider orientationSlider;
-
+    
+    @FXML
+    private CheckBox takeProjectileCheckBox;
 
     @FXML
     public void initialize()
@@ -79,7 +81,6 @@ public class PlayerPropertiesPaneController
                 }
                 catch (GameObjectNotFound e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 try
@@ -88,11 +89,33 @@ public class PlayerPropertiesPaneController
                 }
                 catch (IOException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
         });
+    }
+    
+    @FXML
+    void onTakeProjectile(ActionEvent event)
+    {
+        String selectedUUID = null;
+        try
+        {
+            selectedUUID = RootLayoutController.getInstance().getCreationStackPaneController().getSelectedUUID();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        if (this.takeProjectileCheckBox.isSelected())
+        {
+            Controller.getInstance().takeProjectile(selectedUUID);
+        }
+        else
+        {
+            Controller.getInstance().dropProjectile(selectedUUID);
+        }
+    	
     }
 
     public Accordion getRootAccordion()
@@ -129,7 +152,6 @@ public class PlayerPropertiesPaneController
 			RootLayoutController.getInstance().getCreationStackPaneController().displayStrategy();
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
