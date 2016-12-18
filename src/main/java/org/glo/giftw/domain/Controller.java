@@ -243,24 +243,6 @@ public class Controller
         }
     }
 
-    public void dropProjectile(String playerUuid)
-    {
-        if (playerUuid == null)
-        {
-            return;
-        }
-        Player player = null;
-        try
-        {
-            player = (Player) this.getGameObjectByUUID(playerUuid);
-        }
-        catch (GameObjectNotFound gameObjectNotFound)
-        {
-            gameObjectNotFound.printStackTrace();
-        }
-        player.dropProjectile();
-    }
-
     public String getTeamColour(String teamName)
     {
         return this.currentStrategy.getTeamColour(teamName);
@@ -550,10 +532,32 @@ public class Controller
         }
         try
         {
+            pushStrategyOnStack();
             this.currentStrategy.takeProjectile(getGameObjectByUUID(playerUuid));
         }
         catch (GameObjectNotFound gameObjectNotFound)
         {
+            this.undoStack.pop();
+            gameObjectNotFound.printStackTrace();
+        }
+    }
+
+    public void dropProjectile(String playerUuid)
+    {
+        if (playerUuid == null)
+        {
+            return;
+        }
+        Player player = null;
+        try
+        {
+            pushStrategyOnStack();
+            player = (Player) this.getGameObjectByUUID(playerUuid);
+            player.dropProjectile();
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            this.undoStack.pop();
             gameObjectNotFound.printStackTrace();
         }
     }
@@ -595,15 +599,16 @@ public class Controller
      *
      * @param gameObject Le GameObject dont on veut connaître la position.
      * @return La position du GameObject, en pixels.
+     * @throws GameObjectNotFound 
      */
-    public Vector getPosition(GameObject gameObject)
+    public Vector getPosition(GameObject gameObject) throws GameObjectNotFound
     {
         Vector ratio = this.currentStrategy.getPixelToUnitRatio();
         Vector positionCM = this.currentStrategy.getCurrentFrame().getPosition(gameObject);
         return positionCM.mul(ratio);
     }
 
-    public float getOrientation(GameObject gameObject)
+    public float getOrientation(GameObject gameObject) throws GameObjectNotFound
     {
         return this.currentStrategy.getCurrentFrame().getOrientation(gameObject);
     }
