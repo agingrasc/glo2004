@@ -1,6 +1,7 @@
 package org.glo.giftw.view;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -21,7 +22,7 @@ public class MediaToolBarController extends AnimationTimer
     @FXML
     private TextField jumpDelta;
 
-    private double speed;
+    private double speed = 1.0;
 
     private final static long FPS = 1000 * 1000 * 1000 / 30; //en nanoseconde
     private long lastTimeStamp;
@@ -30,6 +31,8 @@ public class MediaToolBarController extends AnimationTimer
     @FXML
     public void initialize()
     {
+        this.speed = 1.0;
+        this.initSlider();
         this.updateTime();
         try
         {
@@ -45,7 +48,8 @@ public class MediaToolBarController extends AnimationTimer
     {
         String time = this.formatTime(Controller.getInstance().getCurrentTime());
         String duration = this.formatTime(Controller.getInstance().getDuration());
-        timeDisplay.setText(time + "/" + duration);
+        this.timeDisplay.setText(time + "/" + duration);
+        this.timeSlider.setValue(Controller.getInstance().getCurrentTime()/Controller.getInstance().getDuration());
     }
 
     private String formatTime(float time)
@@ -146,6 +150,27 @@ public class MediaToolBarController extends AnimationTimer
     public void onJumpTime(ActionEvent event)
     {
         float delta_t = Float.parseFloat(this.jumpDelta.getText());
+        Controller.getInstance().changeCurrentFrame(delta_t);
+        this.updateTime();
+        this.field.displayStrategy();
+    }
+
+    private void initSlider()
+    {
+        double timeRatio = Controller.getInstance().getCurrentTime()/Controller.getInstance().getDuration();
+        timeSlider.setValue(timeRatio);
+
+        timeSlider.valueProperty().addListener(this::timeSliderListener);
+    }
+
+    private void timeSliderListener(ObservableValue<? extends Number> ov, Number old_val, Number new_val)
+    {
+        System.out.println("Change current time with slider");
+        float timeRatio = new_val.floatValue();
+        float duration = Controller.getInstance().getDuration();
+        float targetTime = duration*timeRatio;
+        float currentTime = Controller.getInstance().getCurrentTime();
+        float delta_t = targetTime - currentTime;
         Controller.getInstance().changeCurrentFrame(delta_t);
         this.updateTime();
         this.field.displayStrategy();
