@@ -32,8 +32,11 @@ public class Frame implements Serializable
     {
         this.isKeyFrame = frame.isKeyFrame;
         this.gameObjects = new HashMap<>();
-        frame.gameObjects.forEach((gameObject, gameObjectState)
-                                          -> this.addGameObject(gameObject, new GameObjectState(gameObjectState)));
+        for (GameObject go : frame.gameObjects.keySet())
+        {
+            GameObjectState gos = frame.gameObjects.get(go);
+            this.gameObjects.put(go, gos);
+        }
     }
 
     public void addGameObject(GameObject gameObject, GameObjectState gameObjectState)

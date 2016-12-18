@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
 import org.glo.giftw.domain.Controller;
-import org.glo.giftw.domain.TreeViewable;
 import org.glo.giftw.domain.exceptions.StrategyNotFound;
 
 import java.io.IOException;
@@ -54,12 +53,20 @@ public class ModeToolBarController
 
     private void openStrategy() throws IOException
     {
-        TreeViewable strategy = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue();
+        String strategy = null;
+        try
+        {
+            strategy = RootLayoutController.getInstance().getOpenStrategyController().getTreeTableView().getSelectionModel().getSelectedItem().getValue().getDisplayName();
+        }
+        catch (NullPointerException e)
+        {
+            strategy = Controller.getInstance().getStrategyName();
+        }
         if (strategy != null)
         {
             try
             {
-                Controller.getInstance().openStrategy(strategy.getDisplayName());
+                Controller.getInstance().openStrategy(strategy);
             }
             catch (StrategyNotFound e)
             {

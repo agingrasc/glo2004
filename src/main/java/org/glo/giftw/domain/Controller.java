@@ -413,7 +413,6 @@ public class Controller
     {
         undoStack.clear();
         redoStack.clear();
-        System.out.println("Opening strategy: " + strategyName);
         Strategy strategy = this.strategyPool.getStrategy(strategyName);
         this.currentStrategy = strategy;
     }
@@ -647,7 +646,9 @@ public class Controller
     private void pushStrategyOnStack()
     {
         this.redoStack.clear();
-        this.undoStack.push(new Strategy(this.currentStrategy));
+        Strategy oldStrat = this.currentStrategy;
+        this.currentStrategy = new Strategy(this.currentStrategy);
+        this.undoStack.push(oldStrat);
     }
     
     public void undo()
