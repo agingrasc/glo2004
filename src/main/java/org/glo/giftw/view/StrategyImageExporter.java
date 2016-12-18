@@ -111,18 +111,19 @@ public class StrategyImageExporter {
     }
 
     private void traceProjectileMovement(GameObject projectile) {
-        setAtFirstFrame();
         gcDraw.setStrokeLineSize(gc, 5);
         gcDraw.setStrokeLineStyle(gc, true);
-        Frame frame = controller.getCurrentFrame();
-        Vector prevPosition = frame.getPosition(projectile);
+        setAtFirstFrame();
+        Vector size = controller.getDimensions(projectile);
+        Vector prevPosition = controller.getPosition(projectile);
+        centerPosition(prevPosition, size);
         Vector nextPosition;
 
         while (!controller.isLastFrame()) {
             controller.nextFrame();
-            frame = controller.getCurrentFrame();
-            nextPosition = frame.getPosition(projectile);
-            if (frame.isKeyFrame()) {
+            nextPosition = controller.getPosition(projectile);
+            centerPosition(nextPosition, size);
+            if (controller.getCurrentFrame().isKeyFrame()) {
                 gcDraw.drawArrow(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
             } else {
                 gcDraw.drawLine(gc, prevPosition.getX(), prevPosition.getY(), nextPosition.getX(), nextPosition.getY());
@@ -171,12 +172,18 @@ public class StrategyImageExporter {
                 setAtFirstFrame();
                 drawPlayer(gameObject);
             }
+            else if (gameObject instanceof Projectile)
+            {
+                setAtFirstFrame();
+                traceProjectileMovement(gameObject);
+
+                setAtFirstFrame();
+                drawGameObject(gameObject, controller.getProjectile().getImagePath(), controller.getDimensions(gameObject));
+            }
         }
 
-        /*Projectile projectile = controller.getProjectile();
-        traceProjectileMovement(projectile);
-        drawGameObject(projectile, projectile.getImagePath(), projectile.getDimensions());
-
+        setAtFirstFrame();
+/*
         for (Obstacle obstacle : controller.getObstacles()) {
             String filePath = obstacle.getImagePath();
             Vector size = obstacle.getDimensions();

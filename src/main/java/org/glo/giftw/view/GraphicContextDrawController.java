@@ -213,6 +213,7 @@ public class GraphicContextDrawController
     {
         Rotate rotate = new Rotate(orientationInDegrees, x, y);
         double arrowHeadLength = 9;
+
         double rad = Math.toRadians(30);
         double[] arrow_x = new double[3];
         double[] arrow_y = new double[3];
