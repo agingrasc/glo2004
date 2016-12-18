@@ -88,6 +88,7 @@ public class MediaToolBarController extends AnimationTimer
     {
         this.stop();
         Controller.getInstance().goToBeginning();
+        this.updateTime();
         this.field.resetDisplay();
         this.field.displayStrategy();
     }
