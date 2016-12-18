@@ -299,6 +299,16 @@ public class Strategy implements Serializable, TreeViewable
     {
         this.currentFrameIdx = this.frames.size() - 1;
     }
+    
+    public float getCurrentTime()
+    {
+        return (float)this.currentFrameIdx / (float)Strategy.FRAME_PER_SECOND;
+    }
+    
+    public float getDuration()
+    {
+        return (float)this.frames.size() / (float)Strategy.FRAME_PER_SECOND;
+    }
 
 
     /*

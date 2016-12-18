@@ -110,10 +110,10 @@ public class GameObjectState implements Serializable
 
     public boolean occupiesPosition(Vector position)
     {
-        return  position.getX() > this.position.getX() &&
-                this.position.getX() + this.dimensions.getX() > position.getX() &&
-                position.getY() > this.position.getY() &&
-                this.position.getY() + this.dimensions.getY() > position.getY();
+        return  position.getX() >= this.position.getX() &&
+                this.position.getX() + this.dimensions.getX() >= position.getX() &&
+                position.getY() >= this.position.getY() &&
+                this.position.getY() + this.dimensions.getY() >= position.getY();
     }
 
     @Override
