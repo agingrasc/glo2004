@@ -20,6 +20,16 @@ public class TestController
         {
             this.currentStrategy = strategy;
         }
+        
+        public int getUndoStackSize()
+        {
+            return this.undoStack.size();
+        }
+        
+        public int getRedoStackSize()
+        {
+            return this.redoStack.size();
+        }
     }
 
     private ControllerStub controller;
@@ -67,5 +77,83 @@ public class TestController
         this.controller.addTeam("RED", "0xFF0000");
         this.controller.addTeam("FUBAR", "0x00FF00");
         Assert.fail();
+    }
+    
+    @Test
+    public void testPushStrategyOnStack()
+    {
+        this.controller.setCheckMaxNumberTeam(false);
+        Assert.assertEquals(1, this.controller.getUndoStackSize());
+    }
+    
+    @Test
+    public void TestPushRemovedOnException()
+    {
+        this.controller.setCheckMaxNumberTeam(true);
+        try
+        {
+            this.controller.addTeam("BLU", "0x0000FF");
+            this.controller.addTeam("RED", "0xFF0000");
+            this.controller.addTeam("FUBAR", "0x00FF00");
+        }
+        catch (MaxNumberException e)
+        {
+            //no fucks given
+        }
+        Assert.assertEquals(3, this.controller.getUndoStackSize());
+    }
+    
+    @Test
+    public void TestPushClearRedoStack()
+    {
+        this.controller.setCheckMaxNumberTeam(true);
+        this.controller.undo();
+        Assert.assertEquals(1, this.controller.getRedoStackSize());
+        this.controller.setCheckMaxNumberTeam(true);
+        Assert.assertEquals(0, this.controller.getRedoStackSize());
+    }
+    
+    @Test
+    public void testUndo()
+    {
+        this.controller.undo();
+        Assert.assertEquals(0, this.controller.getUndoStackSize());
+        Assert.assertEquals(0, this.controller.getRedoStackSize());
+        try
+        {
+            this.controller.addTeam("BLU", "0x0000FF");
+            this.controller.addTeam("RED", "0xFF0000");
+        }
+        catch (MaxNumberException e)
+        {
+            //no fucks given
+        }
+        Assert.assertEquals(2, this.controller.getUndoStackSize());
+        this.controller.undo();
+        Assert.assertEquals(1, this.controller.getTeams().size());
+        Assert.assertEquals(1, this.controller.getUndoStackSize());
+        Assert.assertEquals(1, this.controller.getRedoStackSize());
+    }
+    
+    @Test
+    public void testRedo()
+    {
+        this.controller.redo();
+        Assert.assertEquals(0, this.controller.getUndoStackSize());
+        Assert.assertEquals(0, this.controller.getRedoStackSize());
+        try
+        {
+            this.controller.addTeam("BLU", "0x0000FF");
+            this.controller.addTeam("RED", "0xFF0000");
+        }
+        catch (MaxNumberException e)
+        {
+            //no fucks given
+        }
+        this.controller.undo();
+        this.controller.redo();
+        Assert.assertEquals(2, this.controller.getTeams().size());
+        Assert.assertEquals(2, this.controller.getUndoStackSize());
+        Assert.assertEquals(0, this.controller.getRedoStackSize());
     }
 }
