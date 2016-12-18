@@ -32,6 +32,8 @@ public abstract class GameObject implements Serializable
 
     public abstract GameObject copy();
 
+    public abstract GameObject copyWithUuid();
+
     public String getName()
     {
         return this.name;

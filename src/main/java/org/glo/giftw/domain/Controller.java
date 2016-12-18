@@ -257,7 +257,6 @@ public class Controller
 
     public void setPixelToUnitRatio(Vector ratio)
     {
-    	System.out.println(ratio);
         this.currentStrategy.setPixelToUnitRatio(ratio);
     }
 
@@ -410,6 +409,7 @@ public class Controller
     {
         undoStack.clear();
         redoStack.clear();
+        System.out.println("Opening strategy: " + strategyName);
         Strategy strategy = this.strategyPool.getStrategy(strategyName);
         this.currentStrategy = strategy;
     }

@@ -56,7 +56,6 @@ public class MediaContentController
     public void displayFrame(Frame frame)
     {
         Collection<GameObject> gameObjects = frame.getGameObjects();
-        System.out.println("foo");
         for (GameObject go : gameObjects)
         {
             Vector position = new Vector(0,0);

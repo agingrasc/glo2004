@@ -47,6 +47,13 @@ public class Player extends GameObject implements Serializable
         return new Player(this);
     }
 
+    public GameObject copyWithUuid()
+    {
+        Player nplayer = new Player(this);
+        nplayer.id = this.id;
+        return nplayer;
+    }
+
     public int getJerseyNumber()
     {
         return this.jerseyNumber;

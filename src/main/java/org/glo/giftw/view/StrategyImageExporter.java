@@ -3,16 +3,15 @@ package org.glo.giftw.view;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import javafx.scene.paint.Color;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
-import org.glo.giftw.domain.strategy.*;
+import org.glo.giftw.domain.strategy.GameObject;
+import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.strategy.Projectile;
 import org.glo.giftw.domain.util.Vector;
 
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * Created by alexandra on 12/6/16.
@@ -27,7 +26,6 @@ public class StrategyImageExporter {
     private GraphicContextDrawController gcDraw;
 
     public StrategyImageExporter() {
-        System.out.println("BuildingStrategyExportation");
 
         controller = Controller.getInstance();
 
@@ -72,10 +70,6 @@ public class StrategyImageExporter {
         Vector fieldDimensions = Controller.getInstance().getFieldDimensions();
         double adjustedWidth = gc.getCanvas().getWidth();
         double adjustedHeight = gc.getCanvas().getHeight();
-        System.out.println(adjustedHeight);
-        System.out.println(adjustedWidth);
-        System.out.println(fieldDimensions.getY());
-        System.out.println(fieldDimensions.getX());
         Vector ratioPixelToUnit = new Vector(adjustedWidth / fieldDimensions.getX(),
                 adjustedHeight / fieldDimensions.getY());
         controller.setPixelToUnitRatio(ratioPixelToUnit);

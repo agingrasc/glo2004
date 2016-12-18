@@ -56,7 +56,7 @@ public class Strategy implements Serializable, TreeViewable
         this.gameObjects = new HashSet<>();
         for (GameObject gameObject : strategy.gameObjects)
         {
-            this.gameObjects.add(gameObject.copy());
+            this.gameObjects.add(gameObject.copyWithUuid());
         }
         this.frames = new ArrayList<>();
         strategy.frames.forEach(frame -> this.frames.add(new Frame(frame)));

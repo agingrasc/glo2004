@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
 import org.glo.giftw.domain.util.Vector;
-import org.glo.giftw.view.StrategyImageExporter;
 
 import java.io.File;
 
@@ -28,7 +27,6 @@ public class StrategyExporterController {
     @FXML
     public void initialize()
     {
-        System.out.println("initializeStrategyExporter");
 
         rootDialog = new Dialog();
         rootDialog.setTitle("Exporter la stratégie");

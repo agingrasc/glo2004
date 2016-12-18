@@ -1,17 +1,17 @@
 package org.glo.giftw;
 
-import java.util.Timer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.AutoSave;
+import org.glo.giftw.domain.Controller;
 import org.glo.giftw.view.FXMLPaths;
 import org.glo.giftw.view.RootLayoutController;
 
 import java.io.IOException;
+import java.util.Timer;
 
 public class MainApp extends Application
 {
@@ -31,13 +31,13 @@ public class MainApp extends Application
 
         time = new Timer();
         AutoSave save = new AutoSave();
+        //Controller.getInstance().enableAutoSave(false);
         time.schedule(save, 0, 5000);
     }
 
     @Override
     public void stop() throws Exception
     {
-        System.out.println("Sauvegarde automatique de toutes les stratégies.");
         time.cancel();
         Controller.getInstance().saveStrategies();
         super.stop();

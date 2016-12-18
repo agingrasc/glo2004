@@ -165,7 +165,6 @@ public class MediaToolBarController extends AnimationTimer
 
     private void timeSliderListener(ObservableValue<? extends Number> ov, Number old_val, Number new_val)
     {
-        System.out.println("Change current time with slider");
         float timeRatio = new_val.floatValue();
         float duration = Controller.getInstance().getDuration();
         float targetTime = duration*timeRatio;
