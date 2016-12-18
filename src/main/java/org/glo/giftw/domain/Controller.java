@@ -161,6 +161,10 @@ public class Controller
      */
     public void deleteStrategy(String name)
     {
+        if (this.currentStrategy.getName().equals(name))
+        {
+            this.currentStrategy = null;
+        }
         this.strategyPool.deleteStrategy(name);
     }
 
@@ -582,7 +586,10 @@ public class Controller
 
     public void saveStrategies()
     {
-        this.strategyPool.saveStrategy(this.currentStrategy.getName(), this.currentStrategy);
+        if (this.currentStrategy != null)
+        {
+            this.strategyPool.saveStrategy(this.currentStrategy.getName(), this.currentStrategy);
+        }
     }
 
     public void clearUnplacedGameObjects()
