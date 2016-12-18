@@ -11,9 +11,12 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
+import org.glo.giftw.domain.strategy.GameObject;
+import org.glo.giftw.domain.strategy.Player;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +41,29 @@ public class FrameView extends Pane
         {
             event.acceptTransferModes(TransferMode.ANY);
         }
-        this.currentMousePosition = new Vector(event.getX(), event.getY());
+        Vector currentMousePosition = new Vector(event.getX(), event.getY());
+        String gameObjectUuid;
+        GameObject gameObject;
+        try
+        {
+            gameObjectUuid = RootLayoutController.getInstance().getCreationStackPaneController().getSelectedUUID();
+            gameObject = Controller.getInstance().getGameObjectByUUID(gameObjectUuid);
+            if (gameObject instanceof Player && Controller.getInstance().collide(currentMousePosition, gameObjectUuid))
+            {
+                //FIXME: horrible hack -> http://stackoverflow.com/questions/37500567/javafx-how-to-position-the-mouse
+                Robot robot = new Robot();
+                robot.mouseMove((int) event.getScreenX(), (int) event.getScreenY());
+                System.out.println("Limitation du mouvement de la souris");
+            }
+            else
+            {
+                this.currentMousePosition = currentMousePosition;
+            }
+        }
+        catch (IOException|GameObjectNotFound|AWTException e)
+        {
+            e.printStackTrace();
+        }
         event.consume();
     }
 

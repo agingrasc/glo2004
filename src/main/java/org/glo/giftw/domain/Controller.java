@@ -498,6 +498,25 @@ public class Controller
         this.currentStrategy.clearUnplacedGameObjects();
     }
 
+    public boolean collide(Vector position, String playerUuid)
+    {
+        Vector ratio = this.currentStrategy.getPixelToUnitRatio();
+        Vector cmPosition = position.div(ratio);
+        GameObject gameObject;
+        try
+        {
+            gameObject = this.getGameObjectByUUID(playerUuid);
+            boolean result = this.currentStrategy.collide(cmPosition, gameObject);
+            System.out.println("Collision: " + result);
+            return result;
+        }
+        catch (GameObjectNotFound gameObjectNotFound)
+        {
+            gameObjectNotFound.printStackTrace();
+        }
+        return false;
+    }
+
     public String goTo()
     {
         return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";

@@ -462,6 +462,11 @@ public class Strategy implements Serializable, TreeViewable
         this.gameObjects = newGameObjectSet;
     }
 
+    public boolean collide(Vector position, GameObject gameObject)
+    {
+       return this.frames.get(this.currentFrameIdx).collide(position, gameObject);
+    }
+
     /*
      * Autre méthodes
      */

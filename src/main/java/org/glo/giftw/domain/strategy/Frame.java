@@ -12,9 +12,8 @@ import java.util.Set;
 public class Frame implements Serializable
 {
     public static final long serialVersionUID = 1L;
-
-    private boolean isKeyFrame;
     private final HashMap<GameObject, GameObjectState> gameObjects; // associe un GameObject avec son état
+    private boolean isKeyFrame;
 
     public Frame()
     {
@@ -36,6 +35,11 @@ public class Frame implements Serializable
                                           -> this.addGameObject(gameObject, new GameObjectState(gameObjectState)));
     }
 
+    public void addGameObject(GameObject gameObject, GameObjectState gameObjectState)
+    {
+        this.gameObjects.put(gameObject, gameObjectState);
+    }
+
     public boolean isKeyFrame()
     {
         return isKeyFrame;
@@ -46,9 +50,19 @@ public class Frame implements Serializable
         this.isKeyFrame = isKeyFrame;
     }
 
-    public void addGameObject(GameObject gameObject, GameObjectState gameObjectState)
+    public boolean collide(Vector position, GameObject gameObject)
     {
-        this.gameObjects.put(gameObject, gameObjectState);
+        GameObjectState gameObjectState = new GameObjectState(position, 0, gameObject.getDimensions());
+        for (Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
+        {
+            GameObject other = entry.getKey();
+            if (gameObject.getId() != other.getId() && gameObject.isCollidable() && other.isCollidable() && gameObjectState.detectCollision(
+                    entry.getValue()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void removeGameObject(GameObject gameObject)
@@ -61,32 +75,6 @@ public class Frame implements Serializable
         GameObjectState gameObjectState = this.gameObjects.get(gameObject);
         gameObjectState.setPosition(position);
         gameObjectState.setOrientation(orientation);
-    }
-
-    /**
-     * Detects collisions between a specified GameObject and all the other GameObjects of the frame.
-     * A GameObject does not generate a collision with himself.
-     *
-     * @param reference : The reference GameObject generating the collisions.
-     * @return An ArrayList of GameObjects colliding with the reference GameObjects (can be empty).
-     */
-    public Set<GameObject> detectCollisions(GameObject reference)
-    {
-        GameObjectState referenceState = this.gameObjects.get(reference);
-        Set<GameObject> GameObjectsInCollision = new HashSet<>();
-        for (Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
-        {
-            GameObject other = entry.getKey();
-            if (reference.getId() != other.getId() && reference.isCollidable() && other.isCollidable())
-            {
-                if (referenceState.detectCollision(entry.getValue()))
-                {
-                    GameObjectsInCollision.add(other);
-                }
-            }
-        }
-
-        return GameObjectsInCollision;
     }
 
     public Set<GameObject> detectCollisionsIgnoreCollidable(GameObject reference)
@@ -122,6 +110,32 @@ public class Frame implements Serializable
             collisions.put(entry.getKey(), this.detectCollisions(entry.getKey()));
         }
         return collisions;
+    }
+
+    /**
+     * Detects collisions between a specified GameObject and all the other GameObjects of the frame.
+     * A GameObject does not generate a collision with himself.
+     *
+     * @param reference : The reference GameObject generating the collisions.
+     * @return An ArrayList of GameObjects colliding with the reference GameObjects (can be empty).
+     */
+    public Set<GameObject> detectCollisions(GameObject reference)
+    {
+        GameObjectState referenceState = this.gameObjects.get(reference);
+        Set<GameObject> GameObjectsInCollision = new HashSet<>();
+        for (Map.Entry<GameObject, GameObjectState> entry : gameObjects.entrySet())
+        {
+            GameObject other = entry.getKey();
+            if (reference.getId() != other.getId() && reference.isCollidable() && other.isCollidable())
+            {
+                if (referenceState.detectCollision(entry.getValue()))
+                {
+                    GameObjectsInCollision.add(other);
+                }
+            }
+        }
+
+        return GameObjectsInCollision;
     }
 
     @Override
