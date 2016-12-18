@@ -1,7 +1,7 @@
 package org.glo.giftw.domain.strategy;
 
-import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
+import org.glo.giftw.domain.util.Vector;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -32,11 +32,8 @@ public class Frame implements Serializable
     {
         this.isKeyFrame = frame.isKeyFrame;
         this.gameObjects = new HashMap<>();
-        for (GameObject go : frame.gameObjects.keySet())
-        {
-            GameObjectState gos = frame.gameObjects.get(go);
-            this.gameObjects.put(go, gos);
-        }
+        frame.gameObjects.forEach((gameObject, gameObjectState)
+                                          -> this.addGameObject(gameObject, new GameObjectState(gameObjectState)));
     }
 
     public void addGameObject(GameObject gameObject, GameObjectState gameObjectState)
