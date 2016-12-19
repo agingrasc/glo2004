@@ -48,6 +48,13 @@ public class Obstacle extends GameObject implements Serializable, Viewable
         return new Obstacle(this);
     }
 
+    public GameObject copyWithUuid()
+    {
+        Obstacle nobs = new Obstacle(this);
+        nobs.id = this.id;
+        return nobs;
+    }
+
     public static int getObstacleCount()
     {
         return Obstacle.obstacleCount;

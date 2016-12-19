@@ -12,12 +12,14 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.TreeViewable;
+import org.glo.giftw.domain.exceptions.StrategyNotFound;
 import org.glo.giftw.domain.strategy.Sport;
 import org.glo.giftw.domain.strategy.Strategy;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OpenStrategyController
 {
@@ -101,6 +103,7 @@ public class OpenStrategyController
     public void updateTree()
     {
         ArrayList<Strategy> strategies = new ArrayList<Strategy>(Controller.getInstance().getStrategies());
+        this.updatePreview(strategies);
         ArrayList<Sport> sports = new ArrayList<Sport>(Controller.getInstance().getSports());
         root.getChildren().clear();
         for (Sport sport : sports)
@@ -114,6 +117,26 @@ public class OpenStrategyController
                     sportItem.getChildren().add(new TreeItem<TreeViewable>(strategy));
                 }
             }
+        }
+    }
+
+    public void updatePreview(List<Strategy> strategies)
+    {
+        for (Strategy strategy : strategies)
+        {
+            String stratName = strategy.getName();
+            try
+            {
+                Controller.getInstance().openStrategy(stratName);
+            }
+            catch (StrategyNotFound strategyNotFound)
+            {
+                strategyNotFound.printStackTrace();
+            }
+
+            String filePath = "./data/" + stratName + ".png";
+            StrategyImageExporter stratExporter = new StrategyImageExporter();
+            stratExporter.saveTo(filePath);
         }
     }
 

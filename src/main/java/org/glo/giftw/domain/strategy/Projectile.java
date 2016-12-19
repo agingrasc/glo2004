@@ -40,6 +40,13 @@ public class Projectile extends GameObject implements Serializable, Viewable
         return new Projectile(this);
     }
 
+    public GameObject copyWithUuid()
+    {
+        Projectile nproj = new Projectile(this);
+        nproj.id = this.id;
+        return nproj;
+    }
+
     public String getImagePath()
     {
         return this.imagePath;

@@ -14,13 +14,13 @@
                 </ImageView>
             </graphic>
             <items>
-                <MenuItem mnemonicParsing="false" text="-8x"/>
-                <MenuItem mnemonicParsing="false" text="-4x"/>
-                <MenuItem mnemonicParsing="false" text="-2x"/>
-                <MenuItem mnemonicParsing="false" text="1x"/>
-                <MenuItem mnemonicParsing="false" text="2x"/>
-                <MenuItem mnemonicParsing="false" text="4x"/>
-                <MenuItem mnemonicParsing="false" text="8x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="-8x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="-4x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="-2x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="1x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="2x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="4x"/>
+                <MenuItem mnemonicParsing="false" onAction="#onSpeedSelected" text="8x"/>
             </items>
         </SplitMenuButton>
         <Button contentDisplay="TOP" layoutX="98.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionStop"
@@ -52,8 +52,8 @@
                 </ImageView>
             </graphic>
         </Button>
-        <TextField prefHeight="25.0" prefWidth="58.0" promptText="Delta t"/>
-        <Slider prefHeight="14.0" prefWidth="318.0"/>
-        <Label text="00:00"/>
+        <TextField prefHeight="25.0" prefWidth="58.0" promptText="Delta t" onAction="#onJumpTime" fx:id="jumpDelta"/>
+        <Slider prefHeight="14.0" prefWidth="318.0" max="1.0" fx:id="timeSlider"/>
+        <Label text="00:00/00:00" fx:id="timeDisplay"/>
     </items>
 </ToolBar>

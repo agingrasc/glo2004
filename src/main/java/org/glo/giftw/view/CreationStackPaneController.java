@@ -72,7 +72,7 @@ public class CreationStackPaneController extends AnimationTimer
             {
                 Controller.getInstance().nextFrame();
             }
-            this.resetDisplay();
+            //this.resetDisplay();
             this.displayStrategy();
         }
     }
@@ -87,6 +87,8 @@ public class CreationStackPaneController extends AnimationTimer
 
     public void init(EditionMode mode)
     {
+        this.currentPane = new FrameView();
+        this.previousPane = new FrameView();
         this.lastTimeStamp = 0;
         this.mode = mode;
         displayNames = false;
@@ -140,6 +142,7 @@ public class CreationStackPaneController extends AnimationTimer
         fieldBackground.setPreserveRatio(true);
         fieldBackground.setFitHeight(this.scrollPane.getViewportBounds().getHeight());
         fieldBackground.setFitWidth(this.scrollPane.getViewportBounds().getWidth());
+        this.stackPane.getChildren().clear();
         this.stackPane.getChildren().add(fieldBackground);
     }
 

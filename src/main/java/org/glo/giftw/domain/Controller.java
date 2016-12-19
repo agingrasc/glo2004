@@ -25,6 +25,7 @@ public class Controller
     private SportPool sportPool;
     private ObstaclePool obstaclePool;
     private StrategyPool strategyPool;
+    private boolean isAutoSaveEnabled;
 
     protected Controller()
     {
@@ -33,8 +34,9 @@ public class Controller
         this.obstaclePool = new ObstaclePool();
         this.strategyPool = new StrategyPool();
         this.currentStrategy = new NullStrategy();
-        undoStack = new Stack<Strategy>();
-        redoStack = new Stack<Strategy>();
+        this.undoStack = new Stack<Strategy>();
+        this.redoStack = new Stack<Strategy>();
+        this.isAutoSaveEnabled = true;
     }
 
     public static Controller getInstance()
@@ -159,6 +161,10 @@ public class Controller
      */
     public void deleteStrategy(String name)
     {
+        if (this.currentStrategy.getName().equals(name))
+        {
+            this.currentStrategy = null;
+        }
         this.strategyPool.deleteStrategy(name);
     }
 
@@ -255,7 +261,6 @@ public class Controller
 
     public void setPixelToUnitRatio(Vector ratio)
     {
-    	System.out.println(ratio);
         this.currentStrategy.setPixelToUnitRatio(ratio);
     }
 
@@ -580,7 +585,10 @@ public class Controller
 
     public void saveStrategies()
     {
-        this.strategyPool.save();
+        if (this.currentStrategy != null)
+        {
+            this.strategyPool.saveStrategy(this.currentStrategy.getName(), this.currentStrategy);
+        }
     }
 
     public void clearUnplacedGameObjects()
@@ -657,5 +665,15 @@ public class Controller
             this.undoStack.push(this.currentStrategy);
             this.currentStrategy = this.redoStack.pop();
         }
+    }
+    
+    public void enableAutoSave(boolean enabled)
+    {
+        this.isAutoSaveEnabled = enabled;
+    }
+    
+    public boolean isAutoSaveEnabled()
+    {
+        return this.isAutoSaveEnabled;
     }
 }

@@ -47,6 +47,13 @@ public class Player extends GameObject implements Serializable
         return new Player(this);
     }
 
+    public GameObject copyWithUuid()
+    {
+        Player nplayer = new Player(this);
+        nplayer.id = this.id;
+        return nplayer;
+    }
+
     public int getJerseyNumber()
     {
         return this.jerseyNumber;
@@ -85,6 +92,11 @@ public class Player extends GameObject implements Serializable
         }
         return true;
     }
+    
+    public Projectile getProjectile()
+    {
+        return this.projectile;
+    }
 
     public void takeProjectile(Projectile projectile)
     {
@@ -96,7 +108,7 @@ public class Player extends GameObject implements Serializable
         this.projectile.setController(null);
         this.projectile = null;
     }
-
+    
     public static int getPlayerCount()
     {
         return Player.playerCount;

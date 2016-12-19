@@ -56,7 +56,7 @@ public class Strategy implements Serializable, TreeViewable
         this.gameObjects = new HashSet<>();
         for (GameObject gameObject : strategy.gameObjects)
         {
-            this.gameObjects.add(gameObject.copy());
+            this.gameObjects.add(gameObject);
         }
         this.frames = new ArrayList<>();
         strategy.frames.forEach(frame -> this.frames.add(new Frame(frame)));
@@ -126,11 +126,11 @@ public class Strategy implements Serializable, TreeViewable
 
     public String getPlayerTeam(Player player)
     {
-        for (String teamName : this.teams.keySet())
+        for (Team team : this.teams.values())
         {
-            if (this.teams.get(teamName).isPlayerInTeam(player))
+            if (team.isPlayerInTeam(player))
             {
-                return teamName;
+                return team.getName();
             }
         }
         return null;
@@ -434,27 +434,22 @@ public class Strategy implements Serializable, TreeViewable
     {
         GameObject gameObject = this.getGameObjectByUUID(gameObjectUuid);
         Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
-        //FIXME: il faut déplacer les projectiles associés aux joueurs
         if (currentFrameGameObjects.contains(gameObject))
         {
             this.getCurrentFrame().placeGameObject(gameObject, position, orientation);
             if (this.currentFrameIdx != 0)
             {
-                int nbFrames = Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
-                int previousKeyFrameId = this.currentFrameIdx - nbFrames;
-                Frame previousKeyFrame = this.getFrame(previousKeyFrameId);
-
-                double posDeltaX = (position.getX() - previousKeyFrame.getPosition(gameObject).getX()) / nbFrames;
-                double posDeltaY = (position.getY() - previousKeyFrame.getPosition(gameObject).getY()) / nbFrames;
-                float deltaOrientation = (orientation - previousKeyFrame.getOrientation(gameObject)) / nbFrames;
-
-                for (int i = 1; i < nbFrames; i++)
+                int previousKeyFrameId = this.currentFrameIdx - Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
+                this.interpolate(gameObject, previousKeyFrameId, currentFrameIdx);
+            }
+            if ((gameObject instanceof Player) && ((Player)gameObject).hasProjectile())
+            {
+                GameObject projectile = ((Player)gameObject).getProjectile();
+                this.getCurrentFrame().placeGameObject(projectile, position, orientation);
+                if (this.currentFrameIdx != 0)
                 {
-                    Frame subFrame = this.getFrame(previousKeyFrameId + i);
-                    Vector p = subFrame.getPosition(gameObject);
-                    float o = subFrame.getOrientation(gameObject);
-                    subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
-                                             o + i * deltaOrientation);
+                    int previousKeyFrameId = this.currentFrameIdx - Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
+                    this.interpolate(projectile, previousKeyFrameId, currentFrameIdx);
                 }
             }
         }
@@ -492,13 +487,26 @@ public class Strategy implements Serializable, TreeViewable
 
     public void clearUnplacedGameObjects()
     {
-        HashSet<GameObject> newGameObjectSet = new HashSet<GameObject>();
+        HashSet<GameObject> newGameObjectSet = new HashSet<>();
         Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
         for (GameObject go : this.gameObjects)
         {
             if (currentFrameGameObjects.contains(go))
             {
                 newGameObjectSet.add(go);
+            }
+            else
+            {
+                if (go instanceof Player)
+                {
+                    for (Team team : this.teams.values())
+                    {
+                        if (team.isPlayerInTeam((Player) go))
+                        {
+                            team.removePlayer((Player) go);
+                        }
+                    }
+                }
             }
         }
         this.gameObjects = newGameObjectSet;
@@ -637,6 +645,35 @@ public class Strategy implements Serializable, TreeViewable
     public String getImagePath()
     {
         //FIXME: retourner le path vers l'image exporter de la stratégie
-        return this.sport.getImagePath();
+        return "./data/" + this.getName() + ".png";
+    }
+    
+    /**
+     * Effectue une interpolation linéaire entre deux frames pour un gameObject.
+     * @param gameObject Le GameObject pour lequel on veut faire l'interpolation.
+     * @param frameID1   L'index de la première frame.
+     * @param frameID2   L'index de la deuxième frame.
+     * @throws GameObjectNotFound 
+     */
+    private void interpolate(GameObject gameObject, int frameID1, int frameID2) throws GameObjectNotFound
+    {
+        int nbFrames = frameID2 - frameID1;
+        Vector initialPosition = this.getFrame(frameID1).getPosition(gameObject);
+        float initialOientation = this.getFrame(frameID1).getOrientation(gameObject);
+        Vector finalPosition = this.getFrame(frameID2).getPosition(gameObject);
+        float finalOientation = this.getFrame(frameID2).getOrientation(gameObject);
+
+        double posDeltaX = (finalPosition.getX() - initialPosition.getX()) / nbFrames;
+        double posDeltaY = (finalPosition.getY() - initialPosition.getY()) / nbFrames;
+        float deltaOrientation = (finalOientation - initialOientation) / nbFrames;
+
+        for (int i = 1; i < nbFrames; i++)
+        {
+            Frame subFrame = this.getFrame(frameID1 + i);
+            Vector p = subFrame.getPosition(gameObject);
+            float o = subFrame.getOrientation(gameObject);
+            subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
+                                     o + i * deltaOrientation);
+        }
     }
 }
