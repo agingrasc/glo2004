@@ -36,7 +36,7 @@ public class TestStrategy
         {
             String id = strat.addPlayer(null);
             joueur = (Player) strat.getGameObjectByUUID(id);
-            strat.placeGameObject(id, new Vector(400, 1295), 0);
+            strat.placeGameObject(id, new Vector(400, 1295), 0, true);
         }
         catch (TeamNotFound e)
         {
@@ -59,9 +59,20 @@ public class TestStrategy
     public void testCreateFrame()
     {
         int initialFrameCount = strat.getFrames().size();
-        strat.createNewFrame();
+        strat.createNewFrame(true);
         int newFrameCount = strat.getFrames().size();
         Assert.assertTrue(newFrameCount == initialFrameCount + 15);
+        
+        for(int i = 0; i < 7; i++)
+        {
+            strat.createNewFrame(false);
+        }
+        newFrameCount = strat.getFrames().size();
+        Assert.assertTrue(newFrameCount == initialFrameCount + 22);
+        
+        strat.createNewFrame(true);
+        newFrameCount = strat.getFrames().size();
+        Assert.assertTrue(newFrameCount == initialFrameCount + 30);
     }
 
     @Test
@@ -69,7 +80,7 @@ public class TestStrategy
     {
         for (int i = 0; i < 3; i++)
         {
-            strat.createNewFrame();
+            strat.createNewFrame(true);
         }
         strat.previousKeyFrame();
         Assert.assertEquals(0, strat.getCurrentFrameIdx());
@@ -104,7 +115,7 @@ public class TestStrategy
     {
         for (int i = 0; i < 3; i++)
         {
-            strat.createNewFrame();
+            strat.createNewFrame(true);
         }
         strat.nextKeyFrame();
         Assert.assertEquals(15, strat.getCurrentFrameIdx());
@@ -134,12 +145,14 @@ public class TestStrategy
     @Test
     public void testPlaceGameObject() throws GameObjectNotFound
     {
-        strat.createNewFrame();
+        strat.createNewFrame(true);
         strat.goToEnd();
-        strat.placeGameObject(joueur.getId(), new Vector(550, 1445), 15);
-        for (int i = 1; i < 16; i++)
+        strat.placeGameObject(joueur.getId(), new Vector(550, 1445), 15, true);
+        for (int i = 0; i < 16; i++)
         {
             Frame frame = strat.getFrame(i);
+            //System.out.println(frame.getPosition(joueur));
+            //System.out.println(frame.getOrientation(joueur));
             Assert.assertTrue(frame.getPosition(joueur).equals(new Vector(400 + 10 * i, 1295 + 10 * i)));
             Assert.assertEquals(i, frame.getOrientation(joueur), 0.1);
         }
@@ -149,7 +162,7 @@ public class TestStrategy
     public void testClearUnplacedGameObjects() throws TeamNotFound, MaxNumberException, GameObjectNotFound
     {
         String placedPlayerId = strat.addPlayer(null);
-        strat.placeGameObject(placedPlayerId, new Vector(), 0);
+        strat.placeGameObject(placedPlayerId, new Vector(), 0, true);
         String unPlacedPlayerId = strat.addPlayer(null);
 
         //les trois appels devraient fonctionner

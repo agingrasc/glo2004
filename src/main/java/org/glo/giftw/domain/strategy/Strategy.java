@@ -167,7 +167,7 @@ public class Strategy implements Serializable, TreeViewable
         this.frames.add(frameId, frame);
     }
 
-    public void createNewFrame()
+    public void createNewFrame(boolean isKeyFrame)
     {
         if (this.frames.isEmpty())
         {
@@ -175,17 +175,21 @@ public class Strategy implements Serializable, TreeViewable
         }
         else
         {
-            Frame lastKeyFrame = this.frames.get(this.frames.size() - 1);
-
-            //ajout des subFrames
-            for (int i = 1; i < (Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND); i++)
+            int lastFrameIndex = this.frames.size() - 1;
+            Frame lastFrame = this.frames.get(lastFrameIndex);
+            if (isKeyFrame)
             {
-                Frame subFrame = new Frame(lastKeyFrame);
-                subFrame.setKeyFrame(false);
-                this.frames.add(subFrame);
+                int nbrFrames = (Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND) - lastFrameIndex % (Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND);
+                //ajout des subFrames
+                for (int i = 1; i < nbrFrames; i++)
+                {
+                    Frame subFrame = new Frame(lastFrame);
+                    subFrame.setKeyFrame(false);
+                    this.frames.add(subFrame);
+                }
             }
 
-            this.frames.add(new Frame(lastKeyFrame));
+            this.frames.add(new Frame(lastFrame));
         }
     }
 
@@ -430,25 +434,30 @@ public class Strategy implements Serializable, TreeViewable
         return obstacle.getId();
     }
 
-    public void placeGameObject(String gameObjectUuid, Vector position, float orientation) throws GameObjectNotFound
+    public void placeGameObject(String gameObjectUuid, Vector position, float orientation, boolean interpolate) throws GameObjectNotFound
     {
         GameObject gameObject = this.getGameObjectByUUID(gameObjectUuid);
         Set<GameObject> currentFrameGameObjects = this.getCurrentFrame().getGameObjects();
         if (currentFrameGameObjects.contains(gameObject))
         {
             this.getCurrentFrame().placeGameObject(gameObject, position, orientation);
-            if (this.currentFrameIdx != 0)
+            int nbrFrames = this.currentFrameIdx % (Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND);
+            if (nbrFrames == 0)
             {
-                int previousKeyFrameId = this.currentFrameIdx - Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
+                nbrFrames = 15;
+            }
+            if (interpolate && this.currentFrameIdx != 0)
+            {
+                int previousKeyFrameId = this.currentFrameIdx - nbrFrames;
                 this.interpolate(gameObject, previousKeyFrameId, currentFrameIdx);
             }
             if ((gameObject instanceof Player) && ((Player)gameObject).hasProjectile())
             {
                 GameObject projectile = ((Player)gameObject).getProjectile();
                 this.getCurrentFrame().placeGameObject(projectile, position, orientation);
-                if (this.currentFrameIdx != 0)
+                if (interpolate && this.currentFrameIdx != 0)
                 {
-                    int previousKeyFrameId = this.currentFrameIdx - Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
+                    int previousKeyFrameId = this.currentFrameIdx - nbrFrames;
                     this.interpolate(projectile, previousKeyFrameId, currentFrameIdx);
                 }
             }
@@ -658,6 +667,7 @@ public class Strategy implements Serializable, TreeViewable
     private void interpolate(GameObject gameObject, int frameID1, int frameID2) throws GameObjectNotFound
     {
         int nbFrames = frameID2 - frameID1;
+        System.out.println(nbFrames);
         Vector initialPosition = this.getFrame(frameID1).getPosition(gameObject);
         float initialOientation = this.getFrame(frameID1).getOrientation(gameObject);
         Vector finalPosition = this.getFrame(frameID2).getPosition(gameObject);
@@ -674,6 +684,7 @@ public class Strategy implements Serializable, TreeViewable
             float o = subFrame.getOrientation(gameObject);
             subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
                                      o + i * deltaOrientation);
+            System.out.println(o + i * deltaOrientation);
         }
     }
 }
