@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutY="27.0" prefHeight="50.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="41.0" fitWidth="32.0" layoutX="48.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagesGUI/add.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="386.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagesGUI/video-player.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="158.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../Downloads/edit.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="45.0" layoutY="7.0" text="Ajouter" />
+            <Label layoutX="377.0" layoutY="7.0" text="Visualiser" />
+            <Label layoutX="243.0" layoutY="7.0" text="Image par image" />
+            <Label layoutX="145.0" layoutY="6.0" text="Temps réel" />
+            <Label layoutX="475.0" layoutY="7.0" text="Supprimer" />
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="487.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagesGUI/garbage.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="268.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../Downloads/edit.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ScrollPane layoutY="96.0" prefHeight="304.0" prefWidth="600.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="584.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="290.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imagesGUI/hockey.PNG" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="342.0" layoutY="50.0" prefHeight="78.0" prefWidth="186.0" text="Stratégie 1">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutY="185.0" prefHeight="9.0" prefWidth="584.0" />
+                  <ImageView fitHeight="150.0" fitWidth="290.0" layoutX="14.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imagesGUI/soccer_field.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="342.0" layoutY="242.0" prefHeight="78.0" prefWidth="185.0" text="Stratégie 2">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutY="379.0" prefHeight="9.0" prefWidth="584.0" />
+               </children></AnchorPane>
+        </content>
+      </ScrollPane>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Fichier">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Enregistrer" />
+                  <MenuItem mnemonicParsing="false" text="Enregistrer sous" />
+                  <MenuItem mnemonicParsing="false" text="Exporter" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Création">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Stratégie" />
+                  <MenuItem mnemonicParsing="false" text="Sport" />
+                  <MenuItem mnemonicParsing="false" text="Obstacle" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Insertion">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Joueur" />
+                  <MenuItem mnemonicParsing="false" text="Obstacle" />
+                  <MenuItem mnemonicParsing="false" text="Projectile" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Édition">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Annuler" />
+                  <MenuItem mnemonicParsing="false" text="Rétablir" />
+                  <MenuItem mnemonicParsing="false" text="Supprimer" />
+                  <MenuItem mnemonicParsing="false" text="Zoom in" />
+                  <MenuItem mnemonicParsing="false" text="Zoom out" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Mode">
+               <items>
+                  <RadioMenuItem mnemonicParsing="false" text="Image par image">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="mode" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem mnemonicParsing="false" text="Temps réel" toggleGroup="$mode" />
+                  <RadioMenuItem mnemonicParsing="false" text="Visualisation" toggleGroup="$mode" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Préférences">
+               <items>
+                  <CheckMenuItem mnemonicParsing="false" text="Afficher les rôles" />
+                  <CheckMenuItem mnemonicParsing="false" text="Afficher les noms" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
