@@ -10,97 +10,94 @@ Une courte explication des fonctionnalités moins évidentes est également pré
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.6]{fig/gui/gui_creation.png}
+    \includegraphics[scale=0.6]{fig/gui/creationStackPane.png}
     \caption{Interface pour la création des stratégies}
-    \label{fig:gui:gui_creation}
+    \label{fig:gui:creationStackPane}
 \end{figure}
 
-L'interface \ref{fig:gui:gui_creation} permet l'édition des stratégies, soit en mode image par image ou en mode temps réel.
-Les trois premiers icônes en partant de la gauche permettent de glisser des éléments sur le terrain.
+L'interface \ref{fig:gui:creationStackPane} permet l'édition des stratégies, soit en mode image par image ou en mode temps réel.
+Elle apparait lorsque l'on appuie sur le bouton temps réel ou image par image.
+Un menu à gauche permet de glisser des joueurs, obstacles ou projectiles sur le terrain.
+Un menu à droite permet d'ajouter une équipe dans la liste des joueurs à gauche.
+Il permet aussi de choisir si on affiche le rôle et le nom des joueurs sur le terrain.
+Si on clique sur un joueur sur le terrain, le menu à droite change pour éditer son nom, son rôle et son orientation et une case est présente pour décider si le joueur possède le projectile. 
 Les icônes "suivant" et "précédent" permettent respectivement d'avancer ou de reculer d'une image dans le mode image par image.
-Les étiquettes "x" et "y" à la droite des icônes correspondent aux coordonnées de la souris sur le terrain en unités réelles.
+Les étiquettes "x" et "y" dans le bas de la fenêtre correspondent aux coordonnées de la souris sur le terrain en unités réelles.
 La transparence de certains joueurs sur la figure ci-dessus correspond à des éléments qui proviennent d'une image précédente lors de l'édition en mode image par image.
+Le groupe de boutons en haut à droite permet d'effectuer diverses actions par rapport à l'édition de la stratégie. 
+Le groupe du milieu permet de changer le mode.
+Le groupe de gauche permet des actions plus générales.
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.6]{fig/gui/gui_visualisation.png}
+    \includegraphics[scale=0.6]{fig/gui/mediaContent.png}
     \caption{Interface pour la visualisation des stratégies}
-    \label{fig:gui:gui_visualisation}
+    \label{fig:gui:mediaContent}
 \end{figure}
 
-L'interface \ref{fig:gui:gui_visualisation} permet la visualisation des stratégies préalablement créées.
+L'interface \ref{fig:gui:mediaContent} permet la visualisation des stratégies préalablement créées.
+Elle apparait lorsque l'on appuie sur le bouton visionner.
 En plus des boutons habituels de visionnement de vidéos, on y retrouve un curseur glissant permettant de se déplacer facilement à n'importe quel temps de la stratégie.
-Ce temps peut aussi être modifié directement dans la boîte de saisie prévue à cet effet à la droite du curseur.
+Il y a aussi une boîte de saisie et un bouton associé pour rejouer une séquence de la stratégie.
 Les coordonnées de la souris sont encore affichées.
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.6]{fig/gui/gui_strategie.png}
-    \caption{Interface de gestion des stratégies}
-    \label{fig:gui:gui_strategie}
+    \includegraphics[scale=0.6]{fig/gui/openStrategy.png}
+    \caption{Interface de gestion des stratégies et des sports}
+    \label{fig:gui:openStrategy}
 \end{figure}
 
-L'interface \ref{fig:gui:gui_strategie} permet la gestion des stratégies.
-Après avoir sélectionné une stratégie, une multitude de choix s'offre à l'entraîneur.
-Il peut supprimer la stratégie, la visionner, ou bien l'éditer soit en mode temps réel ou en mode image par image.
-Bien sûr, l'interface permet aussi l'ajout d'une nouvelle stratégie.
+L'interface \ref{fig:gui:openStrategy} permet la gestion des stratégies et des sports.
+Après avoir sélectionné une stratégie ou un sport, une multitude de choix s'offre à l'entraîneur.
+Il peut supprimer un sport ou une stratégie, visionner une stratégie, ou bien l'éditer soit en mode temps réel ou en mode image par image.
 \newpage
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.6]{fig/gui/gui_sport.png}
-    \caption{Interface de gestion des sports}
-    \label{fig:gui:gui_sport}
-\end{figure}
-
-L'interface \ref{fig:gui:gui_sport} permet la gestion des sports.
-Il est possible d'ajouter, de modifier ou de supprimer un sport.
-
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[scale=0.6]{fig/gui/gui_obstacles.png}
+    \includegraphics[scale=0.6]{fig/gui/openObstacle.png}
     \caption{Interface de gestion des obstacles}
-    \label{fig:gui:gui_obstacles}
+    \label{fig:gui:openObstacle}
 \end{figure}
 
-L'interface \ref{fig:gui:gui_obstacles} permet la gestion des obstacles.
-Les fonctionnalités sont les mêmes que pour la gestion des stratégies.
+L'interface \ref{fig:gui:openObstacle} permet la gestion des obstacles.
+On peut visualiser les types d'obstacles et en supprimer via cette interface.
 
 \newpage
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.6]{fig/gui/gui_strategie_dialog.png}
-    \caption{Interface de configuration des stratégies}
-    \label{fig:gui:gui_strategie_dialog}
+    \includegraphics[scale=0.6]{fig/gui/newStrategy.png}
+    \caption{Interface de création des stratégies}
+    \label{fig:gui:newStrategy}
 \end{figure}
 
-La fenêtre de dialogue \ref{fig:gui:gui_strategie_dialog} permet de configurer une stratégie.
-Elle apparaît lorsque l'on modifie ou ajoute une stratégie via la fenêtre de gestion des stratégies.
-On y retrouve une boîte de saisie pour le nom de la stratégie et une boîte de choix pour y associer un sport préalablement créé.
+La fenêtre de dialogue \ref{fig:gui:newStrategy} permet de créer une stratégie.
+Elle apparaît lorsque l'on appuie sur le bouton nouveau/stratégie.
+Tous les paramètres nécessaires à la création d'une stratégie y sont présents.
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.6]{fig/gui/gui_sport_dialog.png}
-    \caption{Interface de configuration des sports}
-    \label{fig:gui:gui_sport_dialog}
+    \includegraphics[scale=0.6]{fig/gui/newSport.png}
+    \caption{Interface de création des sports}
+    \label{fig:gui:newSport}
 \end{figure}
 
-La fenêtre de dialogue \ref{fig:gui:gui_sport_dialog} permet de configurer un sport.
-Elle apparaît lorsque l'on modifie ou ajoute un sport via la fenêtre de gestion des sports.
-On y retrouve entre autres deux icônes pour dessiner le terrain ou choisir une image déjà existante.
-Deux autres champs permettent la saisie des dimensions réelles du terrain.
-Finalement, on peut créer ou choisir un rôle parmi ceux déjà créés afin d'établir la liste des catégories de joueur pour le sport.
+La fenêtre de dialogue \ref{fig:gui:newSport} permet de créer un sport.
+Elle apparaît lorsque l'on appuie sur le bouton nouveau/sport.
+Tous les paramètres nécessaires à la création d'une stratégie y sont présents, y compris la configuration du terrain, du projectile et des rôles.
 
 \newpage
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[scale=0.7]{fig/gui/gui_menu.png}
-    \caption{Interface du menu pour montrer les options}
-    \label{fig:gui:gui_menu}
+    \includegraphics[scale=0.6]{fig/gui/newObstacle.png}
+    \caption{Interface de création des obstacles}
+    \label{fig:gui:newObstacle}
 \end{figure}
 
-La figure \ref{fig:gui:gui_menu} montre toutes les options du menu présent dans les principales interfaces.
-La majorité des fonctionnalités du logiciel sont accessibles par ce menu.
-Il est important de comprendre que le sous-menu "mode" ne permet pas le choix de plus d'une option à la fois, contrairement au sous-menu préférences.
+La fenêtre de dialogue \ref{fig:gui:newObstacle} permet de créer un sport.
+Elle apparaît lorsque l'on appuie sur le bouton nouveau/obstacle.
+Tous les paramètres nécessaires à la création d'un obstacle y sont présents, y compris un champs pour activer les collisions ou non sur l'obstacle.
+
+\newpage
