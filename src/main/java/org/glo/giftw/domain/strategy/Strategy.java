@@ -269,10 +269,12 @@ public class Strategy implements Serializable, TreeViewable
      */
     public Frame nextKeyFrame()
     {
-        if (!this.isLastFrame())
+        int intervalBetweenKeyFrame = Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
+        int nextKeyFrameIdx = (this.currentFrameIdx / intervalBetweenKeyFrame + 1) * intervalBetweenKeyFrame;
+        
+        if (!this.isLastFrame() && !(nextKeyFrameIdx >= this.frames.size()))
         {
-            int intervalBetweenKeyFrame = Strategy.FRAME_PER_SECOND / Strategy.KEY_FRAME_PER_SECOND;
-            this.currentFrameIdx = (this.currentFrameIdx / intervalBetweenKeyFrame + 1) * intervalBetweenKeyFrame;
+            this.currentFrameIdx = nextKeyFrameIdx;
         }
         return this.frames.get(this.currentFrameIdx);
     }
@@ -667,7 +669,6 @@ public class Strategy implements Serializable, TreeViewable
     private void interpolate(GameObject gameObject, int frameID1, int frameID2) throws GameObjectNotFound
     {
         int nbFrames = frameID2 - frameID1;
-        System.out.println(nbFrames);
         Vector initialPosition = this.getFrame(frameID1).getPosition(gameObject);
         float initialOientation = this.getFrame(frameID1).getOrientation(gameObject);
         Vector finalPosition = this.getFrame(frameID2).getPosition(gameObject);
@@ -684,7 +685,6 @@ public class Strategy implements Serializable, TreeViewable
             float o = subFrame.getOrientation(gameObject);
             subFrame.placeGameObject(gameObject, new Vector(p.getX() + i * posDeltaX, p.getY() + i * posDeltaY),
                                      o + i * deltaOrientation);
-            System.out.println(o + i * deltaOrientation);
         }
     }
 }
