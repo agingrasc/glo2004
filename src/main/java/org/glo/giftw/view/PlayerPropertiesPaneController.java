@@ -84,9 +84,10 @@ public class PlayerPropertiesPaneController
                 float orientation = new_val.floatValue();
                 try
                 {
-                    Controller.getInstance().placeGameObject(uuid, orientation);
+                    boolean interpol = RootLayoutController.getInstance().getCreationStackPaneController().mode == EditionMode.IMAGE;
+                    Controller.getInstance().placeGameObject(uuid, orientation, interpol);
                 }
-                catch (GameObjectNotFound e)
+                catch (IOException|GameObjectNotFound e)
                 {
                     e.printStackTrace();
                 }

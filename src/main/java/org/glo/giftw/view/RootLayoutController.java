@@ -105,7 +105,6 @@ public class RootLayoutController
         addToolBar(getDefaultToolBarController().getRootToolBar());
         addToolBar(getModeToolBarController().getRootToolBar());
         addToolBar(getMediaToolBarController().getRootToolBar());
-        addToolBar(getCreationStackPaneController().realTimeToolBar);
         borderPane.setLeft(null);
         borderPane.setCenter(getCreationStackPaneController().getScrollPane());
         borderPane.setBottom(getBottomToolBarController().getRootToolBar());
