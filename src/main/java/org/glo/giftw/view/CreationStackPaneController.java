@@ -215,7 +215,7 @@ public class CreationStackPaneController extends AnimationTimer
     public void displayStrategy()
     {
         placeGameObjectInPane(currentPane);
-        if (!Controller.getInstance().isFirstFrame() && (this.mode == EditionMode.IMAGE || this.mode == EditionMode.REAL_TIME))
+        if (!Controller.getInstance().isFirstFrame() && (this.mode == EditionMode.IMAGE))
         {
             Controller.getInstance().previousKeyFrame();
             placeGameObjectInPane(previousPane);
@@ -233,7 +233,7 @@ public class CreationStackPaneController extends AnimationTimer
         this.previousPane.getViewableGameObjects().clear();
         this.generateViewableGameObjectFromFrame(this.currentPane);
 
-        if (!Controller.getInstance().isFirstFrame())
+        if (!Controller.getInstance().isFirstFrame() && (this.mode == EditionMode.IMAGE))
         {
             Controller.getInstance().previousKeyFrame();
             this.generateViewableGameObjectFromFrame(this.previousPane);

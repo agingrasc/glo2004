@@ -678,4 +678,9 @@ public class Controller
     {
         return this.isAutoSaveEnabled;
     }
+
+    public int getFrameIndex()
+    {
+        return this.currentStrategy.getFrameIndex();
+    }
 }

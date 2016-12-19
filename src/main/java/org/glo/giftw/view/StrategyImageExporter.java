@@ -9,6 +9,7 @@ import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.GameObject;
 import org.glo.giftw.domain.strategy.Player;
 import org.glo.giftw.domain.strategy.Projectile;
+import org.glo.giftw.domain.strategy.Obstacle;
 import org.glo.giftw.domain.util.Vector;
 
 import java.io.File;
@@ -233,16 +234,14 @@ public class StrategyImageExporter {
                 setAtFirstFrame();
                 drawGameObject(gameObject, controller.getProjectile().getImagePath(), controller.getDimensions(gameObject));
             }
+            else if (gameObject instanceof Obstacle)
+            {
+                Obstacle obstacle = (Obstacle)gameObject;
+                drawGameObject(gameObject, obstacle.getImagePath(), controller.getDimensions(gameObject));
+            }
         }
 
         setAtFirstFrame();
-/*
-        for (Obstacle obstacle : controller.getObstacles()) {
-            String filePath = obstacle.getImagePath();
-            Vector size = obstacle.getDimensions();
-
-            drawGameObject(obstacle, filePath, size);
-        }*/
 
         gcDraw.saveLastDrawnState(gc);
     }
