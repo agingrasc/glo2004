@@ -311,15 +311,16 @@ public class Controller
      * @param gameObjectUuid Le uuid du GameObject.
      * @param position       La position du GameObject, en pixels.
      * @param orientation    L'orientation du GameObject.
+     * @param interpolate    Indique si on doit interpoler dans les subframes précédentes.
      * @throws GameObjectNotFound
      */
-    public void placeGameObject(String gameObjectUuid, Vector position, float orientation) throws GameObjectNotFound
+    public void placeGameObject(String gameObjectUuid, Vector position, float orientation, boolean interpolate) throws GameObjectNotFound
     {
         try
         {
             pushStrategyOnStack();
             Vector ratio = this.currentStrategy.getPixelToUnitRatio();
-            this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation);
+            this.currentStrategy.placeGameObject(gameObjectUuid, position.div(ratio), orientation, interpolate);
         }
         catch(GameObjectNotFound e)
         {
@@ -328,13 +329,13 @@ public class Controller
         }
     }
 
-    public void placeGameObject(String gameObjectUuid, Vector position) throws GameObjectNotFound
+    public void placeGameObject(String gameObjectUuid, Vector position, boolean interpolate) throws GameObjectNotFound
     {
         try
         {
             pushStrategyOnStack();
             float orientation = this.getOrientation(this.getGameObjectByUUID(gameObjectUuid));
-            this.placeGameObject(gameObjectUuid, position, orientation);
+            this.placeGameObject(gameObjectUuid, position, orientation, interpolate);
         }
         catch(GameObjectNotFound e)
         {
@@ -343,13 +344,13 @@ public class Controller
         }
     }
 
-    public void placeGameObject(String gameObjectUuid, float orientation) throws GameObjectNotFound
+    public void placeGameObject(String gameObjectUuid, float orientation, boolean interpolate) throws GameObjectNotFound
     {
         try
         {
             pushStrategyOnStack();
             Vector position = this.getPosition(this.getGameObjectByUUID(gameObjectUuid));
-            this.placeGameObject(gameObjectUuid, position, orientation);
+            this.placeGameObject(gameObjectUuid, position, orientation, interpolate);
         }
         catch(GameObjectNotFound e)
         {
@@ -493,10 +494,10 @@ public class Controller
      *
      * @return La nouvelle key frame.
      */
-    public Frame createNewFrame()
+    public Frame createNewFrame(boolean isKeyFrame)
     {
         pushStrategyOnStack();
-        this.currentStrategy.createNewFrame();
+        this.currentStrategy.createNewFrame(isKeyFrame);
         this.currentStrategy.goToEnd();
         return this.currentStrategy.getCurrentFrame();
     }
@@ -585,6 +586,7 @@ public class Controller
 
     public void saveStrategies()
     {
+        System.out.println("Saving!");
         if (this.currentStrategy != null)
         {
             this.strategyPool.saveStrategy(this.currentStrategy.getName(), this.currentStrategy);

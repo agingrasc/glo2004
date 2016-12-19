@@ -85,6 +85,7 @@ public class ViewableGameObject
 
     protected void onNodeDragDetected(MouseEvent event)
     {
+        Controller.getInstance().enableAutoSave(false);
         try
         {
             if (RootLayoutController.getInstance().getCreationStackPaneController().mode == EditionMode.REAL_TIME)

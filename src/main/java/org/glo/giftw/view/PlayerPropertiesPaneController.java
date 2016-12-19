@@ -62,6 +62,7 @@ public class PlayerPropertiesPaneController
             roleComboBox.getItems().addAll(Controller.getInstance().getStrategyRoles());
             nameTextField.setText(gameObject.getName());
             roleComboBox.setValue(((Player)gameObject).getRole());
+            takeProjectileCheckBox.setSelected(((Player)gameObject).hasProjectile());
             initSlider(selectedUUID, gameObject);
         }
     }

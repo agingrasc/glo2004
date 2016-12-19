@@ -1,9 +1,13 @@
 package org.glo.giftw.view;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -16,8 +20,8 @@ import org.glo.giftw.domain.Controller;
 import org.glo.giftw.domain.exceptions.GameObjectNotFound;
 import org.glo.giftw.domain.strategy.Frame;
 import org.glo.giftw.domain.strategy.GameObject;
-import org.glo.giftw.domain.strategy.Strategy;
 import org.glo.giftw.domain.strategy.Player;
+import org.glo.giftw.domain.strategy.Strategy;
 import org.glo.giftw.domain.util.Vector;
 import org.glo.giftw.view.edit.ViewableGameObject;
 import org.glo.giftw.view.edit.ViewableGameObjectBuilder;
@@ -44,6 +48,9 @@ public class CreationStackPaneController extends AnimationTimer
     private String selectedUUID;
     public EditionMode mode;
     private long lastTimeStamp;
+    private Slider timeSlider = new Slider();
+    private Label timeDisplay = new Label("00:00/00:00");
+    public ToolBar realTimeToolBar = new ToolBar(timeSlider, timeDisplay);
 
     @Override
     public void handle(long timestamp)
@@ -87,6 +94,10 @@ public class CreationStackPaneController extends AnimationTimer
 
     public void init(EditionMode mode)
     {
+        if (mode == EditionMode.REAL_TIME)
+        {
+            this.initTimeSlider();
+        }
         this.currentPane = new FrameView();
         this.previousPane = new FrameView();
         this.lastTimeStamp = 0;
@@ -99,6 +110,42 @@ public class CreationStackPaneController extends AnimationTimer
         addPanes();
         resetDisplay();
         displayStrategy();
+    }
+
+    private void initTimeSlider()
+    {
+        double timeRatio = Controller.getInstance().getCurrentTime()/Controller.getInstance().getDuration();
+        timeSlider.setMax(1.0);
+        timeSlider.setValue(timeRatio);
+
+        timeSlider.valueProperty().addListener(this::timeSliderListener);
+    }
+
+    private void timeSliderListener(ObservableValue<? extends Number> ov, Number old_val, Number new_val)
+    {
+        float timeRatio = new_val.floatValue();
+        float duration = Controller.getInstance().getDuration();
+        float targetTime = duration*timeRatio;
+        float currentTime = Controller.getInstance().getCurrentTime();
+        float delta_t = targetTime - currentTime;
+        Controller.getInstance().changeCurrentFrame(delta_t);
+        this.updateTime();
+    }
+
+    private void updateTime()
+    {
+        String time = this.formatTime(Controller.getInstance().getCurrentTime());
+        String duration = this.formatTime(Controller.getInstance().getDuration());
+        this.timeDisplay.setText(time + "/" + duration);
+        this.timeSlider.setValue(Controller.getInstance().getCurrentTime()/Controller.getInstance().getDuration());
+    }
+
+    private String formatTime(float time)
+    {
+        int roundDownTime = (int) Math.floor(time);
+        int minutes = roundDownTime/ 60;
+        int seconds = roundDownTime % 60;
+        return String.format("%1$02d:%2$02d", minutes, seconds);
     }
 
     private void addEventFilter()
