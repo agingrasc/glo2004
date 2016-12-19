@@ -64,7 +64,7 @@ public class CreationStackPaneController extends AnimationTimer
             String uuid = this.getSelectedUUID();
             try
             {
-                Controller.getInstance().placeGameObject(uuid, this.currentPane.getCurrentMousePosition());
+                Controller.getInstance().placeGameObject(uuid, this.currentPane.getCurrentMousePosition(), false);
             }
             catch (GameObjectNotFound gameObjectNotFound)
             {
@@ -73,7 +73,8 @@ public class CreationStackPaneController extends AnimationTimer
 
             if (Controller.getInstance().isLastFrame())
             {
-                Controller.getInstance().createNewFrame();
+                boolean isKeyFrame = this.mode == EditionMode.IMAGE;
+                Controller.getInstance().createNewFrame(isKeyFrame);
             }
             else
             {

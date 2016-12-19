@@ -158,19 +158,25 @@ public class FrameView extends Pane
 
     private void placeDropedGameObject(Controller ctlRef, String uuid, Vector coordinate)
     {
+        boolean interpol = true;
         try
         {
-            ctlRef.placeGameObject(uuid, coordinate);
+            interpol = RootLayoutController.getInstance().getCreationStackPaneController().mode == EditionMode.IMAGE;
+            ctlRef.placeGameObject(uuid, coordinate, interpol);
         }
         catch (GameObjectNotFound e)
         {
             try
             {
-                ctlRef.placeGameObject(uuid, coordinate, 0);
+                ctlRef.placeGameObject(uuid, coordinate, 0, interpol);
             } catch (GameObjectNotFound e1)
             {
                 e1.printStackTrace();
             }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 

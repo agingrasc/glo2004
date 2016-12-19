@@ -34,9 +34,10 @@ public class CreationToolBarController
     void onActionNext(ActionEvent event) throws IOException
     {
         boolean isLastFrame = Controller.getInstance().isLastFrame();
+        boolean isKeyFrame = RootLayoutController.getInstance().getCreationStackPaneController().mode == EditionMode.IMAGE;
         if (isLastFrame)
         {
-            Controller.getInstance().createNewFrame();
+            Controller.getInstance().createNewFrame(isKeyFrame);
         }
         else
         {
