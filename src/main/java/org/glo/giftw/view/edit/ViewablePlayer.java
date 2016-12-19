@@ -52,9 +52,9 @@ public class ViewablePlayer extends ViewableGameObject
         role = new Label(player.getRole());
         node = new VBox();
         ((VBox) node).setAlignment(Pos.CENTER);
+        ((VBox) node).getChildren().add(playerImg);
         ((VBox) node).getChildren().add(name);
         ((VBox) node).getChildren().add(role);
-        ((VBox) node).getChildren().add(playerImg);
         updateNode();
         node.setOnDragDetected(this::onNodeDragDetected);
         initMouseClicked();
