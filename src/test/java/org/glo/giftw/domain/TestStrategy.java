@@ -140,6 +140,14 @@ public class TestStrategy
         strat.setCurrentFrameIdx(31);
         strat.nextKeyFrame();
         Assert.assertEquals(45, strat.getCurrentFrameIdx());
+        
+        for (int i = 0; i < 5; i++)
+        {
+            strat.createNewFrame(false);
+        }
+        strat.goToEnd();
+        System.out.println(strat.getCurrentFrameIdx());
+        Assert.assertEquals(50, strat.getCurrentFrameIdx());
     }
 
     @Test
