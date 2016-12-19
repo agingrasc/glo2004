@@ -144,7 +144,7 @@ public class FrameView extends Pane
 
             if (cspRef.mode == EditionMode.REAL_TIME)
             {
-                ctlRef.previousKeyFrame();
+                ctlRef.goToBeginning();
             }
 
             cspRef.displayStrategy();
