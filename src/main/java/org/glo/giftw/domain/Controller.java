@@ -585,6 +585,7 @@ public class Controller
 
     public void saveStrategies()
     {
+        System.out.println("Saving!");
         if (this.currentStrategy != null)
         {
             this.strategyPool.saveStrategy(this.currentStrategy.getName(), this.currentStrategy);
