@@ -52,9 +52,9 @@ public class ViewablePlayer extends ViewableGameObject
         role = new Label(player.getRole());
         node = new VBox();
         ((VBox) node).setAlignment(Pos.CENTER);
+        ((VBox) node).getChildren().add(playerImg);
         ((VBox) node).getChildren().add(name);
         ((VBox) node).getChildren().add(role);
-        ((VBox) node).getChildren().add(playerImg);
         updateNode();
         node.setOnDragDetected(this::onNodeDragDetected);
         initMouseClicked();
@@ -118,7 +118,9 @@ public class ViewablePlayer extends ViewableGameObject
         }
         playerImg.setRotate(orientation);
         name.setText(player.getName());
+        name.setTextFill(Color.BLACK);
         role.setText(player.getRole());
+        role.setTextFill(Color.BLACK);
         name.setVisible(isDisplayName);
         role.setVisible(isDisplayRole);
     }

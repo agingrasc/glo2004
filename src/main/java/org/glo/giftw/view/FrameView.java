@@ -148,6 +148,7 @@ public class FrameView extends Pane
             }
 
             cspRef.displayStrategy();
+            Controller.getInstance().enableAutoSave(true);
         }
         event.setDropCompleted(success);
         cspRef.stop();
