@@ -75,6 +75,7 @@ public class MediaToolBarController extends AnimationTimer
             this.lastTimeStamp = timestamp;
             this.field.resetDisplay();
             this.field.displayStrategy();
+            System.out.println(Controller.getInstance().getFrameIndex());
             Controller.getInstance().nextFrame();
         }
         else if (isLastFrame)

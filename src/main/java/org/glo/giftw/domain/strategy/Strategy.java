@@ -687,4 +687,9 @@ public class Strategy implements Serializable, TreeViewable
             System.out.println(o + i * deltaOrientation);
         }
     }
+
+    public int getFrameIndex()
+    {
+        return this.currentFrameIdx;
+    }
 }
