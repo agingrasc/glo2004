@@ -118,7 +118,9 @@ public class ViewablePlayer extends ViewableGameObject
         }
         playerImg.setRotate(orientation);
         name.setText(player.getName());
+        name.setTextFill(Color.BLACK);
         role.setText(player.getRole());
+        role.setTextFill(Color.BLACK);
         name.setVisible(isDisplayName);
         role.setVisible(isDisplayRole);
     }
